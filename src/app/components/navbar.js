@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 export default function NavBar(){
     return (
-       <nav className="fixed top-0 w-full flex items-center justify-between p-10 bg-black opacity-75">
+       <nav className="sticky top-0 w-full flex items-center justify-between p-10 bg-black opacity-75">
         <Link href="/">
         <img src="logo.png" alt="codesphere logo" className="w-sm"/></Link>
         <div className="flex items-center gap-5">
