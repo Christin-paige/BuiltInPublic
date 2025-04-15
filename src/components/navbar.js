@@ -58,9 +58,9 @@ export default function NavBar(){
         }
     }
     return (
-       <nav className="sticky top-0 w-full flex items-center justify-between p-10 bg-black opacity-75">
+       <nav className="fixed top-0 w-full flex items-center justify-between p-10 bg-black opacity-75">
         <Link href="/">
-        <img src="logo.png" alt="codesphere logo" className="w-sm"/></Link>
+        <img src="logo3.png" alt="codesphere logo" className="w-sm"/></Link>
         <div className="flex items-center gap-5">
         <Link href="/about" className="hover:text-[#ff00ea]">About</Link>
         <Link href="/dashboard" className="hover:text-[#ff00ea]">Dashboard</Link>
