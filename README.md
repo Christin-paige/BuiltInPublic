@@ -8,10 +8,12 @@ This is a work-in-progress so feel free to follow along or contribute!
 
 ## 📦 Tech Stack
 
-- **Next.js 14** (App Router)
-- **Supabase** – Auth & backend
-- **React** – Client components
-- **Tailwind CSS** – Styling
+| Name | Usage | 
+| :--- | :--- | 
+| Next.js 14 | App Router |
+| Supabase | Auth & backend |
+| React | Client components | 
+| Tailwind CSS | Styling | 
 
 ---
 
