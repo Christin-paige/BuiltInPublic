@@ -12,13 +12,13 @@ export default function NavBar() {
 
   useEffect(() => {
     const getUser = async () => {
-      const { data } = await supabase.auth.getUser();
-      setUser(data.user);
+      const { data: { user } } = await supabase.auth.getUser();
+      setUser(user);
     };
     getUser();
 
     const { data: listener } = supabase.auth.onAuthStateChange(
-      (event, session) => {
+      (_event, session) => {
         setUser(session?.user || null);
       }
     );
@@ -72,6 +72,7 @@ export default function NavBar() {
 
         {user ? (
           <button
+          key="logout"
             onClick={handleSignOut}
             className="bg-[#00c7ff] shadow-lg shadow-cyan-500/50  px-5 py-1 rounded-sm"
           >
@@ -79,6 +80,7 @@ export default function NavBar() {
           </button>
         ) : (
           <button
+          key="login"
             onClick={handleSignIn}
             className="bg-[#00c7ff] shadow-lg shadow-cyan-500/50  px-5 py-1 rounded-sm"
           >
