@@ -5,7 +5,11 @@ import Feed from "./feed/Feed";
 import Profile from "./profile/Profile";
 import Groups from "./groups/Groups";
 
+
 export default function Dashboard() {
+
+
+
   return (
     <div className="grid grid-cols-1 lg:grid-cols-6 gap-3 pt-45 p-4 overflow-hidden bg-gray-900 text-white">
       <div className=" row-span-1 row-start-1 flex flex-col overflow-auto">
