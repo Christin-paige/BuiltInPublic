@@ -4,16 +4,19 @@ import Stats from "./stats/Stats";
 import Feed from "./feed/Feed";
 import Profile from "./profile/Profile";
 import Groups from "./groups/Groups";
+import { cookies } from "next/headers"; 
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 
 
-export default function Dashboard() {
-
+export default async function Dashboard() {
+const supabase = createServerComponentClient({ cookies: () => cookies() });
+const { data: { user } } = await supabase.auth.getUser();
 
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-6 gap-3 pt-45 p-4 overflow-hidden bg-gray-900 text-white">
       <div className=" row-span-1 row-start-1 flex flex-col overflow-auto">
-        <Profile />
+        <Profile user={user}/>
       </div>
 
       <div className="row-span-3 row-start-2 flex flex-col overflow-auto">

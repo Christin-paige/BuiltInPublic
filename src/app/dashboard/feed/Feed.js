@@ -5,6 +5,10 @@ import Likes from "./likes";
 
 export default async function Feed() {
  const supabase = createServerComponentClient({ cookies: () => cookies() });
+
+ const {data: { user }
+} = await supabase.auth.getUser();
+
  const { data: posts } = await supabase
    .from("posts")
    .select("*, profiles(*), likes(*)");
@@ -20,7 +24,7 @@ export default async function Feed() {
       </p>
       <p>{post.content}
         </p>
-        <Likes post={post}/>
+        <Likes post={post} user={user} />
         </div>
         ))}
     

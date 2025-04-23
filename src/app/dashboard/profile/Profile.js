@@ -5,31 +5,21 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 export default function Profile() {
   const supabase = createClientComponentClient();
-  const [profile, setProfile] = useState({ name: "", avatar_url: "" });
+  const [profile, setProfile] = useState({ name: "", avatar_url: ""});
   const [loading, setLoading] = useState(true);
+ 
 
   useEffect(() => {
     const getProfile = async () => {
-      const {
-        data: { session },
-        error: sessionError,
-      } = await supabase.auth.getSession();
+  
+      const { data: { user }, error: userError } = await supabase.auth.getUser();
 
-      if(sessionError || !session) {
-        console.error("Error fetching session:", sessionError);
+      if(userError || !user) {
+        console.error("Error fetching user:", userError);
         return;
       }
       
-      const {
-        data: { user },
-        error: userError,
-      } = await supabase.auth.getUser()
-
-      if (userError || !user) {
-        console.error('User error:', userError)
-        // Handle error: Show error message or redirect
-        return
-      }
+   
 
         const { data, error } = await supabase
           .from("profiles")
@@ -45,7 +35,7 @@ export default function Profile() {
         setLoading(false);
     };
     getProfile();
-  }, [supabase]);
+  }, []);
 
   if (loading) return <p>Loading profile...</p>
   if (!profile) return <div>No profile found</div>

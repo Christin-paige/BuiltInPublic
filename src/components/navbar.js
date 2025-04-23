@@ -30,7 +30,7 @@ export default function NavBar() {
   }, []);
 
   const handleSignIn = async () => {
-    const { error } = await supabase.auth.signInWithOAuth({
+    const { error, data } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
         redirectTo: `${window.location.origin}/dashboard`,
@@ -41,7 +41,9 @@ export default function NavBar() {
     });
     if (error) {
       console.error("Error signing in:", error.message);
-      return;
+    
+    }else{
+      return redirect("data.url")
     }
     console.log("sign in with google");
   };
