@@ -31,7 +31,7 @@ export default function NavBar() {
 
   const handleSignIn = async () => {
     const { error } = await supabase.auth.signInWithOAuth({
-      provider: "google",
+      provider: process.env.NEXT_PUBLIC_AUTH_PROVIDER,
       options: {
         redirectTo: `${window.location.origin}/dashboard`,
         queryParams: {
