@@ -118,9 +118,9 @@ Of the two, GitHub is the simplest to setup
 You'll need to setup an application in your GitHub account to handle GitHub authentication.
 
 Go to Settings -> Developer Settings and select OAuth apps
-![[oathapps.png]]
+![Developer setting screenshot](docs/oathapps.png)
 Click the New OAuth App button on this screen and you should see the following form:
-![[registerapp.png]]
+![Register app form](docs/registerapp.png)
 Give your app a descriptive name. For the Homepage URL, enter `http://localhost:3000`, this is the URL that requests for authentication will originate from
 
 For the Authorization callback URL, enter `http://localhost:54321/auth/v1/callback`, this is the URL GitHub will redirect to after authenticating
@@ -128,7 +128,7 @@ For the Authorization callback URL, enter `http://localhost:54321/auth/v1/callba
 Click the button labeled "Register application"
 
 On the next screen you will see:
-![[appregistered.png]]
+![App registration confirmed](docs/appregistered.png)
 
 You will need the Client ID and a Client secret to finish. Click the button labeled "Generate a new client secret", and copy the generated secret to the clipboard. Add the following variables to your `.env`
 
