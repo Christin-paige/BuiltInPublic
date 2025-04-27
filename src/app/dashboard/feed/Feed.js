@@ -6,8 +6,7 @@ import Likes from "./likes";
 export default async function Feed() {
  const supabase = createServerComponentClient({ cookies: () => cookies() });
 
- const {data: { user }
-} = await supabase.auth.getUser();
+ const {data: { user }} =  await supabase.auth.getUser();
 
  const { data: posts } = await supabase
    .from("posts")

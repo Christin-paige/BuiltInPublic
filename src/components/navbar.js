@@ -28,12 +28,12 @@ export default function NavBar() {
       listener.subscription.unsubscribe();
     };
   }, []);
-
+console.log("navbar user", user)
   const handleSignIn = async () => {
     const { error, data } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: `${window.location.origin}/dashboard`,
+       // redirectTo: `${window.location.origin}/dashboard`,
         queryParams: {
           prompt: "select_account", // forces account chooser to appear
         },
