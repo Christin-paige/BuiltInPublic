@@ -120,3 +120,19 @@
     @apply bg-background text-foreground;
   }
 }
+
+.glowbox {
+ 
+    position: absolute;
+    top: calc(50% - 20px);
+    left: calc(50% - 20px);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #fff;
+    box-shadow:
+    0 0 60px 30px #ff0040,  /* Neon red */
+    0 0 100px 60px #ff00ff, /* Bright magenta */
+    0 0 140px 90px #8000ff; /* Purple */
+  
+}

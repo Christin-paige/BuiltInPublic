@@ -1,4 +1,4 @@
-import "./globals.css";
+import "../app/globals.css";
 import NavBar from "../components/navbar";
 import Footer from "../components/footer";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
