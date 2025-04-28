@@ -8,7 +8,9 @@
     ],
     "allowJs": true,
     "skipLibCheck": true,
-    "strict": false,
+
+    "strict": true,
+
     "noEmit": true,
     "incremental": true,
     "module": "esnext",
@@ -21,11 +23,14 @@
       {
         "name": "next"
       }
+
     ],
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*" ],
     }
+
+
   },
   "include": [
     "next-env.d.ts",
