@@ -3,7 +3,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { supabase } from "../../utils/supabase/client";
+import { supabaseClient } from "../../utils/supabase/client";
 import { useRouter } from "next/navigation";
 
 export default function NavBar() {
@@ -17,11 +17,11 @@ export default function NavBar() {
     };
     getUser();
 
-    const { data: listener } = supabase.auth.onAuthStateChange(
-      (_event, session) => {
-        setUser(session?.user || null);
-      }
-    );
+   // const { data: listener } = supabase.auth.onAuthStateChange(
+     // (_event, session) => {
+       // setUser(session?.user || null);
+      //}
+    //);
     console.log("user", user);
 
     return () => {
