@@ -62,11 +62,11 @@ console.log("navbar user", user)
     }
   };
   return (
-    <nav className="fixed top-0 w-full flex items-center justify-between p-10 bg-black opacity-75">
+    <nav className="fixed top-0 w-full flex items-center justify-between px-10 py-2 bg-black opacity-75">
       <Link href="/">
-        <img src="logo3.png" alt="codesphere logo" className="w-sm" />
+        <img src="logo3.png" alt="codesphere logo" className="w-56 hover:opacity-80 transition-all duration-100" />
       </Link>
-      <div className="flex items-center gap-5">
+      <div className="flex items-center gap-5 text-lg">
         <Link href="/about" className="hover:text-[#ff00ea]">
           About
         </Link>
@@ -78,7 +78,7 @@ console.log("navbar user", user)
           <button
           key="logout"
             onClick={handleSignOut}
-            className="bg-[#00c7ff] shadow-lg shadow-cyan-500/50  px-5 py-1 rounded-sm"
+            className="bg-[#00c7ff] shadow-lg shadow-cyan-500/40  px-5 py-1 rounded-sm cursor-pointer hover:bg-[#008cff] transition-all duration-100"
           >
             Logout
           </button>
@@ -86,7 +86,7 @@ console.log("navbar user", user)
           <button
           key="login"
             onClick={handleSignIn}
-            className="bg-[#00c7ff] shadow-lg shadow-cyan-500/50  px-5 py-1 rounded-sm"
+            className="bg-[#00c7ff] shadow-lg shadow-cyan-500/40  px-5 py-1 rounded-sm cursor-pointer hover:bg-[#008cff] transition-all duration-100"
           >
             Login
           </button>
