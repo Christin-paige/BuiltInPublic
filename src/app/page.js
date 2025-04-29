@@ -4,16 +4,16 @@ import { Share2, MessageSquareCode, MessagesSquare, Shrub } from 'lucide-react';
 export default function Home() {
 
   return (
-  <div className=" bg-[url('/door.jpg')] h-screen bg-cover bg-center min-h-screen flex flex-col items-center justify-center font-sans pt-20">
+  <div className=" bg-[url('/door.jpg')] h-screen bg-cover bg-center min-h-screen flex flex-col items-center justify-center font-sans pt-20 gap-10">
     
-    <div className="flex flex-col items-center justify-center text-center max-w-3xl mx-auto px-4 pt-50">
-      <h1 className="text-5xl text-white font-bold pt-50 pb-10">CodeSphere</h1>
+    <div className="flex flex-col items-center justify-center text-center max-w-3xl mx-auto px-4 pt-56">
+      <h1 className="text-5xl text-white font-bold pb-10">CodeSphere</h1>
       <h3 className="font-bold mb-5 tedt-white">Where Devs Build in Public - Together</h3>
       <p className="text-white max-w-md">Join our supportive community where developers collaborate, share progress, and grow together</p>
-      <button className="w-sm bg-linear-to-bl from-violet-500 to-fuchsia-500 text-white font-bold py-2 px-4 rounded-full mt-5 mb-20">Join the Sphere</button>
+      <button className="w-sm bg-linear-to-bl from-violet-500 to-fuchsia-500 text-white font-bold py-2 px-4 rounded-full mt-5">Join the Sphere</button>
     </div>
 
-    <div className="flex w-full justify-around px-20">
+    <div className="flex w-full justify-around px-20 mt-8">
       <div>
         <Share2 />
         <h3 className="font-bold">Post</h3>
@@ -36,7 +36,7 @@ export default function Home() {
       </div>
     </div>
 
-    <div className="flex w-full justify-around mt-20">
+    <div className="flex w-full justify-around">
      
      
       <div className="flex flex-col text-center border-2 border-cyan-500 p-10 m-10">
