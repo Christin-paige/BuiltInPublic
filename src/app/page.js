@@ -4,9 +4,9 @@ import { Share2, MessageSquareCode, MessagesSquare, Shrub } from 'lucide-react';
 export default function Home() {
 
   return (
-  <div className=" bg-[url('/door.jpg')] h-screen bg-cover bg-center min-h-screen flex flex-col items-center justify-center font-sans pt-20 gap-10">
+  <div className=" bg-[url('/door.jpg')] h-screen bg-cover bg-center min-h-screen flex flex-col items-center justify-center font-sans pt-72 gap-12">
     
-    <div className="flex flex-col items-center justify-center text-center max-w-3xl mx-auto px-4 pt-56 gap-4">
+    <div className="flex flex-col items-center justify-center text-center max-w-3xl mx-auto px-4 gap-4">
 
       <h1 className="text-5xl text-white font-bold">CodeSphere</h1>
       <h3 className="font-bold text-white text-3xl">Where Devs Build in Public - Together</h3>
@@ -20,26 +20,26 @@ export default function Home() {
 
     </div>
 
-    <div className="flex w-full justify-around px-20 mt-8">
-      <div>
-        <Share2 />
-        <h3 className="font-bold">Post</h3>
-        <p>your builds</p>
+    <div className="flex w-full justify-around px-20">
+      <div className='flex flex-col items-center'>
+        <Share2 size={36}/>
+        <h3 className="font-bold text-lg">Post</h3>
+        <p className='text-md'>your builds</p>
       </div>
-      <div>
-        <MessageSquareCode />
-        <h3 className="font-bold">Connect</h3>
-        <p>with devs</p>
+      <div className='flex flex-col items-center'>
+        <MessageSquareCode size={36}/>
+        <h3 className="font-bold text-lg">Connect</h3>
+        <p className='text-md'>with devs</p>
       </div>
-      <div className="flex flex-col">
-        <MessagesSquare />
-        <h3 className="font-bold">Get</h3>
-        <p>feedback fast</p>
+      <div className="flex flex-col items-center">
+        <MessagesSquare size={36}/>
+        <h3 className="font-bold text-lg">Get</h3>
+        <p className='text-md'>feedback fast</p>
       </div>
-      <div >
-        <Shrub />
-        <h3 className="font-bold">Learn</h3>
-        <p>by building</p>
+      <div className="flex flex-col items-center">
+        <Shrub size={36}/>
+        <h3 className="font-bold text-lg">Learn</h3>
+        <p className='text-md'>by building</p>
       </div>
     </div>
 
