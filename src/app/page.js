@@ -4,7 +4,7 @@ import { Share2, MessageSquareCode, MessagesSquare, Shrub } from 'lucide-react';
 export default function Home() {
 
   return (
-  <div className=" bg-[url('/door.jpg')] h-screen bg-cover bg-center min-h-screen flex flex-col items-center justify-center font-sans pt-72 gap-20">
+  <div className=" bg-[url('/door.jpg')] h-screen bg-cover bg-center min-h-screen flex flex-col items-center justify-center font-sans pt-64 gap-20">
     
     <div className="flex flex-col items-center justify-center text-center max-w-3xl mx-auto px-4 gap-4">
 
