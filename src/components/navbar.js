@@ -27,7 +27,7 @@ export default function NavBar() {
     return () => {
       listener.subscription.unsubscribe();
     };
-  }, []);
+  }, [user]);
 console.log("navbar user", user)
   const handleSignIn = async () => {
 
