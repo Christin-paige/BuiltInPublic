@@ -4,7 +4,7 @@ import { Share2, MessageSquareCode, MessagesSquare, Shrub } from 'lucide-react';
 export default function Home() {
 
   return (
-  <div className=" bg-[url('/door.jpg')] h-screen bg-cover bg-center min-h-screen flex flex-col items-center justify-center font-sans pt-72 gap-12">
+  <div className=" bg-[url('/door.jpg')] h-screen bg-cover bg-center min-h-screen flex flex-col items-center justify-center font-sans pt-72 gap-20">
     
     <div className="flex flex-col items-center justify-center text-center max-w-3xl mx-auto px-4 gap-4">
 
@@ -43,27 +43,26 @@ export default function Home() {
       </div>
     </div>
 
-    <div className="flex w-full justify-around">
+    <div className="flex w-full justify-around gap-64 px-32">
      
-     
-      <div className="flex flex-col text-center border-2 border-cyan-500 p-10 m-10">
+      <div className="flex flex-col text-center border-2 border-cyan-500 p-4 bg-black/40 flex-1">
         <p className="font-bold text-xl">1</p>
         <p className="font-bold text-xl">Create a build log</p>
         <p>Start sharing your project</p>
       </div>
-      <div className="flex flex-col text-center border-2 border-purple-500 p-10 m-10">
-      <p className="font-bold text-xl">2</p>
+      <div className="flex flex-col text-center border-2 border-purple-500 p-4 bg-black/40 flex-1">
+        <p className="font-bold text-xl">2</p>
         <p className="font-bold text-xl">Engage</p>
         <p>Get feedback, give feedback</p>
       </div>
-      <div className="flex flex-col text-center border-2 border-rose-500 p-10 m-10">
-      <p className="font-bold text-xl">3</p>
+      <div className="flex flex-col text-center border-2 border-rose-500 p-4 bg-black/40 flex-1">
+        <p className="font-bold text-xl">3</p>
         <p className="font-bold text-xl">Grow</p>
         <p>Track your progress, learn from others</p>
       </div>
-      </div>
- 
 
+    </div>
+ 
   </div>
   
   );
