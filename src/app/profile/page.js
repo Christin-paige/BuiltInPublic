@@ -4,7 +4,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Settings } from "lucide-react";
 import "./profile.css";
-import { supabase } from "../../../../utils/supabase/client";
+import { supabase } from "../../../utils/supabase/client";
 
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
@@ -36,13 +36,13 @@ export default function Profile({ user }) {
   }, [user]);
   console.log("profile", user);
  
-  if (!profile) {
-    return (
-      <div className="text-white">
-        <p>Loading profile...</p>
-      </div>
-    );
-  }
+  // if (!profile) {
+  //   return (
+  //     <div className="text-white">
+  //       <p>Loading profile...</p>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className="bg-gradient-to-b from-[#1d1d1d] to-[#86059F] h-screen flex flex-col py-28 px-8 items-center gap-12">
