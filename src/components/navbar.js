@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { supabaseClient } from '../../utils/supabase/client';
 import { useRouter } from 'next/navigation';
-import Image from "next/image";
+import Image from 'next/image';
 
 export default function NavBar() {
   const [user, setUser] = useState(null);
@@ -33,9 +33,10 @@ export default function NavBar() {
       listener.subscription.unsubscribe();
     };
   }, [user]);
-console.log("navbar user", user)
+  console.log('navbar user', user);
   const handleSignIn = async () => {
-    const { error } = await supabase.auth.signInWithOAuth({
+    const supabase = supabaseClient();
+    const { data, error } = await supabase.auth.signInWithOAuth({
       provider: process.env.NEXT_PUBLIC_AUTH_PROVIDER,
 
       options: {
@@ -65,12 +66,18 @@ console.log("navbar user", user)
     }
   };
   return (
-    <nav className="fixed top-0 w-full flex items-center justify-between px-10 py-2 bg-black opacity-75 z-50">
-      <Link href="/">
-        <Image src="/logo3.png" alt="codesphere logo" width={224} height={48} className="w-56 hover:opacity-80 transition-all duration-100" />
+    <nav className='fixed top-0 w-full flex items-center justify-between px-10 py-2 bg-black opacity-75 z-50'>
+      <Link href='/'>
+        <Image
+          src='/logo3.png'
+          alt='codesphere logo'
+          width={224}
+          height={48}
+          className='w-56 hover:opacity-80 transition-all duration-100'
+        />
       </Link>
-      <div className="flex items-center gap-5 text-lg">
-        <Link href="/about" className="hover:text-[#ff00ea]">
+      <div className='flex items-center gap-5 text-lg'>
+        <Link href='/about' className='hover:text-[#ff00ea]'>
           About
         </Link>
         <Link href='/dashboard' className='hover:text-[#ff00ea]'>
@@ -81,16 +88,14 @@ console.log("navbar user", user)
           <button
             key='logout'
             onClick={handleSignOut}
-            className="bg-[#00c7ff] shadow-lg shadow-cyan-500/40 px-5 py-1 rounded-sm cursor-pointer hover:bg-[#008cff] transition-all duration-100"
-          >
+            className='bg-[#00c7ff] shadow-lg shadow-cyan-500/40 px-5 py-1 rounded-sm cursor-pointer hover:bg-[#008cff] transition-all duration-100'>
             Logout
           </button>
         ) : (
           <button
             key='login'
             onClick={handleSignIn}
-            className="bg-[#00c7ff] shadow-lg shadow-cyan-500/40 px-5 py-1 rounded-sm cursor-pointer hover:bg-[#008cff] transition-all duration-100"
-          >
+            className='bg-[#00c7ff] shadow-lg shadow-cyan-500/40 px-5 py-1 rounded-sm cursor-pointer hover:bg-[#008cff] transition-all duration-100'>
             Login
           </button>
         )}
