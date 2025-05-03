@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { Settings } from "lucide-react";
 import "./profile.css";
 import { supabase } from "../../../utils/supabase/client";
-
+import Image from "next/image";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
 
@@ -45,24 +45,22 @@ export default function Profile({ user }) {
   // }
 
   return (
-    <div className="bg-gradient-to-b from-[#1d1d1d] to-[#86059F] h-screen flex flex-col py-28 px-8 items-center gap-12">
-      <main className="flex relative w-full">
+    <div className="bg-gradient-to-b from-[#1d1d1d] to-[#86059F] h-screen flex flex-col py-16 items-center gap-12 -z-10">
+      <main className="flex flex-col relative w-full">
 
-        <aside className="flex flex-col gap-12 w-fit h-full relative">
+        <header className="flex flex-col w-full">
+          <Image src="/example-cover-img.jpg" alt="Cover Photo" width={2000} height={1200} className="w-full h-48 object-cover hover:opacity-80 transition-all duration-100 transform-content object-top" />
+          <div className="rounded-full border-2 border-[#00c7ff] w-40 h-40 flex items-center relative justify-center cyan-glow -top-12 left-8">
+            <p>Image Goes Here</p>
+          </div>
+          <h1 className="text-4xl">Hello (Users Name)</h1>
+        </header>
 
-          <header className="flex items-center gap-8 w-fit">
-            <div className="rounded-full border-2 border-[#00c7ff] w-48 h-48 flex items-center justify-center relative cyan-glow">
-              <p>Image Goes Here</p>
-            </div>
-            <h1 className="text-4xl">Hello (Users Name)</h1>
-          </header>
+        <article className="flex flex-col gap-2 p-4 border-2 border-[#00c7ff] cyan-glow bg-[#1d1d1d]/30">
+          <h2 className="text-2xl text-center">About</h2>
+          <p className="text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.</p>
 
-          <article className="flex flex-col gap-2 p-4 border-2 border-[#00c7ff] cyan-glow bg-[#1d1d1d]/30">
-            <h2 className="text-2xl text-center">About</h2>
-            <p className="text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.</p>
-
-          </article>
-        </aside>
+        </article>
 
         <div className="flex gap-8 w-auto relative justify-around h-fit mx-auto">
 
