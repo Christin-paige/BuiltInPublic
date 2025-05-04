@@ -3,61 +3,64 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { supabaseClient } from "../../utils/supabase/client";
 import { useRouter } from "next/navigation";
+import supabaseClient from "../../utils/supabase/client";
+
 
 export default function NavBar() {
   const [user, setUser] = useState(null);
   const router = useRouter();
+   const supabase = supabaseClient;
+ useEffect(() => {
+   // const getUser = async () => {
+     // const { data } = await supabaseClient.auth.getUser();
+      //setUser(data?.user || null);
+    //};
+    //getUser();
 
-  useEffect(() => {
-    const getUser = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
-      setUser(user);
-    };
-    getUser();
+   const { data: listener } = supabaseClient.auth.onAuthStateChange(
+      (event, session) => {
+        console.log("event", event);
+        //setUser(session?.user || null);
+      }
+    );
+   // console.log("user", user);
 
-   // const { data: listener } = supabase.auth.onAuthStateChange(
-     // (_event, session) => {
-       // setUser(session?.user || null);
-      //}
-    //);
-    console.log("user", user);
-
-    return () => {
-      listener.subscription.unsubscribe();
+  return () => {
+     listener?.subscription?.unsubscribe();
     };
   }, []);
-console.log("navbar user", user)
-  const handleSignIn = async () => {
+//console.log("navbar user", user)
+  //const handleSignIn = async () => {
 
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: process.env.NEXT_PUBLIC_AUTH_PROVIDER,
+    //const { error } = await supabase.auth.signInWithOAuth({
+      //provider: process.env.NEXT_PUBLIC_AUTH_PROVIDER,
 
-      options: {
+      //options: {
        // redirectTo: `${window.location.origin}/dashboard`,
-        queryParams: {
-          prompt: "select_account", // forces account chooser to appear
-        },
-      },
-    });
-    if (error) {
-      console.error("Error signing in:", error.message);
+        //queryParams: {
+          //prompt: "select_account", // forces account chooser to appear
+        //},
+      //},
+    //});
+    //if (error) {
+      //console.error("Error signing in:", error.message);
     
-    }else{
-      return redirect("data.url")
-    }
-    console.log("sign in with google");
-  };
+    //}else{
+      //return redirect("data.url")
+    //}
+    //console.log("sign in with google");
+  //};
 
   const handleSignOut = async () => {
-    const { error } = await supabase.auth.signOut();
+    const { error } = await supabaseClient.auth.signOut();
     if (error) {
       console.error("Error signing out:", error.message);
       return;
     } else {
-      router.push("/"); //back to landing page after signing out
       setUser(null);
+      router.push("/auth"); //back to signin page after signing out
+      
       console.log("sign out success");
     }
   };
@@ -73,16 +76,17 @@ console.log("navbar user", user)
         <Link href="/dashboard" className="hover:text-[#ff00ea]">
           Dashboard
         </Link>
-
-        {user ? (
+      {user && (
           <button
           key="logout"
             onClick={handleSignOut}
-            className="bg-[#00c7ff] shadow-lg shadow-cyan-500/50  px-5 py-1 rounded-sm"
+            className="bg-[#00c7ff] shadow-lg shadow-cyan-500/50  px-5 py-1 rounded-sm cursor:pointer"
           >
             Logout
           </button>
-        ) : (
+      )}
+        
+        {/* : (
           <button
           key="login"
             onClick={handleSignIn}
@@ -90,7 +94,10 @@ console.log("navbar user", user)
           >
             Login
           </button>
-        )}
+           */}
+       
+         
+       
       </div>
     </nav>
   );
