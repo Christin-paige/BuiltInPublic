@@ -30,12 +30,12 @@ export default function Page() {
             <p className="text-sm text-gray-300">Register or SignIn</p>
             <Button variant="outline" 
                     size="medium" 
-                    className="w-full flex items-center gap-2 p-2"
+                    className="w-full flex items-center gap-2 p-2 cursor-pointer"
                     onClick={() => handleLoginWithOAuth("google")}>
             <FcGoogle /> Google</Button>
             <Button variant="outline" 
                     size="medium" 
-                    className="w-full flex items-center gap-2 p-2"
+                    className="w-full flex items-center gap-2 p-2 cursor-pointer"
                     onClick={() => handleLoginWithOAuth("github")}>
             <FaGithub />
             Github</Button>
