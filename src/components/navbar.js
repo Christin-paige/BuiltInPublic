@@ -12,16 +12,16 @@ export default function NavBar() {
   const router = useRouter();
    const supabase = supabaseClient;
  useEffect(() => {
-   // const getUser = async () => {
-     // const { data } = await supabaseClient.auth.getUser();
-      //setUser(data?.user || null);
-    //};
-    //getUser();
+   const getUser = async () => {
+     const { data } = await supabaseClient.auth.getUser();
+      setUser(data?.user || null);
+    };
+    getUser();
 
    const { data: listener } = supabaseClient.auth.onAuthStateChange(
       (event, session) => {
         console.log("event", event);
-        //setUser(session?.user || null);
+        setUser(session?.user || null);
       }
     );
    // console.log("user", user);
