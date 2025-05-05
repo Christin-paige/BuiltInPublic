@@ -3,42 +3,44 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { supabase } from '../../../../utils/supabase/client';
+import { useQuery } from 'react-query';
 
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { useRouter } from 'next/navigation';
 
 export default function Profile({ user }) {
+ 
   const router = useRouter();
   const [profile, setProfile] = useState(null);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const supabase = createClientComponentClient();
-      if (!user) return;
+ // useEffect(() => {
+   // const fetchData = async () => {
+     // const supabase = createClientComponentClient();
+      //if (!user) return;
 
-      const { data, error } = await supabase
-        .from('profiles')
-        .select({ profiles_id: profiles.id });
+      //const { data, error } = await supabase
+        //.from('profiles')
+        //.select({ profiles_id: profiles.id });
 
-      if (error) {
-        console.error('Error fetching profile:', error);
-      } else {
-        setProfile(data);
-      }
-    };
+      //if (error) {
+        //console.error('Error fetching profile:', error);
+      //} else {
+        //setProfile(data);
+      //}
+    //};
 
-    fetchData();
-  }, [user]);
-  console.log('profile', user);
+    //fetchData();
+  //}, [user]);
+  //console.log('profile', user);
 
-  if (!profile) {
-    return (
-      <div className='text-white'>
-        <p>Loading profile...</p>
-      </div>
-    );
-  }
-
+  //if (!profile) {
+    //return (
+      //<div className='text-white'>
+        //<p>Loading profile...</p>
+      //</div>
+    //);
+  //}
+  
   return (
     <div className='bg-gradient-to-b from-[#1d1d1d] to-[#86059F] rounded-md shadow p-3 h-full text-white justify-content-center items-center flex flex-col'>
       <h1 className='font-bold'>Profile</h1>
