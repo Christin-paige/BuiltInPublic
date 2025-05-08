@@ -5,16 +5,16 @@ import { Globe } from 'lucide-react';
 import { Button } from "../../../@/components/ui/button"
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa6";
-import { supabaseClient } from "../../../utils/supabase/client";
+import supabaseClient  from "../../../utils/supabase/client";
 
 
 export default function Page() {
     const handleLoginWithOAuth = (provider: "github" | "google") => {
-        const supabase = supabaseClient();
+        const supabase = supabaseClient;
         supabase.auth.signInWithOAuth({
             provider,
             options: {
-                redirectTo: location.origin + "/auth/callback",
+                redirectTo: location.origin + "/",
             },
         });
     };
