@@ -6,6 +6,9 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import supabaseClient from "../../utils/supabase/client";
 import Image from "next/image";
+import ProfileIcon from "../components/profileIcon";
+
+
 
 
 
@@ -80,6 +83,7 @@ export default function NavBar() {
         <Image src="/logo3.png" alt="codesphere logo" width={224} height={48} className="w-56 hover:opacity-80 transition-all duration-100" />
       </Link>
       <div className="flex items-center gap-5 text-lg">
+       <ProfileIcon/>
         <Link href="/about" className="hover:text-[#ff00ea]">
           About
         </Link>
