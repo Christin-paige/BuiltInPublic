@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import supabaseClient from "../../utils/supabase/client";
+import Image from "next/image";
 
 
 

@@ -5,6 +5,8 @@ import React, { useState } from "react";
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 export default function QueryProvider({ children }: { children: React.ReactNode }) {
+    // Create a client
+    // The QueryClient is the main object that manages the cache and the queries
     const [queryClient] = useState(
         () => 
             new QueryClient({
