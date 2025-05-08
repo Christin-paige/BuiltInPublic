@@ -1,5 +1,5 @@
 import { Share2, MessageSquareCode, MessagesSquare, Shrub } from 'lucide-react';
-
+import Link from "next/link";
 
 export default function Home() {
 
@@ -11,12 +11,12 @@ export default function Home() {
       <h1 className="text-5xl text-white font-bold">CodeSphere</h1>
       <h3 className="font-bold text-white text-3xl">Where Devs Build in Public - Together</h3>
       <p className="text-white max-w-md text-lg">Join our supportive community where developers collaborate, share progress, and grow together</p>
-      <button 
+      <Link href="/auth"
         className="w-sm bg-linear-to-bl from-violet-500 to-fuchsia-500 text-white font-bold py-2 px-4 rounded-full mt-4
         hover:scale-105 transition-all duration-300 cursor-pointer text-xl hover:shadow-lg hover:shadow-violet-500/40"
       >
         Join the Sphere
-      </button>
+      </Link>
 
     </div>
 
