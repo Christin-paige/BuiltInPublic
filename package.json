@@ -13,6 +13,8 @@
     "@supabase/auth-helpers-nextjs": "^0.10.0",
     "@supabase/ssr": "^0.6.1",
     "@supabase/supabase-js": "^2.49.4",
+    "@tanstack/react-query": "^5.75.2",
+    "@tanstack/react-query-devtools": "^5.75.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "dotenv": "^16.5.0",
@@ -27,17 +29,12 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
-
     "@types/node": "^22.14.1",
-
     "@types/react": "19.1.2",
     "eslint": "^9",
     "eslint-config-next": "15.2.4",
     "tailwindcss": "^4",
-
     "tw-animate-css": "^1.2.8",
-
     "typescript": "^5.8.3"
-
   }
 }
