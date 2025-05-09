@@ -168,7 +168,7 @@ Select "Table Editor" from the left sidebar, choose the auth schema from the dro
 6. Open a pull request!
 
 ## Questions?
-- [Connect with me on LinkedIn](https://www.linkedin.com/in/christinmartin)
+- [Connect with me on LinkedIn](https://www.linkedin.com/in/christin-martin)
 
 - Happy to collaborate and make this a great app!
 
