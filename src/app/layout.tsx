@@ -4,6 +4,7 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { ThemeProvider } from "../components/themes-provider";
 import ClientLayout from "@/components/ClientLayout";
+import QueryProvider from "@/components/query-provider";
 
 
 export default async function RootLayout({ children } : { children: React.ReactNode }) {
@@ -13,6 +14,7 @@ export default async function RootLayout({ children } : { children: React.ReactN
   return (
     <html lang="en">
       <body>
+        <QueryProvider>
          <ThemeProvider
             attribute="class"
             defaultTheme="dark"
@@ -25,6 +27,7 @@ export default async function RootLayout({ children } : { children: React.ReactN
 
       
         </ThemeProvider>
+        </QueryProvider>
       </body>
     </html>
   );
