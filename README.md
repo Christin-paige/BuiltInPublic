@@ -33,7 +33,7 @@ This is a work-in-progress so feel free to follow along or contribute!
 ### 1. Clone the repo
 
 ```bash
-git clone https://github.com/your-username/codesphere.git
+git clone https://github.com/Christin-paige/codesphere.git
 cd codesphere
 ```
 ### 2. Install dependencies 
