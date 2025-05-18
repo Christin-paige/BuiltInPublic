@@ -6,12 +6,7 @@ export default function ProfileIcon() {
   const { isLoading, data } = useUser();
 
   if (isLoading) {
-    return (
-      <div>
-        <div className="h-6 w-12 animate-pulse" />
-        <div className="h-12 w-12 rounded-full animate-pulse" />
-      </div>
-    );
+    return <></>;
   }
 
   if (!data) {
