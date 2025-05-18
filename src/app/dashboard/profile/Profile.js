@@ -4,9 +4,9 @@ import useUser from "@/hooks/useUser";
 import Image from "next/image";
 
 export default function Profile() {
-  const { isFetching, data } = useUser();
+  const { isLoading, data } = useUser();
 
-  if (isFetching) {
+  if (isLoading) {
     return <></>;
   }
   return (
