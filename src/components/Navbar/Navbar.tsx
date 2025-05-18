@@ -18,7 +18,6 @@ export default function NavBar() {
     await signOutUser();
   };
 
-  console.log(user);
   return (
     <nav className="fixed top-0 w-full flex items-center justify-between px-10 py-2 bg-black opacity-75 z-50">
       <Link href="/">
