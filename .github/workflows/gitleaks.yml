@@ -12,12 +12,12 @@ jobs:
     permissions:
       contents: read
       pull-requests: read
-      
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-           fetch-depth: 0 # Fetch full history
+          fetch-depth: 0 # Fetch full history
 
       - name: Run Gitleaks
         uses: gitleaks/gitleaks-action@v2
