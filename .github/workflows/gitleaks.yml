@@ -15,5 +15,5 @@ jobs:
 
       - name: Run Gitleaks
         uses: gitleaks/gitleaks-action@v2
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
