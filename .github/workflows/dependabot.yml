@@ -1,7 +1,7 @@
 version: 2
 updates:
   - package-ecosystem: "npm"
-    directory: "/"  # root of the project
+    directory: "/" # root of the project
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 5
