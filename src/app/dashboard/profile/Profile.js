@@ -1,6 +1,6 @@
 "use client";
 
-import useUser from "@/hooks/useUser";
+import useUser from "@/hooks/useUser/useUser";
 import Image from "next/image";
 
 export default function Profile() {

@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import supabaseClient from "../../../utils/supabase/client";
 import Image from "next/image";
 import ProfileIcon from "../ProfileIcon";
-import useUser from "@/hooks/useUser";
+import useUser from "@/hooks/useUser/useUser";
 import { signOutUser } from "./actions";
 
 export default function NavBar() {
