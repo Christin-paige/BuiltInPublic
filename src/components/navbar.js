@@ -12,7 +12,7 @@ export default function NavBar() {
 
   useEffect(() => {
     const getUser = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
+      const { data: { user } } = await supabaseClient.auth.getUser();
       setUser(user);
     };
     getUser();
@@ -31,7 +31,7 @@ export default function NavBar() {
 console.log("navbar user", user)
   const handleSignIn = async () => {
 
-    const { error } = await supabase.auth.signInWithOAuth({
+    const { error } = await supabaseClient.auth.signInWithOAuth({
       provider: process.env.NEXT_PUBLIC_AUTH_PROVIDER,
 
       options: {
@@ -51,7 +51,7 @@ console.log("navbar user", user)
   };
 
   const handleSignOut = async () => {
-    const { error } = await supabase.auth.signOut();
+    const { error } = await supabaseClient.auth.signOut();
     if (error) {
       console.error("Error signing out:", error.message);
       return;
