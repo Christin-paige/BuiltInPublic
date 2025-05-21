@@ -25,17 +25,17 @@ export class ProfileRepository
         data: { session },
         error: authUserError,
       } = await this.supabase.auth.getSession();
-
+      console.log(authUserError, session);
       if (authUserError || !session?.user) {
         throw new Error("Cannot find user");
       }
-
       const { data, error } = await this.supabase
         .from("profiles")
         .select("*")
         .eq("id", session.user.id)
         .maybeSingle();
 
+      console.log(data);
       if (error) {
         throw new Error("Cannot find user profile");
       }

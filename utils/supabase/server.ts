@@ -31,5 +31,7 @@ export async function createClient() {
     },
   );
 
+  const { data } = await supabase.auth.getSession();
+  console.log(data);
   return supabase;
 }
