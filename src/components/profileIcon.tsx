@@ -1,4 +1,5 @@
 'use client';
+import Link from "next/link";
 import useUser from "../app/hook/useUser";
 import Image from "next/image";
 
@@ -9,7 +10,7 @@ export default function ProfileIcon() {
         return <></>
     }
     return (
-        <div>
+        <Link href={`/profile`}>
             {!data?.id ? (
                 <h1>profile</h1>
 
@@ -21,6 +22,6 @@ export default function ProfileIcon() {
            height={50}
            className="rounded-full"/>
             )}
-        </div>
+        </Link>
     )
 }
