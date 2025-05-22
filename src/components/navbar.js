@@ -8,7 +8,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import supabaseClient from "../../utils/supabase/client";
 import Image from "next/image";
-import ProfileIcon from "./profileIcon";
+import ProfileIcon from "../components/profileIcon";
 
 
 
