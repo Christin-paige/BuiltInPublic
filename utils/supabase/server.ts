@@ -8,7 +8,7 @@ export async function createClient() {
   // change to supabase server to reduce confusion?
   const cookieStore = await cookies();
 
-  const supabase: SupabaseClient<Database> = createServerClient(
+  const supabase: SupabaseClient<Database> = await createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
@@ -31,7 +31,5 @@ export async function createClient() {
     },
   );
 
-  const { data } = await supabase.auth.getSession();
-  console.log(data);
   return supabase;
 }
