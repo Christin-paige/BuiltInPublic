@@ -6,6 +6,7 @@ import { Button } from "../../../@/components/ui/button"
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa6";
 import supabaseClient  from "../../../utils/supabase/client";
+import { LoginWithEmail } from './actions';
 
 
 export default function Page() {
@@ -39,7 +40,8 @@ export default function Page() {
                     onClick={() => handleLoginWithOAuth("github")}>
             <FaGithub />
             Github</Button>
-
+<hr />
+{/*login form for production*/}
 
         </div>
         <div className="glowbox -z-10"></div>

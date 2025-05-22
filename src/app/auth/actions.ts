@@ -1,13 +1,14 @@
-import supabaseClient  from "../../../utils/supabase/client";//once bugs are fixed, if code is breaking, it may be due to importing client, not server
+import supabaseClient  from "../../../utils/supabase/client";
 
-
-
-export default async function loginWithEmail (email: string, password: string) {
+export async function LoginWithEmail (email: string, password: string) {
    
     const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password })  
 
-   if (error) throw error
-   return data
+   if (error) {
+    console.log('Email login failed', error.message)
+    throw error
+   }
+   return data.user
 
    
     }
