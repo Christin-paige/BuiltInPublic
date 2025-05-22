@@ -33,7 +33,7 @@ This is a work-in-progress so feel free to follow along or contribute!
 ### 1. Clone the repo
 
 ```bash
-git clone https://github.com/your-username/codesphere.git
+git clone https://github.com/Christin-paige/codesphere.git
 cd codesphere
 ```
 ### 2. Install dependencies 
@@ -167,8 +167,18 @@ Select "Table Editor" from the left sidebar, choose the auth schema from the dro
 5. Push: git push origin -u my-branch-name
 6. Open a pull request!
 
+## CodeSphere Contributors
+
+- [Andrew Couture](https://www.linkedin.com/in/andrew-couture-15937ab/)
+- [Gavin Hensley](https://www.linkedin.com/in/g-hensley/)
+- [Brenda Hensley](https://www.linkedin.com/in/brenda-hensley-/)
+- [Dielle De Noon](https://www.linkedin.com/in/dielle-denoon/)
+- [Alina Bhatti](https://www.linkedin.com/in/alina-bhatti-0b0122353/)
+
+
+
 ## Questions?
-- [Connect with me on LinkedIn](https://www.linkedin.com/in/christinmartin)
+- [Connect with me on LinkedIn](https://www.linkedin.com/in/christin-martin)
 
 - Happy to collaborate and make this a great app!
 
