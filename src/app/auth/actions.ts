@@ -1,15 +1,14 @@
-import supabaseClient  from "../../../utils/supabase/client";
+import supabaseClient from '../../../utils/supabase/client';
+import { redirect } from 'next/navigation';
+export async function LoginWithEmail(email: string, password: string) {
+  const { data, error } = await supabaseClient.auth.signInWithPassword({
+    email,
+    password,
+  });
 
-export async function LoginWithEmail (email: string, password: string) {
-   
-    const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password })  
-
-   if (error) {
-    console.log('Email login failed', error.message)
-    throw error
-   }
-   return data.user
-
-   
-    }
-
+  if (error) {
+    console.log('Email login failed', error.message);
+    throw error;
+  }
+  return data.user;
+}
