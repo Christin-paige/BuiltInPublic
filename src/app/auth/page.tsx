@@ -13,7 +13,16 @@ export default function Page() {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
 
+    const handleLoginWithEmail = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        try {
+            await LoginWithEmail(email, password);
+        } catch (error) {
+            setError("Invalid credentials. Try again.");
+        }
+    };
     const handleLoginWithOAuth = (provider: "github" | "google") => {
         const supabase = supabaseClient;
         supabase.auth.signInWithOAuth({
@@ -47,16 +56,13 @@ export default function Page() {
 <hr />
 {/*login form for production*/}
             {process.env.NODE_ENV !== "production" && (
-                <form onSubmit={async (e) => {
-                    e.preventDefault();
-                    await LoginWithEmail(email, password);
-                }} className='flex flex-col gap-4'>
+                <form onSubmit={handleLoginWithEmail} className='flex flex-col gap-4'>
                     <input className="w-full p-2 rounded-md border" type="email" name="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
                     <input className="w-full p-2 rounded-md border" type="password" name="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
                     <Button variant="outline" size="medium" className="w-full flex items-center gap-2 p-2 cursor-pointer" type="submit">Login</Button>
                 </form>
             )}
-
+            {error && <p className="text-red-500">{error}</p>}
 
         </div>
         <div className="glowbox -z-10"></div>
