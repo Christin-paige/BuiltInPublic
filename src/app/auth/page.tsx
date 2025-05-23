@@ -42,6 +42,16 @@ export default function Page() {
             Github</Button>
 <hr />
 {/*login form for production*/}
+    <form action={async (formData) => {
+        const email = formData.get("email") as string;
+        const password = formData.get("password") as string;
+        await LoginWithEmail(email, password);
+    }} className='flex flex-col gap-4'>
+        <input className="w-full p-2 rounded-md border" type="email" name="email" placeholder="Email" />
+        <input className="w-full p-2 rounded-md border" type="password" name="password" placeholder="Password" />
+        <Button variant="outline" size="medium" className="w-full flex items-center gap-2 p-2 cursor-pointer" type="submit">Login</Button>
+    </form>
+
 
         </div>
         <div className="glowbox -z-10"></div>
