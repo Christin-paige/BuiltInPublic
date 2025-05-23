@@ -41,7 +41,7 @@ export default function Page() {
       
             <h1 className="text-2xl font-bold">CodeSphere</h1>
             </div>
-            <p className="text-sm text-gray-300">Register or SignIn</p>
+            <p className="text-md text-gray-300">Register or Sign In</p>
             <Button variant="outline" 
                     size="medium" 
                     className="w-full flex items-center gap-2 p-2 cursor-pointer"
