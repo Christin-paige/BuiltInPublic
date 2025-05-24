@@ -21,4 +21,4 @@ jobs:
         run: npm install
 
       - name: Run Prettier
-        run: npx prettier . --check
+        run: npx prettier --check . --ignore-pattern "supabase/**/*.types.ts"
