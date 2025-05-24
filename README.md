@@ -8,12 +8,12 @@ This is a work-in-progress so feel free to follow along or contribute!
 
 ## 📦 Tech Stack
 
-| Name | Usage | 
-| :--- | :--- | 
-| Next.js 14 | App Router |
-| Supabase | Auth & backend |
-| React | Client components | 
-| Tailwind CSS | Styling | 
+| Name         | Usage             |
+| :----------- | :---------------- |
+| Next.js 14   | App Router        |
+| Supabase     | Auth & backend    |
+| React        | Client components |
+| Tailwind CSS | Styling           |
 
 ---
 
@@ -36,19 +36,24 @@ This is a work-in-progress so feel free to follow along or contribute!
 git clone https://github.com/Christin-paige/codesphere.git
 cd codesphere
 ```
-### 2. Install dependencies 
+
+### 2. Install dependencies
 
 ```bash
 npm install
 # or
 yarn install
 ```
+
 ### 3. Set up environment variables
+
 - Create a .env.local file in the root of the project and add:
+
 ```bash
 NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key
 ```
+
 ### 4. Run the development server:
 
 ```bash
@@ -64,13 +69,16 @@ bun dev
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ## Auth Setup
+
 #### To enable Google Auth:
+
 1. Go to your Supabase project
 2. Under Authentication > Providers, enable Google
 3. Add your credentials (Client ID & Secret from Google Cloud Console)
 4. Set redirectTo in the supabase.auth.signInWithOAuth() to call your app URL
 
 ## Supabase Local Setup
+
 Running Supabase locally will require the [Supabase CLI](https://supabase.com/docs/guides/local-development?queryGroups=package-manager&package-manager=npm) and [Docker](https://docs.docker.com/engine/install/) installed as prerequisites.
 
 With the Supabase CLI and Docker setup, open a terminal and navigate to the root of the project. Supabase is configured with the toml file in `/supabase/config.toml` and all that should be required to get it running is to start the local Supabase instance
@@ -97,9 +105,10 @@ S3 Region: local
 
 ```
 
-***NOTE**: The values in the output above only apply to your local instance of Supabase, they may differ on your machine. Never share the anon or service role keys from a production instance.*
+**\*NOTE**: The values in the output above only apply to your local instance of Supabase, they may differ on your machine. Never share the anon or service role keys from a production instance.\*
 
 If you don't yet have a `.env` file in the root of your project, create one now and add the following variables:
+
 ```typescript
 NEXT_PUBLIC_SUPABASE_URL=// use the API URL from the output of the last step
 NEXT_PUBLIC_SUPABASE_ANON_KEY=// use the anon key from the last step
@@ -107,7 +116,9 @@ NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY=// use the service role key from last step
 ```
 
 ### Supabase Auth Local Setup
+
 Our current setup supports login via GitHub or Google, the provider is, as of April 26th 2025, determined by an environment variable:
+
 ```typescript
 NEXT_PUBLIC_AUTH_PROVIDER=// either 'github' or 'google'
 ```
@@ -115,6 +126,7 @@ NEXT_PUBLIC_AUTH_PROVIDER=// either 'github' or 'google'
 Of the two, GitHub is the simplest to setup
 
 ##### GitHub Auth
+
 You'll need to setup an application in your GitHub account to handle GitHub authentication.
 
 Go to Settings -> Developer Settings and select OAuth apps
@@ -138,12 +150,14 @@ GITHUB_AUTH_EXTERNAL_SECRET=// the generated Client secret from the previous ste
 ```
 
 With your GitHub application created and registered, and your environment variables set, we just need to restart your local Supabase instance. Run the following in your terminal
+
 ```bash
 supabase stop
 supabase start
 ```
 
 And then start the client app with:
+
 ```bash
 npm run dev
 ```
@@ -151,13 +165,16 @@ npm run dev
 When you click Login in the navbar now, you should be redirected to GitHub to authenticate. After which you can verify that a user has been created by visiting the Supabase dashboard at `localhost:54323` in your browser.
 
 Select "Table Editor" from the left sidebar, choose the auth schema from the dropdown on the Table Editor screen, and select `users` from the list of tables. You should see a user has been created with the email you use for GitHub
+
 ## What's Next
+
 - Dashboard logic for each section (profile page, friends' projects, user's projects, streak counter...)
 - User avatars in the navbar (from Google)
 - Sign-in without Google option
 - Help/FAQ section
 
-## Contributing 
+## Contributing
+
 #### Contributions are welcome!
 
 1. Fork the repo
@@ -175,13 +192,11 @@ Select "Table Editor" from the left sidebar, choose the auth schema from the dro
 - [Dielle De Noon](https://www.linkedin.com/in/dielle-denoon/)
 - [Alina Bhatti](https://www.linkedin.com/in/alina-bhatti-0b0122353/)
 
-
-
 ## Questions?
+
 - [Connect with me on LinkedIn](https://www.linkedin.com/in/christin-martin)
 
 - Happy to collaborate and make this a great app!
-
 
 ## Learn More
 
@@ -197,5 +212,3 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-
-
