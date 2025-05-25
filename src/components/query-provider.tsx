@@ -17,7 +17,7 @@ export default function QueryProvider({
         defaultOptions: {
           queries: {
             //will not be refetched automatically since data will not be changed frequently in the profile
-            staleTime: Infinity,
+            staleTime: 0,
           },
         },
       }),
