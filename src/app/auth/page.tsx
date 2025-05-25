@@ -1,38 +1,15 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import { Globe } from 'lucide-react';
 import { Button } from '../../../@/components/ui/button';
 import { FcGoogle } from 'react-icons/fc';
 import { FaGithub } from 'react-icons/fa6';
 import supabaseClient from '../../../utils/supabase/client';
-import { LoginWithEmail } from './actions';
-import { useRouter } from 'next/navigation';
+import DevSignIn from './devSignIn';
 
 export default function Page() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
-  const router = useRouter();
-
-  // Handle login with email and redirect to dashboard
-  const handleLoginWithEmail = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    try {
-      await LoginWithEmail(email, password);
-      setSuccess('Login successful');
-      router.push('/dashboard');
-
-    } catch (error) {
-      setError('Invalid credentials. Try again.');
-    }
-
-    setTimeout(() => {
-      setSuccess('');
-      setError('');
-    }, 3000);
-  };
+  
   const handleLoginWithOAuth = (provider: 'github' | 'google') => {
     const supabase = supabaseClient;
     supabase.auth.signInWithOAuth({
@@ -70,36 +47,10 @@ export default function Page() {
         <hr />
         {/*login form for production*/}
         {process.env.NODE_ENV !== 'production' && (
-          <form onSubmit={handleLoginWithEmail} className='flex flex-col gap-4'>
-            <input
-              className='w-full p-2 rounded-md border'
-              type='email'
-              name='email'
-              placeholder='Email'
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <input
-              className='w-full p-2 rounded-md border'
-              type='password'
-              name='password'
-              placeholder='Password'
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <Button
-              variant='outline'
-              size='medium'
-              className='w-full flex items-center gap-2 p-2 cursor-pointer'
-              type='submit'>
-              Login
-            </Button>
-          </form>
+          <DevSignIn />
         )}
-        {error && <p className='text-red-500'>{error}</p>}
-        {success && <p className='text-green-500'>{success}</p>}
+        <div className='glowbox -z-10'></div>
       </div>
-      <div className='glowbox -z-10'></div>
     </div>
   );
 }
