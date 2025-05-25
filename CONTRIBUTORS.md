@@ -38,7 +38,7 @@ We care deeply about security and ask that you keep the following principles in 
   Always specify and enforce UTF-8 for all input sources to prevent encoding-related attacks.
 
 - **Validation Techniques:**  
-  Use *allow-list validation* for input—only accept what you expect. Check data types, ranges, and lengths before processing.
+  Use _allow-list validation_ for input—only accept what you expect. Check data types, ranges, and lengths before processing.
 
 - **Sanitize Outputs:**  
   Escape and sanitize user input when outputting it to the DOM, APIs, command line, or database.

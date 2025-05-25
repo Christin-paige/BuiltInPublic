@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import supabaseClient from '../../../utils/supabase/client';
-import { useQuery } from '@tanstack/react-query';
+import supabaseClient from "../../../utils/supabase/client";
+import { useQuery } from "@tanstack/react-query";
 
 export default function useUser() {
   return useQuery({
-    queryKey: ['user'],
+    queryKey: ["user"],
     queryFn: async () => {
       //types have been generated using supabase typescript client - hover over data to see the types
       const { data } = await supabaseClient.auth.getSession();
@@ -13,9 +13,9 @@ export default function useUser() {
         const { data: user } = await supabaseClient
           //fetch user information from profile table
 
-          .from('profiles')
-          .select('*')
-          .eq('id', data.session.user.id)
+          .from("profiles")
+          .select("*")
+          .eq("id", data.session.user.id)
           .single();
 
         return user;
