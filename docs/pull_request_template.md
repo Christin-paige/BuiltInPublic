@@ -14,12 +14,12 @@
 <!-- Instructions on how to test the changes made in the pull
 request, helping reviewers validate the code. -->
 
-
 ## Screenshots (if applicable)
 
 <!-- Add screenshots here to demonstrate the UI changes.-->
 
 ## Additional Remarks
+
 <!-- Anything else the reviewers should be aware of?-->
 
 ## Checklist

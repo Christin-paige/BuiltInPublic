@@ -1,29 +1,31 @@
 "use client";
-
 import useUser from "@/hooks/useUser/useUser";
 import Image from "next/image";
 
-export default function Profile() {
+export default function ProfileIcon() {
   const { isLoading, data } = useUser();
 
   if (isLoading) {
     return <></>;
   }
+
+  if (!data) {
+    return null;
+  }
+
   return (
-    <div className="flex flex-col items-center justify-center text-center max-w-3xl mx-auto px-4 gap-4">
+    <div>
       {!data?.id ? (
         <h1>profile</h1>
       ) : (
         <Image
           src={data.avatar_url || ""}
           alt={data.name || ""}
-          width={100}
-          height={100}
-          className="rounded-full "
+          width={50}
+          height={50}
+          className="rounded-full"
         />
       )}
-
-      <h1 className="text-md font-bold justify-items-center">{data?.name}</h1>
     </div>
   );
 }
