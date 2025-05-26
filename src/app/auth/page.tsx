@@ -1,20 +1,21 @@
 'use client';
 
-import React from "react";
-import { Globe } from "lucide-react";
-import { Button } from "../../../@/components/ui/button";
-import { FcGoogle } from "react-icons/fc";
-import { FaGithub } from "react-icons/fa6";
-import supabaseClient from "../../../utils/supabase/client";
-import DevSignIn from "@/app/auth/devSignIn";
+import React from 'react';
+import { Globe } from 'lucide-react';
+import { Button } from '../../../@/components/ui/button';
+import { FcGoogle } from 'react-icons/fc';
+import { FaGithub } from 'react-icons/fa6';
+import supabaseClient from '../../../utils/supabase/client';
+import DevSignIn from './devSignIn';
 
 export default function Page() {
-  const handleLoginWithOAuth = async (provider: "github" | "google") => {
+  
+  const handleLoginWithOAuth = (provider: 'github' | 'google') => {
     const supabase = supabaseClient;
-    const { data, error } = await supabase.auth.signInWithOAuth({
-      provider: provider,
+    supabase.auth.signInWithOAuth({
+      provider,
       options: {
-        redirectTo: `${window.location.origin}/auth/callback`,
+        redirectTo: location.origin + '/',
       },
     });
   };
