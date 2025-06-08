@@ -1,6 +1,5 @@
 "use client";
 
-import supabaseClient from "utils/supabase/client";
 import { useQuery } from "@tanstack/react-query";
 import { getCurrentUser } from "./actions";
 
@@ -10,5 +9,6 @@ export default function useUser() {
     queryFn: getCurrentUser,
   });
 
+  // TODO: check for error in useQuery response and notify user
   return { data, isLoading };
 }

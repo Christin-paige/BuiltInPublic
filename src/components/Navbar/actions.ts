@@ -1,10 +1,11 @@
 "use server";
 // This file is used to sign out the user
 
-import { createClient } from "utils/supabase/server";
+import { redirect } from "next/navigation";
+import { createAnonClient } from "utils/supabase/server";
 
 export async function signOutUser() {
-  const supabase = await createClient();
+  const supabase = await createAnonClient();
 
   // Sign out the user from the client
   try {
@@ -19,9 +20,8 @@ export async function signOutUser() {
 
     return { success: true };
   } catch (e) {
-    if (e instanceof Error) {
-      console.error(e.message);
-    }
-    return { success: false };
+    return {
+      message: "Could not log out",
+    };
   }
 }
