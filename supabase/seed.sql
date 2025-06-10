@@ -194,141 +194,33 @@ VALUES
         NULL,
         false
     );
---
--- Data for Name: identities; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
---
 
+ALTER TABLE auth."users" ENABLE ROW LEVEL SECURITY;
+
+-- Seed auth.identities table
+CREATE EXTENSION IF NOT EXISTS pgcrypto
+WITH SCHEMA public;
+
+-- Temporarily disable RLS on auth.identities
+ALTER TABLE auth.identities DISABLE ROW LEVEL SECURITY;
+
+-- Insert one identity row per user
 INSERT INTO "auth"."identities" ("provider_id", "user_id", "identity_data", "provider", "last_sign_in_at", "created_at", "updated_at", "id") VALUES
 	('52810203-c8e4-4659-9ec7-749f51112737', '52810203-c8e4-4659-9ec7-749f51112737', '{"sub": "52810203-c8e4-4659-9ec7-749f51112737", "email": "codespheredevs+testuser1@gmail.com", "email_verified": false, "phone_verified": false}', 'email', '2025-05-17 11:26:30.632768+00', '2025-05-17 11:26:30.632789+00', '2025-05-17 11:26:30.632789+00', '81070f06-8a18-4441-86b5-ceb9f3f88f8a'),
 	('b25152c9-c936-4878-aa4f-7cd9f86f5f8a', 'b25152c9-c936-4878-aa4f-7cd9f86f5f8a', '{"sub": "b25152c9-c936-4878-aa4f-7cd9f86f5f8a", "email": "codespheredevs+testuser2@gmail.com", "email_verified": false, "phone_verified": false}', 'email', '2025-05-17 11:28:08.478698+00', '2025-05-17 11:28:08.478715+00', '2025-05-17 11:28:08.478715+00', '66163b74-abb2-4dfe-9a65-333a2b16c0fc'),
 	('bc7fa96c-3df6-45ad-b12f-0b543bc556a5', 'bc7fa96c-3df6-45ad-b12f-0b543bc556a5', '{"sub": "bc7fa96c-3df6-45ad-b12f-0b543bc556a5", "email": "codespheredevs+testuser3@gmail.com", "email_verified": false, "phone_verified": false}', 'email', '2025-05-17 11:29:11.425378+00', '2025-05-17 11:29:11.425395+00', '2025-05-17 11:29:11.425395+00', '4d1564e1-5bfc-40a4-ac88-68b1ed439674'),
 	('2f330616-6531-4dea-84f2-90871b2b58c1', '2f330616-6531-4dea-84f2-90871b2b58c1', '{"sub": "2f330616-6531-4dea-84f2-90871b2b58c1", "email": "codespheredevs+testuser4@gmail.com", "email_verified": false, "phone_verified": false}', 'email', '2025-05-17 11:29:47.474948+00', '2025-05-17 11:29:47.474969+00', '2025-05-17 11:29:47.474969+00', '7a3cbd28-747c-4641-9f79-e0bb246ac4a4');
 
-
---
--- Data for Name: instances; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
---
+-- Re-enable RLS
+ALTER TABLE auth.identities ENABLE ROW LEVEL SECURITY;
 
 
 
---
--- Data for Name: sessions; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
---
 
-
-
---
--- Data for Name: mfa_amr_claims; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
---
-
-
-
---
--- Data for Name: mfa_factors; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
---
-
-
-
---
--- Data for Name: mfa_challenges; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
---
-
-
-
---
--- Data for Name: one_time_tokens; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
---
-
-
-
---
--- Data for Name: refresh_tokens; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
---
-
-
-
---
--- Data for Name: sso_providers; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
---
-
-
-
---
--- Data for Name: saml_providers; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
---
-
-
-
---
--- Data for Name: saml_relay_states; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
---
-
-
-
---
--- Data for Name: sso_domains; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
---
-
-
-
---
--- Data for Name: buckets; Type: TABLE DATA; Schema: storage; Owner: supabase_storage_admin
---
-
-
-
---
--- Data for Name: objects; Type: TABLE DATA; Schema: storage; Owner: supabase_storage_admin
---
-
-
-
---
--- Data for Name: prefixes; Type: TABLE DATA; Schema: storage; Owner: supabase_storage_admin
---
-
-
-
---
--- Data for Name: s3_multipart_uploads; Type: TABLE DATA; Schema: storage; Owner: supabase_storage_admin
---
-
-
-
---
--- Data for Name: s3_multipart_uploads_parts; Type: TABLE DATA; Schema: storage; Owner: supabase_storage_admin
---
-
-
-
---
--- Data for Name: hooks; Type: TABLE DATA; Schema: supabase_functions; Owner: supabase_functions_admin
---
-
-
-
---
--- Data for Name: secrets; Type: TABLE DATA; Schema: vault; Owner: supabase_admin
---
-
-
-
---
--- Name: refresh_tokens_id_seq; Type: SEQUENCE SET; Schema: auth; Owner: supabase_auth_admin
---
-
+-- Set the sequence value for the refresh_tokens table
 SELECT pg_catalog.setval('"auth"."refresh_tokens_id_seq"', 1, false);
 
-
---
--- Name: hooks_id_seq; Type: SEQUENCE SET; Schema: supabase_functions; Owner: supabase_functions_admin
---
-
+-- Set the sequence value for the hooks table
 SELECT pg_catalog.setval('"supabase_functions"."hooks_id_seq"', 1, false);
-
-
---
--- PostgreSQL database dump complete
---
 
 RESET ALL;
