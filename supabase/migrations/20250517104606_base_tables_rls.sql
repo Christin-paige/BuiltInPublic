@@ -1,5 +1,4 @@
-
-
+-- Base tables and RLS for CodeSphere
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
@@ -9,59 +8,25 @@ SELECT pg_catalog.set_config('search_path', '', false);
 SET check_function_bodies = false;
 SET xmloption = content;
 SET client_min_messages = warning;
+-- Set row security to off to allow for manual RLS policies/Will be enabled later in file.
 SET row_security = off;
 
 
 CREATE EXTENSION IF NOT EXISTS "pgsodium";
 
-
-
-
-
-
 COMMENT ON SCHEMA "public" IS 'standard public schema';
-
-
 
 CREATE EXTENSION IF NOT EXISTS "pg_graphql" WITH SCHEMA "graphql";
 
-
-
-
-
-
 CREATE EXTENSION IF NOT EXISTS "pg_stat_statements" WITH SCHEMA "extensions";
-
-
-
-
-
 
 CREATE EXTENSION IF NOT EXISTS "pgcrypto" WITH SCHEMA "extensions";
 
-
-
-
-
-
 CREATE EXTENSION IF NOT EXISTS "pgjwt" WITH SCHEMA "extensions";
-
-
-
-
-
 
 CREATE EXTENSION IF NOT EXISTS "supabase_vault" WITH SCHEMA "vault";
 
-
-
-
-
-
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp" WITH SCHEMA "extensions";
-
-
-
 
 
 
@@ -190,38 +155,29 @@ ALTER TABLE ONLY "public"."profiles"
 
 
 
+-- Allow insert for authenticated users
 CREATE POLICY "Allow insert for authenticated users" ON "public"."profiles" FOR INSERT TO "authenticated" WITH CHECK (true);
 
-
-
+-- Anyone can select likes
 CREATE POLICY "anyone can select likes" ON "public"."likes" FOR SELECT USING (true);
 
-
-
+-- Anyone can select posts
 CREATE POLICY "anyone can select posts" ON "public"."posts" FOR SELECT USING (true);
 
-
-
+-- Authenticated user can like post
 CREATE POLICY "authenticated user can like post" ON "public"."likes" FOR INSERT TO "authenticated" WITH CHECK (("user_id" = "auth"."uid"()));
 
-
-
 CREATE POLICY "authenticated users can delete their likes" ON "public"."likes" FOR DELETE TO "authenticated" USING (("user_id" = "auth"."uid"()));
-
-
 
 CREATE POLICY "enable read access for profiles" ON "public"."profiles" FOR SELECT USING (true);
 
 
-
+-- Enable row level security for all tables
 ALTER TABLE "public"."likes" ENABLE ROW LEVEL SECURITY;
-
 
 ALTER TABLE "public"."posts" ENABLE ROW LEVEL SECURITY;
 
-
 ALTER TABLE "public"."profiles" ENABLE ROW LEVEL SECURITY;
-
 
 ALTER TABLE "public"."users" ENABLE ROW LEVEL SECURITY;
 
