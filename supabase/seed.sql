@@ -214,7 +214,11 @@ INSERT INTO "auth"."identities" ("provider_id", "user_id", "identity_data", "pro
 -- Re-enable RLS
 ALTER TABLE auth.identities ENABLE ROW LEVEL SECURITY;
 
+-- Setup insert policy for profiles
+DROP POLICY IF EXISTS "Allow inserts into profiles for setup" ON public.profiles;
 
+CREATE POLICY "Allow inserts into profiles for setup" ON public.profiles FOR INSERT TO public
+WITH CHECK (true);
 
 
 -- Set the sequence value for the refresh_tokens table
