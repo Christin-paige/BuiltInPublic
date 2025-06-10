@@ -253,6 +253,21 @@ VALUES
 
 ALTER TABLE public.profiles ENABLE ROW LEVEL SECURITY;
 
+-- skills
+ALTER TABLE public.skills DISABLE ROW LEVEL SECURITY;
+
+TRUNCATE TABLE public.skills RESTART IDENTITY CASCADE;
+
+INSERT INTO
+    public.skills (name)
+VALUES
+    ('JavaScript'),
+    ('Python'),
+    ('Security'),
+    ('DevOps'),
+    ('UI/UX');
+
+ALTER TABLE public.skills ENABLE ROW LEVEL SECURITY;
 
 
 
