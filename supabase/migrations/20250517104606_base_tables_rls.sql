@@ -125,6 +125,21 @@ CREATE TABLE IF NOT EXISTS "public"."follows" (
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT now (),
     PRIMARY KEY ("follower_id", "followee_id")
 );
+
+-- Create projects table with id, owner_id, name, description, visibility, repo_url, created_at, updated_at
+CREATE TABLE IF NOT EXISTS "public"."projects" (
+    "id" UUID PRIMARY KEY DEFAULT gen_random_uuid (),
+    "owner_id" UUID NOT NULL REFERENCES public.profiles (id) ON DELETE CASCADE,
+    "name" TEXT NOT NULL,
+    "description" TEXT,
+    "visibility" TEXT NOT NULL CHECK (
+        "visibility" IN ('public', 'connections', 'private')
+    ) DEFAULT 'public',
+    "repo_url" TEXT,
+    "created_at" TIMESTAMPTZ NOT NULL DEFAULT now (),
+    "updated_at" TIMESTAMPTZ NOT NULL DEFAULT now ()
+);
+
 -- Create posts table with id, created_at, content, and user_id
 CREATE TABLE IF NOT EXISTS "public"."posts" (
     "id" "uuid" DEFAULT "gen_random_uuid"() NOT NULL,
