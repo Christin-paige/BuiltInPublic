@@ -194,6 +194,7 @@ ALTER TABLE ONLY "public"."likes"
     ADD CONSTRAINT "likes_post_id_fkey" FOREIGN KEY ("post_id") REFERENCES "public"."posts"("id") ON UPDATE CASCADE ON DELETE CASCADE;
 
 -- RLS Policies
+-- profiles
 CREATE POLICY "Allow insert for authenticated users" ON "public"."profiles" FOR INSERT TO "authenticated" WITH CHECK (true);
 CREATE POLICY "anyone can select likes" ON "public"."likes" FOR SELECT USING (true);
 CREATE POLICY "authenticated user can like post" ON "public"."likes" FOR INSERT TO "authenticated" WITH CHECK (("user_id" = "auth"."uid"()));
