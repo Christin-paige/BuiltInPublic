@@ -360,6 +360,28 @@ VALUES
 
 ALTER TABLE public.comments ENABLE ROW LEVEL SECURITY;
 
+-- endorsements
+ALTER TABLE public.endorsements DISABLE ROW LEVEL SECURITY;
+
+TRUNCATE TABLE public.endorsements RESTART IDENTITY CASCADE;
+
+INSERT INTO
+    public.endorsements (skill_id, user_id, endorsed_to)
+VALUES
+    (
+        3,
+        '52810203-c8e4-4659-9ec7-749f51112737',
+        'bc7fa96c-3df6-45ad-b12f-0b543bc556a5'
+    ),
+    (
+        2,
+        'b25152c9-c936-4878-aa4f-7cd9f86f5f8a',
+        '52810203-c8e4-4659-9ec7-749f51112737'
+    );
+
+ALTER TABLE public.endorsements ENABLE ROW LEVEL SECURITY;
+
+
 
 
 
