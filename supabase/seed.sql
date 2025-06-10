@@ -1,27 +1,6 @@
 SET session_replication_role = replica;
 
---
--- PostgreSQL database dump
---
-
--- Dumped from database version 15.8
--- Dumped by pg_dump version 15.8
-
-SET statement_timeout = 0;
-SET lock_timeout = 0;
-SET idle_in_transaction_session_timeout = 0;
-SET client_encoding = 'UTF8';
-SET standard_conforming_strings = on;
-SELECT pg_catalog.set_config('search_path', '', false);
-SET check_function_bodies = false;
-SET xmloption = content;
-SET client_min_messages = warning;
-SET row_security = off;
-
---
 -- Data for Name: audit_log_entries; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
---
-
 INSERT INTO "auth"."audit_log_entries" ("instance_id", "id", "payload", "created_at", "ip_address") VALUES
 	('00000000-0000-0000-0000-000000000000', '354943f2-a777-42df-9508-ba67c230c77b', '{"action":"user_signedup","actor_id":"00000000-0000-0000-0000-000000000000","actor_username":"service_role","actor_via_sso":false,"log_type":"team","traits":{"user_email":"codespheredevs+testuser1@gmail.com","user_id":"52810203-c8e4-4659-9ec7-749f51112737","user_phone":""}}', '2025-05-17 11:26:30.633242+00', ''),
 	('00000000-0000-0000-0000-000000000000', '562a14a7-992a-406a-a8fe-e3fc9df5f1c9', '{"action":"user_signedup","actor_id":"00000000-0000-0000-0000-000000000000","actor_username":"service_role","actor_via_sso":false,"log_type":"team","traits":{"user_email":"codespheredevs+testuser2@gmail.com","user_id":"b25152c9-c936-4878-aa4f-7cd9f86f5f8a","user_phone":""}}', '2025-05-17 11:28:08.479042+00', ''),
@@ -29,23 +8,192 @@ INSERT INTO "auth"."audit_log_entries" ("instance_id", "id", "payload", "created
 	('00000000-0000-0000-0000-000000000000', '3cb54fa9-5558-439d-a954-1feeee03b24b', '{"action":"user_signedup","actor_id":"00000000-0000-0000-0000-000000000000","actor_username":"service_role","actor_via_sso":false,"log_type":"team","traits":{"user_email":"codespheredevs+testuser4@gmail.com","user_id":"2f330616-6531-4dea-84f2-90871b2b58c1","user_phone":""}}', '2025-05-17 11:29:47.475368+00', '');
 
 
---
--- Data for Name: flow_state; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
---
+TRUNCATE TABLE auth."users" RESTART IDENTITY CASCADE;
 
 
 
---
--- Data for Name: users; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
---
-
-INSERT INTO "auth"."users" ("instance_id", "id", "aud", "role", "email", "encrypted_password", "email_confirmed_at", "invited_at", "confirmation_token", "confirmation_sent_at", "recovery_token", "recovery_sent_at", "email_change_token_new", "email_change", "email_change_sent_at", "last_sign_in_at", "raw_app_meta_data", "raw_user_meta_data", "is_super_admin", "created_at", "updated_at", "phone", "phone_confirmed_at", "phone_change", "phone_change_token", "phone_change_sent_at", "email_change_token_current", "email_change_confirm_status", "banned_until", "reauthentication_token", "reauthentication_sent_at", "is_sso_user", "deleted_at", "is_anonymous") VALUES
-	('00000000-0000-0000-0000-000000000000', '52810203-c8e4-4659-9ec7-749f51112737', 'authenticated', 'authenticated', 'codespheredevs+testuser1@gmail.com', '$2a$10$T05oAzQ8Zf6TXXSa4AqVN.RiKGZAVp98W19ye.Klk.WCo7zNFCn5O', '2025-05-17 11:26:30.634158+00', NULL, '', NULL, '', NULL, '', '', NULL, NULL, '{"provider": "email", "providers": ["email"]}', '{"email_verified": true}', NULL, '2025-05-17 11:26:30.63047+00', '2025-05-17 11:26:30.634919+00', NULL, NULL, '', '', NULL, '', 0, NULL, '', NULL, false, NULL, false),
-	('00000000-0000-0000-0000-000000000000', 'b25152c9-c936-4878-aa4f-7cd9f86f5f8a', 'authenticated', 'authenticated', 'codespheredevs+testuser2@gmail.com', '$2a$10$Uh0zNfn2bsAbL58ppUcyTOR3zshjVJfRy7UjD/fRtZI/Y3lMM8Jcu', '2025-05-17 11:28:08.47943+00', NULL, '', NULL, '', NULL, '', '', NULL, NULL, '{"provider": "email", "providers": ["email"]}', '{"email_verified": true}', NULL, '2025-05-17 11:28:08.478217+00', '2025-05-17 11:28:08.479641+00', NULL, NULL, '', '', NULL, '', 0, NULL, '', NULL, false, NULL, false),
-	('00000000-0000-0000-0000-000000000000', 'bc7fa96c-3df6-45ad-b12f-0b543bc556a5', 'authenticated', 'authenticated', 'codespheredevs+testuser3@gmail.com', '$2a$10$aYl//MsEl8u9UBJYpO/E3O2hQb4N/Uwv..lcsMWgoW1KVjp8OC6ce', '2025-05-17 11:29:11.426042+00', NULL, '', NULL, '', NULL, '', '', NULL, NULL, '{"provider": "email", "providers": ["email"]}', '{"email_verified": true}', NULL, '2025-05-17 11:29:11.42485+00', '2025-05-17 11:29:11.426252+00', NULL, NULL, '', '', NULL, '', 0, NULL, '', NULL, false, NULL, false),
-	('00000000-0000-0000-0000-000000000000', '2f330616-6531-4dea-84f2-90871b2b58c1', 'authenticated', 'authenticated', 'codespheredevs+testuser4@gmail.com', '$2a$10$bM/nxLrQ/h0gHsuxxwyoz.k2LVSGwzM5bVI4SFZJ4tN1Y27I6lWwe', '2025-05-17 11:29:47.475752+00', NULL, '', NULL, '', NULL, '', '', NULL, NULL, '{"provider": "email", "providers": ["email"]}', '{"email_verified": true}', NULL, '2025-05-17 11:29:47.474285+00', '2025-05-17 11:29:47.475974+00', NULL, NULL, '', '', NULL, '', 0, NULL, '', NULL, false, NULL, false);
-
-
+INSERT INTO
+    auth."users" (
+        instance_id,
+        id,
+        aud,
+        role,
+        email,
+        encrypted_password,
+        email_confirmed_at,
+        invited_at,
+        confirmation_token,
+        confirmation_sent_at,
+        recovery_token,
+        recovery_sent_at,
+        email_change_token_new,
+        email_change,
+        email_change_sent_at,
+        last_sign_in_at,
+        raw_app_meta_data,
+        raw_user_meta_data,
+        is_super_admin,
+        created_at,
+        updated_at,
+        phone,
+        phone_confirmed_at,
+        phone_change,
+        phone_change_token,
+        phone_change_sent_at,
+        email_change_token_current,
+        email_change_confirm_status,
+        banned_until,
+        reauthentication_token,
+        reauthentication_sent_at,
+        is_sso_user,
+        deleted_at,
+        is_anonymous
+    )
+VALUES
+    (
+        '00000000-0000-0000-0000-000000000000',
+        '52810203-c8e4-4659-9ec7-749f51112737',
+        'authenticated',
+        'authenticated',
+        'codespheredevs+testuser1@gmail.com',
+        '$2a$10$TVyWwuiSpLFxdc/NuX5yU.8mczOhBoWqKeCJUd16qD/FdPUQw4CfG',
+        '2025-05-17 11:26:30.634158+00',
+        NULL,
+        '',
+        NULL,
+        '',
+        NULL,
+        '',
+        '',
+        NULL,
+        NULL,
+        '{"provider":"email","providers":["email"]}',
+        '{"email_verified":true}',
+        NULL,
+        '2025-05-17 11:26:30.63047+00',
+        '2025-05-17 11:26:30.634919+00',
+        NULL,
+        NULL,
+        '',
+        '',
+        NULL,
+        '',
+        0,
+        NULL,
+        '',
+        NULL,
+        false,
+        NULL,
+        false
+    ),
+    (
+        '00000000-0000-0000-0000-000000000000',
+        'b25152c9-c936-4878-aa4f-7cd9f86f5f8a',
+        'authenticated',
+        'authenticated',
+        'codespheredevs+testuser2@gmail.com',
+        '$2a$10$bAOVDu9h677odyLKK.Pts.iqSIXxeGXGs91asR3v/g1wRrNP1D/aa',
+        '2025-05-17 11:28:08.47943+00',
+        NULL,
+        '',
+        NULL,
+        '',
+        NULL,
+        '',
+        '',
+        NULL,
+        NULL,
+        '{"provider":"email","providers":["email"]}',
+        '{"email_verified":true}',
+        NULL,
+        '2025-05-17 11:28:08.478217+00',
+        '2025-05-17 11:28:08.479641+00',
+        NULL,
+        NULL,
+        '',
+        '',
+        NULL,
+        '',
+        0,
+        NULL,
+        '',
+        NULL,
+        false,
+        NULL,
+        false
+    ),
+    (
+        '00000000-0000-0000-0000-000000000000',
+        'bc7fa96c-3df6-45ad-b12f-0b543bc556a5',
+        'authenticated',
+        'authenticated',
+        'codespheredevs+testuser3@gmail.com',
+        '$2a$10$wD5X2sPCkt3wu9T.if1l7.WPK6CaLrLP/r6l21AwlEuH7gjIc3/MS',
+        '2025-05-17 11:29:11.426042+00',
+        NULL,
+        '',
+        NULL,
+        '',
+        NULL,
+        '',
+        '',
+        NULL,
+        NULL,
+        '{"provider":"email","providers":["email"]}',
+        '{"email_verified":true}',
+        NULL,
+        '2025-05-17 11:29:11.42485+00',
+        '2025-05-17 11:29:11.426252+00',
+        NULL,
+        NULL,
+        '',
+        '',
+        NULL,
+        '',
+        0,
+        NULL,
+        '',
+        NULL,
+        false,
+        NULL,
+        false
+    ),
+    (
+        '00000000-0000-0000-0000-000000000000',
+        '2f330616-6531-4dea-84f2-90871b2b58c1',
+        'authenticated',
+        'authenticated',
+        'codespheredevs+testuser4@gmail.com',
+        '$2a$10$ewfOI44WyxuZFSzg7BIRwOA.Jk3loZVSU9tHcjIpf4hfW/Yz6L7E2',
+        '2025-05-17 11:29:47.475752+00',
+        NULL,
+        '',
+        NULL,
+        '',
+        NULL,
+        '',
+        '',
+        NULL,
+        NULL,
+        '{"provider":"email","providers":["email"]}',
+        '{"email_verified":true}',
+        NULL,
+        '2025-05-17 11:29:47.474285+00',
+        '2025-05-17 11:29:47.475974+00',
+        NULL,
+        NULL,
+        '',
+        '',
+        NULL,
+        '',
+        0,
+        NULL,
+        '',
+        NULL,
+        false,
+        NULL,
+        false
+    );
 --
 -- Data for Name: identities; Type: TABLE DATA; Schema: auth; Owner: supabase_auth_admin
 --
