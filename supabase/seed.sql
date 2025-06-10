@@ -405,6 +405,24 @@ VALUES
 
 ALTER TABLE public.likes ENABLE ROW LEVEL SECURITY;
 
+-- follows
+ALTER TABLE public.follows DISABLE ROW LEVEL SECURITY;
+
+TRUNCATE TABLE public.follows CASCADE;
+
+INSERT INTO
+    public.follows (follower_id, followee_id)
+VALUES
+    (
+        'b25152c9-c936-4878-aa4f-7cd9f86f5f8a',
+        '52810203-c8e4-4659-9ec7-749f51112737'
+    ),
+    (
+        'bc7fa96c-3df6-45ad-b12f-0b543bc556a5',
+        '52810203-c8e4-4659-9ec7-749f51112737'
+    );
+
+ALTER TABLE public.follows ENABLE ROW LEVEL SECURITY;
 
 
 -- Set the sequence value for the refresh_tokens table
