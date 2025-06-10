@@ -7,10 +7,8 @@ INSERT INTO "auth"."audit_log_entries" ("instance_id", "id", "payload", "created
 	('00000000-0000-0000-0000-000000000000', '8ef4a3a6-ddc1-4fac-98f5-d990cb1d5597', '{"action":"user_signedup","actor_id":"00000000-0000-0000-0000-000000000000","actor_username":"service_role","actor_via_sso":false,"log_type":"team","traits":{"user_email":"codespheredevs+testuser3@gmail.com","user_id":"bc7fa96c-3df6-45ad-b12f-0b543bc556a5","user_phone":""}}', '2025-05-17 11:29:11.425684+00', ''),
 	('00000000-0000-0000-0000-000000000000', '3cb54fa9-5558-439d-a954-1feeee03b24b', '{"action":"user_signedup","actor_id":"00000000-0000-0000-0000-000000000000","actor_username":"service_role","actor_via_sso":false,"log_type":"team","traits":{"user_email":"codespheredevs+testuser4@gmail.com","user_id":"2f330616-6531-4dea-84f2-90871b2b58c1","user_phone":""}}', '2025-05-17 11:29:47.475368+00', '');
 
-
+-- Seed auth.users table
 TRUNCATE TABLE auth."users" RESTART IDENTITY CASCADE;
-
-
 
 INSERT INTO
     auth."users" (
@@ -220,7 +218,6 @@ DROP POLICY IF EXISTS "Allow inserts into profiles for setup" ON public.profiles
 CREATE POLICY "Allow inserts into profiles for setup" ON public.profiles FOR INSERT TO public
 WITH CHECK (true);
 
-
 -- Seed public tables
 -- Seed profiles table
 ALTER TABLE public.profiles DISABLE ROW LEVEL SECURITY;
@@ -338,7 +335,6 @@ VALUES
 
 ALTER TABLE public.posts ENABLE ROW LEVEL SECURITY;
 
-
 -- comments
 ALTER TABLE public.comments DISABLE ROW LEVEL SECURITY;
 
@@ -380,7 +376,6 @@ VALUES
     );
 
 ALTER TABLE public.endorsements ENABLE ROW LEVEL SECURITY;
-
 
 -- likes
 ALTER TABLE public.likes DISABLE ROW LEVEL SECURITY;
