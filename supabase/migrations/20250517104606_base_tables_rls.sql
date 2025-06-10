@@ -161,6 +161,14 @@ CREATE TABLE IF NOT EXISTS "public"."comments" (
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT now ()
 );
 
+-- Create endorsements table with id, skill_id, user_id, endorsed_to, created_at
+CREATE TABLE IF NOT EXISTS "public"."endorsements" (
+    "id" UUID PRIMARY KEY DEFAULT gen_random_uuid (),
+    "skill_id" INTEGER NOT NULL REFERENCES public.skills (id) ON DELETE CASCADE,
+    "user_id" UUID NOT NULL REFERENCES public.profiles (id) ON DELETE CASCADE,
+    "endorsed_to" UUID NOT NULL REFERENCES public.profiles (id) ON DELETE CASCADE,
+    "created_at" TIMESTAMPTZ NOT NULL DEFAULT now ()
+);
 
 ALTER TABLE "public"."posts" OWNER TO "postgres";
 
