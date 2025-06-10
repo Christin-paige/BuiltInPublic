@@ -309,6 +309,37 @@ VALUES
 
 ALTER TABLE public.projects ENABLE ROW LEVEL SECURITY;
 
+-- posts
+ALTER TABLE public.posts DISABLE ROW LEVEL SECURITY;
+
+TRUNCATE TABLE public.posts RESTART IDENTITY CASCADE;
+
+INSERT INTO
+    public.posts (id, user_id, content, visibility)
+VALUES
+    (
+        '11111111-1111-1111-1111-111111111111',
+        '52810203-c8e4-4659-9ec7-749f51112737',
+        'Hello world',
+        'public'
+    ),
+    (
+        '22222222-2222-2222-2222-222222222222',
+        'b25152c9-c936-4878-aa4f-7cd9f86f5f8a',
+        'Hi there',
+        'public'
+    ),
+    (
+        '33333333-3333-3333-3333-333333333333',
+        'bc7fa96c-3df6-45ad-b12f-0b543bc556a5',
+        'Security matters',
+        'public'
+    );
+
+ALTER TABLE public.posts ENABLE ROW LEVEL SECURITY;
+
+
+
 
 -- Set the sequence value for the refresh_tokens table
 SELECT pg_catalog.setval('"auth"."refresh_tokens_id_seq"', 1, false);
