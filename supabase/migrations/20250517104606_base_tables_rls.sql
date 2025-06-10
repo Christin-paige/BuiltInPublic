@@ -110,6 +110,14 @@ CREATE TABLE IF NOT EXISTS "public"."skills" (
     "name" TEXT NOT NULL UNIQUE
 );
 
+-- Create profile_skills table with profile_id, skill_id, and level
+CREATE TABLE IF NOT EXISTS "public"."profile_skills" (
+    "profile_id" UUID NOT NULL REFERENCES public.profiles (id) ON DELETE CASCADE,
+    "skill_id" INTEGER NOT NULL REFERENCES public.skills (id) ON DELETE CASCADE,
+    "level" INTEGER NOT NULL CHECK (level BETWEEN 1 AND 5),
+    PRIMARY KEY ("profile_id", "skill_id")
+);
+
 -- Create posts table with id, created_at, content, and user_id
 CREATE TABLE IF NOT EXISTS "public"."posts" (
     "id" "uuid" DEFAULT "gen_random_uuid"() NOT NULL,
