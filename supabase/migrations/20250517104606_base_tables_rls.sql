@@ -262,6 +262,26 @@ CREATE POLICY "Users can delete their own likes" ON "public"."likes" FOR DELETE 
 -- users
 CREATE POLICY "Anyone can view auth users" ON "auth"."users" FOR SELECT TO authenticated USING (true);
 
+-- Enable row level security for all tables
+ALTER TABLE "public"."likes" ENABLE ROW LEVEL SECURITY;
+
+ALTER TABLE "public"."posts" ENABLE ROW LEVEL SECURITY;
+
+ALTER TABLE "public"."profiles" ENABLE ROW LEVEL SECURITY;
+
+ALTER TABLE "public"."users" ENABLE ROW LEVEL SECURITY;
+
+ALTER TABLE "public"."skills" ENABLE ROW LEVEL SECURITY;
+
+ALTER TABLE "public"."profile_skills" ENABLE ROW LEVEL SECURITY;
+
+ALTER TABLE "public"."follows" ENABLE ROW LEVEL SECURITY;
+
+ALTER TABLE "public"."projects" ENABLE ROW LEVEL SECURITY;
+
+ALTER TABLE "public"."comments" ENABLE ROW LEVEL SECURITY;
+
+ALTER TABLE "public"."endorsements" ENABLE ROW LEVEL SECURITY;
 
 
 
