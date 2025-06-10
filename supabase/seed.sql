@@ -284,7 +284,30 @@ VALUES
 
 ALTER TABLE public.profile_skills ENABLE ROW LEVEL SECURITY;
 
+-- projects
+ALTER TABLE public.projects DISABLE ROW LEVEL SECURITY;
 
+TRUNCATE TABLE public.projects RESTART IDENTITY CASCADE;
+
+INSERT INTO
+    public.projects (owner_id, name, description, visibility, repo_url)
+VALUES
+    (
+        '52810203-c8e4-4659-9ec7-749f51112737', -- corrected UUID
+        'Project Alpha',
+        'Sample project',
+        'public',
+        'https://github.com/test1/alpha'
+    ),
+    (
+        'b25152c9-c936-4878-aa4f-7cd9f86f5f8a',
+        'Project Beta',
+        'Sample project',
+        'connections',
+        'https://github.com/test2/beta'
+    );
+
+ALTER TABLE public.projects ENABLE ROW LEVEL SECURITY;
 
 
 -- Set the sequence value for the refresh_tokens table
