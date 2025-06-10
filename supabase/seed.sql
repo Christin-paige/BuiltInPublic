@@ -339,6 +339,28 @@ VALUES
 ALTER TABLE public.posts ENABLE ROW LEVEL SECURITY;
 
 
+-- comments
+ALTER TABLE public.comments DISABLE ROW LEVEL SECURITY;
+
+TRUNCATE TABLE public.comments RESTART IDENTITY CASCADE;
+
+INSERT INTO
+    public.comments (post_id, user_id, content)
+VALUES
+    (
+        '11111111-1111-1111-1111-111111111111',
+        'b25152c9-c936-4878-aa4f-7cd9f86f5f8a',
+        'Great post!'
+    ),
+    (
+        '11111111-1111-1111-1111-111111111111',
+        'bc7fa96c-3df6-45ad-b12f-0b543bc556a5',
+        'Thanks!'
+    );
+
+ALTER TABLE public.comments ENABLE ROW LEVEL SECURITY;
+
+
 
 
 -- Set the sequence value for the refresh_tokens table
