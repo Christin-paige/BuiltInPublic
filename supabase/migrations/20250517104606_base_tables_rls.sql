@@ -283,9 +283,14 @@ ALTER TABLE "public"."comments" ENABLE ROW LEVEL SECURITY;
 
 ALTER TABLE "public"."endorsements" ENABLE ROW LEVEL SECURITY;
 
+-- Alter publication to set owner to postgres
+ALTER PUBLICATION "supabase_realtime" OWNER TO "postgres";
 
-
-
+-- Grant usage on schema to all roles
+GRANT USAGE ON SCHEMA "public" TO "postgres";
+GRANT USAGE ON SCHEMA "public" TO "anon";
+GRANT USAGE ON SCHEMA "public" TO "authenticated";
+GRANT USAGE ON SCHEMA "public" TO "service_role";
 
 
 
