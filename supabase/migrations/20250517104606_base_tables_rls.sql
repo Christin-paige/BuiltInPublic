@@ -92,6 +92,19 @@ CREATE TABLE IF NOT EXISTS "public"."users" (
     "created_at" timestamp with time zone DEFAULT "now"() NOT NULL
 );
 
+-- Create profiles table with id, username, headline, bio, avatar_url, location, links, created_at
+CREATE TABLE IF NOT EXISTS "public"."profiles" (
+    "id" UUID PRIMARY KEY REFERENCES auth.users (id) ON DELETE CASCADE,
+    "username" TEXT NOT NULL UNIQUE,
+    "headline" TEXT,
+    "bio" TEXT,
+    "avatar_url" TEXT,
+    "location" TEXT,
+    "links" TEXT[],
+    "created_at" TIMESTAMPTZ NOT NULL DEFAULT now ()
+);
+
+
 -- Create posts table with id, created_at, content, and user_id
 CREATE TABLE IF NOT EXISTS "public"."posts" (
     "id" "uuid" DEFAULT "gen_random_uuid"() NOT NULL,
@@ -102,13 +115,6 @@ CREATE TABLE IF NOT EXISTS "public"."posts" (
 
 
 ALTER TABLE "public"."posts" OWNER TO "postgres";
-
-
-CREATE TABLE IF NOT EXISTS "public"."profiles" (
-    "id" "uuid" NOT NULL,
-    "name" "text",
-    "avatar_url" "text"
-);
 
 
 ALTER TABLE "public"."profiles" OWNER TO "postgres";
