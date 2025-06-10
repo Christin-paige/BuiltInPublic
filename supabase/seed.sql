@@ -382,6 +382,28 @@ VALUES
 ALTER TABLE public.endorsements ENABLE ROW LEVEL SECURITY;
 
 
+-- likes
+ALTER TABLE public.likes DISABLE ROW LEVEL SECURITY;
+
+TRUNCATE TABLE public.likes CASCADE;
+
+INSERT INTO
+    public.likes (post_id, user_id)
+VALUES
+    (
+        '11111111-1111-1111-1111-111111111111',
+        'b25152c9-c936-4878-aa4f-7cd9f86f5f8a'
+    ),
+    (
+        '11111111-1111-1111-1111-111111111111',
+        'bc7fa96c-3df6-45ad-b12f-0b543bc556a5'
+    ),
+    (
+        '22222222-2222-2222-2222-222222222222',
+        '52810203-c8e4-4659-9ec7-749f51112737'
+    );
+
+ALTER TABLE public.likes ENABLE ROW LEVEL SECURITY;
 
 
 
