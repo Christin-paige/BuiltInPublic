@@ -269,6 +269,20 @@ VALUES
 
 ALTER TABLE public.skills ENABLE ROW LEVEL SECURITY;
 
+-- profile_skills
+ALTER TABLE public.profile_skills DISABLE ROW LEVEL SECURITY;
+
+TRUNCATE TABLE public.profile_skills CASCADE;
+
+INSERT INTO
+    public.profile_skills (profile_id, skill_id, level)
+VALUES
+    ('52810203-c8e4-4659-9ec7-749f51112737', 1, 4),
+    ('b25152c9-c936-4878-aa4f-7cd9f86f5f8a', 2, 5),
+    ('bc7fa96c-3df6-45ad-b12f-0b543bc556a5', 3, 3),
+    ('2f330616-6531-4dea-84f2-90871b2b58c1', 4, 2);
+
+ALTER TABLE public.profile_skills ENABLE ROW LEVEL SECURITY;
 
 
 
