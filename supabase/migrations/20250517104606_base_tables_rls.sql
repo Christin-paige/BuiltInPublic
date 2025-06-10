@@ -104,6 +104,11 @@ CREATE TABLE IF NOT EXISTS "public"."profiles" (
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT now ()
 );
 
+-- Create skills table with id, name
+CREATE TABLE IF NOT EXISTS "public"."skills" (
+    "id" SERIAL PRIMARY KEY,
+    "name" TEXT NOT NULL UNIQUE
+);
 
 -- Create posts table with id, created_at, content, and user_id
 CREATE TABLE IF NOT EXISTS "public"."posts" (
