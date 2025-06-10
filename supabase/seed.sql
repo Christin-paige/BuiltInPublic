@@ -214,11 +214,48 @@ INSERT INTO "auth"."identities" ("provider_id", "user_id", "identity_data", "pro
 -- Re-enable RLS
 ALTER TABLE auth.identities ENABLE ROW LEVEL SECURITY;
 
--- Setup insert policy for profiles
+-- Create insert policy for profile setup
 DROP POLICY IF EXISTS "Allow inserts into profiles for setup" ON public.profiles;
 
 CREATE POLICY "Allow inserts into profiles for setup" ON public.profiles FOR INSERT TO public
 WITH CHECK (true);
+
+
+-- Seed public tables
+-- Seed profiles table
+ALTER TABLE public.profiles DISABLE ROW LEVEL SECURITY;
+
+TRUNCATE TABLE public.profiles RESTART IDENTITY CASCADE;
+
+INSERT INTO
+    public.profiles (id, username, avatar_url)
+VALUES
+    (
+        '52810203-c8e4-4659-9ec7-749f51112737',
+        'testuser1',
+        'https://img.freepik.com/premium-vector/male-face-avatar-icon-set-flat-design-social-media-profiles_1281173-3806.jpg?semt=ais_hybrid&w=740'
+    ),
+    (
+        'b25152c9-c936-4878-aa4f-7cd9f86f5f8a',
+        'testuser2',
+        'https://img.freepik.com/premium-vector/male-face-avatar-icon-set-flat-design-social-media-profiles_1281173-3806.jpg?semt=ais_hybrid&w=740'
+    ),
+    (
+        'bc7fa96c-3df6-45ad-b12f-0b543bc556a5',
+        'testuser3',
+        'https://img.freepik.com/premium-vector/male-face-avatar-icon-set-flat-design-social-media-profiles_1281173-3806.jpg?semt=ais_hybrid&w=740'
+    ),
+    (
+        '2f330616-6531-4dea-84f2-90871b2b58c1',
+        'testuser4',
+        'https://img.freepik.com/premium-vector/male-face-avatar-icon-set-flat-design-social-media-profiles_1281173-3806.jpg?semt=ais_hybrid&w=740'
+    );
+
+ALTER TABLE public.profiles ENABLE ROW LEVEL SECURITY;
+
+
+
+
 
 
 -- Set the sequence value for the refresh_tokens table
