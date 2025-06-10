@@ -228,23 +228,6 @@ CREATE POLICY "Anyone can read endorsements" ON "public"."endorsements" FOR SELE
 CREATE POLICY "Users can endorse others" ON "public"."endorsements" FOR INSERT TO authenticated WITH CHECK (auth.uid () = user_id);
 CREATE POLICY "Users can delete their endorsements" ON "public"."endorsements" FOR DELETE TO authenticated USING (auth.uid () = user_id);
 
--- posts
-CREATE POLICY "Anyone can read posts" ON "public"."posts" FOR SELECT TO authenticated USING (true);
-CREATE POLICY "Users can create posts" ON "public"."posts" FOR INSERT TO authenticated WITH CHECK (auth.uid () = user_id);
-CREATE POLICY "Users can update their own posts" ON "public"."posts" FOR UPDATE TO authenticated USING (auth.uid () = user_id);
-CREATE POLICY "Users can delete their own posts" ON "public"."posts" FOR DELETE TO authenticated USING (auth.uid () = user_id);
-
--- comments
-CREATE POLICY "Anyone can read comments" ON "public"."comments" FOR SELECT TO authenticated USING (true);
-CREATE POLICY "Users can comment" ON "public"."comments" FOR INSERT TO authenticated WITH CHECK (auth.uid () = user_id);
-CREATE POLICY "Users can edit their own comments" ON "public"."comments" FOR UPDATE TO authenticated USING (auth.uid () = user_id);
-CREATE POLICY "Users can delete their own comments" ON "public"."comments" FOR DELETE TO authenticated USING (auth.uid () = user_id);
-
--- endorsements
-CREATE POLICY "Anyone can read endorsements" ON "public"."endorsements" FOR SELECT TO authenticated USING (true);
-CREATE POLICY "Users can endorse others" ON "public"."endorsements" FOR INSERT TO authenticated WITH CHECK (auth.uid () = user_id);
-CREATE POLICY "Users can delete their endorsements" ON "public"."endorsements" FOR DELETE TO authenticated USING (auth.uid () = user_id);
-
 -- likes
 CREATE POLICY "Users can read their own likes" ON "public"."likes" FOR SELECT TO authenticated USING (auth.uid () = user_id);
 CREATE POLICY "Users can like posts" ON "public"."likes" FOR INSERT TO authenticated WITH CHECK (auth.uid () = user_id);
