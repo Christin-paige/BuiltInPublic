@@ -140,12 +140,16 @@ CREATE TABLE IF NOT EXISTS "public"."projects" (
     "updated_at" TIMESTAMPTZ NOT NULL DEFAULT now ()
 );
 
--- Create posts table with id, created_at, content, and user_id
+-- Create posts table with id, user_id, content, visibility, created_at, updated_at
 CREATE TABLE IF NOT EXISTS "public"."posts" (
-    "id" "uuid" DEFAULT "gen_random_uuid"() NOT NULL,
-    "created_at" timestamp with time zone DEFAULT "now"() NOT NULL,
-    "content" "text" NOT NULL,
-    "user_id" "uuid" NOT NULL
+    "id" UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    "user_id" UUID NOT NULL REFERENCES public.profiles (id) ON DELETE CASCADE,
+    "content" TEXT NOT NULL,
+    "visibility" TEXT NOT NULL CHECK (
+        "visibility" IN ('public', 'connections', 'private')
+    ) DEFAULT 'public',
+    "created_at" TIMESTAMPTZ NOT NULL DEFAULT now(),
+    "updated_at" TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
 
