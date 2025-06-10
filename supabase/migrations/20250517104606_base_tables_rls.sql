@@ -152,6 +152,15 @@ CREATE TABLE IF NOT EXISTS "public"."posts" (
     "updated_at" TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
+-- Create comments table with id, post_id, user_id, content, created_at
+CREATE TABLE IF NOT EXISTS "public"."comments" (
+    "id" UUID PRIMARY KEY DEFAULT gen_random_uuid (),
+    "post_id" UUID NOT NULL REFERENCES public.posts (id) ON DELETE CASCADE,
+    "user_id" UUID NOT NULL REFERENCES public.profiles (id) ON DELETE CASCADE,
+    "content" TEXT NOT NULL,
+    "created_at" TIMESTAMPTZ NOT NULL DEFAULT now ()
+);
+
 
 ALTER TABLE "public"."posts" OWNER TO "postgres";
 
