@@ -118,6 +118,13 @@ CREATE TABLE IF NOT EXISTS "public"."profile_skills" (
     PRIMARY KEY ("profile_id", "skill_id")
 );
 
+-- Create follows table with follower_id, followee_id, and created_at
+CREATE TABLE IF NOT EXISTS "public"."follows" (
+    "follower_id" UUID NOT NULL REFERENCES public.profiles (id) ON DELETE CASCADE,
+    "followee_id" UUID NOT NULL REFERENCES public.profiles (id) ON DELETE CASCADE,
+    "created_at" TIMESTAMPTZ NOT NULL DEFAULT now (),
+    PRIMARY KEY ("follower_id", "followee_id")
+);
 -- Create posts table with id, created_at, content, and user_id
 CREATE TABLE IF NOT EXISTS "public"."posts" (
     "id" "uuid" DEFAULT "gen_random_uuid"() NOT NULL,
