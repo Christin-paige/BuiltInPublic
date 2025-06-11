@@ -36,7 +36,7 @@ export async function seedPosts() {
   }
 
   // Create a map of username to profile id
-  const profileMap = new Map(profiles.map((p) => [p.username, p.id]));
+  const profileMap = new Map(profiles.map((p: { username: string; id: string }) => [p.username, p.id]));
 
   // For each post, get the profile id from the profile map
   // Build insertable rows
