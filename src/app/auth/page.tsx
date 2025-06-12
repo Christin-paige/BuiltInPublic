@@ -6,14 +6,15 @@ import { Button } from "../../../@/components/ui/button";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa6";
 import supabaseClient from "../../../utils/supabase/client";
+import DevSignIn from "./dev-signin";
 
 export default function Page() {
-  const handleLoginWithOAuth = async (provider: "github" | "google") => {
+  const handleLoginWithOAuth = (provider: "github" | "google") => {
     const supabase = supabaseClient;
-    const { data, error } = await supabase.auth.signInWithOAuth({
-      provider: provider,
+    supabase.auth.signInWithOAuth({
+      provider,
       options: {
-        redirectTo: `${window.location.origin}/auth/callback`,
+        redirectTo: location.origin + "/",
       },
     });
   };
@@ -26,7 +27,7 @@ export default function Page() {
 
           <h1 className="text-2xl font-bold">CodeSphere</h1>
         </div>
-        <p className="text-sm text-gray-300">Register or SignIn</p>
+        <p className="text-md text-gray-300">Register or Sign In</p>
         <Button
           variant="outline"
           size="medium"
@@ -44,8 +45,8 @@ export default function Page() {
           <FaGithub />
           Github
         </Button>
+        <DevSignIn />
       </div>
-      <div className="glowbox -z-10"></div>
     </div>
   );
 }
