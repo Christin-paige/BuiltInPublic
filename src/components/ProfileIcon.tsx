@@ -1,31 +1,23 @@
-"use client";
-import useUser from "@/hooks/useUser/useUser";
-import Image from "next/image";
+'use client';
+import useUser from '@/hooks/useUser/useUser';
+import Image from 'next/image';
 
 export default function ProfileIcon() {
-  const { isLoading, data } = useUser();
+  const { data } = useUser();
 
-  if (isLoading) {
-    return <></>;
-  }
-
-  if (!data) {
+  if (!data?.id) {
     return null;
   }
 
   return (
     <div>
-      {!data?.id ? (
-        <h1>profile</h1>
-      ) : (
-        <Image
-          src={data.avatar_url || ""}
-          alt={data.name || ""}
-          width={50}
-          height={50}
-          className="rounded-full"
-        />
-      )}
+      <Image
+        src={data.avatar_url || '/default-avatar.png'}
+        alt={data.name || 'User profile'}
+        width={50}
+        height={50}
+        className='rounded-full'
+      />
     </div>
   );
 }
