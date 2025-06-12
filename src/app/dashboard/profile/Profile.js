@@ -23,7 +23,9 @@ export default function Profile() {
         />
       )}
 
-      <h1 className="text-md font-bold justify-items-center">{data?.username}</h1>
+      <h1 className="text-md font-bold justify-items-center">
+        {data?.username}
+      </h1>
     </div>
   );
 }
