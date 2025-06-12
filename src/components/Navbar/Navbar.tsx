@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import Image from 'next/image';
-import ProfileIcon from '../ProfileIcon';
-import useUser from '@/hooks/useUser/useUser';
-import { signOutUser } from './actions';
-import supabaseClient from 'utils/supabase/client';
+import Link from "next/link";
+import Image from "next/image";
+import ProfileIcon from "../ProfileIcon";
+import useUser from "@/hooks/useUser/useUser";
+import { signOutUser } from "./actions";
+import supabaseClient from "utils/supabase/client";
 
 export default function NavBar() {
   // Get the user from the client
@@ -19,40 +19,42 @@ export default function NavBar() {
       // Sign out from the server
       await signOutUser();
       // Force a hard refresh to clear all state
-      window.location.href = '/';
+      window.location.href = "/";
     } catch (error) {
-      console.error('Error signing out:', error);
+      console.error("Error signing out:", error);
     }
   };
 
   return (
-    <nav className='fixed top-0 w-full flex items-center justify-between px-10 py-2 bg-black opacity-75 z-50'>
-      <Link href='/'>
+    <nav className="fixed top-0 w-full flex items-center justify-between px-10 py-2 bg-black opacity-75 z-50">
+      <Link href="/">
         <Image
-          src='/logo3.png'
-          alt='codesphere logo'
+          src="/logo3.png"
+          alt="codesphere logo"
           width={224}
           height={48}
-          className='w-56 hover:opacity-80 transition-all duration-100'
+          className="w-56 hover:opacity-80 transition-all duration-100"
         />
       </Link>
-      <div className='flex items-center gap-5 text-lg'>
+      <div className="flex items-center gap-5 text-lg">
         <Link
-          href='/profile'
-          className='hover:opacity-80 transition-all duration-100 active:scale-95'>
+          href="/profile"
+          className="hover:opacity-80 transition-all duration-100 active:scale-95"
+        >
           <ProfileIcon />
         </Link>
-        <Link href='/about' className='hover:text-[#ff00ea]'>
+        <Link href="/about" className="hover:text-[#ff00ea]">
           About
         </Link>
-        <Link href='/dashboard' className='hover:text-[#ff00ea]'>
+        <Link href="/dashboard" className="hover:text-[#ff00ea]">
           Dashboard
         </Link>
         {user && (
           <button
-            key='logout'
+            key="logout"
             onClick={handleSignOut}
-            className='bg-[#00c7ff] shadow-lg shadow-cyan-500/40 px-5 py-1 rounded-sm cursor-pointer hover:bg-[#008cff] transition-all duration-100'>
+            className="bg-[#00c7ff] shadow-lg shadow-cyan-500/40 px-5 py-1 rounded-sm cursor-pointer hover:bg-[#008cff] transition-all duration-100"
+          >
             Logout
           </button>
         )}

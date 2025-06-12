@@ -1,7 +1,7 @@
-'use server';
+"use server";
 // This file is used to sign out the user
 
-import { createClient } from 'utils/supabase/server';
+import { createClient } from "utils/supabase/server";
 
 export async function signOutUser() {
   const supabase = await createClient();
@@ -11,7 +11,7 @@ export async function signOutUser() {
     const { error } = await supabase.auth.signOut();
 
     if (error) {
-      throw new Error('Error signing out');
+      throw new Error("Error signing out");
     }
 
     // Sign out the user from the server
