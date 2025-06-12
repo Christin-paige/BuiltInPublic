@@ -30,7 +30,9 @@ export default function NavBar() {
         />
       </Link>
       <div className="flex items-center gap-5 text-lg">
-        <ProfileIcon />
+        <Link href="/profile" className="hover:opacity-80 transition-all duration-100 active:scale-95">
+          <ProfileIcon />
+        </Link>
         <Link href="/about" className="hover:text-[#ff00ea]">
           About
         </Link>
