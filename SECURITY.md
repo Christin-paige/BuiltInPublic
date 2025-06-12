@@ -1,8 +1,8 @@
-# Security at Codesphere
+# Security at BuiltInPublic
 
-Hey there! 👋
+Hey there! 👋🏻
 
-We’re so glad you’re here, and we want to make sure Codesphere is a safe and secure space for everyone building in public. Security is something we all share responsibility for, and your help goes a long way in making this project better for the entire community.
+We’re so glad you’re here, and we want to make sure BuiltInPublic is a safe and secure space for everyone building in public. Security is something we all share responsibility for, and your help goes a long way in making this project better for the entire community.
 
 ---
 
@@ -17,15 +17,20 @@ Instead, reach out to us at:
 
 When reporting, include as much detail as you can:
 
-- What you found and where
-- How to reproduce it (if possible)
-- Any ideas for how it could be fixed (optional but appreciated)
-
-We’ll aim to reply within **48 hours**, investigate the issue, and work with you to patch it.
+- Impact & reproduction steps
+- Suggested mitigation (optional)
 
 ---
+## ⏱️ Response & Remediation SLAs
 
-## 🤝 Our Disclosure Approach
+| Severity  | Acknowledge | Fix Timeline |
+|:---------:|:-----------:|:------------:|
+| Critical  | 24 hrs      | 7 days       |
+| High      | 48 hrs      | 14 days      |
+| Medium/Low| 72 hrs      | 30 days      |
+---
+
+## 🫱🏼‍🫲🏽 Our Disclosure Approach
 
 We follow a responsible disclosure process:
 
@@ -40,18 +45,45 @@ We’re all about community here. If you want to be credited, we’re happy to h
 
 ## 🔐 Secure Contributions
 
-Helping us build Codesphere? Amazing. Please take a look at our [CONTRIBUTORS.md](./CONTRIBUTORS.md#secure-coding-practices) to see our secure coding expectations.
+Helping us build BuiltInPublic? Amazing. Please take a look at our [CONTRIBUTORS.md](./CONTRIBUTORS.md#secure-coding-practices) to see our secure coding expectations.
 
-You don’t have to be a security expert, just keeping an eye out for common pitfalls helps a lot.
+### You don’t have to be a security expert, just keeping an eye out for common pitfalls helps a lot.
+---
 
+## 🔍 Local Security Checks
+
+Before your PR, run:
+
+# 1. Prettier
+```bash
+npx prettier . --check    # check formatting
+npx prettier . --write    # auto-fix formatting
+```
+# 2. ESLint - Code Linting
+```bash
+npx eslint .              # find lint issues
+npx eslint . --fix        # fix fixable ones
+```
+
+# 3. Gitleaks
+```bash
+npx gitleaks detect --source . --redact
+```
+# 4. CodeQL (optional)
+```bash
+npx codeql database create codeql-db --language=typescript
+npx codeql database analyze codeql-db typescript-code-scanning.qls \
+  --format=sarif-latest \
+  --output=codeql-results.sarif
+```
 ---
 
 ## 🧭 Supported Versions
 
-We currently support the latest version of the `main` branch. Security fixes will be released for that version unless otherwise noted.
+We currently support the latest version of the `development` branch. Security fixes will be released for that version unless otherwise noted.
 
 ---
 
 Thanks for being part of the community, and for helping us keep things safe for everyone.
 
-— The CodeSphere Security Team
+— The BuiltInPublic Security Team
