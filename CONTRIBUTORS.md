@@ -1,6 +1,6 @@
 # 🫱🏼‍🫲🏽 Contributing to BuiltInPublic
 
-First off, thank you for your interest in contributing to Codesphere! This is a community-driven project built on collaboration, curiosity, and a shared love for building in public.
+First off, thank you for your interest in contributing to BuiltInPublic! This is a community-driven project built on collaboration, curiosity, and a shared love for building in public.
 
 Whether you're submitting a bug fix, feature, documentation improvement, or helping with security, we're excited to have you here.
 

@@ -1,11 +1,7 @@
 # Security at BuiltInPublic
 
-# Security at BuiltInPublic
-
-Hey there! 👋🏻
 Hey there! 👋🏻
 
-We’re so glad you’re here, and we want to make sure BuiltInPublic is a safe and secure space for everyone building in public. Security is something we all share responsibility for, and your help goes a long way in making this project better for the entire community.
 We’re so glad you’re here, and we want to make sure BuiltInPublic is a safe and secure space for everyone building in public. Security is something we all share responsibility for, and your help goes a long way in making this project better for the entire community.
 
 ---
