@@ -1,7 +1,11 @@
 # Security at BuiltInPublic
 
+# Security at BuiltInPublic
+
+Hey there! 👋🏻
 Hey there! 👋🏻
 
+We’re so glad you’re here, and we want to make sure BuiltInPublic is a safe and secure space for everyone building in public. Security is something we all share responsibility for, and your help goes a long way in making this project better for the entire community.
 We’re so glad you’re here, and we want to make sure BuiltInPublic is a safe and secure space for everyone building in public. Security is something we all share responsibility for, and your help goes a long way in making this project better for the entire community.
 
 ---
@@ -52,45 +56,9 @@ You don’t have to be a security expert, just keeping an eye out for common pit
 
 ---
 
-## 🔒 Local Security Checks
-
-Before opening a PR, run these **in order**:
-
-### 1) Prettier – Code Formatter
-
-```bash
-npx prettier . --check    # check formatting
-npx prettier . --write    # auto-fix formatting
-```
-
-### 2) ESLint – Code Linting
-
-```bash
-npx eslint .              # find lint issues
-npx eslint . --fix        # fix fixable ones
-```
-
-### 3) Gitleaks – Secret Scanning
-
-```bash
-npx gitleaks detect --source . --redact
-```
-
-### 4) CodeQL – Static Analysis (optional)
-
-Only needed if you're modifying core logic or want to test local results before pushing:
-
-```bash
-npx codeql database create codeql-db --language=javascript
-npx codeql database analyze codeql-db javascript-code-scanning.qls \
-  --format=sarif-latest \
-  --output=codeql-results.sarif
-```
-
 ## 🧭 Supported Versions
 
-We currently support the latest version of the `development` branch. Security fixes will be released for that version unless otherwise noted.
-**BuiltInPublic is under active development, thanks for helping us build it securely and transparently.**
+We currently support the latest version of the `main` branch. Security fixes will be released for that version unless otherwise noted.
 
 ---
 
