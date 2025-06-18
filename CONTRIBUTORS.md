@@ -23,27 +23,26 @@ Keep your PR focused and descriptive. If you're fixing a bug or adding a feature
 
 To keep your pull requests clean and passing all CI checks, here’s how to run the same security and formatting tools we use in GitHub Actions, locally:
 
-
 ### ✅ Prettier – Code Formatter
 
 ```bash
-npx prettier --check .      # or specify files/globs  
-npx prettier --write .      # or specify files/globs  
+npx prettier --check .      # or specify files/globs
+npx prettier --write .      # or specify files/globs
 
 ```
 
-*This keeps the codebase clean and consistent.*
+_This keeps the codebase clean and consistent._
 
 ---
 
 ### ✅ ESLint – Code Linting
 
 ```bash
-npx eslint .              # or specify files/globs  
-npx eslint . --fix        # or specify files/globs  
+npx eslint .              # or specify files/globs
+npx eslint . --fix        # or specify files/globs
 ```
 
-*Run this before pushing to make sure your code follows project linting rules.*
+_Run this before pushing to make sure your code follows project linting rules._
 
 ---
 
@@ -58,7 +57,7 @@ To avoid committing sensitive info like API keys or tokens:
 gitleaks detect --source . --redact
 ```
 
-*This helps catch secrets before they hit GitHub.*
+_This helps catch secrets before they hit GitHub._
 
 ---
 
@@ -103,7 +102,7 @@ We care deeply about security and ask that you keep the following principles in 
   Always specify and enforce UTF-8 for all input sources to prevent encoding-related attacks.
 
 - **Validation Techniques:**  
-  Use *allow-list validation* for input, only accept what you expect. Check data types, ranges, and lengths before processing.
+  Use _allow-list validation_ for input, only accept what you expect. Check data types, ranges, and lengths before processing.
 
 - **Sanitize Outputs:**  
   Escape and sanitize user input when outputting it to the DOM, APIs, command line, or database.
