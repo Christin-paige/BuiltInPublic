@@ -23,11 +23,11 @@ When reporting, include as much detail as you can:
 
 ## ⏱️ Response & Remediation Timelines
 
-| Severity  | Acknowledge | Fix Timeline |
-|:---------:|:-----------:|:------------:|
-| Critical  | 24 hrs      | 7 days       |
-| High      | 48 hrs      | 14 days      |
-| Medium/Low| 72 hrs      | 30 days      |
+|  Severity  | Acknowledge | Fix Timeline |
+| :--------: | :---------: | :----------: |
+|  Critical  |   24 hrs    |    7 days    |
+|    High    |   48 hrs    |   14 days    |
+| Medium/Low |   72 hrs    |   30 days    |
 
 ---
 
@@ -57,21 +57,29 @@ You don’t have to be a security expert, just keeping an eye out for common pit
 Before opening a PR, run these **in order**:
 
 ### 1) Prettier – Code Formatter
+
 ```bash
 npx prettier . --check    # check formatting
 npx prettier . --write    # auto-fix formatting
 ```
+
 ### 2) ESLint – Code Linting
+
 ```bash
 npx eslint .              # find lint issues
 npx eslint . --fix        # fix fixable ones
 ```
+
 ### 3) Gitleaks – Secret Scanning
+
 ```bash
 npx gitleaks detect --source . --redact
 ```
+
 ### 4) CodeQL – Static Analysis (optional)
+
 Only needed if you're modifying core logic or want to test local results before pushing:
+
 ```bash
 npx codeql database create codeql-db --language=javascript
 npx codeql database analyze codeql-db javascript-code-scanning.qls \
