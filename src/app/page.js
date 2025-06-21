@@ -1,11 +1,16 @@
 import { Share2, MessageSquareCode, MessagesSquare, Shrub } from "lucide-react";
 import Link from "next/link";
 
+
 export default function Home() {
   return (
-    <div className=" bg-[url('/door.jpg')] h-screen bg-cover bg-center min-h-screen flex flex-col items-center justify-center font-sans pt-64 gap-20">
+   <section class="px-10 py-20 bg-gray-900 min-h-screen relative">
+    	<div class="absolute top-0 left-0 size-100 rounded-full bg-radial from-sky-500/60 to-indigo-900/60 via-indigo-900/60 blur-3xl"></div>
+      	<div class="absolute top-50 left-50 w-160 h-100 rounded-full bg-radial from-pink-500/60 to-indigo-600/60 blur-3xl"></div>
+    <div className=" h-screen bg-cover bg-center min-h-screen flex flex-col items-center justify-center font-sans pt-64 gap-20">
+       
       <div className="flex flex-col items-center justify-center text-center max-w-3xl mx-auto px-4 gap-4">
-        <h1 className="text-5xl text-white font-bold">CodeSphere</h1>
+        <h1 className="text-5xl text-white font-bold">BuiltInPublic</h1>
         <h3 className="font-bold text-white text-3xl">
           Where Devs Build in Public - Together
         </h3>
@@ -18,7 +23,7 @@ export default function Home() {
           className="w-sm bg-linear-to-bl from-violet-500 to-fuchsia-500 text-white font-bold py-2 px-4 rounded-full mt-4
         hover:scale-105 transition-all duration-300 cursor-pointer text-xl hover:shadow-lg hover:shadow-violet-500/40"
         >
-          Join the Sphere
+          Join 
         </Link>
       </div>
 
@@ -63,5 +68,6 @@ export default function Home() {
         </div>
       </div>
     </div>
+    </section>
   );
 }
