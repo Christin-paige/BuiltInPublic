@@ -3,8 +3,8 @@ import { supabase } from "../seed";
 // List of the auth users to seed in the database: with email, password, role, name, username, avatar_url
 const users = [
   {
-    email: "codespheredevs+testuser1@gmail.com",
-    password: "codesphere123",
+    email: "builtinpublicdevs+testuser1@gmail.com",
+    password: "builtinpublic123",
     role: "user",
     name: "Test User 1",
     username: "testuser1",
@@ -12,8 +12,8 @@ const users = [
       "https://img.freepik.com/premium-vector/male-face-avatar-icon-set-flat-design-social-media-profiles_1281173-3806.jpg?semt=ais_hybrid&w=740",
   },
   {
-    email: "codespheredevs+testuser2@gmail.com",
-    password: "codesphere123",
+    email: "builtinpublicdevs+testuser2@gmail.com",
+    password: "builtinpublic123",
     role: "user",
     name: "Test User 2",
     username: "testuser2",
@@ -21,8 +21,8 @@ const users = [
       "https://img.freepik.com/premium-vector/male-face-avatar-icon-set-flat-design-social-media-profiles_1281173-3806.jpg?semt=ais_hybrid&w=740",
   },
   {
-    email: "codespheredevs+testuser3@gmail.com",
-    password: "codesphere123",
+    email: "builtinpublicdevs+testuser3@gmail.com",
+    password: "builtinpublic123",
     role: "user",
     name: "Test User 3",
     username: "testuser3",
@@ -30,8 +30,8 @@ const users = [
       "https://img.freepik.com/premium-vector/male-face-avatar-icon-set-flat-design-social-media-profiles_1281173-3806.jpg?semt=ais_hybrid&w=740",
   },
   {
-    email: "codespheredevs+testuser4@gmail.com",
-    password: "codesphere123",
+    email: "builtinpublicdevs+testuser4@gmail.com",
+    password: "builtinpublic123",
     role: "user",
     name: "Test User 4",
     username: "testuser4",
