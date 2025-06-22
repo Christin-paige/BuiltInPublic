@@ -16,14 +16,16 @@ export default function Profile() {
       ) : (
         <Image
           src={data.avatar_url || ""}
-          alt={data.name || ""}
+          alt={data.username || ""}
           width={100}
           height={100}
           className="rounded-full "
         />
       )}
 
-      <h1 className="text-md font-bold justify-items-center">{data?.name}</h1>
+      <h1 className="text-md font-bold justify-items-center">
+        {data?.username}
+      </h1>
     </div>
   );
 }

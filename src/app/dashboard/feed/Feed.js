@@ -6,7 +6,7 @@ import { createClient } from "utils/supabase/server";
 export default async function Feed() {
   const supabase = await createClient();
 
-  const { data: posts } = await supabase
+  const { data: posts, user } = await supabase
     .from("posts")
     .select("*, profiles(*), likes(*)");
 
