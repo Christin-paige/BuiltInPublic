@@ -25,7 +25,7 @@ export default function Page() {
         <div className="flex items-center gap-2 justify-center mr-4">
           <Globe />
 
-          <h1 className="text-2xl font-bold">CodeSphere</h1>
+          <h1 className="text-2xl font-bold">BuiltInPublic</h1>
         </div>
         <p className="text-md text-gray-300">Register or Sign In</p>
         <Button

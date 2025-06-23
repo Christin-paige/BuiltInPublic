@@ -29,11 +29,11 @@ export default function NavBar() {
     <nav className="fixed top-0 w-full flex items-center justify-between px-10 py-2 bg-black opacity-75 z-50">
       <Link href="/">
         <Image
-          src="/logo3.png"
-          alt="codesphere logo"
-          width={224}
-          height={48}
-          className="w-56 hover:opacity-80 transition-all duration-100"
+          src="/BuiltInPublic.png"
+          alt="BuiltInPublic logo"
+          width={300}
+          height={65}
+          className="hover:opacity-80 transition-all duration-100"
         />
       </Link>
       <div className="flex items-center gap-5 text-lg">
