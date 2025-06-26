@@ -3,9 +3,9 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <section class="px-10 py-20 bg-gray-900 min-h-screen relative">
-      <div class="absolute top-0 left-0 size-100 rounded-full bg-radial from-sky-500/60 to-indigo-900/60 via-indigo-900/60 blur-3xl"></div>
-      <div class="absolute top-50 left-50 w-160 h-100 rounded-full bg-radial from-pink-500/60 to-indigo-600/60 blur-3xl"></div>
+    <section className="px-10 py-20 bg-gray-900 min-h-screen relative">
+      <div className="absolute top-0 left-0 size-100 rounded-full bg-radial from-sky-500/60 to-indigo-900/60 via-indigo-900/60 blur-3xl"></div>
+      <div className="absolute top-50 left-50 w-160 h-100 rounded-full bg-radial from-pink-500/60 to-indigo-600/60 blur-3xl"></div>
       <div className=" h-screen bg-cover bg-center min-h-screen flex flex-col items-center justify-center font-sans pt-64 gap-20">
         <div className="flex flex-col items-center justify-center text-center max-w-3xl mx-auto px-4 gap-4">
           <h1 className="text-5xl text-white font-bold">BuiltInPublic</h1>
