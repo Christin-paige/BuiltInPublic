@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import ProfileIcon from "../ProfileIcon";
@@ -8,7 +9,6 @@ import { signOutUser } from "./actions";
 import supabaseClient from "utils/supabase/client";
 
 export default function NavBar() {
-  // Get the user from the client
   const { data: user } = useUser();
 
   // Sign out the user

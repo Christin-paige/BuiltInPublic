@@ -1,13 +1,11 @@
 "use server";
 
-import { Profile, ProfileRepository } from "@/repositories/profiles.repository";
-import { SupabaseClient } from "@supabase/supabase-js";
-import { Database } from "supabase/supabase.types";
-import { createClient } from "utils/supabase/server";
-import { Maybe } from "utils/types";
+import { Profile } from "@/repositories/profileRepository/profile.types";
+import { ProfileRepository } from "@/repositories/profileRepository/profile.repository";
+import { createAnonClient, SupabaseAnonClient } from "utils/supabase/server";
 
-export async function getCurrentUser(): Promise<Maybe<Profile>> {
-  const supabase: SupabaseClient<Database> = await createClient();
+export async function getCurrentUser(): Promise<Profile | null> {
+  const supabase: SupabaseAnonClient = await createAnonClient();
   const profileRepository = new ProfileRepository(supabase);
 
   const userProfile = await profileRepository.getCurrentUser();
