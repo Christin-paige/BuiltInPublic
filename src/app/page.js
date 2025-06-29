@@ -3,10 +3,10 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <section className="px-4 md:px-10 py-20 w-full bg-gray-900 min-h-screen relative">
+    <section className="px-4 md:px-10 py-20 w-full h-full bg-gray-900 min-h-screen relative">
       <div className="absolute top-0 left-0 size-40 md:size-100 xl:size-120 rounded-full bg-radial from-sky-500/60 to-indigo-900/60 via-indigo-900/60 blur-3xl"></div>
       <div className="absolute top-[15%] md:top-[20%] lg:top-[20%] left-[-10] md:left-[25%] xl:left-[30%] w-full md:w-1/2 xl:w-2/5 h-1/5 lg:h-1/4 xl:h-1/3 rounded-full bg-radial from-pink-500/60 to-indigo-600/60 blur-3xl"></div>
-      <div className=" h-full bg-cover bg-center flex flex-col items-center justify-center font-sans pt-64 pb-8 gap-20">
+      <div className="relative pt-[20vh] h-full bg-cover bg-center flex flex-col items-center justify-center font-sans pb-8 gap-20">
         <div className="flex flex-col items-center justify-center text-center max-w-3xl w-full md:w-1/2 mx-auto px-4 gap-4">
           <h1 className="text-5xl text-white font-bold">BuiltInPublic</h1>
           <h3 className="font-bold text-white text-3xl">
