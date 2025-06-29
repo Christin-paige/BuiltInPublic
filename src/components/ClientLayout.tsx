@@ -15,9 +15,9 @@ export default function ClientLayout({
   const shouldShowNavBar = !hideNavBar.includes(pathname);
 
   return (
-    <>
+    <main className="w-full">
       {shouldShowNavBar && <NavBar />}
       {children}
-    </>
+    </main>
   );
 }
