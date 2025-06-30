@@ -1,21 +1,22 @@
 name: Semgrep Scan
 
-# triggers
 on:
   pull_request:
+    branches:
+      - development
+  push:
     branches:
       - development
 
 jobs:
   semgrep:
     runs-on: ubuntu-latest
+    container:
+      image: semgrep/semgrep:1.127.1
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Run Semgrep via Docker
-        run: npm run semgrep
+      - name: Run Semgrep scan
+        run: semgrep scan --config .semgrep.yml --error
