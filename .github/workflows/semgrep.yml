@@ -9,18 +9,13 @@ on:
 jobs:
   semgrep:
     runs-on: ubuntu-latest
-    container:
-      image: semgrep/semgrep:1.127.1
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - name: Run Semgrep scan
-        run: |
-          semgrep scan \
-            --config p/default \
-            --config p/owasp-top-ten \
-            --config security/semgrep/general.yml \
-            --exclude supabase/seed.sql \
-            --metrics=off \
-            --error
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Semgrep via Docker
+        run: npm run semgrep
