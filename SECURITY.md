@@ -54,7 +54,7 @@ You don’t have to be a security expert, just keeping an eye out for common pit
 
 ## 🧭 Supported Versions
 
-We currently support the latest version of the `main` branch. Security fixes will be released for that version unless otherwise noted.
+We currently support the latest version of the `development` branch. Security fixes will be released for that version unless otherwise noted.
 
 ---
 
