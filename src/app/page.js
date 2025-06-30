@@ -3,11 +3,11 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <section className="px-10 py-20 bg-gray-900 min-h-screen relative">
-      <div className="absolute top-0 left-0 size-100 rounded-full bg-radial from-sky-500/60 to-indigo-900/60 via-indigo-900/60 blur-3xl"></div>
-      <div className="absolute top-50 left-50 w-160 h-100 rounded-full bg-radial from-pink-500/60 to-indigo-600/60 blur-3xl"></div>
-      <div className=" h-screen bg-cover bg-center min-h-screen flex flex-col items-center justify-center font-sans pt-64 gap-20">
-        <div className="flex flex-col items-center justify-center text-center max-w-3xl mx-auto px-4 gap-4">
+    <section className="px-4 md:px-10 py-20 w-full h-full bg-gray-900 min-h-screen relative">
+      <div className="absolute top-0 left-0 size-40 md:size-100 xl:size-120 rounded-full bg-radial from-sky-500/60 to-indigo-900/60 via-indigo-900/60 blur-3xl"></div>
+      <div className="absolute top-[15%] md:top-[20%] lg:top-[20%] left-[-10] md:left-[25%] xl:left-[30%] w-full md:w-1/2 xl:w-2/5 h-1/5 lg:h-1/4 xl:h-1/3 rounded-full bg-radial from-pink-500/60 to-indigo-600/60 blur-3xl"></div>
+      <div className="relative pt-[20vh] h-full bg-cover bg-center flex flex-col items-center justify-center font-sans pb-8 gap-20">
+        <div className="flex flex-col items-center justify-center text-center max-w-3xl w-full md:w-1/2 mx-auto px-4 gap-4">
           <h1 className="text-5xl text-white font-bold">BuiltInPublic</h1>
           <h3 className="font-bold text-white text-3xl">
             Where Devs Build in Public - Together
@@ -18,14 +18,14 @@ export default function Home() {
           </p>
           <Link
             href="/auth"
-            className="w-sm bg-linear-to-bl from-violet-500 to-fuchsia-500 text-white font-bold py-2 px-4 rounded-full mt-4
+            className="w-xs md:w-sm bg-linear-to-bl from-violet-500 to-fuchsia-500 text-white font-bold py-2 px-4 rounded-full mt-4
         hover:scale-105 transition-all duration-300 cursor-pointer text-xl hover:shadow-lg hover:shadow-violet-500/40"
           >
             Join
           </Link>
         </div>
 
-        <div className="flex w-full justify-around px-20">
+        <div className="flex w-full md:-3/4 lg:w-2/3 justify-around px-2 gap-8 md:px-20">
           <div className="flex flex-col items-center">
             <Share2 size={36} />
             <h3 className="font-bold text-lg">Post</h3>
@@ -48,7 +48,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="flex w-full justify-around gap-64 px-32">
+        <div className="grid grid-cols-1 md:grid-cols-3 w-full lg:w-2/3 gap-x-8 xl:gap-x-20 gap-y-8">
           <div className="flex flex-col text-center border-2 border-cyan-500 p-4 bg-black/40 flex-1">
             <p className="font-bold text-xl">1</p>
             <p className="font-bold text-xl">Create a build log</p>
