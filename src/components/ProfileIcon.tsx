@@ -12,8 +12,8 @@ export default function ProfileIcon() {
   return (
     <div>
       <Image
-        src={data.avatar_url || "/default-avatar.png"}
-        alt={data.name || "User profile"}
+        src={data.avatarUrl || "/default-avatar.png"}
+        alt={data.username || "User profile"}
         width={50}
         height={50}
         className="rounded-full"
