@@ -17,11 +17,11 @@ export class ProfileRepository extends BaseRepository<ProfileDTO, Profile> {
   }
 
   transformDTO(row: ProfileDTO): Profile {
-    const { id, name, avatar_url } = row;
+    const { id, username, avatar_url } = row;
 
     return {
       id,
-      name: name || "Unknown",
+      username: username || "Unknown",
       avatarUrl: avatar_url || "",
     } satisfies Profile;
   }
@@ -38,6 +38,7 @@ export class ProfileRepository extends BaseRepository<ProfileDTO, Profile> {
       }
 
       const profile = await this.getById(user.id);
+
       return profile;
     } catch (e) {
       throw e;
@@ -48,13 +49,15 @@ export class ProfileRepository extends BaseRepository<ProfileDTO, Profile> {
     try {
       const query = this.getBaseQuery();
 
-      const { data, error } = await this.applyFilters(query, { id });
+      const { data, error } = await this.applyFilters(query, {
+        id,
+      }).maybeSingle();
 
       if (!data || error) {
         throw new Error("Cannot find profile");
       }
 
-      const profile = this.transformDTO(data);
+      const profile = this.transformDTO(data as ProfileDTO);
 
       return profile;
     } catch (e) {

@@ -1,10 +1,10 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import Likes from "./likes";
-import { createClient } from "utils/supabase/server";
+import { createAnonClient } from "utils/supabase/server";
 
 export default async function Feed() {
-  const supabase = await createClient();
+  const supabase = await createAnonClient();
 
   const { data: posts, user } = await supabase
     .from("posts")
