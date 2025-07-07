@@ -1,18 +1,19 @@
 ---
 name: New Feature Request
 about: Suggest a new feature for BuiltInPublic
-title: ''
-labels: ''
-assignees: ''
-
+title: ""
+labels: ""
+assignees: ""
 ---
 
 ---
+
 name: 🚀 Feature Request
 about: Suggest a new feature for BuiltInPublic
 title: "[Feature]: "
 labels: ["feature"]
 assignees: ''
+
 ---
 
 ## 🚀 Feature Summary
@@ -37,7 +38,6 @@ _So that_ [the benefit or value it provides].
 ---
 
 ## 🖼️ Design References
-
 
 _If applicable, please include a screenshot or mockup of the feature or design. You can drag and drop an image into this field, or click the "Attach files" icon._
 
@@ -67,8 +67,9 @@ _Optional notes about implementation, libraries, or challenges to consider._
 
 _List any related GitHub issues, PRs, or user stories._
 
-> Example:  
-> - #42 Create Public Profile Card  
+> Example:
+>
+> - #42 Create Public Profile Card
 > - User Story 3: Public sharing of progress
 
 ---
