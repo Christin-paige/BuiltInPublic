@@ -44,7 +44,7 @@
     "@types/react": "19.1.8",
     "@vitejs/plugin-react": "^4.4.1",
     "eslint": "^9",
-    "eslint-config-next": "15.3.4",
+    "eslint-config-next": "15.3.5",
     "jsdom": "^26.1.0",
     "tailwindcss": "^4",
     "tsx": "^4.20.1",
