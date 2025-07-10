@@ -17,7 +17,7 @@
     "@radix-ui/react-slot": "^1.2.0",
     "@supabase/auth-helpers-nextjs": "^0.10.0",
     "@supabase/gotrue-js": "^2.69.1",
-    "@supabase/postgrest-js": "^1.19.4",
+    "@supabase/postgrest-js": "^1.21.0",
     "@supabase/ssr": "^0.6.1",
     "@supabase/supabase-js": "^2.50.3",
     "@tanstack/react-query": "^5.80.7",
