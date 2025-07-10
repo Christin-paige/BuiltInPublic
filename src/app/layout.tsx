@@ -1,8 +1,8 @@
 import "../app/globals.css";
 import Footer from "../components/footer";
-import { ThemeProvider } from "../components/themes-provider";
+import { ThemeProvider } from "../components/providers/themes-provider";
 import ClientLayout from "@/components/ClientLayout";
-import QueryProvider from "@/components/query-provider";
+import QueryProvider from "@/components/providers/query-provider";
 
 export default async function RootLayout({
   children,
