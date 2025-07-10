@@ -1,7 +1,6 @@
 import "../app/globals.css";
 import Footer from "../components/footer";
 import { ThemeProvider } from "../components/providers/themes-provider";
-import ClientLayout from "@/components/ClientLayout";
 import QueryProvider from "@/components/providers/query-provider";
 
 export default async function RootLayout({
@@ -19,7 +18,7 @@ export default async function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <ClientLayout>{children}</ClientLayout>
+            {children}
             <Footer />
           </ThemeProvider>
         </QueryProvider>
