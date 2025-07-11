@@ -15,7 +15,7 @@ export default function Profile() {
         <h1>profile</h1>
       ) : (
         <Image
-          src={data.avatar_url || ""}
+          src={data.avatarUrl || ""}
           alt={data.username || ""}
           width={100}
           height={100}

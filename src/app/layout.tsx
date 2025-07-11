@@ -1,8 +1,6 @@
 import "../app/globals.css";
 import Footer from "../components/footer";
-import { ThemeProvider } from "../components/themes-provider";
-import ClientLayout from "@/components/ClientLayout";
-import QueryProvider from "@/components/query-provider";
+import { ThemeProvider } from "../components/providers/themes-provider";
 
 export default async function RootLayout({
   children,
@@ -12,17 +10,15 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body>
-        <QueryProvider>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="dark"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <ClientLayout>{children}</ClientLayout>
-            <Footer />
-          </ThemeProvider>
-        </QueryProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );
