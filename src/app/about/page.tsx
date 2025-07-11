@@ -1,4 +1,6 @@
-export default function About() {
+import type { FC } from "react";
+
+const About: FC = () => {
   return (
     <div className="flex flex-col items-center justify-center pt-45 min-h-screen bg-gradient-to-b from-[#1d1d1d] to-[#86059F] p-8 text-white">
       <h1 className="text-4xl font-bold text-center mb-8">
@@ -60,4 +62,6 @@ export default function About() {
       </section>
     </div>
   );
-}
+};
+
+export default About;
