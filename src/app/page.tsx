@@ -1,6 +1,13 @@
-import { Share2, MessageSquareCode, MessagesSquare, Shrub } from "lucide-react";
+// app/page.tsx or src/pages/index.tsx (depending on your structure)
+
+import { FC } from "react";
+import {
+  Share2,
+  MessageSquareCode,
+  MessagesSquare,
+  Shrub,
+} from "lucide-react";
 import Link from "next/link";
-import type { FC } from "react";
 
 const Home: FC = () => {
   return (
@@ -20,7 +27,7 @@ const Home: FC = () => {
           <Link
             href="/auth"
             className="w-xs md:w-sm bg-linear-to-bl from-violet-500 to-fuchsia-500 text-white font-bold py-2 px-4 rounded-full mt-4
-              hover:scale-105 transition-all duration-300 cursor-pointer text-xl hover:shadow-lg hover:shadow-violet-500/40"
+            hover:scale-105 transition-all duration-300 cursor-pointer text-xl hover:shadow-lg hover:shadow-violet-500/40"
           >
             Join
           </Link>
