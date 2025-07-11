@@ -48,7 +48,7 @@ export async function updateSession(request: NextRequest) {
     (route) => path === route || path.startsWith(route),
   );
 
-  const isAuthRoute = publicRoutes.some(
+  const isPublicRoute = publicRoutes.some(
     (route) => path === route || path.startsWith(route),
   );
 
@@ -58,7 +58,7 @@ export async function updateSession(request: NextRequest) {
     return NextResponse.redirect(redirectUrl);
   }
 
-  if (isAuthRoute && user) {
+  if (isPublicRoute && user) {
     const redirectUrl = new URL("/dashboard", request.url);
 
     return NextResponse.redirect(redirectUrl);
