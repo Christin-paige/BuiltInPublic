@@ -1,6 +1,6 @@
-import '../../app/globals.css';
-import { ThemeProvider } from '@/components/providers/themes-provider';
-import QueryProvider from '@/components/providers/query-provider';
+import "../../app/globals.css";
+import { ThemeProvider } from "@/components/providers/themes-provider";
+import QueryProvider from "@/components/providers/query-provider";
 
 export default async function MainLayout({
   children,
@@ -10,10 +10,11 @@ export default async function MainLayout({
   return (
     <QueryProvider>
       <ThemeProvider
-        attribute='class'
-        defaultTheme='dark'
+        attribute="class"
+        defaultTheme="dark"
         enableSystem
-        disableTransitionOnChange>
+        disableTransitionOnChange
+      >
         {children}
       </ThemeProvider>
     </QueryProvider>
