@@ -47,6 +47,7 @@
     "eslint": "^9",
     "eslint-config-next": "15.3.5",
     "jsdom": "^26.1.0",
+    "supabase": "^2.30.4",
     "tailwindcss": "^4",
     "tsx": "^4.20.1",
     "tw-animate-css": "^1.2.8",

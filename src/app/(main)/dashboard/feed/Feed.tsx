@@ -1,5 +1,5 @@
 import { cookies } from "next/headers";
-import Likes from "./Likes";
+import Likes from "./likes";
 import { createAnonClient } from "utils/supabase/server";
 import type { Database } from "@/supabase/supabase.types";
 
