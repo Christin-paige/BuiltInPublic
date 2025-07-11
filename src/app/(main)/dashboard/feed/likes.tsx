@@ -33,11 +33,7 @@ const Likes: FC<LikesProps> = ({ post, user }) => {
     }
   };
 
-  return (
-    <button onClick={handleLikes}>
-      {post.likes?.length ?? 0} Likes
-    </button>
-  );
+  return <button onClick={handleLikes}>{post.likes?.length ?? 0} Likes</button>;
 };
 
 export default Likes;

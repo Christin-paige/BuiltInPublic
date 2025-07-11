@@ -11,7 +11,9 @@ type Contribution = {
 const StreakSection = (): JSX.Element => {
   const [view, setView] = useState<"calendar" | "github">("calendar");
 
-  const selectLastHalfYear = (contributions: Contribution[]): Contribution[] => {
+  const selectLastHalfYear = (
+    contributions: Contribution[],
+  ): Contribution[] => {
     const currentYear = new Date().getFullYear();
     const currentMonth = new Date().getMonth();
 

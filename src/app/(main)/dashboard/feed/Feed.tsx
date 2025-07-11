@@ -15,10 +15,7 @@ type User = Database["public"]["Tables"]["profiles"]["Row"] | null;
 const Feed = async () => {
   const supabase = await createAnonClient();
 
-  const {
-    data: posts,
-    error,
-  } = await supabase
+  const { data: posts, error } = await supabase
     .from("posts")
     .select("*, profiles(name), likes(*)");
 
