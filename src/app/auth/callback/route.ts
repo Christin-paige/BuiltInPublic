@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 // The client you created from the Server-Side Auth instructions
-import { createClient } from "../../../../utils/supabase/server";
+import { createAnonClient } from "../../../../utils/supabase/server";
 import { isSafeNextPath } from "@/lib/utils";
 
 export async function GET(request: Request) {
@@ -10,7 +10,7 @@ export async function GET(request: Request) {
   const rawNext = searchParams.get("next") ?? "/";
   const next = isSafeNextPath(rawNext) ? rawNext : "/";
   if (code) {
-    const supabase = await createClient();
+    const supabase = await createAnonClient();
     const { error } = await supabase.auth.exchangeCodeForSession(code);
     if (!error) {
       const forwardedHost = request.headers.get("x-forwarded-host"); // original origin before load balancer
