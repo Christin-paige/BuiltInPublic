@@ -9,7 +9,7 @@
     "lint": "next lint",
     "test": "vitest",
     "test:watch": "vitest --watch",
-    "db:migrate": "supabase db reset --no-seed",
+    "db:migrate": "supabase db reset",
     "db:seed": "tsx scripts/seed.ts",
     "db:setup": "npm run db:migrate && npm run db:seed"
   },
