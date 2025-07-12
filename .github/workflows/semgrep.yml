@@ -1,0 +1,46 @@
+name: Semgrep Scan
+
+on:
+  push:
+    branches:
+      - development
+  pull_request:
+    branches:
+      - development
+
+jobs:
+  semgrep:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Checkout your code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. Set up Python 3.x
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.x"
+
+      # 3. Install Semgrep
+      - name: Install Semgrep
+        run: pip install semgrep
+
+      # 4. Authenticate to Semgrep App (for Pro rules)
+      - name: Log in to Semgrep App
+        env:
+          SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
+        run: semgrep login --token "$SEMGREP_APP_TOKEN"
+
+      # 5. Run Semgrep scan (including Pro registry rules)
+      - name: Run Semgrep scan
+        env:
+          SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
+        run: |
+          semgrep ci \
+            --config p/default \
+            --config p/owasp-top-ten \
+            --config ./security/semgrep \
+            --exclude supabase/seed.sql \
+            --metrics=off \
+            --error
