@@ -1,6 +1,5 @@
 import { Profile } from "@/repositories/profileRepository/profile.types";
 import { Settings } from "lucide-react";
-import React, { FC } from "react";
 
 interface UserInfoProps {
   profile: Profile;
