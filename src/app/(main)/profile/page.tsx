@@ -1,41 +1,46 @@
-// app/(main)/dashboard/Dashboard.tsx
+"use client";
 
-import React, { FC } from "react";
-import Projects from "./projects/ProjectList";
-import FriendsProjects from "./friends-projects/FriendsProjects";
-import Stats from "./stats/Stats";
-import Feed from "./feed/Feed";
-import Profile from "./profile/Profile";
-import Groups from "./groups/Groups";
+import { FC } from "react";
+import useUser from "@/hooks/useUser/useUser";
+import Image from "next/image";
 
-const Dashboard: FC = async () => {
+interface User {
+  id: string;
+  username: string | null;
+  avatarUrl: string | null;
+}
+
+interface UseUserResponse {
+  isLoading: boolean;
+  data: User | null;
+}
+
+const Profile: FC = () => {
+  const { isLoading, data } = useUser() as UseUserResponse;
+
+  if (isLoading) {
+    return <></>;
+  }
+
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-6 gap-3 pt-45 p-4 overflow-hidden bg-gray-900 text-white">
-      <div className="row-span-1 row-start-1 flex flex-col overflow-auto">
-        <Profile />
-      </div>
+    <div className="flex flex-col items-center justify-center text-center max-w-3xl mx-auto px-4 gap-4">
+      {!data?.id ? (
+        <h1>profile</h1>
+      ) : (
+        <Image
+          src={data.avatarUrl || "/default-avatar.png"}
+          alt={data.username || "User avatar"}
+          width={100}
+          height={100}
+          className="rounded-full"
+        />
+      )}
 
-      <div className="row-span-3 row-start-2 flex flex-col overflow-auto">
-        <Projects />
-      </div>
-
-      <div className="col-span-4 flex flex-col overflow-auto">
-        <FriendsProjects />
-      </div>
-
-      <div className="col-span-1 overflow-auto">
-        <Stats />
-      </div>
-
-      <div className="col-span-1 col-start-6 overflow-auto">
-        <Groups />
-      </div>
-
-      <div className="lg:col-start-2 lg:col-span-4 row-start-2 flex flex-col h-[650px] overflow-auto">
-        <Feed />
-      </div>
+      <h1 className="text-md font-bold justify-items-center">
+        {data?.username}
+      </h1>
     </div>
   );
 };
 
-export default Dashboard;
+export default Profile;
