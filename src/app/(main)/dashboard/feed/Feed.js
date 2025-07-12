@@ -1,6 +1,6 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
-import Likes from "./likes";
+import Likes from "./Likes";
 import { createAnonClient } from "utils/supabase/server";
 
 export default async function Feed() {

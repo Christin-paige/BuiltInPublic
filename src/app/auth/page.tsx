@@ -6,7 +6,7 @@ import { Button } from "../../../@/components/ui/button";
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa6";
 import supabaseClient from "../../../utils/supabase/client";
-import DevSignIn from "./dev-signin";
+import DevSignIn from "./DevSignIn";
 
 export default function Page() {
   const handleLoginWithOAuth = (provider: "github" | "google") => {

@@ -1,6 +1,6 @@
 import "../app/globals.css";
-import Footer from "../components/footer";
-import { ThemeProvider } from "../components/providers/themes-provider";
+import Footer from "../components/Footer";
+import { ThemeProvider } from "../components/Providers/ThemeProvider";
 
 export default async function RootLayout({
   children,
