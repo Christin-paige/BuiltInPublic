@@ -137,7 +137,11 @@ Before getting started, make sure you have the following installed:
 
 ---
 
-## 🚀 [Start Contributing Today!](https://github.com/Christin-paige/BuiltInPublic/wiki)
+## 🚀 Join the Movement
+
+Wanna help make this platform amazing? Whether it’s code, content, or good vibes — your contributions matter.
+
+👉 [Start Contributing Today!](https://github.com/Christin-paige/BuiltInPublic/wiki)
 
 ---
 
