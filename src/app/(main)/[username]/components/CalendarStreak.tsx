@@ -1,12 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { FC, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-const CalendarStreak = (): JSX.Element => {
-  const [currentDate, setCurrentDate] = useState<Date>(new Date());
+const CalendarStreak: FC = () => {
+  const [currentDate, setCurrentDate] = useState(new Date());
 
-  const generateStreakDays = (): Date[] => {
+  const generateStreakDays = () => {
     const today = new Date();
     const streakDays: Date[] = [];
 
@@ -28,20 +28,18 @@ const CalendarStreak = (): JSX.Element => {
   };
 
   const streakDays = generateStreakDays();
-
-  const daysInMonth: number = new Date(
+  const daysInMonth = new Date(
     currentDate.getFullYear(),
     currentDate.getMonth() + 1,
     0,
   ).getDate();
-
-  const firstDayOfMonth: number = new Date(
+  const firstDayOfMonth = new Date(
     currentDate.getFullYear(),
     currentDate.getMonth(),
     1,
   ).getDay();
 
-  const monthNames: string[] = [
+  const monthNames = [
     "January",
     "February",
     "March",
@@ -68,7 +66,7 @@ const CalendarStreak = (): JSX.Element => {
     );
   };
 
-  const isStreakDay = (day: number): boolean => {
+  const isStreakDay = (day: number) => {
     return streakDays.some(
       (streakDay) =>
         streakDay.getDate() === day &&
@@ -77,7 +75,7 @@ const CalendarStreak = (): JSX.Element => {
     );
   };
 
-  const calculateCurrentStreak = (): number => {
+  const calculateCurrentStreak = () => {
     let streak = 0;
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -86,7 +84,7 @@ const CalendarStreak = (): JSX.Element => {
       const date = new Date(streakDays[i]);
       date.setHours(0, 0, 0, 0);
 
-      if (date.getTime() === today.getTime() - i * 24 * 60 * 60 * 1000) {
+      if (date.getTime() === today.getTime() - i * 86400000) {
         streak++;
       } else {
         break;
