@@ -1,11 +1,8 @@
-name: "CodeQL Analysis"
+name: CodeQL Weekly Analysis
 
 on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
   schedule:
+    # Every Sunday at 00:00 UTC
     - cron: "0 0 * * 0"
 
 jobs:
@@ -22,8 +19,11 @@ jobs:
         language: [javascript, typescript]
 
     steps:
-      - name: Checkout code
+      - name: Checkout development
         uses: actions/checkout@v4
+        with:
+          ref: development
+          fetch-depth: 0
 
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
