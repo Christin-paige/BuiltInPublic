@@ -1,25 +1,12 @@
 "use client";
 
-<<<<<<< HEAD
-<<<<<<< HEAD:src/app/(main)/[username]/page.tsx
 import React, { use } from "react";
-=======
-import React from "react";
->>>>>>> aeb5d0f (Finished updating all 16 js files left to be tsx files):src/app/(main)/profile/page.tsx
-=======
-import React, { use } from "react";
->>>>>>> f6b648f (fix merge conflicts)
 import "./profile.css";
 import Image from "next/image";
 import FeedSection from "./components/FeedSection";
 import UserInfo from "./components/UserInfo";
 import StreakSection from "./components/StreakSection";
 import GradientBlobs from "./components/GradientBlobs";
-<<<<<<< HEAD
-<<<<<<< HEAD:src/app/(main)/[username]/page.tsx
-<<<<<<<< HEAD:src/app/(main)/[username]/page.tsx
-=======
->>>>>>> f6b648f (fix merge conflicts)
 import useProfile from "@/hooks/useProfile/useProfile";
 import { notFound } from "next/navigation";
 
@@ -43,17 +30,6 @@ export default function Profile({ params }: ProfileProps) {
     return notFound();
   }
 
-<<<<<<< HEAD
-========
-
-const Profile = (): JSX.Element => {
->>>>>>>> aeb5d0f (Finished updating all 16 js files left to be tsx files):src/app/(main)/profile/page.js
-=======
-
-const Profile = (): JSX.Element => {
->>>>>>> aeb5d0f (Finished updating all 16 js files left to be tsx files):src/app/(main)/profile/page.tsx
-=======
->>>>>>> f6b648f (fix merge conflicts)
   return (
     <main className="h-screen flex flex-col py-16 items-center gap-8 -z-10 overflow-hidden">
       <Image
@@ -66,24 +42,10 @@ const Profile = (): JSX.Element => {
 
       <div className="flex p-8 gap-12 w-full relative">
         <GradientBlobs />
-<<<<<<< HEAD
-<<<<<<< HEAD:src/app/(main)/[username]/page.tsx
         <UserInfo profile={profile} />
-=======
-        <UserInfo />
->>>>>>> aeb5d0f (Finished updating all 16 js files left to be tsx files):src/app/(main)/profile/page.tsx
-=======
-        <UserInfo profile={profile} />
->>>>>>> f6b648f (fix merge conflicts)
         <FeedSection />
         <StreakSection />
       </div>
     </main>
   );
-<<<<<<< HEAD
-};
-
-export default Profile;
-=======
 }
->>>>>>> f6b648f (fix merge conflicts)
