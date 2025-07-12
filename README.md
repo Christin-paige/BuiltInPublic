@@ -136,8 +136,9 @@ Before getting started, make sure you have the following installed:
 │   │   └── server.ts
 │   └── types.ts
 └── vitest.config.mts
-</details>
 ```
+
+</details>
 
 ---
 
