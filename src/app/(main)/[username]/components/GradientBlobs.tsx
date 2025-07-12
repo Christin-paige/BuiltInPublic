@@ -1,11 +1,16 @@
 import { useState, useEffect } from "react";
 
-export default function GradientBlobs() {
-  const [blobPositions, setBlobPositions] = useState([]);
+interface BlobPosition {
+  x: number;
+  y: number;
+  size: number;
+}
+
+const GradientBlobs = () => {
+  const [blobPositions, setBlobPositions] = useState<BlobPosition[]>([]);
 
   const numBlobs = 8;
 
-  // Define gradient combinations for the blobs
   const gradientCombinations = [
     "from-purple-600 to-pink-600",
     "from-blue-600 to-cyan-600",
@@ -18,7 +23,6 @@ export default function GradientBlobs() {
   ];
 
   useEffect(() => {
-    // Generate random positions for all blobs
     const positions = Array.from({ length: numBlobs }, () => ({
       x: Math.random() * window.innerWidth,
       y: Math.random() * window.innerHeight,
@@ -42,4 +46,6 @@ export default function GradientBlobs() {
       ))}
     </>
   );
-}
+};
+
+export default GradientBlobs;
