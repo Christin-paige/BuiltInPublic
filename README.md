@@ -8,11 +8,11 @@ This is a work-in-progress so feel free to follow along or contribute!
 
 ## 🛠️ Tech Stack
 
-- **Frontend:** Next.js, TypeScript, Tailwind CSS  
-- **Backend:** Supabase  
-- **Auth:** Supabase Auth  
-- **Database:** PostgreSQL (via Supabase)  
-- **Deployment:** Vercel  
+- **Frontend:** Next.js, TypeScript, Tailwind CSS
+- **Backend:** Supabase
+- **Auth:** Supabase Auth
+- **Database:** PostgreSQL (via Supabase)
+- **Deployment:** Vercel
 - **Linting & Formatting:** ESLint, Prettier
 
 ---
@@ -33,7 +33,7 @@ Before getting started, make sure you have the following installed:
 <details>
 <summary>📁 Click to expand project file structure</summary>
 
-```plaintext
+````plaintext
 .
 ├── @
 │   └── components
@@ -149,7 +149,7 @@ Wanna help make this platform amazing? Whether it’s code, content, or good vib
 
 ## 📚 Setting up your environment
 
-Wanna get this thing running? You’ll need a few secrets in place first.  
+Wanna get this thing running? You’ll need a few secrets in place first.
 Head over to our [Environment Setup Guide](https://github.com/Christin-paige/BuiltInPublic/wiki/Environment) for everything you need to configure your `.env` file, Supabase keys, and more.
 
 ---
@@ -170,3 +170,4 @@ Head over to our [Environment Setup Guide](https://github.com/Christin-paige/Bui
 - [Connect with me on LinkedIn](https://www.linkedin.com/in/christin-martin)
 
 - Happy to collaborate and make this a great app!
+````
