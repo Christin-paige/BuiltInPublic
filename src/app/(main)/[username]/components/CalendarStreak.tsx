@@ -1,25 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import { FC, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-export default function CalendarStreak() {
+const CalendarStreak: FC = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
 
-  // Generate streak days for the past 30 days
   const generateStreakDays = () => {
     const today = new Date();
-    const streakDays = [];
+    const streakDays: Date[] = [];
 
-    // Generate a pattern of activity
     for (let i = 0; i < 30; i++) {
       const date = new Date(today);
       date.setDate(today.getDate() - i);
 
-      // Simulate activity with some patterns:
-      // 1. More likely to have activity on weekdays (80% chance)
-      // 2. Less likely on weekends (30% chance)
-      // 3. Create some consecutive streaks
       const isWeekend = date.getDay() === 0 || date.getDay() === 6;
       const random = Math.random();
 
@@ -34,13 +28,11 @@ export default function CalendarStreak() {
   };
 
   const streakDays = generateStreakDays();
-
   const daysInMonth = new Date(
     currentDate.getFullYear(),
     currentDate.getMonth() + 1,
     0,
   ).getDate();
-
   const firstDayOfMonth = new Date(
     currentDate.getFullYear(),
     currentDate.getMonth(),
@@ -74,7 +66,7 @@ export default function CalendarStreak() {
     );
   };
 
-  const isStreakDay = (day) => {
+  const isStreakDay = (day: number) => {
     return streakDays.some(
       (streakDay) =>
         streakDay.getDate() === day &&
@@ -83,7 +75,6 @@ export default function CalendarStreak() {
     );
   };
 
-  // Calculate current streak
   const calculateCurrentStreak = () => {
     let streak = 0;
     const today = new Date();
@@ -93,7 +84,7 @@ export default function CalendarStreak() {
       const date = new Date(streakDays[i]);
       date.setHours(0, 0, 0, 0);
 
-      if (date.getTime() === today.getTime() - i * 24 * 60 * 60 * 1000) {
+      if (date.getTime() === today.getTime() - i * 86400000) {
         streak++;
       } else {
         break;
@@ -150,12 +141,11 @@ export default function CalendarStreak() {
           return (
             <div
               key={day}
-              className={`aspect-square flex items-center justify-center rounded-lg transition-colors
-                ${
-                  isStreak
-                    ? " bg-pink-700 hover:bg-pink-800"
-                    : "hover:bg-slate-800"
-                }`}
+              className={`aspect-square flex items-center justify-center rounded-lg transition-colors ${
+                isStreak
+                  ? "bg-pink-700 hover:bg-pink-800"
+                  : "hover:bg-slate-800"
+              }`}
             >
               {day}
             </div>
@@ -164,4 +154,6 @@ export default function CalendarStreak() {
       </div>
     </div>
   );
-}
+};
+
+export default CalendarStreak;

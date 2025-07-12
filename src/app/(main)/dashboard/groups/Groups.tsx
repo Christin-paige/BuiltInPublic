@@ -1,4 +1,4 @@
-export default function Groups() {
+const Groups = () => {
   return (
     <div className="bg-gradient-to-b from-[#1d1d1d] to-[#86059F] rounded-md shadow p-3">
       <h1 className="font-semibold text-center mb-2">My Groups</h1>
@@ -9,4 +9,6 @@ export default function Groups() {
       </div>
     </div>
   );
-}
+};
+
+export default Groups;

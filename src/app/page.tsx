@@ -1,7 +1,10 @@
+// app/page.tsx or src/pages/index.tsx (depending on your structure)
+
+import { FC } from "react";
 import { Share2, MessageSquareCode, MessagesSquare, Shrub } from "lucide-react";
 import Link from "next/link";
 
-export default function Home() {
+const Home: FC = () => {
   return (
     <section className="px-4 md:px-10 py-20 w-full h-full bg-gray-900 min-h-screen relative">
       <div className="absolute top-0 left-0 size-40 md:size-100 xl:size-120 rounded-full bg-radial from-sky-500/60 to-indigo-900/60 via-indigo-900/60 blur-3xl"></div>
@@ -19,7 +22,7 @@ export default function Home() {
           <Link
             href="/auth"
             className="w-xs md:w-sm bg-linear-to-bl from-violet-500 to-fuchsia-500 text-white font-bold py-2 px-4 rounded-full mt-4
-        hover:scale-105 transition-all duration-300 cursor-pointer text-xl hover:shadow-lg hover:shadow-violet-500/40"
+            hover:scale-105 transition-all duration-300 cursor-pointer text-xl hover:shadow-lg hover:shadow-violet-500/40"
           >
             Join
           </Link>
@@ -68,4 +71,6 @@ export default function Home() {
       </div>
     </section>
   );
-}
+};
+
+export default Home;

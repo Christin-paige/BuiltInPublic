@@ -1,4 +1,4 @@
-export default function ProjectList() {
+const ProjectList = () => {
   return (
     <div className="bg-gradient-to-b from-[#1d1d1d] to-[#86059F] rounded-md shadow p-3">
       <h1 className="font-semibold text-center mb-2">Projects</h1>
@@ -8,4 +8,6 @@ export default function ProjectList() {
       <p className="border-2 border-solid py-20 mb-2 text-center">Project</p>
     </div>
   );
-}
+};
+
+export default ProjectList;
