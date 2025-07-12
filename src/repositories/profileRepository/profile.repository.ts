@@ -57,7 +57,27 @@ export class ProfileRepository extends BaseRepository<ProfileDTO, Profile> {
         throw new Error("Cannot find profile");
       }
 
-      const profile = this.transformDTO(data as ProfileDTO);
+      const profile = this.safeTransformDTO(data);
+
+      return profile;
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  async getByUsername(username: string): Promise<Profile | null> {
+    try {
+      const query = this.getBaseQuery();
+
+      const { data, error } = await this.applyFilters(query, {
+        username,
+      }).maybeSingle();
+
+      if (!data || error) {
+        throw new Error("Profile not found");
+      }
+
+      const profile = this.safeTransformDTO(data);
 
       return profile;
     } catch (e) {
