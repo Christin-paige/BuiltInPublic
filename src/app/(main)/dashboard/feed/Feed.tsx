@@ -1,40 +1,41 @@
-import { cookies } from "next/headers";
-import Likes from "./likes";
-import { createAnonClient } from "utils/supabase/server";
-import type { Database } from "@/supabase/supabase.types";
+"use client";
 
-type Post = Database["public"]["Tables"]["posts"]["Row"] & {
-  profiles: {
-    name: string;
+import useUser from "@/hooks/useUser/useUser";
+import Image from "next/image";
+
+interface UserData {
+  id: string;
+  username: string | null;
+  avatarUrl: string | null;
+}
+
+export default function Profile() {
+  const { isLoading, data } = useUser() as {
+    isLoading: boolean;
+    data: UserData | null;
   };
-  likes: any[]; // You can strongly type this later if needed
-};
 
-type User = Database["public"]["Tables"]["profiles"]["Row"] | null;
-
-const Feed = async () => {
-  const supabase = await createAnonClient();
-
-  const { data: posts, error } = await supabase
-    .from("posts")
-    .select("*, profiles(name), likes(*)");
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  if (isLoading) {
+    return <></>;
+  }
 
   return (
-    <div className="bg-gradient-to-b from-[#1d1d1d] to-[#86059F] rounded-md shadow p-3 h-full text-white">
-      <h1 className="font-semibold mb-2">Your Feed</h1>
-      {posts?.map((post: Post) => (
-        <div key={post.id}>
-          <p>{post.profiles.name}</p>
-          <p>{post.content}</p>
-          <Likes post={post} user={user} />
-        </div>
-      ))}
+    <div className="flex flex-col items-center justify-center text-center max-w-3xl mx-auto px-4 gap-4">
+      {!data?.id ? (
+        <h1>profile</h1>
+      ) : (
+        <Image
+          src={data.avatarUrl || "/default-avatar.png"}
+          alt={data.username || "User avatar"}
+          width={100}
+          height={100}
+          className="rounded-full"
+        />
+      )}
+
+      <h1 className="text-md font-bold justify-items-center">
+        {data?.username}
+      </h1>
     </div>
   );
-};
-
-export default Feed;
+}
