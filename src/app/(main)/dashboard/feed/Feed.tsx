@@ -1,17 +1,17 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
-import Likes from "./likes";
+import Likes from "./Likes";
 import { createAnonClient } from "utils/supabase/server";
-import type { Database } from "@/supabase/supabase.types";
+import { Database } from "supabase/supabase.types";
 
-type Post = Database["public"]["Tables"]["posts"]["Row"] & {
+export type Post = Database["public"]["Tables"]["posts"]["Row"] & {
   profiles: {
     name: string;
   };
   likes: Database["public"]["Tables"]["likes"]["Row"][];
 };
 
-export default async function Feed(): Promise<JSX.Element> {
+export default async function Feed() {
   const supabase = await createAnonClient();
 
   const { data: posts, error } = (await supabase
