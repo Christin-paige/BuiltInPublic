@@ -1,22 +1,38 @@
 name: Semgrep Scan
 
 on:
-  pull_request:
+  push:
     branches:
       - development
-  push:
+  pull_request:
     branches:
       - development
 
 jobs:
   semgrep:
     runs-on: ubuntu-latest
-    container:
-      image: semgrep/semgrep:1.127.1
-
     steps:
+      # 1. Checkout your code
       - name: Checkout code
         uses: actions/checkout@v4
 
+      # 2. Set up Python 3.x
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      # 3. Install Semgrep from PyPI
+      - name: Install Semgrep
+        run: pip install semgrep
+
+      # 4. Run Semgrep scan
       - name: Run Semgrep scan
-        run: semgrep scan --config .semgrep.yml --error
+        run: |
+          semgrep scan \
+            --config p/default \
+            --config p/owasp-top-ten \
+            --config ./security/semgrep \
+            --exclude supabase/seed.sql \
+            --metrics=off \
+            --error
