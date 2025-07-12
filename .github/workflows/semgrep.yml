@@ -22,14 +22,22 @@ jobs:
         with:
           python-version: '3.x'
 
-      # 3. Install Semgrep from PyPI
+      # 3. Install Semgrep
       - name: Install Semgrep
         run: pip install semgrep
 
-      # 4. Run Semgrep scan
+      # 4. Authenticate to Semgrep App (for Pro rules)
+      - name: Log in to Semgrep App
+        env:
+          SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
+        run: semgrep login --token "$SEMGREP_APP_TOKEN"
+
+      # 5. Run Semgrep scan (including Pro registry rules)
       - name: Run Semgrep scan
+        env:
+          SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
         run: |
-          semgrep scan \
+          semgrep ci \
             --config p/default \
             --config p/owasp-top-ten \
             --config ./security/semgrep \
