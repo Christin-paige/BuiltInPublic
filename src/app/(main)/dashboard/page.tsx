@@ -1,7 +1,7 @@
 import { Share2, MessageSquareCode, MessagesSquare, Shrub } from "lucide-react";
 import Link from "next/link";
 
-const Home = (): JSX.Element => {
+const Home = (): FC.Element => {
   return (
     <section className="px-4 md:px-10 py-20 w-full h-full bg-gray-900 min-h-screen relative">
       <div className="absolute top-0 left-0 size-40 md:size-100 xl:size-120 rounded-full bg-radial from-sky-500/60 to-indigo-900/60 via-indigo-900/60 blur-3xl"></div>

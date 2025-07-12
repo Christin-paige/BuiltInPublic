@@ -1,45 +1,31 @@
 "use client";
 
-import { FC } from "react";
-import useUser from "@/hooks/useUser/useUser";
+import React, { FC } from "react";
+import "./profile.css";
 import Image from "next/image";
-
-interface User {
-  id: string;
-  username: string | null;
-  avatarUrl: string | null;
-}
-
-interface UseUserResponse {
-  isLoading: boolean;
-  data: User | null;
-}
+import FeedSection from "./components/FeedSection";
+import UserInfo from "./components/UserInfo";
+import StreakSection from "./components/StreakSection";
+import GradientBlobs from "./components/GradientBlobs";
 
 const Profile: FC = () => {
-  const { isLoading, data } = useUser() as UseUserResponse;
-
-  if (isLoading) {
-    return <></>;
-  }
-
   return (
-    <div className="flex flex-col items-center justify-center text-center max-w-3xl mx-auto px-4 gap-4">
-      {!data?.id ? (
-        <h1>profile</h1>
-      ) : (
-        <Image
-          src={data.avatarUrl || "/default-avatar.png"}
-          alt={data.username || "User avatar"}
-          width={100}
-          height={100}
-          className="rounded-full"
-        />
-      )}
+    <main className="h-screen flex flex-col py-16 items-center gap-8 -z-10 overflow-hidden">
+      <Image
+        src="/example-cover-img.jpg"
+        alt="Cover Photo"
+        width={2000}
+        height={1200}
+        className="w-full h-48 object-cover hover:opacity-80 transition-all duration-100 transform-content object-top"
+      />
 
-      <h1 className="text-md font-bold justify-items-center">
-        {data?.username}
-      </h1>
-    </div>
+      <div className="flex p-8 gap-12 w-full relative">
+        <GradientBlobs />
+        <UserInfo />
+        <FeedSection />
+        <StreakSection />
+      </div>
+    </main>
   );
 };
 
