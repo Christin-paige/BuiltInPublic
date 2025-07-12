@@ -1,0 +1,12 @@
+{
+    "plugins": ["filenames"],
+    "overrides": [
+      {
+        "files": ["src/components/**/*.{js,jsx,ts,tsx}"],
+        "rules": {
+          "filenames/match-regex": [2, "^[A-Z][a-zA-Z0-9]+$", true]
+        }
+      }
+    ]
+  }
+  
