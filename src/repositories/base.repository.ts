@@ -27,6 +27,20 @@ export abstract class BaseRepository<
 
   abstract transformDTO(row: TDto): TEntity;
 
+  validateDTO(data: any): boolean {
+    return data satisfies TDto;
+  }
+
+  protected safeTransformDTO(data: any): TEntity {
+    const isValid = this.validateDTO(data);
+
+    if (!isValid) {
+      throw new Error("Invalid DTO");
+    }
+
+    return this.transformDTO(data);
+  }
+
   applyPagination<T extends PostgrestFilterBuilder<any, any, any>>(
     query: T,
     page: number = 1,
