@@ -2,12 +2,9 @@
 
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
-import type { FC } from "react";
-import type { Database } from "@/supabase/supabase.types";
-
-type Post = Database["public"]["Tables"]["posts"]["Row"] & {
-  likes: { id: string }[]; // Adjust shape as needed
-};
+import { FC } from "react";
+import { Database } from "supabase/supabase.types";
+import { Post } from "./Feed";
 
 type User = {
   id: string;
