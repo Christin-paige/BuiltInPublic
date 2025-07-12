@@ -30,6 +30,9 @@ Before getting started, make sure you have the following installed:
 
 ## 🗂️ Project Structure
 
+<details>
+<summary>📁 Click to expand project file structure</summary>
+
 ```plaintext
 .
 ├── @
@@ -133,8 +136,7 @@ Before getting started, make sure you have the following installed:
 │   │   └── server.ts
 │   └── types.ts
 └── vitest.config.mts
-```
-
+</details>```
 ---
 
 ## 🚀 Join the Movement
