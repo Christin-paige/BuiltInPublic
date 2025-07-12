@@ -6,12 +6,12 @@ interface BlobPosition {
   size: number;
 }
 
-const GradientBlobs = (): JSX.Element => {
+const GradientBlobs = () => {
   const [blobPositions, setBlobPositions] = useState<BlobPosition[]>([]);
 
   const numBlobs = 8;
 
-  const gradientCombinations: string[] = [
+  const gradientCombinations = [
     "from-purple-600 to-pink-600",
     "from-blue-600 to-cyan-600",
     "from-green-600 to-emerald-600",
@@ -23,7 +23,7 @@ const GradientBlobs = (): JSX.Element => {
   ];
 
   useEffect(() => {
-    const positions: BlobPosition[] = Array.from({ length: numBlobs }, () => ({
+    const positions = Array.from({ length: numBlobs }, () => ({
       x: Math.random() * window.innerWidth,
       y: Math.random() * window.innerHeight,
       size: Math.random() * 100 + 250,

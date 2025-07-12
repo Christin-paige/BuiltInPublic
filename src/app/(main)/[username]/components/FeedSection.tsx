@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const FeedSection = (): JSX.Element => {
+const FeedSection = () => {
   const [activeTab, setActiveTab] = useState<"posts" | "projects">("posts");
 
   return (
@@ -33,7 +33,7 @@ const FeedSection = (): JSX.Element => {
       {activeTab === "posts" && (
         <div className="bg-slate-950 p-4 rounded-lg border flex flex-col gap-4">
           <div className="flex gap-4">
-            <div className="rounded-full border w-12 h-12 bg-slate-800"></div>
+            <div className="rounded-full border w-12 h-12 bg-slate-800" />
             <div className="flex flex-col">
               <p className="text-lg">Username</p>
               <p className="text-sm text-gray-400">10/10/2024</p>
@@ -54,7 +54,7 @@ const FeedSection = (): JSX.Element => {
       {activeTab === "projects" && (
         <div className="bg-slate-950 p-4 rounded-lg border flex flex-col gap-4">
           <div className="flex gap-4">
-            <div className="rounded-full border w-12 h-12 bg-slate-800"></div>
+            <div className="rounded-full border w-12 h-12 bg-slate-800" />
             <div className="flex flex-col">
               <p className="text-lg">Username</p>
               <p className="text-sm text-gray-400">10/10/2024</p>
