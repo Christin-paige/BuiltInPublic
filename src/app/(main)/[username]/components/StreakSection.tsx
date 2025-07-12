@@ -8,24 +8,18 @@ type Contribution = {
   level: number;
 };
 
-const StreakSection = (): JSX.Element => {
+const StreakSection = () => {
   const [view, setView] = useState<"calendar" | "github">("calendar");
 
   const selectLastHalfYear = (
     contributions: Contribution[],
   ): Contribution[] => {
-    const currentYear = new Date().getFullYear();
-    const currentMonth = new Date().getMonth();
+    const now = new Date();
+    const sixMonthsAgo = new Date(now.setMonth(now.getMonth() - 6));
 
     return contributions.filter((activity) => {
       const date = new Date(activity.date);
-      const monthOfDay = date.getMonth();
-
-      return (
-        date.getFullYear() === currentYear &&
-        monthOfDay > currentMonth - 6 &&
-        monthOfDay <= currentMonth
-      );
+      return date >= sixMonthsAgo;
     });
   };
 
@@ -57,19 +51,15 @@ const StreakSection = (): JSX.Element => {
       </div>
 
       <div className="relative min-h-[300px]">
-        <div className={`${view === "calendar" ? "block" : "hidden"}`}>
-          <CalendarStreak />
-        </div>
-        <div
-          className={`bg-slate-950 p-4 rounded-lg border ${
-            view === "github" ? "block" : "hidden"
-          }`}
-        >
-          <GitHubCalendar
-            username="G-Hensley"
-            transformData={selectLastHalfYear}
-          />
-        </div>
+        {view === "calendar" && <CalendarStreak />}
+        {view === "github" && (
+          <div className="bg-slate-950 p-4 rounded-lg border">
+            <GitHubCalendar
+              username="G-Hensley"
+              transformData={selectLastHalfYear}
+            />
+          </div>
+        )}
       </div>
     </section>
   );
