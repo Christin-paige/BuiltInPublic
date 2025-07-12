@@ -33,7 +33,7 @@ Before getting started, make sure you have the following installed:
 <details>
 <summary>📁 Click to expand project file structure</summary>
 
-````plaintext
+```plaintext
 .
 ├── @
 │   └── components
@@ -136,8 +136,9 @@ Before getting started, make sure you have the following installed:
 │   │   └── server.ts
 │   └── types.ts
 └── vitest.config.mts
-```
 </details>
+```
+
 ---
 
 ## 🚀 Join the Movement
@@ -171,4 +172,7 @@ Head over to our [Environment Setup Guide](https://github.com/Christin-paige/Bui
 - [Connect with me on LinkedIn](https://www.linkedin.com/in/christin-martin)
 
 - Happy to collaborate and make this a great app!
-````
+
+```
+
+```
