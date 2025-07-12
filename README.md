@@ -23,7 +23,7 @@ Before getting started, make sure you have the following installed:
 
 - [Node.js](https://nodejs.org/) (v18 or later recommended)
 - [npm](https://www.npmjs.com/)
-- A [Supabase](https://supabase.com/) project and API keys
+- [Supabase](https://supabase.com/) project and API keys
 - [Git](https://git-scm.com/) for cloning the repo
 
 ---
@@ -136,7 +136,8 @@ Before getting started, make sure you have the following installed:
 │   │   └── server.ts
 │   └── types.ts
 └── vitest.config.mts
-</details>```
+```
+</details>
 ---
 
 ## 🚀 Join the Movement
