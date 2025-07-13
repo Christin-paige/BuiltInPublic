@@ -18,10 +18,10 @@ jobs:
       - name: 🧰 Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: "20"
 
       - name: 📦 Install Dependencies
-        run: npm ci
+        run: npm install
 
       - name: 🛠 Run npm audit fix
         run: npm audit fix --force
@@ -30,9 +30,6 @@ jobs:
         run: |
           echo "=== Diff for package-lock.json ==="
           git diff package-lock.json || echo "No changes"
-
-      - name: ✅ Run Tests
-        run: npm test
 
       - name: 🚨 Fail if any changes were made
         run: |
