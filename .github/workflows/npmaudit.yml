@@ -1,16 +1,18 @@
-# .github/workflows/npm-audit-fix.yml
-name: "NPM Audit Fix with Change Tracking"
+name: PR Audit Fix Checker
 
 on:
-  workflow_dispatch:
-  schedule:
-    - cron: '0 4 * * 0' # Weekly Sunday at 4am
+  pull_request:
+    branches:
+      - main
+      - development
 
 jobs:
-  audit-fix:
+  audit-fix-check:
+    name: 🔐 Audit Fix Check on PR
     runs-on: ubuntu-latest
+
     steps:
-      - name: ⬇️ Checkout
+      - name: ⬇️ Checkout Code
         uses: actions/checkout@v4
 
       - name: 🧰 Setup Node
@@ -24,30 +26,17 @@ jobs:
       - name: 🛠 Run npm audit fix
         run: npm audit fix --force
 
-      - name: 📊 Show git diff
+      - name: 📊 Show Diff for package-lock.json
         run: |
-          echo "📦 Changes in package-lock.json:"
+          echo "=== Diff for package-lock.json ==="
           git diff package-lock.json || echo "No changes"
-          echo "📦 Changes in package.json:"
-          git diff package.json || echo "No changes"
 
       - name: ✅ Run Tests
         run: npm test
 
-      - name: 🚀 Create Pull Request
-        uses: peter-evans/create-pull-request@v6
-        with:
-          commit-message: "chore: run npm audit fix --force"
-          title: "chore: audit fix auto-update"
-          body: |
-            This PR was automatically created by GitHub Actions.
-
-            **Command:** `npm audit fix --force`
-
-            Below are the changes made by the command:
-
-            ```diff
-            ${{ steps.diff.outputs.lockfile_diff }}
-            ```
-          branch: audit-fix
-          labels: audit, dependencies
+      - name: 🚨 Fail if any changes were made
+        run: |
+          if [[ -n "$(git status --porcelain package-lock.json)" ]]; then
+            echo "🔒 Audit fix made changes to package-lock.json. Please commit those manually if desired."
+            exit 1
+          fi
