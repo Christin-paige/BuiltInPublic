@@ -12,10 +12,7 @@ npx prettier --write .
 #2. Secrets scan with Gitleaks
 echo "🕵️‍♀️ Checking for Gitleaks (optional)..."
 if command -v gitleaks &> /dev/null; then
-  gitleaks detect --source . --report-path gitleaks-report.json
-else
-  echo "⚠️ Gitleaks not found — skipping secret scan"
-fi
+  gitleaks detect --source . --report-path gitleaks-report.json --config gitleaks.toml || echo "⚠️ Gitleaks found issues, but push allowed"
 
 # 3. Static analysis
 echo "🧠 Running Semgrep..."

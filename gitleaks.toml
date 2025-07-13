@@ -1,0 +1,18 @@
+[allowlist]
+description = "Allowlist for known safe secrets and files"
+
+# Exclude files by name or path pattern
+files = [
+  "seeds.sql",
+  "scripts/seeds/.*\\.ts",
+  "\\.env\\.example"
+]
+
+# Optional: exclude paths
+paths = [
+  "scripts/seeds",
+  "supabase/fixtures"
+]
+
+# Optional: exclude commit authors (e.g., bots)
+commitAuthor = ["dependabot"]
