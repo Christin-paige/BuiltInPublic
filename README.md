@@ -173,7 +173,3 @@ Head over to our [Environment Setup Guide](https://github.com/Christin-paige/Bui
 - [Connect with me on LinkedIn](https://www.linkedin.com/in/christin-martin)
 
 - Happy to collaborate and make this a great app!
-
-```
-
-```
