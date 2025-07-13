@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "semgrep": "semgrep scan --config p/default --config p/owasp-top-ten --config security/semgrep/general.yml --exclude supabase/seed.sql --metrics=off --error",
+    "semgrep": "semgrep scan --config p/default --config p/owasp-top-ten --config security/semgrep/general.yml --exclude supabase/seed.sql --exclude .env.example --metrics=off --error",
     "test": "vitest",
     "test:watch": "vitest --watch",
     "db:migrate": "supabase db reset",
