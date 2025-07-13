@@ -35,6 +35,9 @@ yarn-error.log*
 .env
 .env.local
 
+# Gitleaks scan outputs
+gitleaks-report.json
+
 # vercel
 .vercel
 
