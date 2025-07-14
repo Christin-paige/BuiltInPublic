@@ -39,7 +39,7 @@ Before getting started, make sure you have the following installed:
 │   └── components
 │       └── ui
 │           └── button.jsx
-├── bun.lock
+├── .gitleaks.toml
 ├── components.json
 ├── docs
 │   ├── appregistered.png

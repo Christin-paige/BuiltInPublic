@@ -1,0 +1,43 @@
+title = "Gitleaks config"
+version = "2"
+
+[allowlist]
+# Ignore example files
+files = [
+  ".env.example"
+]
+
+# Optional: allow common false positives via regex
+regexes = [
+  '''dummy_secret_[a-zA-Z0-9]{10,}'''
+]
+
+[[rules]]
+id = "generic-api-key"
+description = "Generic API Key"
+regex = '''(?i)(api_key|apikey|api-key|secret_key|access_key)[\s:=]+['"]?[a-z0-9]{16,}['"]?'''
+tags = ["key", "API"]
+
+[[rules]]
+id = "github-pat"
+description = "GitHub Personal Access Token"
+regex = '''ghp_[0-9a-zA-Z]{36}'''
+tags = ["key", "GitHub"]
+
+[[rules]]
+id = "aws-secret"
+description = "AWS Secret Access Key"
+regex = '''(?i)aws(.{0,20})?(?-i)['\"][0-9a-zA-Z/+]{40}['\"]'''
+tags = ["key", "AWS"]
+
+[[rules]]
+id = "slack-webhook"
+description = "Slack Webhook URL"
+regex = '''https://hooks.slack.com/services/T[A-Z0-9]{8}/B[A-Z0-9]{8}/[a-zA-Z0-9]{24}'''
+tags = ["key", "Slack"]
+
+[[rules]]
+id = "private-key"
+description = "Private Key"
+regex = '''-----BEGIN(?: RSA)? PRIVATE KEY-----'''
+tags = ["key", "private", "pem"]
