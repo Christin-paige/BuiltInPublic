@@ -17,14 +17,37 @@ jobs:
       - name: 📥 Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 0 # needed for full commit history
 
-      - name: 📦 Install Gitleaks
+      - name: 🧰 Install Gitleaks CLI
         run: |
           curl -sSL https://github.com/gitleaks/gitleaks/releases/latest/download/gitleaks-linux-amd64 -o gitleaks
           chmod +x gitleaks
           sudo mv gitleaks /usr/local/bin/
 
+      - name: 🧠 Set report filename based on PR or branch
+        id: meta
+        run: |
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            NAME="gitleaks-PR-${{ github.event.pull_request.number }}.json"
+          else
+            BRANCH="${{ github.ref_name }}"
+            SAFE_BRANCH=$(echo "$BRANCH" | tr '/' '-')
+            NAME="gitleaks-${SAFE_BRANCH}.json"
+          fi
+          echo "report_name=$NAME" >> "$GITHUB_OUTPUT"
+
       - name: 🕵️ Run Gitleaks with local config
         run: |
-          gitleaks detect --source=. --config=.gitleaks.toml --report-format=json --report-path=gitleaks-report.json
+          gitleaks detect \
+            --source="${{ github.workspace }}" \
+            --config="${{ github.workspace }}/.gitleaks.toml" \
+            --report-format=json \
+            --report-path="${{ steps.meta.outputs.report_name }}"
+
+      - name: 📤 Upload Gitleaks Report Artifact (14-day retention)
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.meta.outputs.report_name }}
+          path: ${{ steps.meta.outputs.report_name }}
+          retention-days: 14
