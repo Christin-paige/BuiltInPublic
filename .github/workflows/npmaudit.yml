@@ -1,14 +1,14 @@
 name: PR Audit Fix Checker
 
 on:
-    push:
-        branches:
-          - main
-          - development
-      pull_request:
-        branches:
-          - main
-          - development
+  push:
+    branches:
+      - main
+      - development
+  pull_request:
+    branches:
+      - main
+      - development
 
 jobs:
   audit-fix-check:
