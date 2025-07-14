@@ -8,12 +8,23 @@ This is a work-in-progress so feel free to follow along or contribute!
 
 ## 🛠️ Tech Stack
 
+<<<<<<< HEAD
 - **Frontend:** Next.js, TypeScript, Tailwind CSS
 - **Backend:** Supabase
 - **Auth:** Supabase Auth
 - **Database:** PostgreSQL (via Supabase)
 - **Deployment:** Vercel
 - **Linting & Formatting:** ESLint, Prettier
+=======
+| Category                  | Technologies                      |
+| ------------------------- | --------------------------------- |
+| **Frontend**              | Next.js, TypeScript, Tailwind CSS |
+| **Backend**               | Supabase                          |
+| **Auth**                  | Supabase Auth                     |
+| **Database**              | PostgreSQL (via Supabase)         |
+| **Deployment**            | Vercel                            |
+| **Linting & Formatting:** | ESLint, Prettier                  |
+>>>>>>> 305a262eba87ef6297fb3f924c5859b9b639f8a3
 
 ---
 

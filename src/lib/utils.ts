@@ -11,8 +11,3 @@ export function isSafeNextPath(path: string): boolean {
   if (path.includes("..")) return false;
   return true;
 }
-
-export function isSafeHost(host: string): boolean {
-  const allowedHosts = process.env.ALLOWED_REDIRECT_HOSTS?.split(",") ?? [];
-  return allowedHosts.includes(host);
-}
