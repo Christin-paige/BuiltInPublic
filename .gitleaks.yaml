@@ -2,12 +2,9 @@ title = "Gitleaks config"
 version = "2"
 
 [allowlist]
-# Ignore example files
 files = [
   ".env.example"
 ]
-
-# Optional: allow common false positives via regex
 regexes = [
   '''dummy_secret_[a-zA-Z0-9]{10,}'''
 ]
