@@ -1,0 +1,35 @@
+name: Semgrep Scan
+
+on:
+  pull_request:
+    branches: [development]
+
+jobs:
+  semgrep:
+    runs-on: ubuntu-latest
+    env:
+      # this is the token stored in Settings → Secrets as SEMGREP_APP_TOKEN
+      SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.x
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.x"
+
+      - name: Install Semgrep
+        run: pip install semgrep
+
+      - name: Run Semgrep scan
+        run: |
+          semgrep ci \
+            --config p/default \
+            --config p/owasp-top-ten \
+            --config p/react \
+            --config ./security/semgrep \
+            --exclude supabase/seed.sql \
+            --exclude .env.example \
+            --metrics=off
