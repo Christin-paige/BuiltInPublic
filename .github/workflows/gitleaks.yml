@@ -21,9 +21,9 @@ jobs:
 
       - name: 🧰 Install Gitleaks CLI
         run: |
-          curl -sSL https://github.com/gitleaks/gitleaks/releases/latest/download/gitleaks-linux-amd64 -o gitleaks
-          chmod +x gitleaks
-          sudo mv gitleaks /usr/local/bin/
+          curl -sSfL https://raw.githubusercontent.com/gitleaks/gitleaks/main/scripts/install.sh | sh -s -- -b /usr/local/bin
+          echo "✅ Gitleaks version:"
+          gitleaks version
 
       - name: 🧠 Set report filename based on PR or branch
         id: meta
