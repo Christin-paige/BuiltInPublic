@@ -2,7 +2,7 @@
 
 <!-- Explain the change done in one-sentence -->
 
-**Ticket Number:** [abc123](http://#)
+**Ticket Number:** [ClickUP Ticket Number Here](http://#)
 
 ## Type of Change
 
