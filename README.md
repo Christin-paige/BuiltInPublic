@@ -34,19 +34,34 @@ Before getting started, make sure you have the following installed:
 <summary>📁 Click to expand project file structure</summary>
 
 ```plaintext
-.
+..
 ├── @
-│   └── components
-│       └── ui
-│           └── button.jsx
-├── .gitleaks.toml
+│   └── components
+│       └── ui
+│           └── button.jsx
 ├── components.json
 ├── docs
-│   ├── appregistered.png
-│   ├── oathapps.png
-│   ├── pull_request_template.md
-│   └── registerapp.png
+│   ├── appregistered.png
+│   ├── oathapps.png
+│   ├── pull_request_template.md
+│   └── registerapp.png
+├── .env
+├── .env.example
 ├── eslint.config.mjs
+├── .eslintrc.json
+├── .gitguardian.yml
+├── .github
+│   ├── dependabot.yml
+│   ├── ISSUE_TEMPLATE
+│   │   └── new-feature-request.md
+│   └── workflows
+│       ├── codeql.yml
+│       ├── dependabot-security-auto-merge.yml
+│       ├── gitleaks.yml
+│       ├── prettier.yml
+│       └── semgrep.yml
+├── .gitignore
+├── .gitleaks.toml
 ├── LICENSE
 ├── next.config.mjs
 ├── next-env.d.ts
@@ -54,87 +69,90 @@ Before getting started, make sure you have the following installed:
 ├── package-lock.json
 ├── postcss.config.mjs
 ├── public
-│   ├── BuiltInPublic.png
-│   ├── door.jpg
-│   ├── example-cover-img.jpg
-│   ├── logo3.png
-│   └── terminal-logo.png
+│   ├── BuiltInPublic.png
+│   ├── door.jpg
+│   ├── example-cover-img.jpg
+│   ├── logo3.png
+│   └── terminal-logo.png
 ├── README.md
 ├── scripts
-│   ├── seeds
-│   │   ├── auth-users.ts
-│   │   ├── posts.ts
-│   │   ├── profile-skills.ts
-│   │   ├── projects.ts
-│   │   ├── skills.ts
-│   │   └── social.ts
-│   └── seed.ts
+│   ├── seeds
+│   │   ├── auth-users.ts
+│   │   ├── posts.ts
+│   │   ├── profile-skills.ts
+│   │   ├── projects.ts
+│   │   ├── skills.ts
+│   │   └── social.ts
+│   └── seed.ts
 ├── security
-│   └── semgrep
-│       └── general.yml
+│   └── semgrep
+│       └── general.yml
 ├── SECURITY.md
 ├── src
-│   ├── app
-│   │   ├── about
-│   │   │   └── page.js
-│   │   ├── auth
-│   │   │   ├── actions.ts
-│   │   │   ├── callback
-│   │   │   ├── DevSignIn.tsx
-│   │   │   └── page.tsx
-│   │   ├── favicon.ico
-│   │   ├── globals.css
-│   │   ├── hook
-│   │   │   └── useUser.tsx
-│   │   ├── layout.tsx
-│   │   ├── (main)
-│   │   │   ├── dashboard
-│   │   │   ├── layout.tsx
-│   │   │   └── [username]
-│   │   └── page.js
-│   ├── components
-│   │   ├── Footer.tsx
-│   │   ├── Navbar
-│   │   │   ├── actions.ts
-│   │   │   ├── index.ts
-│   │   │   └── Navbar.tsx
-│   │   ├── ProfileIcon.tsx
-│   │   └── Providers
-│   │       ├── QueryProvider.tsx
-│   │       └── ThemeProvider.tsx
-│   ├── hooks
-│   │   ├── useProfile
-│   │   │   ├── actions.ts
-│   │   │   └── useProfile.tsx
-│   │   └── useUser
-│   │       ├── actions.ts
-│   │       └── useUser.tsx
-│   ├── lib
-│   │   └── utils.ts
-│   ├── middleware.ts
-│   ├── repositories
-│   │   ├── base.repository.ts
-│   │   └── profileRepository
-│   │       ├── profile.repository.ts
-│   │       └── profile.types.ts
-│   ├── services
-│   │   └── UINotification.service.ts
-│   └── setupTests.ts
+│   ├── app
+│   │   ├── about
+│   │   │   └── page.tsx
+│   │   ├── auth
+│   │   │   ├── actions.ts
+│   │   │   ├── callback
+│   │   │   ├── DevSignIn.tsx
+│   │   │   └── page.tsx
+│   │   ├── favicon.ico
+│   │   ├── globals.css
+│   │   ├── layout.tsx
+│   │   ├── (main)
+│   │   │   ├── dashboard
+│   │   │   ├── layout.tsx
+│   │   │   └── [username]
+│   │   └── page.tsx
+│   ├── components
+│   │   ├── Footer.tsx
+│   │   ├── Navbar
+│   │   │   ├── actions.ts
+│   │   │   ├── index.ts
+│   │   │   └── Navbar.tsx
+│   │   ├── ProfileIcon.tsx
+│   │   └── Providers
+│   │       ├── QueryProvider.tsx
+│   │       └── ThemeProvider.tsx
+│   ├── hooks
+│   │   ├── useProfile
+│   │   │   ├── actions.ts
+│   │   │   └── useProfile.tsx
+│   │   └── useUser
+│   │       ├── actions.ts
+│   │       └── useUser.tsx
+│   ├── lib
+│   │   └── utils.ts
+│   ├── middleware.ts
+│   ├── repositories
+│   │   ├── base.repository.ts
+│   │   └── profileRepository
+│   │       ├── profile.repository.ts
+│   │       └── profile.types.ts
+│   ├── services
+│   │   └── UINotification.service.ts
+│   └── setupTests.ts
 ├── structure.md
 ├── supabase
-│   ├── config.toml
-│   ├── migrations
-│   │   ├── 20250517104606_base_tables_rls.sql
-│   │   └── 20250518145124_new_profile_trigger.sql
-│   └── supabase.types.ts
+│   ├── .branches
+│   │   └── _current_branch
+│   ├── config.toml
+│   ├── .gitignore
+│   ├── migrations
+│   │   ├── 20250517104606_base_tables_rls.sql
+│   │   └── 20250518145124_new_profile_trigger.sql
+│   ├── supabase.types.ts
+│   └── .temp
+│       └── cli-latest
 ├── tsconfig.json
 ├── tsconfig.tsbuildinfo
 ├── utils
-│   ├── supabase
-│   │   ├── client.ts
-│   │   ├── middleware.ts
-│   │   └── server.ts
-│   └── types.ts
+│   ├── supabase
+│   │   ├── client.ts
+│   │   ├── middleware.ts
+│   │   └── server.ts
+│   └── types.ts
 └── vitest.config.mts
 ```
 
