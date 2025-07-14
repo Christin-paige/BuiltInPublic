@@ -12,7 +12,8 @@
     "test:watch": "vitest --watch",
     "db:migrate": "supabase db reset",
     "db:seed": "tsx scripts/seed.ts",
-    "db:setup": "npm run db:migrate && npm run db:seed"
+    "db:setup": "npm run db:migrate && npm run db:seed",
+    "start:dev": "npm run db:setup && npm run dev"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.0",
