@@ -19,10 +19,15 @@ jobs:
         with:
           fetch-depth: 0 # needed for full commit history
 
-      - name: 🧰 Install Gitleaks CLI
+      - name: 🧰 Install Gitleaks CLI (manually)
         run: |
-          curl -sSfL https://raw.githubusercontent.com/gitleaks/gitleaks/main/scripts/install.sh | sh -s -- -b /usr/local/bin
-          echo "✅ Gitleaks version:"
+          GITLEAKS_VERSION=$(curl -s https://api.github.com/repos/gitleaks/gitleaks/releases/latest | jq -r '.tag_name')
+          echo "Installing Gitleaks $GITLEAKS_VERSION"
+
+          curl -sSL -o gitleaks.tar.gz "https://github.com/gitleaks/gitleaks/releases/download/${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION#v}_linux_x64.tar.gz"
+          tar -xzf gitleaks.tar.gz gitleaks
+          chmod +x gitleaks
+          sudo mv gitleaks /usr/local/bin/
           gitleaks version
 
       - name: 🧠 Set report filename based on PR or branch
