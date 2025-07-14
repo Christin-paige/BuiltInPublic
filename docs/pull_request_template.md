@@ -2,7 +2,7 @@
 
 <!-- Explain the change done in one-sentence -->
 
-**(Ticket Number:)**[http://#]
+**[Ticket Number:]**(http://#)
 
 ## Type of Change
 
