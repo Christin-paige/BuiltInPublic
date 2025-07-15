@@ -8,16 +8,7 @@ This is a work-in-progress so feel free to follow along or contribute!
 
 ## 🛠️ Tech Stack
 
-| Category                  | Technologies                                                                                                                                                                                         |
-| ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Frontend**              | [Next.js](https://nextjs.org/), [TypeScript](https://www.typescriptlang.org/), [Tailwind CSS](https://tailwindcss.com/), [Radix UI](https://www.radix-ui.com/), [ShadCN](https://ui.shadcn.com/)     |
-| **Backend**               | [Supabase](https://supabase.com/)                                                                                                                                                                    |
-| **Auth**                  | [Supabase Auth](https://supabase.com/auth)                                                                                                                                                           |
-| **Database**              | [PostgreSQL](https://www.postgresql.org/) (via [Supabase](https://supabase.com/database))                                                                                                            |
-| **Deployment**            | [Vercel](https://vercel.com/)                                                                                                                                                                        |
-| **Linting & Formatting:** | [ESLint](https://eslint.org/), [Prettier](https://prettier.io/)                                                                                                                                      |
-| **Testing**               | [Vitest](https://vitest.dev/), [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/), [TanStack Query](https://tanstack.com/query/v5/docs/framework/react/overview) |
-
+See the [Wiki](https://github.com/Christin-paige/BuiltInPublic/wiki#-tech-stack) for more details.
 ---
 
 ## 🔧 Prerequisites
