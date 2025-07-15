@@ -6,14 +6,17 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
+    "prepare": "husky install",
     "lint": "next lint",
+    "precheck": "bash ./scripts/precheck.sh",
     "semgrep": "semgrep scan --config p/default --config p/owasp-top-ten --config security/semgrep/general.yml --exclude supabase/seed.sql --exclude .env.example --metrics=off --error",
     "test": "vitest",
     "test:watch": "vitest --watch",
     "db:migrate": "supabase db reset",
     "db:seed": "tsx scripts/seed.ts",
     "db:setup": "npm run db:migrate && npm run db:seed",
-    "start:dev": "npm run db:setup && npm run dev"
+    "start:dev": "npm run db:setup && npm run dev",
+    "generate:types": "tsx scripts/generateSupabaseTypes.ts"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.0",
@@ -48,6 +51,7 @@
     "eslint": "^9",
     "eslint-config-next": "15.3.5",
     "eslint-plugin-filenames": "^1.3.2",
+    "husky": "^9.1.7",
     "jsdom": "^26.1.0",
     "supabase": "^2.30.4",
     "tailwindcss": "^4",

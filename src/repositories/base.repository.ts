@@ -1,5 +1,6 @@
 import { PostgrestFilterBuilder } from "@supabase/postgrest-js";
 import { AnySupabaseClient } from "../../utils/supabase/server";
+import { GenericSchema } from "@supabase/postgrest-js/dist/cjs/types";
 
 export interface GetRepositoryOptions {
   filters?: Record<string, any>;
@@ -12,6 +13,8 @@ export interface GetRepositoryOptions {
   count?: boolean;
 }
 
+export type FilterBuilder = PostgrestFilterBuilder<any, any, any, any>;
+
 export abstract class BaseRepository<
   TDto,
   TEntity,
@@ -23,9 +26,13 @@ export abstract class BaseRepository<
     this.supabase = supabase;
   }
 
-  abstract getBaseQuery(count: boolean): PostgrestFilterBuilder<any, any, any>;
+  abstract getRawBaseQuery(count: boolean): any;
 
   abstract transformDTO(row: TDto): TEntity;
+
+  getBaseQuery(count?: boolean): FilterBuilder {
+    return this.getRawBaseQuery((count = false)) as FilterBuilder;
+  }
 
   validateDTO(data: any): boolean {
     return data satisfies TDto;
@@ -41,7 +48,7 @@ export abstract class BaseRepository<
     return this.transformDTO(data);
   }
 
-  applyPagination<T extends PostgrestFilterBuilder<any, any, any>>(
+  applyPagination<T extends FilterBuilder>(
     query: T,
     page: number = 1,
     limit: number = 10,
@@ -50,7 +57,7 @@ export abstract class BaseRepository<
     return query.range(offset, offset + limit - 1) as T;
   }
 
-  applyFilters<T extends PostgrestFilterBuilder<any, any, any>>(
+  applyFilters<T extends FilterBuilder>(
     query: T,
     filters: Record<string, any>,
   ): T {
@@ -77,7 +84,7 @@ export abstract class BaseRepository<
     return enhancedQuery;
   }
 
-  applyOrdering<T extends PostgrestFilterBuilder<any, any, any>>(
+  applyOrdering<T extends FilterBuilder>(
     query: T,
     orderBy: string,
     ascending: boolean = true,
@@ -85,7 +92,7 @@ export abstract class BaseRepository<
     return query.order(orderBy, { ascending }) as T;
   }
 
-  applySearch<T extends PostgrestFilterBuilder<any, any, any>>(
+  applySearch<T extends FilterBuilder>(
     query: T,
     searchTerm: string,
     column: string,

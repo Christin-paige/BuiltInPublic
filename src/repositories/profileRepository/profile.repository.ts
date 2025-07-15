@@ -1,4 +1,4 @@
-import { BaseRepository } from "../base.repository";
+import { BaseRepository, FilterBuilder } from "../base.repository";
 import { AnySupabaseClient } from "utils/supabase/server";
 import { Profile, ProfileDTO } from "./profile.types";
 import { PostgrestFilterBuilder } from "@supabase/postgrest-js";
@@ -8,7 +8,7 @@ export class ProfileRepository extends BaseRepository<ProfileDTO, Profile> {
     super(supabase);
   }
 
-  getBaseQuery(count: boolean = false): PostgrestFilterBuilder<any, any, any> {
+  getRawBaseQuery(count: boolean = false) {
     const query = this.supabase
       .from("profiles")
       .select("*", count ? { count: "exact" } : undefined);
@@ -24,6 +24,17 @@ export class ProfileRepository extends BaseRepository<ProfileDTO, Profile> {
       username: username || "Unknown",
       avatarUrl: avatar_url || "",
     } satisfies Profile;
+  }
+
+  async checkUsernameExists(username: string): Promise<boolean> {
+    const query = this.getBaseQuery(true);
+
+    const { count, error } = await this.applyFilters(query, { username });
+
+    if (error) {
+      throw new Error("Something went wrong");
+    }
+    return Boolean(count);
   }
 
   async getCurrentUser(): Promise<Profile | null> {
