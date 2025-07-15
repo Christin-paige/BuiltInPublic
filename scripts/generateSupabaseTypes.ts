@@ -12,7 +12,9 @@ async function generateSupabaseTypes() {
   try {
     console.log("🌀 Generating Supabase types...");
 
-    const { stdout, stderr } = await execAsync("supabase gen types typescript --local");
+    const { stdout, stderr } = await execAsync(
+      "supabase gen types typescript --local",
+    );
 
     if (stderr) {
       console.error("⚠️ STDERR:", stderr);
