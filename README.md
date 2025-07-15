@@ -168,6 +168,7 @@ Head over to our [Environment Setup Guide](https://github.com/Christin-paige/Bui
 - [Dielle De Noon](https://www.linkedin.com/in/dielle-denoon/)
 - [Alina Bhatti](https://www.linkedin.com/in/alina-bhatti-0b0122353/)
 - [Nick Clark](https://www.linkedin.com/in/nicholas-a-clark//)
+- [Vinay Gajjar](https://www.linkedin.com/in/vinaygajjar/)
 
 ---
 
