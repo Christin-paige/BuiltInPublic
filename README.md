@@ -8,8 +8,7 @@ This is a work-in-progress so feel free to follow along or contribute!
 
 ## 🛠️ Tech Stack
 
-See the [Wiki](https://github.com/Christin-paige/BuiltInPublic/wiki#-tech-stack) for more details.
----
+## See the [Wiki](https://github.com/Christin-paige/BuiltInPublic/wiki#-tech-stack) for more details.
 
 ## 🔧 Prerequisites
 
