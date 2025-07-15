@@ -8,16 +8,18 @@ This is a work-in-progress so feel free to follow along or contribute!
 
 ## 🛠️ Tech Stack
 
-## See the [Wiki](https://github.com/Christin-paige/BuiltInPublic/wiki#-tech-stack) for more details.
+See the **[Wiki](https://github.com/Christin-paige/BuiltInPublic/wiki#-tech-stack)** for more details.
 
 ## 🔧 Prerequisites
 
 Before getting started, make sure you have the following installed:
 
-- [Node.js](https://nodejs.org/) (v18 or later recommended)
-- [npm](https://www.npmjs.com/)
-- [Supabase](https://supabase.com/) project and API keys
-- [Git](https://git-scm.com/) for cloning the repo
+| Tool                              | Notes                                          |
+| --------------------------------- | ---------------------------------------------- |
+| [Node.js](https://nodejs.org/)    | v18 or later recommended                       |
+| [npm](https://www.npmjs.com/)     | Dependancy management                          |
+| [Supabase](https://supabase.com/) | Project and API keys                           |
+| [Git](https://git-scm.com/)       | For cloning the repository and version control |
 
 ---
 
