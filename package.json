@@ -15,7 +15,8 @@
     "db:migrate": "supabase db reset",
     "db:seed": "tsx scripts/seed.ts",
     "db:setup": "npm run db:migrate && npm run db:seed",
-    "start:dev": "npm run db:setup && npm run dev"
+    "start:dev": "npm run db:setup && npm run dev",
+    "generate:types": "tsx scripts/generateSupabaseTypes.ts"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.0",
