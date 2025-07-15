@@ -62,10 +62,6 @@ Before getting started, make sure you have the following installed:
 │       ├── prettier.yml
 │       └── semgrep.yml
 ├── .gitignore
-├── lib
-│   ├── checkCurrentUserProfile.ts
-│   ├── getCurrentUserProfile.ts
-│   └── supabase.ts
 ├── LICENSE
 ├── next.config.mjs
 ├── next-env.d.ts
