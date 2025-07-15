@@ -27,7 +27,7 @@ Before getting started, make sure you have the following installed:
 <summary>📁 Click to expand project file structure</summary>
 
 ```plaintext
-.
+..
 ├── @
 │   └── components
 │       └── ui
@@ -38,7 +38,6 @@ Before getting started, make sure you have the following installed:
 │   ├── oathapps.png
 │   ├── pull_request_template.md
 │   └── registerapp.png
-├── .env
 ├── .env.example
 ├── eslint.config.mjs
 ├── .eslintrc.json
@@ -53,9 +52,12 @@ Before getting started, make sure you have the following installed:
 │       ├── prettier.yml
 │       └── semgrep.yml
 ├── .gitignore
+├── .gitleaks.toml
+├── .husky
+│   ├── pre-commit
+│   └── pre-push
 ├── LICENSE
 ├── next.config.mjs
-├── next-env.d.ts
 ├── package.json
 ├── package-lock.json
 ├── postcss.config.mjs
@@ -67,6 +69,8 @@ Before getting started, make sure you have the following installed:
 │   └── terminal-logo.png
 ├── README.md
 ├── scripts
+│   ├── generateSupabaseTypes.ts
+│   ├── precheck.sh
 │   ├── seeds
 │   │   ├── auth-users.ts
 │   │   ├── posts.ts
@@ -125,18 +129,13 @@ Before getting started, make sure you have the following installed:
 │   │   └── UINotification.service.ts
 │   └── setupTests.ts
 ├── supabase
-│   ├── .branches
-│   │   └── _current_branch
 │   ├── config.toml
 │   ├── .gitignore
 │   ├── migrations
 │   │   ├── 20250517104606_base_tables_rls.sql
 │   │   └── 20250518145124_new_profile_trigger.sql
-│   ├── supabase.types.ts
-│   └── .temp
-│       └── cli-latest
+│   └── supabase.types.ts
 ├── tsconfig.json
-├── tsconfig.tsbuildinfo
 ├── utils
 │   ├── supabase
 │   │   ├── client.ts
