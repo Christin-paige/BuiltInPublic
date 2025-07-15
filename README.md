@@ -8,25 +8,7 @@ This is a work-in-progress so feel free to follow along or contribute!
 
 ## 🛠️ Tech Stack
 
-<<<<<<< HEAD
-
-- **Frontend:** Next.js, TypeScript, Tailwind CSS
-- **Backend:** Supabase
-- **Auth:** Supabase Auth
-- **Database:** PostgreSQL (via Supabase)
-- **Deployment:** Vercel
-- # **Linting & Formatting:** ESLint, Prettier
-  | Category                  | Technologies                      |
-  | ------------------------- | --------------------------------- |
-  | **Frontend**              | Next.js, TypeScript, Tailwind CSS |
-  | **Backend**               | Supabase                          |
-  | **Auth**                  | Supabase Auth                     |
-  | **Database**              | PostgreSQL (via Supabase)         |
-  | **Deployment**            | Vercel                            |
-  | **Linting & Formatting:** | ESLint, Prettier                  |
-  > > > > > > > 305a262eba87ef6297fb3f924c5859b9b639f8a3
-
----
+## See the [Wiki](https://github.com/Christin-paige/BuiltInPublic/wiki#-tech-stack) for more details.
 
 ## 🔧 Prerequisites
 
@@ -170,12 +152,18 @@ Head over to our [Environment Setup Guide](https://github.com/Christin-paige/Bui
 
 ## 👥 BuiltInPublic Contributors
 
+- [Christin Martin](https://www.linkedin.com/in/christin-martin/)
 - [Andrew Couture](https://www.linkedin.com/in/andrew-couture-15937ab/)
 - [Gavin Hensley](https://www.linkedin.com/in/g-hensley/)
 - [Brenda Hensley](https://www.linkedin.com/in/brenda-hensley-/)
 - [Dielle De Noon](https://www.linkedin.com/in/dielle-denoon/)
 - [Alina Bhatti](https://www.linkedin.com/in/alina-bhatti-0b0122353/)
 - [Nick Clark](https://www.linkedin.com/in/nicholas-a-clark//)
+- [Vinay Gajjar](https://www.linkedin.com/in/vinaygajjar/)
+- [Gagandeep Guru](https://www.linkedin.com/in/igagandeep95/)
+- [Charmayne Knox](https://www.linkedin.com/in/charmayneknox/)
+- [Devyn Lowry](https://www.linkedin.com/in/devynwlowry/)
+- [David Weiss](https://www.linkedin.com/in/bydavidweiss/)
 
 ---
 
