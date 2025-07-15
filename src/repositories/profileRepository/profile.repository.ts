@@ -26,6 +26,17 @@ export class ProfileRepository extends BaseRepository<ProfileDTO, Profile> {
     } satisfies Profile;
   }
 
+  async checkUsernameExists(username: string): Promise<boolean> {
+    const query = this.getBaseQuery(true);
+
+    const { count, error } = await this.applyFilters(query, { username });
+
+    if (error) {
+      throw new Error("Something went wrong");
+    }
+    return Boolean(count);
+  }
+
   async getCurrentUser(): Promise<Profile | null> {
     try {
       const {
