@@ -1,0 +1,16 @@
+[allowlist]
+description = "Allowlist for known safe secrets and files"
+
+files = [
+  "seeds.sql",
+  "scripts/seeds/.*\\.ts",
+  "\\.env\\.example",
+  "gitleaks-report.json"
+]
+
+paths = [
+  "scripts/seeds",
+  "supabase/fixtures"
+]
+
+commitAuthors = ["dependabot"]
