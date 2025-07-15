@@ -162,6 +162,7 @@ Head over to our [Environment Setup Guide](https://github.com/Christin-paige/Bui
 
 ## 👥 BuiltInPublic Contributors
 
+- [Christin Martin](https://www.linkedin.com/in/christin-martin/)
 - [Andrew Couture](https://www.linkedin.com/in/andrew-couture-15937ab/)
 - [Gavin Hensley](https://www.linkedin.com/in/g-hensley/)
 - [Brenda Hensley](https://www.linkedin.com/in/brenda-hensley-/)
@@ -169,6 +170,10 @@ Head over to our [Environment Setup Guide](https://github.com/Christin-paige/Bui
 - [Alina Bhatti](https://www.linkedin.com/in/alina-bhatti-0b0122353/)
 - [Nick Clark](https://www.linkedin.com/in/nicholas-a-clark//)
 - [Vinay Gajjar](https://www.linkedin.com/in/vinaygajjar/)
+- [Gagandeep Guru](https://www.linkedin.com/in/igagandeep95/)
+- [Charmayne Knox](https://www.linkedin.com/in/charmayneknox/)
+- [Devyn Lowry](https://www.linkedin.com/in/devynwlowry/)
+- [David Weiss](https://www.linkedin.com/in/bydavidweiss/)
 
 ---
 
