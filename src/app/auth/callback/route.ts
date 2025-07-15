@@ -13,11 +13,11 @@ export async function GET(request: Request) {
     const supabase = await createAnonClient();
     const { error } = await supabase.auth.exchangeCodeForSession(code);
     if (!error) {
-      // ✅ Safe: only using origin and a validated next path
+      // Safe: only using origin and a validated next path
       return NextResponse.redirect(`${origin}${next}`);
     }
   }
 
-  // 🔒 Fallback to error page
+  // Fallback to error page
   return NextResponse.redirect(`${origin}/auth/auth-code-error`);
 }

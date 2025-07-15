@@ -9,13 +9,7 @@ set -e
 echo "🎨 Checking Prettier formatting & Fixing..."
 npx prettier --write .
 
-# 2. Secrets scan with Gitleaks
-echo "🕵️‍♀️ Checking for Gitleaks (optional)..."
-if command -v gitleaks &> /dev/null; then
-  gitleaks detect --source . --report-path gitleaks-report.json --config .gitleaks.toml || echo "⚠️ Gitleaks found issues, but push allowed"
-fi  # ← This was missing!
-
-# 3. Static analysis
+# 2. Static analysis
 echo "🧠 Running Semgrep..."
 npm run semgrep
 

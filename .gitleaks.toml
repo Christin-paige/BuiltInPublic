@@ -13,4 +13,4 @@ paths = [
   "supabase/fixtures"
 ]
 
-commitAuthor = ["dependabot"]
+commitAuthors = ["dependabot"]
