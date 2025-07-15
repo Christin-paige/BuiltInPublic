@@ -32,7 +32,6 @@ Before getting started, make sure you have the following installed:
 │   └── components
 │       └── ui
 │           └── button.jsx
-├── bun.lock
 ├── components.json
 ├── docs
 │   ├── appregistered.png
