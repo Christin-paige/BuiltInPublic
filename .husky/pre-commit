@@ -1,10 +1,10 @@
 #!/bin/bash
 # Prevent committing secrets
 echo "✅ Pre-commit hook ran"
+echo "🕵️‍♀️ Running Gitleaks detect (pre-commit)..."
 
-echo "🕵️‍♀️ Running Gitleaks protect (pre-commit)..."
-
-if ! gitleaks protect --staged --verbose --config=.gitleaks.toml; then
+if ! gitleaks detect --source="$(pwd)" --config=".gitleaks.toml" --exit-code 1; then
   echo "🛑 Gitleaks detected secrets. Aborting commit."
   exit 1
 fi
+echo "✅ No secrets found. Proceeding with commit."
