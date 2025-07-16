@@ -10,22 +10,19 @@ permissions:
 
 jobs:
   automerge:
-    # only run on Dependabot PRs that have the “security” label
     if: |
       github.actor == 'dependabot[bot]' &&
       contains(github.event.pull_request.labels.*.name, 'security')
     runs-on: ubuntu-latest
     steps:
-      - name: Auto-approve Dependabot security PR
+      - name: ✅ Auto-approve Dependabot security PR
         uses: hmarr/auto-approve-action@v2
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          # restrict to Security updates only
-          # hmarr/auto-approve-action@v2 satisfies the 1-reviewer requirement automatically
+          github-token: ${{ secrets.MERGE_TOKEN }}
 
-      - name: Enable auto-merge for security fixes
+      - name: ✅ Enable auto-merge for security fixes
         uses: peter-evans/enable-pull-request-automerge@v3
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          pull-request-number: ${{ github.event.pull_request.number }}
+          token: ${{ secrets.MERGE_TOKEN }}
+          pull-request-number: ${{ github.event.number }}
           merge-method: squash
