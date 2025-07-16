@@ -1,11 +1,14 @@
+title = "BuiltInPublic Secret Scan Config"
+enableDefaultRules = true
+
 [allowlist]
 description = "Allowlist for known safe secrets and files"
 
 files = [
-  "seeds.sql",
-  "scripts/seeds/.*\\.ts",
-  "\\.env\\.example",
-  "gitleaks-report.json"
+  "^\\.env\\.example$",
+  "^scripts/seeds/.*\\.ts$",
+  "^gitleaks-report\\.json$",
+  "^seeds\\.sql$"
 ]
 
 paths = [
@@ -14,3 +17,21 @@ paths = [
 ]
 
 commitAuthors = ["dependabot"]
+
+[[rules]]
+id = "aws-access-key"
+description = "AWS Access Key"
+regex = '''AKIA[0-9A-Z]{16}'''
+tags = ["key", "AWS"]
+
+[[rules]]
+id = "stripe-api-key"
+description = "Stripe API Key"
+regex = '''sk_live_[0-9a-zA-Z]{24}'''
+tags = ["key", "Stripe"]
+
+[[rules]]
+id = "github-pat"
+description = "GitHub Personal Access Token"
+regex = '''ghp_[A-Za-z0-9_]{36,255}'''
+tags = ["key", "GitHub"]
