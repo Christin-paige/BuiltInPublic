@@ -3,6 +3,7 @@ name: Auto-merge Dependabot security updates
 on:
   pull_request_target:
     types: [opened, reopened, labeled, unlabeled, synchronize]
+  workflow_dispatch:
 
 permissions:
   pull-requests: write
