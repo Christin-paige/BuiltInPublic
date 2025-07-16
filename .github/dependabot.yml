@@ -1,15 +1,34 @@
+# .github/dependabot.yml
 version: 2
 updates:
+  # Daily direct dependency updates (security focused)
+  - package-ecosystem: "npm"
+    directory: "/" # root of the project
+    schedule:
+      interval: "daily"
+    allow:
+      - dependency-type: "direct"
+    labels:
+      - "security"
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "chore"
+    rebase-strategy: "auto"
+    ignore:
+      - dependency-name: "eslint"
+        versions: ["<8.0.0"]
+
+  # Weekly all dependencies update
   - package-ecosystem: "npm"
     directory: "/" # root of the project
     schedule:
       interval: "weekly"
-    open-pull-requests-limit: 5
-    commit-message:
-      prefix: "chore"
     labels:
       - "dependencies"
       - "security"
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "chore"
     rebase-strategy: "auto"
     ignore:
       - dependency-name: "eslint"
