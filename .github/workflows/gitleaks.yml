@@ -14,12 +14,45 @@ jobs:
       pull-requests: read
 
     steps:
-      - name: Checkout code
+      - name: 📥 Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # Fetch full history
+          fetch-depth: 0 # needed for full commit history
 
-      - name: Run Gitleaks
-        uses: gitleaks/gitleaks-action@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: 🧰 Install Gitleaks CLI (manually)
+        run: |
+          GITLEAKS_VERSION=$(curl -s https://api.github.com/repos/gitleaks/gitleaks/releases/latest | jq -r '.tag_name')
+          echo "Installing Gitleaks $GITLEAKS_VERSION"
+
+          curl -sSL -o gitleaks.tar.gz "https://github.com/gitleaks/gitleaks/releases/download/${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION#v}_linux_x64.tar.gz"
+          tar -xzf gitleaks.tar.gz gitleaks
+          chmod +x gitleaks
+          sudo mv gitleaks /usr/local/bin/
+          gitleaks version
+
+      - name: 🧠 Set report filename based on PR or branch
+        id: meta
+        run: |
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            NAME="gitleaks-PR-${{ github.event.pull_request.number }}.json"
+          else
+            BRANCH="${{ github.ref_name }}"
+            SAFE_BRANCH=$(echo "$BRANCH" | tr '/' '-')
+            NAME="gitleaks-${SAFE_BRANCH}.json"
+          fi
+          echo "report_name=$NAME" >> "$GITHUB_OUTPUT"
+
+      - name: 🕵️ Run Gitleaks with local config
+        run: |
+          gitleaks detect \
+            --source="${{ github.workspace }}" \
+            --config="${{ github.workspace }}/.gitleaks.toml" \
+            --report-format=json \
+            --report-path="${{ steps.meta.outputs.report_name }}"
+
+      - name: 📤 Upload Gitleaks Report Artifact (14-day retention)
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.meta.outputs.report_name }}
+          path: ${{ steps.meta.outputs.report_name }}
+          retention-days: 14
