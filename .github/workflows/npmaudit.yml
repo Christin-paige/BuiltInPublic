@@ -1,0 +1,43 @@
+name: PR Audit Fix Checker
+
+on:
+  push:
+    branches:
+      - main
+      - development
+  pull_request:
+    branches:
+      - main
+      - development
+
+jobs:
+  audit-fix-check:
+    name: 🔐 Audit Fix Check on PR
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: ⬇️ Checkout Code
+        uses: actions/checkout@v4
+
+      - name: 🧰 Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: 📦 Install Dependencies
+        run: npm install
+
+      - name: 🛠 Run npm audit fix
+        run: npm audit fix --force
+
+      - name: 📊 Show Diff for package-lock.json
+        run: |
+          echo "=== Diff for package-lock.json ==="
+          git diff package-lock.json || echo "No changes"
+
+      - name: 🚨 Fail if any changes were made
+        run: |
+          if [[ -n "$(git status --porcelain package-lock.json)" ]]; then
+            echo "🔒 Audit fix made changes to package-lock.json. Please commit those manually if desired."
+            exit 1
+          fi
