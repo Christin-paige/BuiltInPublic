@@ -3,7 +3,6 @@ name: Auto-merge Dependabot security updates
 on:
   pull_request_target:
     types: [opened, reopened, labeled, unlabeled, synchronize]
-  workflow_dispatch:
 
 permissions:
   pull-requests: write
@@ -12,7 +11,7 @@ permissions:
 jobs:
   automerge:
     if: |
-      github.actor == 'dependabot[bot]' &&
+      github.actor == 'NickTheDevOpsGuy' &&
       contains(github.event.pull_request.labels.*.name, 'security')
     runs-on: ubuntu-latest
     steps:
