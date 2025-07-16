@@ -1,13 +1,12 @@
-name: Gitleaks Secret Scan
+name: 🔐 Gitleaks Secret Scan
 
 on:
-  push:
-    branches: [main, development]
   pull_request:
-    branches: [main, development]
+    branches: [development]
 
 jobs:
   gitleaks:
+    name: Scan for Secrets
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -17,14 +16,25 @@ jobs:
       - name: 📥 Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # needed for full commit history
+          fetch-depth: 0 # Needed to scan full commit history
 
-      - name: 🧰 Install Gitleaks CLI (manually)
+      - name: 🧰 Install dependencies
+        run: sudo apt-get update && sudo apt-get install -y jq
+
+      - name: 📦 Install latest Gitleaks
         run: |
-          GITLEAKS_VERSION=$(curl -s https://api.github.com/repos/gitleaks/gitleaks/releases/latest | jq -r '.tag_name')
-          echo "Installing Gitleaks $GITLEAKS_VERSION"
+          GITLEAKS_VERSION=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            https://api.github.com/repos/gitleaks/gitleaks/releases/latest | jq -r '.tag_name')
 
-          curl -sSL -o gitleaks.tar.gz "https://github.com/gitleaks/gitleaks/releases/download/${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION#v}_linux_x64.tar.gz"
+          if [ -z "$GITLEAKS_VERSION" ] || [ "$GITLEAKS_VERSION" == "null" ]; then
+            echo "❌ Failed to fetch latest Gitleaks version"
+            exit 1
+          fi
+
+          echo "Installing Gitleaks $GITLEAKS_VERSION"
+          curl -sSL -o gitleaks.tar.gz \
+            "https://github.com/gitleaks/gitleaks/releases/download/${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION#v}_linux_x64.tar.gz"
+
           tar -xzf gitleaks.tar.gz gitleaks
           chmod +x gitleaks
           sudo mv gitleaks /usr/local/bin/
@@ -49,6 +59,16 @@ jobs:
             --config="${{ github.workspace }}/.gitleaks.toml" \
             --report-format=json \
             --report-path="${{ steps.meta.outputs.report_name }}"
+
+      - name: ✅ Gitleaks completed successfully
+        if: success()
+        run: echo "✅ No secrets found by Gitleaks!"
+
+      - name: 🛑 Fail if secrets are found
+        if: failure()
+        run: |
+          echo "❌ Gitleaks detected one or more potential secrets!"
+          exit 1
 
       - name: 📤 Upload Gitleaks Report Artifact (14-day retention)
         uses: actions/upload-artifact@v4
