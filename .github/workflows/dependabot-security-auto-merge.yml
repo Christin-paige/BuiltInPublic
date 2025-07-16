@@ -10,9 +10,6 @@ permissions:
 
 jobs:
   automerge:
-    if: |
-      github.actor == 'NickTheDevOpsGuy' &&
-      contains(github.event.pull_request.labels.*.name, 'security')
     runs-on: ubuntu-latest
     steps:
       - name: ✅ Auto-approve Dependabot security PR
