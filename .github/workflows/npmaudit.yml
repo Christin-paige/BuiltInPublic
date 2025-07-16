@@ -2,13 +2,9 @@ name: PR Audit Fix Checker
 
 on:
   push:
-    branches:
-      - main
-      - development
+    branches: [main, development]
   pull_request:
-    branches:
-      - main
-      - development
+    branches: [main, development]
 
 jobs:
   audit-fix-check:
@@ -27,17 +23,30 @@ jobs:
       - name: 📦 Install Dependencies
         run: npm install
 
-      - name: 🛠 Run npm audit fix
-        run: npm audit fix --force
-
-      - name: 📊 Show Diff for package-lock.json
+      - name: 📄 Ensure package-lock.json exists
         run: |
-          echo "=== Diff for package-lock.json ==="
-          git diff package-lock.json || echo "No changes"
+          if [ ! -f package-lock.json ]; then
+            echo "🔧 package-lock.json not found, generating one..."
+            npm install --package-lock-only
+          fi
 
-      - name: 🚨 Fail if any changes were made
+      - name: 🛡 Run npm audit fix (safe only)
+        run: npm audit fix
+
+      - name: 📊 Print diff if package-lock.json changed
+        run: |
+          echo "🔍 Checking for changes to package-lock.json"
+          PR_TITLE="${{ github.event.pull_request.title || github.sha }}"
+          echo "🔎 PR Audit Fix Check — ${PR_TITLE}"
+          echo "==========================================="
+          git diff --color=always package-lock.json || echo "✅ No changes to package-lock.json"
+
+      - name: 🚨 Fail if package-lock.json changed
         run: |
           if [[ -n "$(git status --porcelain package-lock.json)" ]]; then
-            echo "🔒 Audit fix made changes to package-lock.json. Please commit those manually if desired."
+            echo "❌ package-lock.json was modified by 'npm audit fix'."
+            echo "📝 Please review the diff above and commit changes if needed."
             exit 1
+          else
+            echo "✅ No changes detected in package-lock.json"
           fi
