@@ -22,7 +22,7 @@ export default async function Feed() {
   };
 
   // Optionally fetch the user if `createAnonClient` exposes it
-/*   const {
+  /*   const {
     data: { user },
   } = await createServerComponentClient<Database>({ cookies }).auth.getUser();
  */
