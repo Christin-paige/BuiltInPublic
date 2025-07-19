@@ -21,11 +21,6 @@ export default async function Feed() {
     error: Error | null;
   };
 
-  // Optionally fetch the user if `createAnonClient` exposes it
-  const {
-    data: { user },
-  } = await createServerComponentClient<Database>({ cookies }).auth.getUser();
-
   return (
     <div className="bg-gradient-to-b from-[#1d1d1d] to-[#86059F] rounded-md shadow p-3 h-full text-white">
       <h1 className="font-semibold mb-2">Your Feed</h1>
