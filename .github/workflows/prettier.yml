@@ -21,4 +21,5 @@ jobs:
         run: npm install
 
       - name: Run Prettier
-        run: npx prettier --check . \!supabase/**/*.types.ts
+        run: |
+          npx prettier --config .prettierrc.yml --check . \!supabase/**/*.types.ts
