@@ -12,6 +12,21 @@ const compat = new FlatCompat({
 });
 
 const eslintConfig = [
+  {
+    ignores: [
+      'node_modules',
+      'dist',
+      'build',
+      'coverage',
+      'public',
+      '.next',
+      '.turbo',
+      'out',
+      'storybook-static',
+      'cypress/videos',
+      'cypress/screenshots',
+    ],
+  },
   ...compat.extends('next/core-web-vitals'),
   {
     plugins: {
