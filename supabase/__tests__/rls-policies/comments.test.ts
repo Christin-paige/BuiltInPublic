@@ -14,6 +14,7 @@ const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string;
 
 // Test suite for RLS policies on the comments table
 describe("RLS Policies for Comments Table", () => {
+
   // Test case: Ensure authenticated users can read comments
   it("should allow authenticated user to get all comments", async () => {
     // Simulate an authenticated user
@@ -38,4 +39,24 @@ describe("RLS Policies for Comments Table", () => {
     expect(data).toBeInstanceOf(Array);
     expect(error).toBeNull();
   });
+
+  // Test case: Ensure unauthenticated users cannot read comments
+  it("should not allow unauthenticated user to get comments", async () => {
+    // Create a Supabase client without authentication
+    const unauthClient = createClient(supabaseUrl, supabaseAnonKey, {
+      auth: {
+        autoRefreshToken: false,
+        persistSession: false,
+        detectSessionInUrl: false,
+      },
+    });
+
+    const { data } = await unauthClient.from("comments").select("*");
+
+    // Expect 0 data returned for unauthenticated user
+    expect(data?.length).toBe(0);
+  });
+
+  // Test case: Ensure authenticated users can insert comments
+  
 });
