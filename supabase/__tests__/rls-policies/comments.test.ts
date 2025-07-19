@@ -134,4 +134,57 @@ describe("RLS Policies for Comments Table", async () => {
     expect(updateData?.length).toBe(0);
     expect(updateError).toBeFalsy();
   });
+
+  // Test case: Ensure authenticated users can delete their own comments
+  it("should allow an authenticated user to delete their own comment", async () => {
+    const comment = await newComment();
+
+    // First, get the test comment that was just inserted
+    const { data: commentData, error: commentError } = await authedClient
+      .from("comments")
+      .select("*")
+      .eq("content", "Updated comment content")
+      .single();
+
+    // Expect no error and comment data to be present
+    expect(commentError).toBeNull();
+    expect(commentData).toBeDefined();
+
+    // Now, delete the inserted comment
+    const { data: deleteData, error: deleteError } = await authedClient
+      .from("comments")
+      .delete()
+      .eq("id", commentData.id)
+      .select();
+
+    // Expect no error and deleted data to reflect the changes
+    expect(deleteError).toBeNull();
+    expect(deleteData).toBeInstanceOf(Array);
+    expect(deleteData?.[0].id).toBe(commentData.id);
+  });
+
+  // Test case: Ensure authenticated users cannot delete others' comments
+  it("should not allow an authenticated user to delete someone else's comment", async () => {
+    // First get a comment that does not belong to the authenticated user
+    const { data: otherCommentData, error: otherCommentError } =
+      await authedClient
+        .from("comments")
+        .select()
+        .eq("content", "This is super helpful, thanks for sharing!");
+
+    // Expect no errors and at least one comment returned
+    expect(otherCommentError).toBeNull();
+    expect(otherCommentData).toBeInstanceOf(Array);
+    expect(otherCommentData?.length).toBeGreaterThan(0);
+
+    // Now, attempt to delete that comment
+    const { data: deleteData, error: deleteError } = await authedClient
+      .from("comments")
+      .delete()
+      .eq("id", otherCommentData?.[0].id)
+      .select();
+
+    expect(deleteData?.length).toBe(0);
+    expect(deleteError).toBeFalsy();
+  });
 });
