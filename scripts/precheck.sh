@@ -42,13 +42,12 @@ npm run semgrep
 if ! git diff --cached --quiet || ! git diff --quiet; then
   echo "💾 Committing Prettier or lint fixes..."
   git add .
-  git commit -m "style: auto-fix linting and formatting issues"
+  git commit -m "style: auto-fix linting and formatting issues [skip-precheck]"
 
   echo "🛑 Formatting fixes committed. Please review and push again."
   exit 1
 else
   echo "✅ No changes to commit."
 fi
-
 
 echo "🚀 All checks passed. Ready to push!"
