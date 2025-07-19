@@ -90,12 +90,12 @@ describe("RLS Policies for Comments Table", async () => {
 
   // Test case: Ensure authenticated users cannot update others' comments
   it("should not allow an authenticated user to update someone else's comment", async () => {
-    
     // First get a comment that does not belong to the authenticated user
-    const { data: otherCommentData, error: otherCommentError } = await authedClient
-      .from("comments")
-      .select()
-      .eq("content", "This is super helpful, thanks for sharing!");
+    const { data: otherCommentData, error: otherCommentError } =
+      await authedClient
+        .from("comments")
+        .select()
+        .eq("content", "This is super helpful, thanks for sharing!");
 
     // Expect no errors and at least one comment returned
     expect(otherCommentError).toBeNull();
@@ -134,5 +134,4 @@ describe("RLS Policies for Comments Table", async () => {
     expect(updateData?.length).toBe(0);
     expect(updateError).toBeFalsy();
   });
-
 });
