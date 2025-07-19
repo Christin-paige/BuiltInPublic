@@ -38,13 +38,17 @@ fi
 echo "🧠 Running Semgrep..."
 npm run semgrep
 
-# 5. Commit any Prettier or ESLint changes, if present
-if ! git diff --quiet || ! git diff --cached --quiet; then
-  echo "💾 Committing auto-fixed changes..."
+# 5. Commit any Prettier or lint changes if they exist
+if ! git diff --cached --quiet || ! git diff --quiet; then
+  echo "💾 Committing Prettier or lint fixes..."
   git add .
   git commit -m "style: auto-fix linting and formatting issues"
+
+  echo "🛑 Formatting fixes committed. Please review and push again."
+  exit 1
 else
   echo "✅ No changes to commit."
 fi
+
 
 echo "🚀 All checks passed. Ready to push!"
