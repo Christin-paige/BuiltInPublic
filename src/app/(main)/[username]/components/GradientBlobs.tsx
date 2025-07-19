@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 
 interface BlobPosition {
   x: number;
@@ -12,14 +12,14 @@ const GradientBlobs = () => {
   const numBlobs = 8;
 
   const gradientCombinations = [
-    "from-purple-600 to-pink-600",
-    "from-blue-600 to-cyan-600",
-    "from-green-600 to-emerald-600",
-    "from-orange-600 to-red-600",
-    "from-indigo-600 to-purple-600",
-    "from-pink-600 to-rose-600",
-    "from-cyan-600 to-blue-600",
-    "from-emerald-600 to-teal-600",
+    'from-purple-600 to-pink-600',
+    'from-blue-600 to-cyan-600',
+    'from-green-600 to-emerald-600',
+    'from-orange-600 to-red-600',
+    'from-indigo-600 to-purple-600',
+    'from-pink-600 to-rose-600',
+    'from-cyan-600 to-blue-600',
+    'from-emerald-600 to-teal-600',
   ];
 
   useEffect(() => {

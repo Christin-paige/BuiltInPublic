@@ -1,7 +1,7 @@
-import { BaseRepository, FilterBuilder } from "../base.repository";
-import { AnySupabaseClient } from "utils/supabase/server";
-import { Profile, ProfileDTO } from "./profile.types";
-import { PostgrestFilterBuilder } from "@supabase/postgrest-js";
+import { BaseRepository, FilterBuilder } from '../base.repository';
+import { AnySupabaseClient } from 'utils/supabase/server';
+import { Profile, ProfileDTO } from './profile.types';
+import { PostgrestFilterBuilder } from '@supabase/postgrest-js';
 
 export class ProfileRepository extends BaseRepository<ProfileDTO, Profile> {
   constructor(supabase: AnySupabaseClient) {
@@ -10,8 +10,8 @@ export class ProfileRepository extends BaseRepository<ProfileDTO, Profile> {
 
   getRawBaseQuery(count: boolean = false) {
     const query = this.supabase
-      .from("profiles")
-      .select("*", count ? { count: "exact" } : undefined);
+      .from('profiles')
+      .select('*', count ? { count: 'exact' } : undefined);
 
     return query;
   }
@@ -21,8 +21,8 @@ export class ProfileRepository extends BaseRepository<ProfileDTO, Profile> {
 
     return {
       id,
-      username: username || "Unknown",
-      avatarUrl: avatar_url || "",
+      username: username || 'Unknown',
+      avatarUrl: avatar_url || '',
     } satisfies Profile;
   }
 
@@ -32,7 +32,7 @@ export class ProfileRepository extends BaseRepository<ProfileDTO, Profile> {
     const { count, error } = await this.applyFilters(query, { username });
 
     if (error) {
-      throw new Error("Something went wrong");
+      throw new Error('Something went wrong');
     }
     return Boolean(count);
   }
@@ -45,7 +45,7 @@ export class ProfileRepository extends BaseRepository<ProfileDTO, Profile> {
       } = await this.supabase.auth.getUser();
 
       if (authUserError || !user) {
-        throw new Error("Cannot find user");
+        throw new Error('Cannot find user');
       }
 
       const profile = await this.getById(user.id);
@@ -65,7 +65,7 @@ export class ProfileRepository extends BaseRepository<ProfileDTO, Profile> {
       }).maybeSingle();
 
       if (!data || error) {
-        throw new Error("Cannot find profile");
+        throw new Error('Cannot find profile');
       }
 
       const profile = this.safeTransformDTO(data);
@@ -85,7 +85,7 @@ export class ProfileRepository extends BaseRepository<ProfileDTO, Profile> {
       }).maybeSingle();
 
       if (!data || error) {
-        throw new Error("Profile not found");
+        throw new Error('Profile not found');
       }
 
       const profile = this.safeTransformDTO(data);

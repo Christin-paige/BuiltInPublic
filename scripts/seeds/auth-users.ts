@@ -1,47 +1,47 @@
-import { supabase } from "../seed";
+import { supabase } from '../seed';
 
 // List of the auth users to seed in the database: with email, password, role, name, username, avatar_url
 const users = [
   {
-    email: "builtinpublic1+testuser1@gmail.com",
-    password: "builtinpublic123",
-    role: "user",
-    name: "Test User 1",
-    username: "testuser1",
+    email: 'builtinpublic1+testuser1@gmail.com',
+    password: 'builtinpublic123',
+    role: 'user',
+    name: 'Test User 1',
+    username: 'testuser1',
     avatar_url:
-      "https://img.freepik.com/premium-vector/male-face-avatar-icon-set-flat-design-social-media-profiles_1281173-3806.jpg?semt=ais_hybrid&w=740",
+      'https://img.freepik.com/premium-vector/male-face-avatar-icon-set-flat-design-social-media-profiles_1281173-3806.jpg?semt=ais_hybrid&w=740',
   },
   {
-    email: "builtinpublic1+testuser2@gmail.com",
-    password: "builtinpublic123",
-    role: "user",
-    name: "Test User 2",
-    username: "testuser2",
+    email: 'builtinpublic1+testuser2@gmail.com',
+    password: 'builtinpublic123',
+    role: 'user',
+    name: 'Test User 2',
+    username: 'testuser2',
     avatar_url:
-      "https://img.freepik.com/premium-vector/male-face-avatar-icon-set-flat-design-social-media-profiles_1281173-3806.jpg?semt=ais_hybrid&w=740",
+      'https://img.freepik.com/premium-vector/male-face-avatar-icon-set-flat-design-social-media-profiles_1281173-3806.jpg?semt=ais_hybrid&w=740',
   },
   {
-    email: "builtinpublic1+testuser3@gmail.com",
-    password: "builtinpublic123",
-    role: "user",
-    name: "Test User 3",
-    username: "testuser3",
+    email: 'builtinpublic1+testuser3@gmail.com',
+    password: 'builtinpublic123',
+    role: 'user',
+    name: 'Test User 3',
+    username: 'testuser3',
     avatar_url:
-      "https://img.freepik.com/premium-vector/male-face-avatar-icon-set-flat-design-social-media-profiles_1281173-3806.jpg?semt=ais_hybrid&w=740",
+      'https://img.freepik.com/premium-vector/male-face-avatar-icon-set-flat-design-social-media-profiles_1281173-3806.jpg?semt=ais_hybrid&w=740',
   },
   {
-    email: "builtinpublic1+testuser4@gmail.com",
-    password: "builtinpublic123",
-    role: "user",
-    name: "Test User 4",
-    username: "testuser4",
+    email: 'builtinpublic1+testuser4@gmail.com',
+    password: 'builtinpublic123',
+    role: 'user',
+    name: 'Test User 4',
+    username: 'testuser4',
     avatar_url:
-      "https://img.freepik.com/premium-vector/male-face-avatar-icon-set-flat-design-social-media-profiles_1281173-3806.jpg?semt=ais_hybrid&w=740",
+      'https://img.freepik.com/premium-vector/male-face-avatar-icon-set-flat-design-social-media-profiles_1281173-3806.jpg?semt=ais_hybrid&w=740',
   },
 ];
 
 export async function seedUsers() {
-  console.log("Seeding auth users and profiles...");
+  console.log('Seeding auth users and profiles...');
 
   // For each user, create a new user in the auth.users table and a new profile in the profiles table
   for (const u of users) {
@@ -69,7 +69,7 @@ export async function seedUsers() {
     }
 
     // Create a new profile in the profiles table
-    const { error: profileError } = await supabase.from("profiles").upsert({
+    const { error: profileError } = await supabase.from('profiles').upsert({
       id: userId,
       username: u.username,
       avatar_url: u.avatar_url,
@@ -77,12 +77,12 @@ export async function seedUsers() {
 
     if (profileError) {
       console.error(
-        `Failed to create profile for ${u.email}: ${profileError.message}`,
+        `Failed to create profile for ${u.email}: ${profileError.message}`
       );
     } else {
       console.log(`Created user & profile for ${u.email}`);
     }
   }
 
-  console.log("Done seeding users!");
+  console.log('Done seeding users!');
 }
