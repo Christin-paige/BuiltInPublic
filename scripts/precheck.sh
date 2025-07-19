@@ -17,7 +17,7 @@ done
 
 # 1. Format check & fix
 echo "🎨 Checking Prettier formatting & fixing..."
-npx prettier --write .
+npx prettier --config .prettierrc.yml --write .
 
 # 2. ESLint check & fix
 echo "🧹 Running ESLint linting & fixing..."
