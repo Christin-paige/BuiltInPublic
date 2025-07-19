@@ -21,17 +21,18 @@ for tool in "${REQUIRED_TOOLS[@]}"; do
   fi
 done
 
-# 1. Format check & fix
-echo "🎨 Running Prettier..."
-npx prettier --config .prettierrc.yml --write .
-
-# 2. ESLint check & fix
+# 1. ESLint check & fix
 echo "🧹 Running ESLint..."
 if ! npm run lint . --fix; then
   echo "❌ ESLint errors found that could not be auto-fixed. Aborting push."
   exit 1
 fi
 echo "✅ ESLint passed."
+
+# 2. Format check & fix
+echo "🎨 Running Prettier..."
+npx prettier --config .prettierrc.yml --write .
+
 
 # 3. Secrets scan with Gitleaks
 echo "🕵️‍♀️ Running Gitleaks..."
