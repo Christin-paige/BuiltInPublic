@@ -87,4 +87,52 @@ describe("RLS Policies for Comments Table", async () => {
     expect(updateData).toBeInstanceOf(Array);
     expect(updateData?.[0].content).toBe("Updated comment content");
   });
+
+  // Test case: Ensure authenticated users cannot update others' comments
+  it("should not allow an authenticated user to update someone else's comment", async () => {
+    
+    // First get a comment that does not belong to the authenticated user
+    const { data: otherCommentData, error: otherCommentError } = await authedClient
+      .from("comments")
+      .select()
+      .eq("content", "This is super helpful, thanks for sharing!");
+
+    // Expect no errors and at least one comment returned
+    expect(otherCommentError).toBeNull();
+    expect(otherCommentData).toBeInstanceOf(Array);
+    expect(otherCommentData?.length).toBeGreaterThan(0);
+
+    // Now, attempt to update that comment
+    const { data: updateData, error: updateError } = await authedClient
+      .from("comments")
+      .update({ content: "Trying to update someone else's comment" })
+      .eq("id", otherCommentData?.[0].id)
+      .select();
+
+    // Expect an error and no data returned when trying to update someone else's comment
+    expect(updateData?.length).toBe(0);
+    expect(updateError).toBeFalsy();
+  });
+
+  // Test case: Ensure unauthenticated users cannot update comments
+  it("should not allow an unauthenticated user to update a comment", async () => {
+    // First get a comment to attempt to update
+    const { data: commentData, error: commentError } = await authedClient
+      .from("comments")
+      .select()
+      .limit(1)
+      .single();
+
+    // Now, attempt to update that comment
+    const { data: updateData, error: updateError } = await authedClient
+      .from("comments")
+      .update({ content: "Trying to update someone else's comment" })
+      .eq("id", commentData?.id)
+      .select();
+
+    // Expect an error and no data returned when trying to update someone else's comment
+    expect(updateData?.length).toBe(0);
+    expect(updateError).toBeFalsy();
+  });
+
 });
