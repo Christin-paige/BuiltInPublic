@@ -12,15 +12,15 @@ const supabaseClient = createClient(supabaseUrl, supabaseAnonKey);
 export const getAuthenticatedClient = async () => {
   try {
     const { data, error } = await supabaseClient.auth.signInWithPassword({
-      email: 'test@example.com',
-      password: 'password123',
+      email: "test@example.com",
+      password: "password123",
     });
 
-  if (error) {
-    throw new Error(`Error signing in: ${error.message}`);
-  }
+    if (error) {
+      throw new Error(`Error signing in: ${error.message}`);
+    }
 
-  return data.session?.access_token;
+    return data.session?.access_token;
   } catch (error) {
     console.error("Error in getAuthenticatedClient:", error);
     throw error;
