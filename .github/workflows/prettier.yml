@@ -22,7 +22,7 @@ jobs:
 
       - name: Run Prettier
         run: |
-         npx prettier \
-         --config .prettierrc.yml \
-         --check . \
-         --ignore-path .prettierignore
+          npx prettier \
+          --config .prettierrc.yml \
+          --check . \
+          --ignore-path .prettierignore
