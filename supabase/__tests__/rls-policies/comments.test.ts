@@ -14,7 +14,6 @@ const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string;
 
 // Test suite for RLS policies on the comments table
 describe("RLS Policies for Comments Table", () => {
-
   // Test case: Ensure authenticated users can read comments
   it("should allow authenticated user to get all comments", async () => {
     // Simulate an authenticated user
@@ -58,5 +57,4 @@ describe("RLS Policies for Comments Table", () => {
   });
 
   // Test case: Ensure authenticated users can insert comments
-  
 });
