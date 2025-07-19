@@ -34,14 +34,6 @@ const eslintConfig = [
       'react-hooks': eslintPluginReactHooks,
     },
     rules: {
-      quotes: ['error', 'single', { avoidEscape: true }],
-      'react/jsx-pascal-case': [
-        'error',
-        {
-          allowAllCaps: true,
-          ignore: [],
-        },
-      ],
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'warn',
       'react/react-in-jsx-scope': 'off',

@@ -9,5 +9,5 @@ interface ProjectProps {
 export default function Project({ params }: ProjectProps) {
   const { id } = use(params);
 
-  return <h1 className="text-2xl text-center">Project {id}</h1>;
+  return <h1 className='text-2xl text-center'>Project {id}</h1>;
 }

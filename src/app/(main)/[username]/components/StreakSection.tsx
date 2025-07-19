@@ -24,8 +24,8 @@ const StreakSection = () => {
   };
 
   return (
-    <section className="flex flex-col gap-4 w-1/4">
-      <div className="flex gap-2">
+    <section className='flex flex-col gap-4 w-1/4'>
+      <div className='flex gap-2'>
         <button
           className={`p-2 rounded-lg border text-center w-fit cursor-pointer hover:bg-slate-800 transition-all 
             duration-100 active:scale-95 flex items-center gap-2 ${
@@ -50,12 +50,12 @@ const StreakSection = () => {
         </button>
       </div>
 
-      <div className="relative min-h-[300px]">
+      <div className='relative min-h-[300px]'>
         {view === 'calendar' && <CalendarStreak />}
         {view === 'github' && (
-          <div className="bg-slate-950 p-4 rounded-lg border">
+          <div className='bg-slate-950 p-4 rounded-lg border'>
             <GitHubCalendar
-              username="G-Hensley"
+              username='G-Hensley'
               transformData={selectLastHalfYear}
             />
           </div>

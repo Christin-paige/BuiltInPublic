@@ -12,8 +12,8 @@ export default async function MainLayout({
   return (
     <QueryProvider>
       <ThemeProvider
-        attribute="class"
-        defaultTheme="dark"
+        attribute='class'
+        defaultTheme='dark'
         enableSystem
         disableTransitionOnChange
       >

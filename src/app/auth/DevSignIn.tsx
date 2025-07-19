@@ -37,39 +37,39 @@ export default function DevSignIn() {
   };
 
   return (
-    <div className="flex items-center justify-center w-full">
-      <div className="w-96 text-center rounded-md border p-5 space-y-5 relative bg-slate-950">
-        <h2 className="text-xl font-bold">Dev Login</h2>
-        <form onSubmit={handleLoginWithEmail} className="flex flex-col gap-4">
+    <div className='flex items-center justify-center w-full'>
+      <div className='w-96 text-center rounded-md border p-5 space-y-5 relative bg-slate-950'>
+        <h2 className='text-xl font-bold'>Dev Login</h2>
+        <form onSubmit={handleLoginWithEmail} className='flex flex-col gap-4'>
           <input
-            className="w-full p-2 rounded-md border"
-            type="email"
-            name="email"
-            placeholder="Email"
+            className='w-full p-2 rounded-md border'
+            type='email'
+            name='email'
+            placeholder='Email'
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
           <input
-            className="w-full p-2 rounded-md border"
-            type="password"
-            name="password"
-            placeholder="Password"
+            className='w-full p-2 rounded-md border'
+            type='password'
+            name='password'
+            placeholder='Password'
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
           <Button
-            variant="outline"
-            size="medium"
-            className="w-full flex items-center gap-2 p-2 cursor-pointer"
-            type="submit"
+            variant='outline'
+            size='medium'
+            className='w-full flex items-center gap-2 p-2 cursor-pointer'
+            type='submit'
           >
             Login
           </Button>
         </form>
-        {error && <p className="text-red-500">{error}</p>}
-        {success && <p className="text-green-500">{success}</p>}
+        {error && <p className='text-red-500'>{error}</p>}
+        {success && <p className='text-green-500'>{success}</p>}
       </div>
-      <div className="glowbox -z-10"></div>
+      <div className='glowbox -z-10'></div>
     </div>
   );
 }

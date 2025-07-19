@@ -16,7 +16,7 @@ export default function ProfileIcon() {
         alt={data.username || 'User profile'}
         width={50}
         height={50}
-        className="rounded-full"
+        className='rounded-full'
       />
     </div>
   );

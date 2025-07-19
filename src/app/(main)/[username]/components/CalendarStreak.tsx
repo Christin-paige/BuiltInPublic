@@ -96,42 +96,42 @@ const CalendarStreak: FC = () => {
   const currentStreak = calculateCurrentStreak();
 
   return (
-    <div className="bg-slate-950 p-4 rounded-lg border">
-      <div className="flex items-center justify-between mb-4">
+    <div className='bg-slate-950 p-4 rounded-lg border'>
+      <div className='flex items-center justify-between mb-4'>
         <div>
-          <h1 className="text-2xl text-center">Streak Calendar</h1>
-          <p className="text-sm text-slate-400 text-center mt-1">
+          <h1 className='text-2xl text-center'>Streak Calendar</h1>
+          <p className='text-sm text-slate-400 text-center mt-1'>
             Current Streak: {currentStreak} days 🔥
           </p>
         </div>
-        <div className="flex items-center gap-2">
+        <div className='flex items-center gap-2'>
           <button
             onClick={prevMonth}
-            className="p-2 hover:bg-slate-800 rounded-lg transition-colors"
+            className='p-2 hover:bg-slate-800 rounded-lg transition-colors'
           >
-            <ChevronLeft className="h-5 w-5" />
+            <ChevronLeft className='h-5 w-5' />
           </button>
-          <span className="text-lg font-medium">
+          <span className='text-lg font-medium'>
             {monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}
           </span>
           <button
             onClick={nextMonth}
-            className="p-2 hover:bg-slate-800 rounded-lg transition-colors"
+            className='p-2 hover:bg-slate-800 rounded-lg transition-colors'
           >
-            <ChevronRight className="h-5 w-5" />
+            <ChevronRight className='h-5 w-5' />
           </button>
         </div>
       </div>
 
-      <div className="grid grid-cols-7 gap-1">
+      <div className='grid grid-cols-7 gap-1'>
         {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
-          <div key={day} className="text-center text-sm text-slate-400 py-1">
+          <div key={day} className='text-center text-sm text-slate-400 py-1'>
             {day}
           </div>
         ))}
 
         {Array.from({ length: firstDayOfMonth }).map((_, index) => (
-          <div key={`empty-${index}`} className="aspect-square" />
+          <div key={`empty-${index}`} className='aspect-square' />
         ))}
 
         {Array.from({ length: daysInMonth }).map((_, index) => {
