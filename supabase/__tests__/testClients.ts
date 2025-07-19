@@ -25,7 +25,7 @@ const authedClient = createClient(supabaseUrl, supabaseAnonKey, {
   },
 });
 
- // Create a Supabase client without authentication
+// Create a Supabase client without authentication
 const unauthClient = createClient(supabaseUrl, supabaseAnonKey, {
   auth: {
     autoRefreshToken: false,
