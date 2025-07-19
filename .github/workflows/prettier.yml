@@ -18,8 +18,9 @@ jobs:
           node-version: "20"
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Run Prettier
         run: |
-          npx prettier --config .prettierrc.yml --check . \!supabase/**/*.types.ts
+          npx prettier --config .prettierrc.yml --check . \
+          --ignore-path .prettierignore
