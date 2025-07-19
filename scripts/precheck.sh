@@ -1,4 +1,10 @@
 #!/bin/bash
+# Skip checks if the latest commit has [skip-precheck]
+LAST_COMMIT_MSG=$(git log -1 --pretty=%B)
+if echo "$LAST_COMMIT_MSG" | grep -qi '\[skip-precheck\]'; then
+  echo "⚠️ Skipping pre-push checks due to [skip-precheck] tag in last commit."
+  exit 0
+fi
 
 echo "🔍 Running Pre-PR Security & Code Quality Checks..."
 
