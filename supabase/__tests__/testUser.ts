@@ -17,7 +17,16 @@ export const getAuthenticatedClient = async () => {
     });
 
     if (error) {
-      throw new Error(`Error signing in: ${error.message}`);
+      const { data: signUpData, error: signUpError } = await supabaseClient.auth.signUp({
+        email: "test@example.com",
+        password: "password123",
+      });
+
+      if (signUpError) {
+        throw new Error(`Error signing up: ${signUpError.message}`);
+      }
+
+      return signUpData.session?.access_token;
     }
 
     return data.session?.access_token;
