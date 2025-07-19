@@ -27,10 +27,11 @@ describe("RLS Policies for Comments Table", async () => {
   // Test case: Ensure unauthenticated users cannot read comments
   it("should not allow unauthenticated user to get comments", async () => {
     // Use the unauthenticated client to try and fetch comments
-    const { data } = await unauthClient.from("comments").select("*");
+    const { data, error } = await unauthClient.from("comments").select("*");
 
     // Expect 0 data returned for unauthenticated user
     expect(data?.length).toBe(0);
+    expect(error).toBeNull();
   });
 
   // Test case: Ensure authenticated users can insert comments
