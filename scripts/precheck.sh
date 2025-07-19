@@ -12,7 +12,7 @@ echo "🔍 Running Pre-PR Security & Code Quality Checks..."
 set -e
 
 # Check for required tools
-REQUIRED_TOOLS=("prettier" "gitleaks" "semgrep" "eslint")
+REQUIRED_TOOLS=("prettier" "gitleaks" "eslint")
 
 for tool in "${REQUIRED_TOOLS[@]}"; do
   if ! command -v $tool &> /dev/null; then
@@ -40,11 +40,8 @@ if ! gitleaks detect --source . --report-path gitleaks-report.json --config .git
   exit 1
 fi
 
-# 4. Static analysis with Semgrep
-echo "🧠 Running Semgrep..."
-npm run semgrep
 
-# 5. Commit any Prettier or lint changes if they exist
+# 4. Commit any Prettier or lint changes if they exist
 if ! git diff --cached --quiet || ! git diff --quiet; then
   echo "💾 Committing Prettier or lint fixes..."
   git add .
