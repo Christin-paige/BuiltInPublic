@@ -19,6 +19,7 @@ const eslintConfig = [
       'react-hooks': eslintPluginReactHooks,
     },
     rules: {
+      'quotes': ['error', 'single', { avoidEscape: true }],
       'react/jsx-pascal-case': [
         'error',
         {
@@ -29,6 +30,7 @@ const eslintConfig = [
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'warn',
       'react/react-in-jsx-scope': 'off',
+      // Allow JSX without React import in Next.js
       'react/no-unescaped-entities': 'off',
     },
   },
