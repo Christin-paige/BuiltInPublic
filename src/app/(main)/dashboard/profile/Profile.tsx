@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import useUser from "@/hooks/useUser/useUser";
-import Image from "next/image";
+import useUser from '@/hooks/useUser/useUser';
+import Image from 'next/image';
 
 export default function Profile() {
   const { isLoading, data } = useUser();
@@ -15,8 +15,8 @@ export default function Profile() {
         <h1>profile</h1>
       ) : (
         <Image
-          src={data.avatarUrl || ""}
-          alt={data.username || ""}
+          src={data.avatarUrl || ''}
+          alt={data.username || ''}
           width={100}
           height={100}
           className="rounded-full "

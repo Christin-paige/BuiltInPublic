@@ -1,9 +1,9 @@
 ---
 name: New Feature Request
 about: Suggest a new feature for BuiltInPublic
-title: ""
-labels: ""
-assignees: ""
+title: ''
+labels: ''
+assignees: ''
 ---
 
 ---

@@ -1,8 +1,8 @@
-import { createServerClient } from "@supabase/ssr";
-import { NextResponse, type NextRequest } from "next/server";
+import { createServerClient } from '@supabase/ssr';
+import { NextResponse, type NextRequest } from 'next/server';
 
-const protectedRoutes = ["/dashboard", "/profile"];
-const publicRoutes = ["/auth"];
+const protectedRoutes = ['/dashboard', '/profile'];
+const publicRoutes = ['/auth'];
 
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({
@@ -23,14 +23,14 @@ export async function updateSession(request: NextRequest) {
           });
           cookiesToSet.forEach(({ name, value, options }) =>
             supabaseResponse.cookies.set(name, value, {
-              sameSite: "lax",
+              sameSite: 'lax',
               secure: true,
               ...options,
-            }),
+            })
           );
         },
       },
-    },
+    }
   );
 
   // Do not run code between createServerClient and
@@ -46,21 +46,21 @@ export async function updateSession(request: NextRequest) {
   const path = request.nextUrl.pathname;
 
   const isProtectedRoute = protectedRoutes.some(
-    (route) => path === route || path.startsWith(route),
+    (route) => path === route || path.startsWith(route)
   );
 
   const isPublicRoute = publicRoutes.some(
-    (route) => path === route || path.startsWith(route),
+    (route) => path === route || path.startsWith(route)
   );
 
   if (isProtectedRoute && !user) {
-    const redirectUrl = new URL("/auth", request.url);
+    const redirectUrl = new URL('/auth', request.url);
 
     return NextResponse.redirect(redirectUrl);
   }
 
   if (isPublicRoute && user) {
-    const redirectUrl = new URL("/dashboard", request.url);
+    const redirectUrl = new URL('/dashboard', request.url);
 
     return NextResponse.redirect(redirectUrl);
   }

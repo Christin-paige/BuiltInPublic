@@ -1,9 +1,9 @@
-import Projects from "./projects/ProjectList";
-import FriendsProjects from "./friends-projects/FriendsProjects";
-import Stats from "./stats/Stats";
-import Feed from "./feed/Feed";
-import Profile from "./profile/Profile";
-import Groups from "./groups/Groups";
+import Projects from './projects/ProjectList';
+import FriendsProjects from './friends-projects/FriendsProjects';
+import Stats from './stats/Stats';
+import Feed from './feed/Feed';
+import Profile from './profile/Profile';
+import Groups from './groups/Groups';
 
 export default async function Dashboard() {
   return (

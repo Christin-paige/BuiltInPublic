@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { useRouter } from "next/navigation";
-import { FC } from "react";
-import { Database } from "supabase/supabase.types";
-import { Post } from "./Feed";
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { useRouter } from 'next/navigation';
+import { FC } from 'react';
+import { Database } from 'supabase/supabase.types';
+import { Post } from './Feed';
 
 type User = {
   id: string;
@@ -23,7 +23,7 @@ const Likes: FC<LikesProps> = ({ post, user }) => {
 
     if (user) {
       await supabase
-        .from("likes")
+        .from('likes')
         .insert({ user_id: user.id, post_id: post.id });
       // Optionally refresh or re-fetch
       router.refresh();

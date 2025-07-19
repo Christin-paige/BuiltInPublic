@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import React, { use } from "react";
-import "./profile.css";
-import Image from "next/image";
-import FeedSection from "./components/FeedSection";
-import UserInfo from "./components/UserInfo";
-import StreakSection from "./components/StreakSection";
-import GradientBlobs from "./components/GradientBlobs";
-import useProfile from "@/hooks/useProfile/useProfile";
-import { notFound } from "next/navigation";
+import React, { use } from 'react';
+import './profile.css';
+import Image from 'next/image';
+import FeedSection from './components/FeedSection';
+import UserInfo from './components/UserInfo';
+import StreakSection from './components/StreakSection';
+import GradientBlobs from './components/GradientBlobs';
+import useProfile from '@/hooks/useProfile/useProfile';
+import { notFound } from 'next/navigation';
 
 interface ProfileProps {
   params: Promise<{

@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 const FeedSection = () => {
-  const [activeTab, setActiveTab] = useState<"posts" | "projects">("posts");
+  const [activeTab, setActiveTab] = useState<'posts' | 'projects'>('posts');
 
   return (
     <section className="flex flex-col gap-4 w-2/4">
@@ -9,28 +9,28 @@ const FeedSection = () => {
         <button
           className={`p-2 rounded-lg border text-center w-fit cursor-pointer hover:bg-slate-800 transition-all 
             duration-100 active:scale-95 flex items-center gap-2 ${
-              activeTab === "posts"
-                ? "bg-slate-700 border-cyan-800"
-                : "bg-slate-950"
+              activeTab === 'posts'
+                ? 'bg-slate-700 border-cyan-800'
+                : 'bg-slate-950'
             }`}
-          onClick={() => setActiveTab("posts")}
+          onClick={() => setActiveTab('posts')}
         >
           <p>Posts</p>
         </button>
         <button
           className={`p-2 rounded-lg border text-center w-fit cursor-pointer hover:bg-slate-800 transition-all 
             duration-100 active:scale-95 flex items-center gap-2 ${
-              activeTab === "projects"
-                ? "bg-slate-700 border-cyan-800"
-                : "bg-slate-950"
+              activeTab === 'projects'
+                ? 'bg-slate-700 border-cyan-800'
+                : 'bg-slate-950'
             }`}
-          onClick={() => setActiveTab("projects")}
+          onClick={() => setActiveTab('projects')}
         >
           <p>Projects</p>
         </button>
       </div>
 
-      {activeTab === "posts" && (
+      {activeTab === 'posts' && (
         <div className="bg-slate-950 p-4 rounded-lg border flex flex-col gap-4">
           <div className="flex gap-4">
             <div className="rounded-full border w-12 h-12 bg-slate-800" />
@@ -51,7 +51,7 @@ const FeedSection = () => {
         </div>
       )}
 
-      {activeTab === "projects" && (
+      {activeTab === 'projects' && (
         <div className="bg-slate-950 p-4 rounded-lg border flex flex-col gap-4">
           <div className="flex gap-4">
             <div className="rounded-full border w-12 h-12 bg-slate-800" />

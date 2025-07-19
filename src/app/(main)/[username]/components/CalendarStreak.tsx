@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { FC, useState } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { FC, useState } from 'react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const CalendarStreak: FC = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -31,38 +31,38 @@ const CalendarStreak: FC = () => {
   const daysInMonth = new Date(
     currentDate.getFullYear(),
     currentDate.getMonth() + 1,
-    0,
+    0
   ).getDate();
   const firstDayOfMonth = new Date(
     currentDate.getFullYear(),
     currentDate.getMonth(),
-    1,
+    1
   ).getDay();
 
   const monthNames = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
   ];
 
   const prevMonth = () => {
     setCurrentDate(
-      new Date(currentDate.getFullYear(), currentDate.getMonth() - 1),
+      new Date(currentDate.getFullYear(), currentDate.getMonth() - 1)
     );
   };
 
   const nextMonth = () => {
     setCurrentDate(
-      new Date(currentDate.getFullYear(), currentDate.getMonth() + 1),
+      new Date(currentDate.getFullYear(), currentDate.getMonth() + 1)
     );
   };
 
@@ -71,7 +71,7 @@ const CalendarStreak: FC = () => {
       (streakDay) =>
         streakDay.getDate() === day &&
         streakDay.getMonth() === currentDate.getMonth() &&
-        streakDay.getFullYear() === currentDate.getFullYear(),
+        streakDay.getFullYear() === currentDate.getFullYear()
     );
   };
 
@@ -124,7 +124,7 @@ const CalendarStreak: FC = () => {
       </div>
 
       <div className="grid grid-cols-7 gap-1">
-        {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
+        {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
           <div key={day} className="text-center text-sm text-slate-400 py-1">
             {day}
           </div>
@@ -143,8 +143,8 @@ const CalendarStreak: FC = () => {
               key={day}
               className={`aspect-square flex items-center justify-center rounded-lg transition-colors ${
                 isStreak
-                  ? "bg-pink-700 hover:bg-pink-800"
-                  : "hover:bg-slate-800"
+                  ? 'bg-pink-700 hover:bg-pink-800'
+                  : 'hover:bg-slate-800'
               }`}
             >
               {day}

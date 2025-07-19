@@ -1,19 +1,19 @@
-"use client";
+'use client';
 
-import { Button } from "../../../@/components/ui/button";
-import { LoginWithEmail } from "./actions";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { Button } from '../../../@/components/ui/button';
+import { LoginWithEmail } from './actions';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 export default function DevSignIn() {
   // use router to redirect to dashboard
   const router = useRouter();
 
   // use state to store email, password, error, and success messages
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
 
   // handle login with email and redirect to dashboard
   const handleLoginWithEmail = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -21,18 +21,18 @@ export default function DevSignIn() {
     try {
       const user = await LoginWithEmail(email, password);
       if (user) {
-        setSuccess("Login successful");
-        router.push("/dashboard");
+        setSuccess('Login successful');
+        router.push('/dashboard');
       }
     } catch (error) {
-      console.error("Login error:", error);
-      setError("Invalid credentials. Try again.");
+      console.error('Login error:', error);
+      setError('Invalid credentials. Try again.');
     }
 
     // clear error and success messages after 3 seconds
     setTimeout(() => {
-      setSuccess("");
-      setError("");
+      setSuccess('');
+      setError('');
     }, 3000);
   };
 

@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { useQuery } from "@tanstack/react-query";
-import { getCurrentUser } from "./actions";
+import { useQuery } from '@tanstack/react-query';
+import { getCurrentUser } from './actions';
 
 export default function useUser() {
   const { data, isLoading } = useQuery({
-    queryKey: ["user"],
+    queryKey: ['user'],
     queryFn: getCurrentUser,
   });
 

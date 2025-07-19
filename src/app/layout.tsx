@@ -1,6 +1,6 @@
-import "../app/globals.css";
-import Footer from "../components/Footer";
-import { ThemeProvider } from "../components/Providers/ThemeProvider";
+import '../app/globals.css';
+import Footer from '../components/Footer';
+import { ThemeProvider } from '../components/Providers/ThemeProvider';
 
 export const metadata = {
   title: "Built In Public",

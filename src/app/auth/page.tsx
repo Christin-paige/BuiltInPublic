@@ -1,20 +1,20 @@
-"use client";
+'use client';
 
-import React from "react";
-import { Globe } from "lucide-react";
-import { Button } from "../../../@/components/ui/button";
-import { FcGoogle } from "react-icons/fc";
-import { FaGithub } from "react-icons/fa6";
-import supabaseClient from "../../../utils/supabase/client";
-import DevSignIn from "./DevSignIn";
+import React from 'react';
+import { Globe } from 'lucide-react';
+import { Button } from '../../../@/components/ui/button';
+import { FcGoogle } from 'react-icons/fc';
+import { FaGithub } from 'react-icons/fa6';
+import supabaseClient from '../../../utils/supabase/client';
+import DevSignIn from './DevSignIn';
 
 export default function Page() {
-  const handleLoginWithOAuth = (provider: "github" | "google") => {
+  const handleLoginWithOAuth = (provider: 'github' | 'google') => {
     const supabase = supabaseClient;
     supabase.auth.signInWithOAuth({
       provider,
       options: {
-        redirectTo: location.origin + "/",
+        redirectTo: location.origin + '/',
       },
     });
   };
@@ -32,7 +32,7 @@ export default function Page() {
           variant="outline"
           size="medium"
           className="w-full flex items-center gap-2 p-2 cursor-pointer"
-          onClick={() => handleLoginWithOAuth("google")}
+          onClick={() => handleLoginWithOAuth('google')}
         >
           <FcGoogle /> Google
         </Button>
@@ -40,7 +40,7 @@ export default function Page() {
           variant="outline"
           size="medium"
           className="w-full flex items-center gap-2 p-2 cursor-pointer"
-          onClick={() => handleLoginWithOAuth("github")}
+          onClick={() => handleLoginWithOAuth('github')}
         >
           <FaGithub />
           Github

@@ -1,8 +1,8 @@
 // app/page.tsx or src/pages/index.tsx (depending on your structure)
 
-import { FC } from "react";
-import { Share2, MessageSquareCode, MessagesSquare, Shrub } from "lucide-react";
-import Link from "next/link";
+import { FC } from 'react';
+import { Share2, MessageSquareCode, MessagesSquare, Shrub } from 'lucide-react';
+import Link from 'next/link';
 
 const Home: FC = () => {
   return (
