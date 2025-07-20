@@ -17,6 +17,8 @@ export const getAuthenticatedClient = async () => {
     });
 
     if (error) {
+
+      console.error("Error signing in:", error.message);
       const { data: signUpData, error: signUpError } =
         await supabaseClient.auth.signUp({
           email: "test@example.com",
