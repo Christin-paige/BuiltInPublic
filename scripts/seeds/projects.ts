@@ -25,7 +25,7 @@ const projectsRaw = [
     username: 'testuser3',
     visibility: 'private',
     repo_url: 'https://github.com/codespheredevs/ai-code-assistant',
-  }
+  },
 ];
 
 export async function seedProjects() {

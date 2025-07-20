@@ -1,6 +1,6 @@
 // This file will create an authenticated user for testing purposes.
-import { createClient } from "@supabase/supabase-js";
-import dotenv from "dotenv";
+import { createClient } from '@supabase/supabase-js';
+import dotenv from 'dotenv';
 
 dotenv.config();
 
@@ -12,17 +12,16 @@ const supabaseClient = createClient(supabaseUrl, supabaseAnonKey);
 export const getAuthenticatedClient = async () => {
   try {
     const { data, error } = await supabaseClient.auth.signInWithPassword({
-      email: "test@example.com",
-      password: "password123",
+      email: 'test@example.com',
+      password: 'password123',
     });
 
     if (error) {
-
-      console.error("Error signing in:", error.message);
+      console.error('Error signing in:', error.message);
       const { data: signUpData, error: signUpError } =
         await supabaseClient.auth.signUp({
-          email: "test@example.com",
-          password: "password123",
+          email: 'test@example.com',
+          password: 'password123',
         });
 
       if (signUpError) {
@@ -34,7 +33,7 @@ export const getAuthenticatedClient = async () => {
 
     return data.session?.access_token;
   } catch (error) {
-    console.error("Error in getAuthenticatedClient:", error);
+    console.error('Error in getAuthenticatedClient:', error);
     throw error;
   }
 };
