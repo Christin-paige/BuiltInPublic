@@ -46,7 +46,7 @@ We’re all about community here. If you want to be credited, we’re happy to h
 
 ## 🔐 Secure Contributions
 
-Helping us build BuiltInPublic? Amazing. Please take a look at our [CONTRIBUTORS.md](./CONTRIBUTORS.md#secure-coding-practices) to see our secure coding expectations.
+Helping us build BuiltInPublic? Amazing. Please take a look at our [Secure Coding Practices Wiki](https://github.com/Christin-paige/BuiltInPublic/wiki/Secure-Coding-Practices) to see our secure coding expectations.
 
 You don’t have to be a security expert, just keeping an eye out for common pitfalls helps a lot.
 
