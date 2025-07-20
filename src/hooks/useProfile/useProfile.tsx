@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { useQuery } from "@tanstack/react-query";
-import { getProfileByUsername } from "./actions";
+import { useQuery } from '@tanstack/react-query';
+import { getProfileByUsername } from './actions';
 
 const profileQueryKeys = {
-  all: ["profile"] as const,
+  all: ['profile'] as const,
   username: (profileUserame: string) =>
     [...profileQueryKeys.all, profileUserame] as const,
 };

@@ -1,15 +1,18 @@
-import supabaseClient from "../../../utils/supabase/client";
+'use server';
+
+import { createAnonClient } from 'utils/supabase/server';
 
 export async function LoginWithEmail(email: string, password: string) {
   // Logic to login with email and password
-  const { data, error } = await supabaseClient.auth.signInWithPassword({
+  const supabase = await createAnonClient();
+  const { data, error } = await supabase.auth.signInWithPassword({
     email,
     password,
   });
 
   // If there is an error, throw it
   if (error) {
-    console.log("Email login failed", error.message);
+    console.log('Email login failed', error.message);
     throw error;
   }
 

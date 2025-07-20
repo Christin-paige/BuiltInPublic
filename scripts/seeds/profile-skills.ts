@@ -1,23 +1,23 @@
-import { supabase } from "../seed";
+import { supabase } from '../seed';
 
 // List of the profile skills to seed in the database: with username, skill_id, level
 const rawProfileSkills = [
-  { username: "testuser1", skill_id: 1, level: 4 },
-  { username: "testuser2", skill_id: 2, level: 5 },
-  { username: "testuser3", skill_id: 3, level: 3 },
-  { username: "testuser4", skill_id: 4, level: 2 },
+  { username: 'testuser1', skill_id: 1, level: 4 },
+  { username: 'testuser2', skill_id: 2, level: 5 },
+  { username: 'testuser3', skill_id: 3, level: 3 },
+  { username: 'testuser4', skill_id: 4, level: 2 },
 ];
 
 export async function seedProfileSkills() {
-  console.log("Seeding profile_skills...");
+  console.log('Seeding profile_skills...');
 
   // Fetch all profiles
   const { data: profiles, error: profileError } = await supabase
-    .from("profiles")
-    .select("id, username");
+    .from('profiles')
+    .select('id, username');
 
   if (profileError) {
-    console.error("Failed to fetch profiles:", profileError.message);
+    console.error('Failed to fetch profiles:', profileError.message);
     return;
   }
 
@@ -42,11 +42,11 @@ export async function seedProfileSkills() {
     .filter(Boolean); // remove nulls
 
   // Insert into profile_skills
-  const { error } = await supabase.from("profile_skills").insert(profileSkills);
+  const { error } = await supabase.from('profile_skills').insert(profileSkills);
 
   if (error) {
-    console.error("Failed to seed profile_skills:", error.message);
+    console.error('Failed to seed profile_skills:', error.message);
   } else {
-    console.log("Successfully seeded profile_skills");
+    console.log('Successfully seeded profile_skills');
   }
 }
