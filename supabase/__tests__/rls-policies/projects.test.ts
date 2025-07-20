@@ -36,19 +36,41 @@ describe('RLS Policies for Projects Table', async () => {
   it('should allow authenticated users to create private projects', async () => {
     // Create a new project object
     const project = await newProject();
-    console.log(project);
-    console.log(await authedClient.auth.getUser());
 
     // Use the authenticated client to insert a new project
     const { data, error } = await authedClient
       .from('projects')
       .insert(project)
       .select();
-    console.log(data, error);
 
     // Expect data to be defined and not empty
     expect(data).toBeDefined();
     expect(error).toBeNull();
+  });
+
+  // Test case: Ensure unauthenticated users can not update projects
+  it('should not allow unauthenticated users to update projects', async () => {
+    
+    // Select a project to update (assuming at least one project exists)
+    const { data: projects } = await authedClient
+      .from('projects')
+      .select('*')
+      .limit(1);
+
+    if (!projects || projects.length === 0) {
+      throw new Error('No projects found');
+    }
+
+    // Use the unauthenticated client to attempt to update the project
+    const { data, error } = await unauthClient
+      .from('projects')
+      .update({ name: 'Updated Project Name' })
+      .eq('id', projects[0].id)
+      .select();
+
+    // Expect no data and an error
+    expect(data?.length).toBe(0);
+    expect(error).toBeDefined();
   });
 
   // Test case: Ensure anyone can read projects if the visibility is public
