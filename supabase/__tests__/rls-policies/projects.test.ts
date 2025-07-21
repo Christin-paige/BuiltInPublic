@@ -67,7 +67,6 @@ describe('RLS Policies for Projects Table', async () => {
 
   // Test case: Ensure unauthenticated users can not update projects
   it('should not allow unauthenticated users to update projects', async () => {
-    
     // Select a project to update (assuming at least one project exists)
     const { data: projects } = await authedClient
       .from('projects')
@@ -92,7 +91,6 @@ describe('RLS Policies for Projects Table', async () => {
 
   // Test case: Ensure authenticated users can update their own projects
   it('should allow authenticated users to update their own projects', async () => {
-
     // Get a single project created by the authenticated user
     const { data: projects } = await authedClient
       .from('projects')
@@ -110,7 +108,6 @@ describe('RLS Policies for Projects Table', async () => {
     // Expect data to be defined and not empty
     expect(data).toBeDefined();
     expect(error).toBeNull();
-
   });
 
   // Test case: Ensure anyone can read projects if the visibility is public
@@ -194,7 +191,6 @@ describe('RLS Policies for Projects Table', async () => {
 
   // Test case: Ensure authenticated users can delete their own projects
   it('should allow authenticated users to delete their own projects', async () => {
-
     // Get a single project created by the authenticated user
     const { data: projects } = await authedClient
       .from('projects')
@@ -212,6 +208,5 @@ describe('RLS Policies for Projects Table', async () => {
     // Expect data to be defined and not empty
     expect(data).toBeDefined();
     expect(error).toBeNull();
-
   });
 });

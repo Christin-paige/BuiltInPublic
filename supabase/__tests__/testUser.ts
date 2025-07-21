@@ -20,11 +20,11 @@ export const getAuthenticatedClient = async () => {
     });
 
     if (error) {
-
-      const { data: signInData, error: signInError } = await supabaseClient.auth.signInWithPassword({
-        email: testEmail,
-        password: testPassword,
-      });
+      const { data: signInData, error: signInError } =
+        await supabaseClient.auth.signInWithPassword({
+          email: testEmail,
+          password: testPassword,
+        });
 
       if (signInError) {
         throw new Error(`Error signing in: ${signInError.message}`);
