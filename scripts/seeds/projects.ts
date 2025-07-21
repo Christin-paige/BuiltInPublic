@@ -18,6 +18,14 @@ const projectsRaw = [
     visibility: 'public',
     repo_url: 'https://github.com/codespheredevs/nextgen-portfolio',
   },
+  {
+    name: 'AI Code Assistant',
+    description:
+      'An AI-powered code assistant that integrates with VSCode and JetBrains IDEs.',
+    username: 'testuser3',
+    visibility: 'private',
+    repo_url: 'https://github.com/codespheredevs/ai-code-assistant',
+  },
 ];
 
 export async function seedProjects() {
