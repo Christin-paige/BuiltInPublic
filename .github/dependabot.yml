@@ -9,7 +9,6 @@ updates:
     labels:
       - 'dependencies' # this is *your* label
     open-pull-requests-limit: 5
-    insecure-external-code-execution: allow
     ignore:
       - dependency-name: 'eslint'
         versions: ['<8.0.0']
