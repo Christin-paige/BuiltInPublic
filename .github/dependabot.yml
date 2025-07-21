@@ -1,27 +1,27 @@
 version: 2
 updates:
   # 🔐 SECURITY UPDATES — DAILY
-  - package-ecosystem: "npm"
-    directory: "/" # root of the project
+  - package-ecosystem: 'npm'
+    directory: '/' # root of the project
     schedule:
-      interval: "daily"
+      interval: 'daily'
     allow:
-      - dependency-type: "direct"
+      - dependency-type: 'direct'
     labels:
-      - "security"
+      - 'security'
     ignore:
-      - dependency-name: "eslint"
-        versions: ["<8.0.0"]
+      - dependency-name: 'eslint'
+        versions: ['<8.0.0']
 
   # 🔧 REGULAR DEPENDENCIES — WEEKLY
-  - package-ecosystem: "npm"
-    directory: "/" # root of the project
+  - package-ecosystem: 'npm'
+    directory: '/' # root of the project
     schedule:
-      interval: "weekly"
+      interval: 'weekly'
     allow:
-      - dependency-type: "direct"
+      - dependency-type: 'direct'
     labels:
-      - "dependencies"
+      - 'dependencies'
     ignore:
-      - dependency-name: "eslint"
-        versions: ["<8.0.0"]
+      - dependency-name: 'eslint'
+        versions: ['<8.0.0']
