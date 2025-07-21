@@ -1,30 +1,15 @@
 version: 2
 updates:
-  # 🔐 SECURITY UPDATES — DAILY
   - package-ecosystem: 'npm'
-    directory: '/' # root of the project
+    directory: '/' # root of your project
     schedule:
-      interval: 'daily'
+      interval: 'daily' # check both types daily
     allow:
       - dependency-type: 'direct'
     labels:
-      - 'security'
+      - 'dependencies' # this is *your* label
+    open-pull-requests-limit: 5
     insecure-external-code-execution: allow
-    open-pull-requests-limit: 5
-    ignore:
-      - dependency-name: 'eslint'
-        versions: ['<8.0.0']
-
-  # 🔧 REGULAR DEPENDENCIES — WEEKLY
-  - package-ecosystem: 'npm'
-    directory: '/' # root of the project
-    schedule:
-      interval: 'weekly'
-    open-pull-requests-limit: 5
-    allow:
-      - dependency-type: 'direct'
-    labels:
-      - 'dependencies'
     ignore:
       - dependency-name: 'eslint'
         versions: ['<8.0.0']

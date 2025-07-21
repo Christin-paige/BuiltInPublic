@@ -1,28 +1,52 @@
-name: Auto-merge Dependabot security updates
+name: Auto-merge Dependabot Security Updates
 
 on:
   pull_request_target:
     types: [opened, reopened, labeled, unlabeled, synchronize]
 
 permissions:
-  pull-requests: write
   contents: write
+  pull-requests: write
 
 jobs:
-  automerge:
-    if: |
-      github.actor == 'dependabot[bot]' &&
-      contains(github.event.pull_request.labels.*.name, 'security')
+  auto-merge-security-prs:
     runs-on: ubuntu-latest
+
     steps:
-      - name: ✅ Auto-approve Dependabot security PR
-        uses: hmarr/auto-approve-action@v4
+      - name: 🔍 Check if PR is a security update
+        id: check
+        run: |
+          echo "actor=${{ github.actor }}"
+          echo "labels=${{ toJson(github.event.pull_request.labels.*.name) }}"
+          echo "body=${{ github.event.pull_request.body }}"
+
+          IS_SECURITY=false
+
+          if [[ "${{ github.actor }}" == "dependabot[bot]" ]]; then
+            if echo "${{ github.event.pull_request.body }}" | grep -q "This PR contains a security update"; then
+              IS_SECURITY=true
+            elif echo "${{ toJson(github.event.pull_request.labels.*.name) }}" | grep -q "security"; then
+              IS_SECURITY=true
+            fi
+          fi
+
+          echo "IS_SECURITY=$IS_SECURITY" >> $GITHUB_OUTPUT
+
+      - name: 🤖 Auto-merge PR if security update
+        if: steps.check.outputs.IS_SECURITY == 'true'
+        uses: ahmadnassri/action-dependabot-auto-merge@v2
         with:
           github-token: ${{ secrets.MERGE_TOKEN }}
 
-      - name: ✅ Enable auto-merge for security fixes
-        uses: peter-evans/enable-pull-request-automerge@v3
+      - name: ❌ Comment if skipped (not a security update)
+        if: steps.check.outputs.IS_SECURITY != 'true'
+        uses: actions/github-script@v7
         with:
-          token: ${{ secrets.MERGE_TOKEN }}
-          pull-request-number: ${{ github.event.number }}
-          merge-method: squash
+          github-token: ${{ secrets.MERGE_TOKEN }}
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: "🔒 This Dependabot PR was **not auto-merged** because it is not a verified security update."
+            })
