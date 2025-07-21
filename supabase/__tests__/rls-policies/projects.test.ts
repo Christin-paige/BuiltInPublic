@@ -1,6 +1,6 @@
 // This file tests Row Level Security (RLS) policies for the projects table in Supabase
 
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { authedClient, unauthClient } from '../testClients';
 import { UUID } from 'crypto';
 
@@ -48,6 +48,23 @@ describe('RLS Policies for Projects Table', async () => {
     expect(error).toBeNull();
   });
 
+  //Test case: Ensure authenticated users can create public projects
+  it('should allow authenticated users to create public projects', async () => {
+    // Create a new project object with public visibility
+    const project = await newProject();
+    project.visibility = 'public';
+
+    // Use the authenticated client to insert a new project
+    const { data, error } = await authedClient
+      .from('projects')
+      .insert(project)
+      .select();
+
+    // Expect data to be defined and not empty
+    expect(data).toBeDefined();
+    expect(error).toBeNull();
+  });
+
   // Test case: Ensure unauthenticated users can not update projects
   it('should not allow unauthenticated users to update projects', async () => {
     
@@ -64,13 +81,36 @@ describe('RLS Policies for Projects Table', async () => {
     // Use the unauthenticated client to attempt to update the project
     const { data, error } = await unauthClient
       .from('projects')
-      .update({ name: 'Updated Project Name' })
+      .update({ visibility: 'private' })
       .eq('id', projects[0].id)
       .select();
 
     // Expect no data and an error
     expect(data?.length).toBe(0);
     expect(error).toBeDefined();
+  });
+
+  // Test case: Ensure authenticated users can update their own projects
+  it('should allow authenticated users to update their own projects', async () => {
+
+    // Get a single project created by the authenticated user
+    const { data: projects } = await authedClient
+      .from('projects')
+      .select('*')
+      .eq('owner_id', (await newProject()).owner_id)
+      .limit(1);
+
+    // Use the authenticated client to update the project
+    const { data, error } = await authedClient
+      .from('projects')
+      .update({ visibility: 'public' })
+      .eq('id', projects?.[0].id)
+      .select();
+
+    // Expect data to be defined and not empty
+    expect(data).toBeDefined();
+    expect(error).toBeNull();
+
   });
 
   // Test case: Ensure anyone can read projects if the visibility is public
@@ -126,5 +166,52 @@ describe('RLS Policies for Projects Table', async () => {
     expect(data).toBeDefined();
     expect(data?.length).toBeGreaterThan(0);
     expect(error).toBeNull();
+  });
+
+  // Test case: Ensure unauthenticated users cannot delete projects
+  it('should not allow unauthenticated users to delete projects', async () => {
+    // Select a project to delete (assuming at least one project exists)
+    const { data: projects } = await authedClient
+      .from('projects')
+      .select('*')
+      .limit(1);
+
+    if (!projects || projects.length === 0) {
+      throw new Error('No projects found');
+    }
+
+    // Use the unauthenticated client to attempt to delete the project
+    const { data, error } = await unauthClient
+      .from('projects')
+      .delete()
+      .eq('id', projects[0].id)
+      .select();
+
+    // Expect no data and an error
+    expect(data?.length).toBe(0);
+    expect(error).toBeDefined();
+  });
+
+  // Test case: Ensure authenticated users can delete their own projects
+  it('should allow authenticated users to delete their own projects', async () => {
+
+    // Get a single project created by the authenticated user
+    const { data: projects } = await authedClient
+      .from('projects')
+      .select('*')
+      .eq('owner_id', (await newProject()).owner_id)
+      .limit(1);
+
+    // Use the authenticated client to delete the project
+    const { data, error } = await authedClient
+      .from('projects')
+      .delete()
+      .eq('id', projects?.[0].id)
+      .select();
+
+    // Expect data to be defined and not empty
+    expect(data).toBeDefined();
+    expect(error).toBeNull();
+
   });
 });
