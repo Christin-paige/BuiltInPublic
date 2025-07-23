@@ -2,7 +2,6 @@
 
 import { describe, it, expect, vi } from 'vitest';
 import { authedClient, unauthClient } from '../testClients';
-import { UUID } from 'crypto';
 
 // Create a new project object
 const newProject = async () => {
