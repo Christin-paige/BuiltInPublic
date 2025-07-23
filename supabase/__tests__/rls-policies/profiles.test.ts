@@ -14,10 +14,8 @@ const newProfile = async () => {
 
 // Test suite for RLS policies on the profiles table
 describe('RLS Policies for Profiles Table', async () => {
-
   // Test case: Ensure unauthenticated users cannot create profiles
   it('should not allow unauthenticated users to create profiles', async () => {
-
     // Create a new profile object
     const profile = await newProfile();
 
@@ -30,7 +28,5 @@ describe('RLS Policies for Profiles Table', async () => {
     // Expect no data and an error
     expect(data).toBeNull();
     expect(error).toBeDefined();
-
   });
-
-})
+});
