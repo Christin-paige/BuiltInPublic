@@ -14,7 +14,6 @@ const newProfile = async () => {
 
 // Test suite for RLS policies on the profiles table
 describe('RLS Policies for Profiles Table', async () => {
-
   // Test case: Ensure unauthenticated users cannot create profiles
   it('should not allow unauthenticated users to create profiles', async () => {
     // Create a new profile object
@@ -53,7 +52,6 @@ describe('RLS Policies for Profiles Table', async () => {
 
   // Test case: Ensure unauthenticated users cannot update profiles
   it('should not allow unauthenticated users to update profiles', async () => {
-
     const { data: authData } = await authedClient.auth.getUser();
     const userId = authData.user?.id;
 
@@ -90,12 +88,11 @@ describe('RLS Policies for Profiles Table', async () => {
 
   // Test case: Ensure authenticated users cannot update others' profiles
   it("should not allow authenticated users to update others' profiles", async () => {
-
     const { data: profileData } = await authedClient
       .from('profiles')
       .select('*')
       .eq('id', '14049f2d-d59e-4628-bfc9-6c564f482c9d') // Some other user's ID
-      .limit(1)
+      .limit(1);
 
     const otherUserId = profileData?.[0]?.id;
 
@@ -113,11 +110,10 @@ describe('RLS Policies for Profiles Table', async () => {
 
   // Test case: Ensure unauthenticated users cannot delete profiles
   it('should not allow unauthenticated users to delete profiles', async () => {
-
     const { data: profileData } = await authedClient
       .from('profiles')
       .select('*')
-      .limit(1)
+      .limit(1);
 
     const userId = profileData?.[0]?.id;
 
@@ -134,12 +130,11 @@ describe('RLS Policies for Profiles Table', async () => {
   });
 
   // Test case: Ensure authenticated users cannot delete their own profiles or others' profiles
-  it('should not allow authenticated users to delete their own profiles or others\' profiles', async () => {
-
+  it("should not allow authenticated users to delete their own profiles or others' profiles", async () => {
     const { data: profileData } = await authedClient
       .from('profiles')
       .select('*')
-      .limit(1)
+      .limit(1);
 
     const userId = profileData?.[0]?.id;
 
@@ -154,5 +149,4 @@ describe('RLS Policies for Profiles Table', async () => {
     expect(data?.length).toBe(0);
     expect(error).toBeDefined();
   });
-
 });
