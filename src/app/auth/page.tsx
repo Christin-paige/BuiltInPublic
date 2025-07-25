@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Globe } from 'lucide-react';
-import { Button } from "@/components/ui/button"
+import { Button } from '@/components/ui/button';
 import { FcGoogle } from 'react-icons/fc';
 import { FaGithub } from 'react-icons/fa6';
 import supabaseClient from '../../../utils/supabase/client';
