@@ -1,7 +1,7 @@
 import { createServerClient } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
 
-const protectedRoutes = ['/dashboard', '/profile'];
+const protectedRoutes = ['/dashboard', '/profile', '/onboarding'];
 const publicRoutes = ['/auth'];
 
 export async function updateSession(request: NextRequest) {
