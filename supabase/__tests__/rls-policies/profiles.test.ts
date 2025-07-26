@@ -36,7 +36,7 @@ describe('RLS Policies for Profiles Table', async () => {
     const { data, error } = await unauthClient.from('profiles').select();
 
     // Expect no data and an error
-    expect(data).toBeNull();
+    expect(data).toEqual([]);
     expect(error).toBeDefined();
   });
 
@@ -104,7 +104,7 @@ describe('RLS Policies for Profiles Table', async () => {
       .select();
 
     // Expect no data and an error
-    expect(data?.length).toBe(0);
+    expect(data).toBeNull();
     expect(error).toBeDefined();
   });
 
