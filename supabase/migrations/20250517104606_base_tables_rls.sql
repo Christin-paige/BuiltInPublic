@@ -180,7 +180,7 @@ CREATE POLICY "Allow insert for authenticated users" ON "public"."profiles" FOR 
 CREATE POLICY "anyone can select likes" ON "public"."likes" FOR SELECT USING (true);
 CREATE POLICY "authenticated user can like post" ON "public"."likes" FOR INSERT TO "authenticated" WITH CHECK (("user_id" = "auth"."uid"()));
 CREATE POLICY "authenticated users can delete their likes" ON "public"."likes" FOR DELETE TO "authenticated" USING (("user_id" = "auth"."uid"()));
-CREATE POLICY "Anyone can read profiles" ON "public"."profiles" FOR SELECT TO authenticated USING (true);
+CREATE POLICY "authenticated users can read profiles" ON "public"."profiles" FOR SELECT TO authenticated USING (true);
 CREATE POLICY "Users can update their own profile" ON "public"."profiles" FOR UPDATE TO authenticated USING (auth.uid () = id);
 
 -- skills
@@ -244,11 +244,5 @@ ALTER TABLE "public"."projects" ENABLE ROW LEVEL SECURITY;
 ALTER TABLE "public"."comments" ENABLE ROW LEVEL SECURITY;
 
 ALTER TABLE "public"."endorsements" ENABLE ROW LEVEL SECURITY;
-
--- Alter publication to set owner to postgres
-ALTER PUBLICATION "supabase_realtime" OWNER TO "postgres";
-
--- Alter policy so only authenticated users can see profiles
-ALTER POLICY "Authenticated users can read profiles" on "public"."profiles" to authenticated using ( true );
 
 RESET ALL;
