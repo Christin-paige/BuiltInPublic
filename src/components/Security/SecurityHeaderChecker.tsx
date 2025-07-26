@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 
 const REQUIRED_HEADERS = [
   'permissions-policy',
@@ -6,28 +6,28 @@ const REQUIRED_HEADERS = [
   'x-frame-options',
   'strict-transport-security',
   'content-security-policy',
-]
+];
 
 export default function SecurityHeaderChecker() {
-  const [missingHeaders, setMissingHeaders] = useState<string[]>([])
-  const [status, setStatus] = useState<'checking' | 'ok' | 'missing'>('checking')
+  const [missingHeaders, setMissingHeaders] = useState<string[]>([]);
+  const [status, setStatus] = useState<'checking' | 'ok' | 'missing'>(
+    'checking'
+  );
 
   useEffect(() => {
     fetch(window.location.href)
       .then((res) => {
-        const headers = res.headers
-        const missing = REQUIRED_HEADERS.filter(
-          (key) => !headers.get(key)
-        )
-        setMissingHeaders(missing)
-        setStatus(missing.length > 0 ? 'missing' : 'ok')
+        const headers = res.headers;
+        const missing = REQUIRED_HEADERS.filter((key) => !headers.get(key));
+        setMissingHeaders(missing);
+        setStatus(missing.length > 0 ? 'missing' : 'ok');
       })
       .catch(() => {
-        setStatus('missing')
-      })
-  }, [])
+        setStatus('missing');
+      });
+  }, []);
 
-  if (status === 'checking') return <p>🔍 Checking security headers...</p>
+  if (status === 'checking') return <p>🔍 Checking security headers...</p>;
 
   return (
     <div>
@@ -44,5 +44,5 @@ export default function SecurityHeaderChecker() {
         </>
       )}
     </div>
-  )
+  );
 }
