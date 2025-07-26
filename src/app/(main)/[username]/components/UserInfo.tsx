@@ -86,7 +86,7 @@ export default function UserInfo({ profile }: UserInfoProps) {
           </>
         )}
       </div>
-      {fieldValues.bio && (
+      {(editingField === 'bio' || fieldValues.bio || canEdit) && (
         <div className='flex items-start gap-2 p-4 bg-slate-950 border rounded-lg min-w-90'>
           {editingField === 'bio' ? (
             <textarea
@@ -107,7 +107,11 @@ export default function UserInfo({ profile }: UserInfoProps) {
           ) : (
             <>
               <p className='flex-1 w-full min-w-0 break-words overflow-hidden text-ellipsis max-h-[120px]'>
-                {fieldValues.bio}
+                {!fieldValues.bio && canEdit ? (
+                  <span className='text-gray-500'>Write a short bio…</span>
+                ) : (
+                  fieldValues.bio
+                )}
               </p>
               {canEdit && (
                 <button
