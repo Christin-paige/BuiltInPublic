@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useProfileEdit } from '@/contexts/ProfileEditContext';
 import { Profile } from '@/repositories/profileRepository/profile.types';
 import { Settings, Pencil } from 'lucide-react';
@@ -23,6 +23,7 @@ export default function UserInfo({ profile }: UserInfoProps) {
   });
   const [editingField, setEditingField] = useState<EditableField | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const skipNextBlur = useRef(false);
 
   const handleFieldEdit = async (field: EditableField) => {
     const newValue = fieldValues[field];
@@ -47,6 +48,22 @@ export default function UserInfo({ profile }: UserInfoProps) {
     }
   };
 
+  const handleKeyDown = (field: EditableField) => (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      skipNextBlur.current = true;
+      handleFieldEdit(field);
+    }
+  };
+
+  const handleBlur = (field: EditableField) => () => {
+    if (skipNextBlur.current) {
+      skipNextBlur.current = false;
+      return;
+    }
+    handleFieldEdit(field);
+  };
+
   return (
     <section className='flex flex-col gap-4 w-1/4 relative transform -translate-y-32'>
       <div className='rounded-full border-2 border-[#00c7ff] w-40 h-40 flex items-center justify-center cyan-glow'>
@@ -61,13 +78,8 @@ export default function UserInfo({ profile }: UserInfoProps) {
             onChange={(e) =>
               setFieldValues((vals) => ({ ...vals, username: e.target.value }))
             }
-            onBlur={() => handleFieldEdit('username')}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter') {
-                e.preventDefault();
-                handleFieldEdit('username');
-              }
-            }}
+            onKeyDown={handleKeyDown('username')}
+            onBlur={handleBlur('username')}
             disabled={isLoading}
             autoFocus
             maxLength={32}
@@ -89,8 +101,9 @@ export default function UserInfo({ profile }: UserInfoProps) {
           </>
         )}
       </div>
+
       {(editingField === 'bio' || fieldValues.bio || canEdit) && (
-        <div className='flex items-start gap-2 p-4 bg-slate-950 border rounded-lg min-w-90'>
+        <div className='flex items-start gap-2 p-4 bg-slate-950 border rounded-lg min-w-0'>
           {editingField === 'bio' ? (
             <textarea
               className='flex-1 w-full min-w-0 resize-none bg-slate-900 border border-[#00c7ff] rounded px-2 py-1 text-white focus:outline-none focus:ring-2 focus:ring-[#00c7ff]'
@@ -99,13 +112,8 @@ export default function UserInfo({ profile }: UserInfoProps) {
               onChange={(e) =>
                 setFieldValues((vals) => ({ ...vals, bio: e.target.value }))
               }
-              onKeyDown={(e) => {
-                if (e.key === 'Enter') {
-                  e.preventDefault();
-                  handleFieldEdit('bio');
-                }
-              }}
-              onBlur={() => handleFieldEdit('bio')}
+              onKeyDown={handleKeyDown('bio')}
+              onBlur={handleBlur('bio')}
               disabled={isLoading}
               maxLength={256}
               autoFocus
