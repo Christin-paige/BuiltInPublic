@@ -248,4 +248,7 @@ ALTER TABLE "public"."endorsements" ENABLE ROW LEVEL SECURITY;
 -- Alter publication to set owner to postgres
 ALTER PUBLICATION "supabase_realtime" OWNER TO "postgres";
 
+-- Alter policy so only authenticated users can see profiles
+ALTER POLICY "Authenticated users can read profiles" on "public"."profiles" to authenticated using ( true );
+
 RESET ALL;
