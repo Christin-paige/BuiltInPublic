@@ -63,7 +63,10 @@ export default function UserInfo({ profile }: UserInfoProps) {
             }
             onBlur={() => handleFieldEdit('username')}
             onKeyDown={(e) => {
-              if (e.key === 'Enter') handleFieldEdit('username');
+              if (e.key === 'Enter') {
+                e.preventDefault();
+                handleFieldEdit('username');
+              }
             }}
             disabled={isLoading}
             autoFocus
@@ -97,7 +100,10 @@ export default function UserInfo({ profile }: UserInfoProps) {
                 setFieldValues((vals) => ({ ...vals, bio: e.target.value }))
               }
               onKeyDown={(e) => {
-                if (e.key === 'Enter') handleFieldEdit('bio');
+                if (e.key === 'Enter') {
+                  e.preventDefault();
+                  handleFieldEdit('bio');
+                }
               }}
               onBlur={() => handleFieldEdit('bio')}
               disabled={isLoading}
