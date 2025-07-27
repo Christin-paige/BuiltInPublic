@@ -18,19 +18,31 @@ export default function Page() {
           <h1 className='text-2xl font-bold'>BuiltInPublic</h1>
         </div>
         <p className='text-md text-gray-300'>Register or Sign In</p>
-        <a
-          className='w-full flex items-center gap-2 p-2 cursor-pointer'
-          href={'/auth/oauth?provider=google'}
-        >
-          <FcGoogle /> Google
-        </a>
-        <a
-          className='w-full flex items-center gap-2 p-2 cursor-pointer'
-          href={'/auth/oauth?provider=github'}
-        >
-          <FaGithub />
-          Github
-        </a>
+        <div className='flex flex-col gap-4'>
+          <a
+            role='button'
+            aria-label='Login with google'
+            href={'/auth/oauth?provider=google'}
+          >
+            <div className='w-full flex justify-center p-2 rounded-md cursor-pointer border-[1px] dark:border-input'>
+              <div className='flex flex-row items-center gap-2'>
+                <FcGoogle /> <span>Google</span>
+              </div>
+            </div>
+          </a>
+          <a
+            role='button'
+            aria-label='Login with github'
+            href={'/auth/oauth?provider=github'}
+          >
+            <div className='w-full flex justify-center p-2 rounded-md cursor-pointer border-[1px] dark:border-input'>
+              <div className='flex flex-row items-center gap-2'>
+                <FaGithub />
+                <span>Github</span>
+              </div>
+            </div>
+          </a>
+        </div>
         <DevSignIn />
       </div>
     </div>

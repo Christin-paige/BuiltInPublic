@@ -16,7 +16,7 @@ export async function GET(req: Request) {
   });
 
   if (error) {
-    redirect('/auth/error');
+    redirect('/auth/auth-code-error');
   }
 
   redirect(data.url);

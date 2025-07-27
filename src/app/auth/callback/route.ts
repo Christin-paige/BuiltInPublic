@@ -5,19 +5,15 @@ import { ProfileRepository } from '@/repositories/profileRepository/profile.repo
 import { redirect } from 'next/navigation';
 
 export async function GET(request: Request) {
-  const { searchParams, origin, hash } = new URL(request.url);
+  const { searchParams, origin } = new URL(request.url);
   const code = searchParams.get('code');
 
   const rawNext = searchParams.get('next') ?? '/';
   const next = isSafeNextPath(rawNext) ? rawNext : '/';
-  console.log(request.url);
-  console.log(code);
-  console.log(hash);
+
   if (code) {
     const supabase = await createAnonClient();
     const { data, error } = await supabase.auth.exchangeCodeForSession(code);
-    console.log(data);
-    console.log(error);
     if (!error) {
       const profileRepository = new ProfileRepository(supabase);
 
