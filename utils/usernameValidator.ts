@@ -29,4 +29,3 @@ function checkProfanity(text: string): boolean {
   return leoProfanity.check(text);
 }
 
-export default checkProfanity;
