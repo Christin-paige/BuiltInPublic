@@ -1,6 +1,8 @@
 import '../app/globals.css';
 import Footer from '../components/Footer';
 import { ThemeProvider } from '../components/Providers/ThemeProvider';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const metadata = {
   title: 'Built In Public',
@@ -55,6 +57,14 @@ export default async function RootLayout({
           disableTransitionOnChange
         >
           {children}
+          <ToastContainer
+            position='top-right'
+            autoClose={3000}
+            hideProgressBar={false}
+            closeOnClick
+            pauseOnHover
+            theme='dark'
+          />
           <Footer />
         </ThemeProvider>
       </body>

@@ -17,19 +17,23 @@ export class ProfileRepository extends BaseRepository<ProfileDTO, Profile> {
   }
 
   transformDTO(row: ProfileDTO): Profile {
-    const { id, username, avatar_url } = row;
+    const { id, username, avatar_url, bio } = row;
 
     return {
       id,
       username: username || 'Unknown',
       avatarUrl: avatar_url || '',
+      bio: bio || '',
     } satisfies Profile;
   }
 
   async checkUsernameExists(username: string): Promise<boolean> {
-    const query = this.getBaseQuery(true);
+    const query = this.supabase
+      .from('profiles')
+      .select('*', { count: 'exact', head: true })
+      .ilike('username', username);
 
-    const { count, error } = await this.applyFilters(query, { username });
+    const { count, error } = await query;
 
     if (error) {
       throw new Error('Something went wrong');
@@ -93,6 +97,26 @@ export class ProfileRepository extends BaseRepository<ProfileDTO, Profile> {
       return profile;
     } catch (e) {
       throw e;
+    }
+  }
+
+  async updateProfileFields(
+    id: string,
+    fields: Partial<{ username: string; bio: string }>
+  ): Promise<void> {
+    if (fields.username) {
+      const exists = await this.checkUsernameExists(fields.username);
+      if (exists) {
+        throw new Error('Username already exists');
+      }
+    }
+    const { error } = await this.supabase
+      .from('profiles')
+      .update(fields)
+      .eq('id', id);
+
+    if (error) {
+      throw error;
     }
   }
 }
