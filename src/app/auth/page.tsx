@@ -5,7 +5,6 @@ import { Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { FcGoogle } from 'react-icons/fc';
 import { FaGithub } from 'react-icons/fa6';
-import supabaseClient from '../../../utils/supabase/client';
 import DevSignIn from './DevSignIn';
 import Link from 'next/link';
 
