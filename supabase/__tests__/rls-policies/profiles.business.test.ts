@@ -39,28 +39,30 @@ describe('Business Logic / Authorization Tests for Profiles Table', () => {
   });
 
   // 🛑 Authenticated users should NOT be able to update someone else’s profile
-  it('should not allow authenticated users to update other users\' profiles', async () => {
+  it("should not allow authenticated users to update other users' profiles", async () => {
     // Use a hardcoded, known-to-exist other user's ID (not your own)
     const otherUserId = '14049f2d-d59e-4628-bfc9-6c564f482c9d'; // Replace with a valid test user if needed
-  
+
     const { data, error } = await authedClient
       .from('profiles')
       .update({ username: 'malicious_update' })
       .eq('id', otherUserId)
       .select();
-  
+
     // ✅ Supabase returns empty array + no error if RLS silently blocks access
     expect(data).toEqual([]);
     expect(error).toBeNull();
   });
-  
 
   // 🛑 Enforce unique constraint on username (assuming unique index exists)
   it('should not allow duplicate usernames', async () => {
     const userId = await getAuthedUserId();
 
     // First, set a known username
-    await authedClient.from('profiles').update({ username: 'taken_name' }).eq('id', userId);
+    await authedClient
+      .from('profiles')
+      .update({ username: 'taken_name' })
+      .eq('id', userId);
 
     // Then try to insert another profile with the same username (simulate conflict)
     const { error } = await authedClient.from('profiles').insert({
@@ -88,9 +90,7 @@ describe('Business Logic / Authorization Tests for Profiles Table', () => {
 
   // 🛑 Ensure private fields (e.g. email) are not exposed to unauthenticated users
   it('should not allow unauthenticated users to access sensitive profile data', async () => {
-    const { data, error } = await unauthClient
-      .from('profiles')
-      .select('*');
+    const { data, error } = await unauthClient.from('profiles').select('*');
 
     expect(Array.isArray(data)).toBe(true);
     expect(data?.[0]?.email).toBeUndefined(); // assuming email is protected
