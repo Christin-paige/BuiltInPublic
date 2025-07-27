@@ -13,7 +13,10 @@ const routes = [
 // Load custom profanity list from a file
 function loadCustomWordList() {
   try {
-    const data = readFileSync(path.join(process.cwd(), './config/private/profanity-list.txt'), 'utf-8')
+    const data = readFileSync(
+      path.join(process.cwd(), './config/private/profanity-list.txt'),
+      'utf-8'
+    )
       .split('\n')
       .map((word: string) => word.trim().toLowerCase())
       .filter((word: string) => word.length > 0);
