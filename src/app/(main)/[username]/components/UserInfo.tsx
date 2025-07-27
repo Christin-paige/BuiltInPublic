@@ -142,7 +142,6 @@ export default function UserInfo({ profile }: UserInfoProps) {
           )}
         </div>
       )}
-
     </section>
   );
 }
