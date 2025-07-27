@@ -18,14 +18,12 @@ export async function GET(request: Request) {
       const profileRepository = new ProfileRepository(supabase);
 
       const userProfile = await profileRepository.getById(data.user.id);
-      console.log(userProfile);
+
       if (userProfile?.username) {
         return redirect(`/${userProfile.username}`);
       } else {
         return NextResponse.redirect('/dashboard');
       }
-      // // Safe: only using origin and a validated next path
-      // return NextResponse.redirect(`${origin}${next}`);
     }
   }
 
