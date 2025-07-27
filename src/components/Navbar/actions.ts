@@ -18,7 +18,7 @@ export async function signOutUser() {
     // Sign out the user from the server
     await supabase.auth.signOut();
 
-    return { success: true };
+    return redirect('/');
   } catch (e) {
     return {
       message: 'Could not log out',
