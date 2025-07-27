@@ -142,30 +142,6 @@ export default function UserInfo({ profile }: UserInfoProps) {
           )}
         </div>
       )}
-
-      <div className='grid grid-cols-2 gap-4'>
-        <div className='bg-slate-950 p-2 rounded-lg border text-center'>
-          <h2 className='text-xl'>Followers</h2>
-          <p className='text-lg'>100</p>
-        </div>
-        <div className='bg-slate-950 p-2 rounded-lg border text-center'>
-          <h2 className='text-xl'>Following</h2>
-          <p className='text-lg'>100</p>
-        </div>
-        <div className='bg-slate-950 p-2 rounded-lg border text-center'>
-          <h2 className='text-xl'>Projects</h2>
-          <p className='text-lg'>100</p>
-        </div>
-        <div className='bg-slate-950 p-2 rounded-lg border text-center'>
-          <h2 className='text-xl'>Posts</h2>
-          <p className='text-lg'>100</p>
-        </div>
-      </div>
-
-      <button className='flex items-center gap-2 w-fit p-2 bg-slate-950 border rounded-lg hover:bg-slate-800 transition-all duration-100 active:scale-95'>
-        <Settings className='w-6 h-6' />
-        <p>Settings</p>
-      </button>
     </section>
   );
 }
