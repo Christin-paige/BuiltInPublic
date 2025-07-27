@@ -54,23 +54,23 @@ describe('Business Logic / Authorization Tests for Profiles Table', () => {
     expect(error).toBeNull();
   });
 
-// 🛑 Enforce unique constraint on username (assuming unique index exists)
-it('should not allow duplicate usernames', async () => {
-  const userId = await getAuthedUserId();
+  // 🛑 Enforce unique constraint on username (assuming unique index exists)
+  it('should not allow duplicate usernames', async () => {
+    const userId = await getAuthedUserId();
 
-  // First, set a known username
-  await authedClient
-    .from('profiles')
-    .update({ username: 'taken_name' })
-    .eq('id', userId);
+    // First, set a known username
+    await authedClient
+      .from('profiles')
+      .update({ username: 'taken_name' })
+      .eq('id', userId);
 
-  // Then try to insert a new profile with the same username
-  const { error } = await authedClient.from('profiles').insert({
-    username: 'taken_name',
+    // Then try to insert a new profile with the same username
+    const { error } = await authedClient.from('profiles').insert({
+      username: 'taken_name',
+    });
+
+    expect(error).toBeDefined();
   });
-
-  expect(error).toBeDefined();
-});
 
   // ✅ Authenticated users can read their own profile
   it('should allow authenticated users to read their own profile', async () => {
