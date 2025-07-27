@@ -134,3 +134,24 @@
     /* Neon red */ 0 0 100px 60px #ff00ff,
     /* Bright magenta */ 0 0 140px 90px #8000ff; /* Purple */
 }
+
+/* Project Status Badge Styles */
+.status-badge {
+  @apply text-xs px-2 py-1 rounded font-semibold;
+}
+
+.status-planning {
+  @apply bg-gray-700 text-white;
+}
+
+.status-in-progress {
+  @apply bg-blue-600 text-white;
+}
+
+.status-on-hold {
+  @apply bg-yellow-600 text-white;
+}
+
+.status-launched {
+  @apply bg-green-600 text-white;
+}
