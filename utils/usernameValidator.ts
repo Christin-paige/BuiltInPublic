@@ -20,7 +20,7 @@ function loadCustomWordList() {
 
     leoProfanity.add(data);
   } catch (error) {
-    console.error('Error loading custom profanity list:', error);
+    throw new Error(`Failed to load profanity list: ${error}`);
   }
 }
 
