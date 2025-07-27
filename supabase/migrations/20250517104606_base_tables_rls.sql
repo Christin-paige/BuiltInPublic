@@ -1,4 +1,4 @@
--- Base tables and RLS for CodeSphere
+-- Base tables and RLS for BuiltInPublic
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
@@ -120,15 +120,16 @@ CREATE TABLE IF NOT EXISTS "public"."follows" (
     PRIMARY KEY ("follower_id", "followee_id")
 );
 
+-- Create enum type for project visibility
+CREATE TYPE "public"."project_visibility" AS ENUM ('public', 'private');
+
 -- Create projects table with id, owner_id, name, description, visibility, repo_url, created_at, updated_at
 CREATE TABLE IF NOT EXISTS "public"."projects" (
     "id" UUID PRIMARY KEY DEFAULT gen_random_uuid (),
     "owner_id" UUID NOT NULL REFERENCES public.profiles (id) ON DELETE CASCADE,
     "name" TEXT NOT NULL,
     "description" TEXT,
-    "visibility" TEXT NOT NULL CHECK (
-        "visibility" IN ('public', 'connections', 'private')
-    ) DEFAULT 'public',
+    "visibility" "public"."project_visibility" NOT NULL DEFAULT 'public',
     "repo_url" TEXT,
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT now (),
     "updated_at" TIMESTAMPTZ NOT NULL DEFAULT now ()
