@@ -29,7 +29,12 @@ export default function OnboardingForm() {
         required
         value={displayName}
       />
-      <Textarea className='text-center' placeholder='bio' value={bio} />
+      <Textarea 
+        className='text-center' 
+        placeholder='bio' 
+        value={bio} 
+        maxLength={300}
+      />
       <Button
         variant='outline'
         className='w-1/2 flex items-center gap-2 p-2 cursor-pointer justify-center'
