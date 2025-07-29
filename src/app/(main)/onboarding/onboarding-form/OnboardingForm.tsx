@@ -20,7 +20,6 @@ import { z } from 'zod';
 import emojiRegex from 'emoji-regex';
 
 export default function OnboardingForm() {
-
   const onboardingFormSchema = z.object({
     /*
       TODO add character escaping o replace symbols like < and >, ' and " in situations where 
