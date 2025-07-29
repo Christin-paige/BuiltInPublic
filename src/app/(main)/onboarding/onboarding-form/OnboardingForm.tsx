@@ -86,14 +86,18 @@ export default function OnboardingForm() {
             </FormItem>
           )}
         />
-        <Input
-          id='displayName'
-          type='text'
-          placeholder='display name'
-          required
-          value={displayName}
-          maxLength={32}
-          onChange={(e) => setDisplayName(e.target.value)}
+        <FormField 
+          control={onboardingForm.control}
+          name='displayName'
+          render={({ field }) => (
+            <FormItem className='w-full'>
+              <FormLabel>Display name</FormLabel>
+              <FormControl>
+                <Input placeholder='display name' {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
         />
         <Textarea
           placeholder='bio'
