@@ -6,6 +6,17 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
+
+
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
@@ -46,60 +57,15 @@ export default function OnboardingForm() {
       }
   });
 
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-
-    const newErrors: string[] = [];
-
-    // Work In Progress - replacing this validation with a zod schema, then will remove
-
-
-    // validate userName;
-    const emojiValidationRegex = emojiRegex();
-    const allowedCharactersRegex = /^[a-z0-9_-]+$/;
-
-    if (userName.length > 32) {
-      const userNameLengthError =
-        'username cannot be longer than 32 characters';
-      newErrors.push(userNameLengthError);
-    }
-
-    if (emojiValidationRegex.test(userName)) {
-      const userNameEmojiError = 'username must not contain emoji';
-      newErrors.push(userNameEmojiError);
-    }
-
-    if (!allowedCharactersRegex.test(userName)) {
-      const userNameAlphaNumericError =
-        'username must only contain lowercase letters, numbers, _ and - symbols';
-      newErrors.push(userNameAlphaNumericError);
-    }
-
-    // validate display name
-    if (displayName.length > 32) {
-      const displayNameLengthError =
-        'display name cannot be longer than 32 characters';
-      newErrors.push(displayNameLengthError);
-    }
-
-    // valiate bio
-    if (bio.length > 300) {
-      const bioLengthError = 'bio cannot cannot be longer than 300 characters';
-      newErrors.push(bioLengthError);
-    }
-
-    if (newErrors.length === 0) {
-      // TODO submit form (part of another task)
-    }
-
-    setErrors(newErrors);
-
-    console.log(newErrors);
+  const onSubmit = (values: z.infer<typeof onboardingFormSchema>) => {
+   
+    console.log(values);
   };
 
   return (
+    <Form {...onboardingForm}>
     <form
-      onSubmit={handleSubmit}
+      onSubmit={onboardingForm.handleSubmit(onSubmit)}
       className='flex flex-col gap-4 w-full max-w-sm items-center'
     >
       <Input
@@ -141,5 +107,6 @@ export default function OnboardingForm() {
         submit
       </Button>
     </form>
+    </Form>
   );
 }
