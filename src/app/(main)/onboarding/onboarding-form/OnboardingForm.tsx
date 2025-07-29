@@ -24,7 +24,8 @@ export default function OnboardingForm() {
     const allowedCharactersRegex = /^[a-z0-9_-]+$/;
 
     if (userName.length > 32) {
-      const userNameLengthError = 'username cannot be longer than 32 characters';
+      const userNameLengthError =
+        'username cannot be longer than 32 characters';
       newErrors.push(userNameLengthError);
     }
 
@@ -40,20 +41,19 @@ export default function OnboardingForm() {
     }
 
     // validate display name
-    if ( displayName.length > 32 ){
-      const displayNameLengthError = 
+    if (displayName.length > 32) {
+      const displayNameLengthError =
         'display name cannot be longer than 32 characters';
       newErrors.push(displayNameLengthError);
     }
 
     // valiate bio
-    if ( bio.length > 300 ){
-      const bioLengthError = 
-        'bio cannot cannot be longer than 300 characters'
+    if (bio.length > 300) {
+      const bioLengthError = 'bio cannot cannot be longer than 300 characters';
       newErrors.push(bioLengthError);
     }
 
-    if ( newErrors.length === 0 ){
+    if (newErrors.length === 0) {
       // TODO submit form (part of another task)
     }
 
