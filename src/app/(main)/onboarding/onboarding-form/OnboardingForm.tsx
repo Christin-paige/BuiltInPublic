@@ -86,7 +86,7 @@ export default function OnboardingForm() {
             </FormItem>
           )}
         />
-        <FormField 
+        <FormField
           control={onboardingForm.control}
           name='displayName'
           render={({ field }) => (
