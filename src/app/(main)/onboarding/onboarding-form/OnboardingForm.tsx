@@ -1,7 +1,5 @@
 'use client';
 
-import { FormEvent, useState } from 'react';
-
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -23,10 +21,6 @@ import { z } from 'zod';
 import emojiRegex from 'emoji-regex';
 
 export default function OnboardingForm() {
-  const [userName, setUserName] = useState('');
-  const [displayName, setDisplayName] = useState('');
-  const [bio, setBio] = useState('');
-  const [errors, setErrors] = useState<string[]>([]);
 
   const onboardingFormSchema = z.object({
     /*
@@ -112,13 +106,6 @@ export default function OnboardingForm() {
             </FormItem>
           )}
         />
-        {errors.length > 0 && (
-          <ul className='text-red-500 text-sm list-disc pl-5'>
-            {errors.map((err, i) => (
-              <li key={i}>{err}</li>
-            ))}
-          </ul>
-        )}
         <Button
           variant='outline'
           className='w-1/2 flex items-center gap-2 p-2 cursor-pointer justify-center'
