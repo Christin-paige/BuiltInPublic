@@ -99,11 +99,18 @@ export default function OnboardingForm() {
             </FormItem>
           )}
         />
-        <Textarea
-          placeholder='bio'
-          value={bio}
-          maxLength={300}
-          onChange={(e) => setBio(e.target.value)}
+        <FormField 
+          control={onboardingForm.control}
+          name='bio'
+                    render={({ field }) => (
+            <FormItem className='w-full'>
+              <FormLabel>Display name</FormLabel>
+              <FormControl>
+                <Textarea placeholder='bio' {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
         />
         {errors.length > 0 && (
           <ul className='text-red-500 text-sm list-disc pl-5'>
