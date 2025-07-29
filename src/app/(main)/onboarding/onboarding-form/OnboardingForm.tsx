@@ -99,10 +99,10 @@ export default function OnboardingForm() {
             </FormItem>
           )}
         />
-        <FormField 
+        <FormField
           control={onboardingForm.control}
           name='bio'
-                    render={({ field }) => (
+          render={({ field }) => (
             <FormItem className='w-full'>
               <FormLabel>Display name</FormLabel>
               <FormControl>
