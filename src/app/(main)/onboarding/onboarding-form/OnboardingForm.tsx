@@ -75,12 +75,12 @@ export default function OnboardingForm() {
       >
         <FormField
           control={onboardingForm.control}
-          name="userName"
+          name='userName'
           render={({ field }) => (
-            <FormItem className="w-full">
+            <FormItem className='w-full'>
               <FormLabel>Username</FormLabel>
               <FormControl>
-                <Input placeholder="username" {...field} />
+                <Input placeholder='username' {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
