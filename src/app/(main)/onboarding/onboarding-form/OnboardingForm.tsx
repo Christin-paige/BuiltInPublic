@@ -19,8 +19,14 @@ export default function OnboardingForm() {
   const [errors, setErrors] = useState<string[]>([]);
 
   const onboardingFormSchema = z.object({
-    userName: z.string().max(32, {
+    userName: 
+      z.string().max(32, {
       message: 'username cannot be longer than 32 characters'
+    })
+    .regex(/^[a-z0-9_-]+$/, {
+      message: 'username must only contain lowercase letters, numbers, _ and - symbols'
+    }).refine((name) => !emojiRegex().test(name), {
+      message: 'username must not contain emoji'
     }),
     displayName: z.string().max(32, {
       message: 'display name cannot be longer than 32 characters'
@@ -34,6 +40,9 @@ export default function OnboardingForm() {
     e.preventDefault();
 
     const newErrors: string[] = [];
+
+    // Work In Progress - replacing this validation with a zod schema, then will remove
+
 
     // validate userName;
     const emojiValidationRegex = emojiRegex();
