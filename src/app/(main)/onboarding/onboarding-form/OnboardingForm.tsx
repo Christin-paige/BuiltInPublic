@@ -14,9 +14,7 @@ export default function OnboardingForm() {
   const [bio, setBio] = useState('');
   const [errors, setErrors] = useState<string[]>([]);
 
-
-  const handleSubmit = (e:FormEvent) => {
-
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
     const newErrors: string[] = [];
@@ -25,30 +23,32 @@ export default function OnboardingForm() {
     const emojiValidationRegex = emojiRegex();
     const allowedCharactersRegex = /^[a-z0-9_-]+$/;
 
-    if (userName.length > 32 ){
-      const lengthError = "username cannot be longer than 32 characters";
+    if (userName.length > 32) {
+      const lengthError = 'username cannot be longer than 32 characters';
       newErrors.push(lengthError);
     }
 
-    if ( emojiValidationRegex.test(userName)){
-      const emojiError = "username must not contain emoji";
+    if (emojiValidationRegex.test(userName)) {
+      const emojiError = 'username must not contain emoji';
       newErrors.push(emojiError);
     }
 
-    if ( !allowedCharactersRegex.test(userName)){
-      const alphaNumericError = "username must only contain lowercase letters, numbers, _ and - symbols"
+    if (!allowedCharactersRegex.test(userName)) {
+      const alphaNumericError =
+        'username must only contain lowercase letters, numbers, _ and - symbols';
       newErrors.push(alphaNumericError);
     }
 
     setErrors(newErrors);
 
     console.log(newErrors);
+  };
 
-
-  }
- 
   return (
-    <form onSubmit={handleSubmit} className='flex flex-col gap-4 w-full max-w-sm items-center'>
+    <form
+      onSubmit={handleSubmit}
+      className='flex flex-col gap-4 w-full max-w-sm items-center'
+    >
       <Input
         className='text-center'
         id='userName'
@@ -72,10 +72,10 @@ export default function OnboardingForm() {
         placeholder='bio'
         value={bio}
         maxLength={300}
-        onChange={(e => setBio(e.target.value))}
+        onChange={(e) => setBio(e.target.value)}
       />
       {errors.length > 0 && (
-        <ul className="text-red-500 text-sm list-disc pl-5">
+        <ul className='text-red-500 text-sm list-disc pl-5'>
           {errors.map((err, i) => (
             <li key={i}>{err}</li>
           ))}
