@@ -24,19 +24,37 @@ export default function OnboardingForm() {
     const allowedCharactersRegex = /^[a-z0-9_-]+$/;
 
     if (userName.length > 32) {
-      const lengthError = 'username cannot be longer than 32 characters';
-      newErrors.push(lengthError);
+      const userNameLengthError = 'username cannot be longer than 32 characters';
+      newErrors.push(userNameLengthError);
     }
 
     if (emojiValidationRegex.test(userName)) {
-      const emojiError = 'username must not contain emoji';
-      newErrors.push(emojiError);
+      const userNameEmojiError = 'username must not contain emoji';
+      newErrors.push(userNameEmojiError);
     }
 
     if (!allowedCharactersRegex.test(userName)) {
-      const alphaNumericError =
+      const userNameAlphaNumericError =
         'username must only contain lowercase letters, numbers, _ and - symbols';
-      newErrors.push(alphaNumericError);
+      newErrors.push(userNameAlphaNumericError);
+    }
+
+    // validate display name
+    if ( displayName.length > 32 ){
+      const displayNameLengthError = 
+        'display name cannot be longer than 32 characters';
+      newErrors.push(displayNameLengthError);
+    }
+
+    // valiate bio
+    if ( bio.length > 300 ){
+      const bioLengthError = 
+        'bio cannot cannot be longer than 300 characters'
+      newErrors.push(bioLengthError);
+    }
+
+    if ( newErrors.length === 0 ){
+      // TODO submit form (part of another task)
     }
 
     setErrors(newErrors);
@@ -50,25 +68,24 @@ export default function OnboardingForm() {
       className='flex flex-col gap-4 w-full max-w-sm items-center'
     >
       <Input
-        className='text-center'
         id='userName'
         type='text'
         placeholder='username'
         required
         value={userName}
+        maxLength={32}
         onChange={(e) => setUserName(e.target.value)}
       />
       <Input
-        className='text-center'
         id='displayName'
         type='text'
         placeholder='display name'
         required
         value={displayName}
+        maxLength={32}
         onChange={(e) => setDisplayName(e.target.value)}
       />
       <Textarea
-        className='text-center'
         placeholder='bio'
         value={bio}
         maxLength={300}
