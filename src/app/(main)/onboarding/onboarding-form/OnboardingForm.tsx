@@ -23,6 +23,7 @@ export default function OnboardingForm() {
       z.string().max(32, {
       message: 'username cannot be longer than 32 characters'
     })
+    // only allow lowercase letters, numbers and the following symbols: _-
     .regex(/^[a-z0-9_-]+$/, {
       message: 'username must only contain lowercase letters, numbers, _ and - symbols'
     }).refine((name) => !emojiRegex().test(name), {
@@ -35,6 +36,15 @@ export default function OnboardingForm() {
       message: 'bio cannot cannot be longer than 300 characters'
     })
   })
+
+  const onboardingForm = useForm<z.infer<typeof onboardingFormSchema>>({
+      resolver: zodResolver(onboardingFormSchema),
+      defaultValues: {
+        userName: "",
+        displayName: "",
+        bio: ""
+      }
+  });
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
