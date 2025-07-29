@@ -6,6 +6,10 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { z } from "zod"
+
 import emojiRegex from 'emoji-regex';
 
 export default function OnboardingForm() {
@@ -13,6 +17,18 @@ export default function OnboardingForm() {
   const [displayName, setDisplayName] = useState('');
   const [bio, setBio] = useState('');
   const [errors, setErrors] = useState<string[]>([]);
+
+  const onboardingFormSchema = z.object({
+    userName: z.string().max(32, {
+      message: 'username cannot be longer than 32 characters'
+    }),
+    displayName: z.string().max(32, {
+      message: 'display name cannot be longer than 32 characters'
+    }),
+    bio: z.string().max(300, {
+      message: 'bio cannot cannot be longer than 300 characters'
+    })
+  })
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
