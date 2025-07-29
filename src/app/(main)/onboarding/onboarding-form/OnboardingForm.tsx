@@ -29,6 +29,10 @@ export default function OnboardingForm() {
   const [errors, setErrors] = useState<string[]>([]);
 
   const onboardingFormSchema = z.object({
+    /*
+      TODO add character escaping o replace symbols like < and >, ' and " in situations where 
+      user input will be used, so they cant inject scripts or anything else
+    */
     userName: z
       .string()
       .max(32, {
@@ -69,14 +73,18 @@ export default function OnboardingForm() {
         onSubmit={onboardingForm.handleSubmit(onSubmit)}
         className='flex flex-col gap-4 w-full max-w-sm items-center'
       >
-        <Input
-          id='userName'
-          type='text'
-          placeholder='username'
-          required
-          value={userName}
-          maxLength={32}
-          onChange={(e) => setUserName(e.target.value)}
+        <FormField
+          control={onboardingForm.control}
+          name="userName"
+          render={({ field }) => (
+            <FormItem className="w-full">
+              <FormLabel>Username</FormLabel>
+              <FormControl>
+                <Input placeholder="username" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
         />
         <Input
           id='displayName'
