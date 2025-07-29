@@ -27,9 +27,6 @@ export default function Profile({ params }: ProfileProps) {
     return null;
   }
 
-  // ⛔ Skip rendering if we're on the projects redirect route
-  if (username === 'projects') return null;
-
   if (!profile || error) {
     return notFound();
   }
