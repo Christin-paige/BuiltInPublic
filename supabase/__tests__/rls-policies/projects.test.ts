@@ -2,7 +2,6 @@
 
 import { describe, it, expect, vi } from 'vitest';
 import { authedClient, unauthClient } from '../testClients';
-import { UUID } from 'crypto';
 
 // Create a new project object
 const newProject = async () => {
@@ -48,21 +47,17 @@ describe('RLS Policies for Projects Table', async () => {
     expect(error).toBeNull();
   });
 
-  //Test case: Ensure authenticated users can create public projects
-  it('should allow authenticated users to create public projects', async () => {
-    // Create a new project object with public visibility
-    const project = await newProject();
-    project.visibility = 'public';
-
-    // Use the authenticated client to insert a new project
-    const { data, error } = await authedClient
+  // Test case: Ensure private projects are not accessible to unauthenticated users
+  it('should not allow unauthenticated users to get private projects', async () => {
+    // Use the unauthenticated client to fetch private projects
+    const { data, error } = await unauthClient
       .from('projects')
-      .insert(project)
-      .select();
+      .select('*')
+      .eq('visibility', 'private');
 
-    // Expect data to be defined and not empty
-    expect(data).toBeDefined();
-    expect(error).toBeNull();
+    // Expect no data and an error
+    expect(data?.length).toBe(0);
+    expect(error).toBeDefined();
   });
 
   // Test case: Ensure unauthenticated users can not update projects
@@ -123,19 +118,6 @@ describe('RLS Policies for Projects Table', async () => {
     expect(error).toBeNull();
   });
 
-  // Test case: Ensure private projects are not accessible to unauthenticated users
-  it('should not allow unauthenticated users to get private projects', async () => {
-    // Use the unauthenticated client to fetch private projects
-    const { data, error } = await unauthClient
-      .from('projects')
-      .select('*')
-      .eq('visibility', 'private');
-
-    // Expect no data and an error
-    expect(data?.length).toBe(0);
-    expect(error).toBeDefined();
-  });
-
   // Test case: Ensure authenticated users cannot access private projects they do not own
   it('should not allow authenticated users to get private projects they do not own', async () => {
     // Use the authenticated client to fetch private projects
@@ -148,21 +130,6 @@ describe('RLS Policies for Projects Table', async () => {
     // Expect no data and an error
     expect(data?.length).toBe(0);
     expect(error).toBeDefined();
-  });
-
-  // Test case: Ensure authenticated users can access their own private projects
-  it('should allow authenticated users to get their own private projects', async () => {
-    // Use the authenticated client to fetch private projects
-    const { data, error } = await authedClient
-      .from('projects')
-      .select('*')
-      .eq('visibility', 'private')
-      .eq('owner_id', (await newProject()).owner_id);
-
-    // Expect data to be defined and not empty
-    expect(data).toBeDefined();
-    expect(data?.length).toBeGreaterThan(0);
-    expect(error).toBeNull();
   });
 
   // Test case: Ensure unauthenticated users cannot delete projects

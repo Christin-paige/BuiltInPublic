@@ -1,4 +1,4 @@
--- Base tables and RLS for CodeSphere
+-- Base tables and RLS for BuiltInPublic
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
@@ -120,15 +120,16 @@ CREATE TABLE IF NOT EXISTS "public"."follows" (
     PRIMARY KEY ("follower_id", "followee_id")
 );
 
+-- Create enum type for project visibility
+CREATE TYPE "public"."project_visibility" AS ENUM ('public', 'private');
+
 -- Create projects table with id, owner_id, name, description, visibility, repo_url, created_at, updated_at
 CREATE TABLE IF NOT EXISTS "public"."projects" (
     "id" UUID PRIMARY KEY DEFAULT gen_random_uuid (),
     "owner_id" UUID NOT NULL REFERENCES public.profiles (id) ON DELETE CASCADE,
     "name" TEXT NOT NULL,
     "description" TEXT,
-    "visibility" TEXT NOT NULL CHECK (
-        "visibility" IN ('public', 'connections', 'private')
-    ) DEFAULT 'public',
+    "visibility" "public"."project_visibility" NOT NULL DEFAULT 'public',
     "repo_url" TEXT,
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT now (),
     "updated_at" TIMESTAMPTZ NOT NULL DEFAULT now ()
@@ -180,8 +181,7 @@ CREATE POLICY "Allow insert for authenticated users" ON "public"."profiles" FOR 
 CREATE POLICY "anyone can select likes" ON "public"."likes" FOR SELECT USING (true);
 CREATE POLICY "authenticated user can like post" ON "public"."likes" FOR INSERT TO "authenticated" WITH CHECK (("user_id" = "auth"."uid"()));
 CREATE POLICY "authenticated users can delete their likes" ON "public"."likes" FOR DELETE TO "authenticated" USING (("user_id" = "auth"."uid"()));
-CREATE POLICY "enable read access for profiles" ON "public"."profiles" FOR SELECT USING (true);
-CREATE POLICY "Anyone can read profiles" ON "public"."profiles" FOR SELECT TO authenticated USING (true);
+CREATE POLICY "authenticated users can read profiles" ON "public"."profiles" FOR SELECT TO authenticated USING (true);
 CREATE POLICY "Users can update their own profile" ON "public"."profiles" FOR UPDATE TO authenticated USING (auth.uid () = id);
 
 -- skills
@@ -198,6 +198,7 @@ CREATE POLICY "Users can unfollow" ON "public"."follows" FOR DELETE TO authentic
 
 -- projects
 CREATE POLICY "Anyone can read public projects" ON "public"."projects" FOR SELECT TO authenticated USING (visibility = 'public');
+CREATE POLICY "Users can read their own private projects" ON "public"."projects" FOR SELECT TO authenticated USING (visibility = 'private' AND auth.uid() = owner_id);
 CREATE POLICY "Users can create projects" ON "public"."projects" FOR INSERT TO authenticated WITH CHECK (auth.uid () = owner_id);
 CREATE POLICY "Users can update their own projects" ON "public"."projects" FOR UPDATE TO authenticated USING (auth.uid () = owner_id);
 CREATE POLICY "Users can delete their own projects" ON "public"."projects" FOR DELETE TO authenticated USING (auth.uid () = owner_id);
@@ -245,8 +246,5 @@ ALTER TABLE "public"."projects" ENABLE ROW LEVEL SECURITY;
 ALTER TABLE "public"."comments" ENABLE ROW LEVEL SECURITY;
 
 ALTER TABLE "public"."endorsements" ENABLE ROW LEVEL SECURITY;
-
--- Alter publication to set owner to postgres
-ALTER PUBLICATION "supabase_realtime" OWNER TO "postgres";
 
 RESET ALL;

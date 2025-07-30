@@ -27,7 +27,7 @@ const StreakSection = () => {
     <section className='flex flex-col gap-4 w-1/4'>
       <div className='flex gap-2'>
         <button
-          className={`p-2 rounded-lg border text-center w-fit cursor-pointer hover:bg-slate-800 transition-all 
+          className={`p-2 rounded-lg border text-center w-fit cursor-pointer hover:bg-slate-800 transition-all
             duration-100 active:scale-95 flex items-center gap-2 ${
               view === 'calendar'
                 ? 'bg-slate-700 border-cyan-800'
@@ -38,7 +38,7 @@ const StreakSection = () => {
           <p>Calendar View</p>
         </button>
         <button
-          className={`p-2 rounded-lg border text-center w-fit cursor-pointer hover:bg-slate-800 transition-all 
+          className={`p-2 rounded-lg border text-center w-fit cursor-pointer hover:bg-slate-800 transition-all
             duration-100 active:scale-95 flex items-center gap-2 ${
               view === 'github'
                 ? 'bg-slate-700 border-cyan-800'

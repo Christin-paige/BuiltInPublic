@@ -6,7 +6,6 @@ import Image from 'next/image';
 import ProfileIcon from '../ProfileIcon';
 import useUser from '@/hooks/useUser/useUser';
 import { signOutUser } from './actions';
-import supabaseClient from 'utils/supabase/client';
 
 export default function NavBar() {
   const { data: user } = useUser();
@@ -14,12 +13,8 @@ export default function NavBar() {
   // Sign out the user
   const handleSignOut = async () => {
     try {
-      // Sign out from the client
-      await supabaseClient.auth.signOut();
       // Sign out from the server
       await signOutUser();
-      // Force a hard refresh to clear all state
-      window.location.href = '/';
     } catch (error) {
       console.error('Error signing out:', error);
     }

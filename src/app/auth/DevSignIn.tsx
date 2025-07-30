@@ -1,14 +1,11 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { LoginWithEmail } from './actions';
+import { loginWithEmail } from './actions';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 export default function DevSignIn() {
-  // use router to redirect to dashboard
-  const router = useRouter();
-
   // use state to store email, password, error, and success messages
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -18,14 +15,10 @@ export default function DevSignIn() {
   // handle login with email and redirect to dashboard
   const handleLoginWithEmail = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    try {
-      const user = await LoginWithEmail(email, password);
-      if (user) {
-        setSuccess('Login successful');
-        router.push('/dashboard');
-      }
-    } catch (error) {
-      console.error('Login error:', error);
+
+    const error = await loginWithEmail(email, password);
+
+    if (error) {
       setError('Invalid credentials. Try again.');
     }
 
@@ -59,7 +52,7 @@ export default function DevSignIn() {
           />
           <Button
             variant='outline'
-            size='medium'
+            size='default'
             className='w-full flex items-center gap-2 p-2 cursor-pointer'
             type='submit'
           >
