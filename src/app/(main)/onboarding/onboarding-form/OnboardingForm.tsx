@@ -30,13 +30,8 @@ export default function OnboardingForm() {
       .max(32, {
         message: 'username cannot be longer than 32 characters',
       })
-      // only allow lowercase letters, numbers and the following symbols: _-
-      .regex(/^[a-z0-9_-]+$/, {
-        message:
-          'username must only contain lowercase letters, numbers, _ and - symbols',
-      })
-      .refine((name) => !emojiRegex().test(name), {
-        message: 'username must not contain emoji',
+      .refine((name) => /^[a-z0-9_-]+$/.test(name) && !emojiRegex().test(name), {
+        message: 'username must only contain lowercase letters, numbers, _ and - symbols',
       }),
     displayName: z.string().max(32, {
       message: 'display name cannot be longer than 32 characters',
