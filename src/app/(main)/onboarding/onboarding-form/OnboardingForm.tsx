@@ -91,7 +91,7 @@ export default function OnboardingForm() {
           name='bio'
           render={({ field }) => (
             <FormItem className='w-full'>
-              <FormLabel>Display name</FormLabel>
+              <FormLabel>Bio</FormLabel>
               <FormControl>
                 <Textarea placeholder='bio' {...field} />
               </FormControl>
