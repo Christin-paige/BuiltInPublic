@@ -7,7 +7,7 @@ const projectsRaw = [
     description:
       'A social media platform for devs to share projects and ideas.',
     username: 'testuser1',
-    visibility: 'connections',
+    visibility: 'private',
     repo_url: 'https://github.com/codespheredevs/devhub',
   },
   {
