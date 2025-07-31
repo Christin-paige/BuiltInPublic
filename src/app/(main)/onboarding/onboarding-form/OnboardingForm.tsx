@@ -21,12 +21,12 @@ import emojiRegex from 'emoji-regex';
 
 export default function OnboardingForm() {
   const onboardingFormSchema = z.object({
-    /*
-      TODO add character escaping o replace symbols like < and >, ' and " in situations where 
-      user input will be used, so they cant inject scripts or anything else
-    */
+
     userName: z
       .string()
+      .min(3, {
+        message: 'username must contain at least 3 characters'
+      })
       .max(32, {
         message: 'username cannot be longer than 32 characters',
       })
@@ -37,9 +37,14 @@ export default function OnboardingForm() {
             'username must only contain lowercase letters, numbers, _ and - symbols',
         }
       ),
-    displayName: z.string().max(32, {
-      message: 'display name cannot be longer than 32 characters',
-    }),
+    displayName: z
+      .string()
+      .min(3, {
+        message: 'display name must contain at least 3 characters'
+      })
+      .max(32, {
+        message: 'display name cannot be longer than 32 characters',
+      }),
     bio: z.string().max(300, {
       message: 'bio cannot cannot be longer than 300 characters',
     }),
@@ -47,6 +52,8 @@ export default function OnboardingForm() {
 
   const onboardingForm = useForm<z.infer<typeof onboardingFormSchema>>({
     resolver: zodResolver(onboardingFormSchema),
+    mode: 'onChange',
+    reValidateMode: 'onChange',
     defaultValues: {
       userName: '',
       displayName: '',
