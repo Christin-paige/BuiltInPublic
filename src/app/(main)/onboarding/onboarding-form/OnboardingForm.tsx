@@ -21,11 +21,10 @@ import emojiRegex from 'emoji-regex';
 
 export default function OnboardingForm() {
   const onboardingFormSchema = z.object({
-
     userName: z
       .string()
       .min(3, {
-        message: 'username must contain at least 3 characters'
+        message: 'username must contain at least 3 characters',
       })
       .max(32, {
         message: 'username cannot be longer than 32 characters',
@@ -40,7 +39,7 @@ export default function OnboardingForm() {
     displayName: z
       .string()
       .min(3, {
-        message: 'display name must contain at least 3 characters'
+        message: 'display name must contain at least 3 characters',
       })
       .max(32, {
         message: 'display name cannot be longer than 32 characters',
