@@ -4,7 +4,7 @@ import { createAnonClient } from './server';
 import { SupabaseClient } from '@supabase/supabase-js';
 import { Database } from 'supabase/supabase.types';
 
-const protectedRoutes = ['/dashboard', '/profile'];
+const protectedRoutes = ['/dashboard', '/profile', '/onboarding'];
 const publicRoutes = ['/auth'];
 
 export async function updateSession(request: NextRequest) {
