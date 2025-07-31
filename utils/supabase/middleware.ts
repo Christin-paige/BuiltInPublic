@@ -1,5 +1,8 @@
 import { createServerClient } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
+import { createAnonClient } from './server';
+import { SupabaseClient } from '@supabase/supabase-js';
+import { Database } from 'supabase/supabase.types';
 
 const protectedRoutes = ['/dashboard', '/profile'];
 const publicRoutes = ['/auth'];
@@ -9,29 +12,7 @@ export async function updateSession(request: NextRequest) {
     request,
   });
 
-  const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        getAll() {
-          return request.cookies.getAll();
-        },
-        setAll(cookiesToSet) {
-          supabaseResponse = NextResponse.next({
-            request,
-          });
-          cookiesToSet.forEach(({ name, value, options }) =>
-            supabaseResponse.cookies.set(name, value, {
-              sameSite: 'lax',
-              secure: true,
-              ...options,
-            })
-          );
-        },
-      },
-    }
-  );
+  const supabase = await createAnonClient();
 
   // Do not run code between createServerClient and
   // supabase.auth.getUser(). A simple mistake could make it very hard to debug
