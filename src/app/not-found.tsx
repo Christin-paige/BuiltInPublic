@@ -17,6 +17,7 @@ export default function NotFound() {
     '/404/funny7.gif',
     '/404/funny8.gif',
     '/404/funny9.gif',
+    '/404/funny10.gif',
   ];
 
   const randomImage = useMemo(() => {
