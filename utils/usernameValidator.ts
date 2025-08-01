@@ -35,22 +35,24 @@ function isUsernameRoute(username: string): boolean {
 }
 
 // Standalone username validator
-export function usernameIsValid(username: string): string | null {
+export function usernameIsValid(username: string): boolean {
+
   // Check if the username is empty
   if (!username || username.trim() === '') {
-    return 'Username cannot be empty';
-  }
-
-  // Check for profanity in the username
-  if (checkProfanity(username)) {
-    return 'Username contains inappropriate language';
+    return false;
   }
 
   // Check if the username matches any route
   if (isUsernameRoute(username)) {
-    return 'Username cannot match a route';
-  }
+    return false;
+  };
 
-  // If all checks pass, return null indicating no errors
-  return null;
+  // Check for profanity in the username
+  if (checkProfanity(username)) {
+    return false;
+  };
+
+
+  // If all checks pass, return true indicating no errors
+  return true;
 }
