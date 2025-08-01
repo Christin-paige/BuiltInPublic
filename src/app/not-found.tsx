@@ -25,19 +25,20 @@ export default function NotFound() {
   }, []);
 
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center px-4 py-12 text-center gap-6">
-      <h1 className="text-4xl sm:text-5xl font-bold text-primary">
+    <main className='min-h-screen flex flex-col items-center justify-center px-4 py-12 text-center gap-6'>
+      <h1 className='text-4xl sm:text-5xl font-bold text-primary'>
         404 - Page Not Found 😵
       </h1>
 
-      <p className="text-muted-foreground text-lg max-w-xl">
-        We couldn’t find what you’re looking for, but here’s something fun instead:
+      <p className='text-muted-foreground text-lg max-w-xl'>
+        We couldn’t find what you’re looking for, but here’s something fun
+        instead:
       </p>
 
-      <div className="w-full max-w-xl overflow-hidden rounded-xl shadow-lg ring-2 ring-border bg-muted">
+      <div className='w-full max-w-xl overflow-hidden rounded-xl shadow-lg ring-2 ring-border bg-muted'>
         <Image
           src={randomImage}
-          alt="Funny 404"
+          alt='Funny 404'
           width={800}
           height={600}
           onLoad={() => setLoaded(true)}
@@ -50,8 +51,8 @@ export default function NotFound() {
       </div>
 
       <Link
-        href="/"
-        className="text-sm text-primary underline hover:text-accent transition"
+        href='/'
+        className='text-sm text-primary underline hover:text-accent transition'
       >
         🔙 Go back home
       </Link>
