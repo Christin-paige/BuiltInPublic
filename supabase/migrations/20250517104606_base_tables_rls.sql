@@ -139,6 +139,15 @@ CREATE TABLE IF NOT EXISTS "public"."projects" (
     "updated_at" TIMESTAMPTZ NOT NULL DEFAULT now ()
 );
 
+-- Create project_updates table with id, project_id, update text, created_at, and updated_at
+CREATE TABLE IF NOT EXISTS "public"."project_updates" (
+    "id" UUID PRIMARY KEY DEFAULT gen_random_uuid (),
+    "project_id" UUID NOT NULL REFERENCES public.projects (id) ON DELETE CASCADE,
+    "update" TEXT NOT NULL,
+    "created_at" TIMESTAMPTZ NOT NULL DEFAULT now (),
+    "updated_at" TIMESTAMPTZ NOT NULL DEFAULT now ()
+);
+
 -- Create posts table with id, user_id, content, visibility, created_at, updated_at
 CREATE TABLE IF NOT EXISTS "public"."posts" (
     "id" UUID PRIMARY KEY DEFAULT gen_random_uuid(),
