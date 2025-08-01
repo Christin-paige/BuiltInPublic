@@ -133,6 +133,7 @@ CREATE TABLE IF NOT EXISTS "public"."projects" (
     "name" TEXT NOT NULL,
     "description" TEXT,
     "visibility" "public"."project_visibility" NOT NULL DEFAULT 'public',
+    "status" "public"."project_status" NOT NULL DEFAULT 'in-progress',
     "repo_url" TEXT,
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT now (),
     "updated_at" TIMESTAMPTZ NOT NULL DEFAULT now ()
