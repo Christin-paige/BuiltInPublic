@@ -16,7 +16,7 @@ function loadCustomWordList() {
   } catch (error) {
     throw new Error(`Failed to load custom word list: ${error}`);
   }
-};
+}
 
 // Load the custom word list
 loadCustomWordList();
@@ -34,7 +34,6 @@ function isUsernameRoute(username: string): boolean {
 
 // Standalone username validator
 export function usernameIsValid(username: string): boolean {
-
   // Check if the username is empty
   if (!username || username.trim() === '') {
     return false;
@@ -43,14 +42,13 @@ export function usernameIsValid(username: string): boolean {
   // Check if the username matches any route
   if (isUsernameRoute(username)) {
     return false;
-  };
+  }
 
   // Check for profanity in the username
   if (checkProfanity(username)) {
     return false;
-  };
-
+  }
 
   // If all checks pass, return true indicating no errors
   return true;
-};
+}
