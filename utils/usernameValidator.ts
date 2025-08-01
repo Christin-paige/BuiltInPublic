@@ -1,5 +1,6 @@
 import leoProfanity from 'leo-profanity';
 import { readFileSync } from 'fs';
+import profanityList from '../config/private/profanity-list';
 import path from 'path';
 
 // Create the list of routes within the application
@@ -13,19 +14,11 @@ const routes = [
 // Load custom profanity list from a file
 function loadCustomWordList() {
   try {
-    const data = readFileSync(
-      path.join(process.cwd(), './config/private/profanity-list.txt'),
-      'utf-8'
-    )
-      .split('\n')
-      .map((word: string) => word.trim().toLowerCase())
-      .filter((word: string) => word.length > 0);
-
-    leoProfanity.add(data);
+    leoProfanity.add(profanityList);
   } catch (error) {
-    throw new Error(`Failed to load profanity list: ${error}`);
+    throw new Error(`Failed to load custom word list: ${error}`);
   }
-}
+};
 
 // Load the custom word list
 loadCustomWordList();

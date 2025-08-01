@@ -4,3 +4,5 @@ const profanityList = [
   'damn',
   'hell'
 ]
+
+export default profanityList;
