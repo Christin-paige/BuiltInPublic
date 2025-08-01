@@ -1,7 +1,5 @@
 import leoProfanity from 'leo-profanity';
-import { readFileSync } from 'fs';
 import profanityList from '../config/private/profanity-list';
-import path from 'path';
 
 // Create the list of routes within the application
 const routes = [
@@ -55,4 +53,4 @@ export function usernameIsValid(username: string): boolean {
 
   // If all checks pass, return true indicating no errors
   return true;
-}
+};
