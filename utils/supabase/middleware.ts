@@ -1,13 +1,29 @@
-import { createServerClient } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
 import { createAnonClient } from './server';
-import { SupabaseClient } from '@supabase/supabase-js';
-import { Database } from 'supabase/supabase.types';
 
 const protectedRoutes = ['/dashboard', '/profile', '/onboarding'];
 const publicRoutes = ['/auth'];
 
 export async function updateSession(request: NextRequest) {
+  const isStaging = process.env.NEXT_PUBLIC_STAGING === 'true';
+
+  if (isStaging) {
+    const stagingAuth = request.cookies.get('staging-auth');
+    const isStagingAuthPage = request.nextUrl.pathname === '/staging-auth';
+
+    if (!stagingAuth?.value && !isStagingAuthPage) {
+      return NextResponse.redirect(new URL('/staging-auth', request.url));
+    }
+
+    if (stagingAuth?.value && isStagingAuthPage) {
+      return NextResponse.redirect(new URL('/', request.url));
+    }
+
+    if (isStagingAuthPage) {
+      return NextResponse.next();
+    }
+  }
+
   let supabaseResponse = NextResponse.next({
     request,
   });
