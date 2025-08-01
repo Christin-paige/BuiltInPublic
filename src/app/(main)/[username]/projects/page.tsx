@@ -1,3 +1,10 @@
-export default function Projects() {
-  return <h1 className='text-2xl text-center'>Projects</h1>;
+'use client';
+
+import { redirect, useParams } from 'next/navigation';
+
+export default function Page() {
+  const params = useParams();
+  const username = params.username as string;
+
+  redirect(`/${username}`);
 }

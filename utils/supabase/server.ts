@@ -1,7 +1,6 @@
-import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 import { Database } from '../../supabase/supabase.types';
-import { SupabaseClient } from '@supabase/supabase-js';
+import { SupabaseClient, createClient } from '@supabase/supabase-js';
 
 export type SupabaseServiceClient = SupabaseClient<Database> & {
   _brand: 'service-role';
@@ -23,24 +22,33 @@ export async function createAnonClient(): Promise<SupabaseAnonClient> {
   // change to supabase server to reduce confusion?
   const cookieStore = await cookies();
 
-  const client: SupabaseClient<Database> = createServerClient(
+  const client: SupabaseClient<Database> = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
-      cookies: {
-        getAll() {
-          return cookieStore.getAll();
-        },
-        setAll(cookiesToSet) {
-          try {
-            cookiesToSet.forEach(({ name, value, options }) =>
-              cookieStore.set(name, value, options)
-            );
-          } catch {
-            // The `setAll` method was called from a Server Component.
-            // This can be ignored if you have middleware refreshing
-            // user sessions.
-          }
+      auth: {
+        flowType: 'pkce',
+        storage: {
+          getItem: (key: string) => cookieStore.get(key)?.value ?? null,
+          setItem: (key: string, value: string) => {
+            cookieStore.set({
+              name: key,
+              value: value,
+              httpOnly: true,
+              secure: process.env.NODE_ENV === 'production',
+              sameSite: 'lax',
+              path: '/',
+              maxAge: 60 * 60 * 24 * 365,
+            });
+          },
+          removeItem: (key) => {
+            cookieStore.set({
+              name: key,
+              value: '',
+              httpOnly: true,
+              maxAge: 0,
+            });
+          },
         },
       },
     }
@@ -55,24 +63,33 @@ export async function createServiceClient(): Promise<SupabaseServiceClient> {
   // change to supabase server to reduce confusion?
   const cookieStore = await cookies();
 
-  const client: SupabaseClient<Database> = createServerClient(
+  const client: SupabaseClient<Database> = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
-      cookies: {
-        getAll() {
-          return cookieStore.getAll();
-        },
-        setAll(cookiesToSet) {
-          try {
-            cookiesToSet.forEach(({ name, value, options }) =>
-              cookieStore.set(name, value, options)
-            );
-          } catch {
-            // The `setAll` method was called from a Server Component.
-            // This can be ignored if you have middleware refreshing
-            // user sessions.
-          }
+      auth: {
+        flowType: 'pkce',
+        storage: {
+          getItem: (key: string) => cookieStore.get(key)?.value ?? null,
+          setItem: (key: string, value: string) => {
+            cookieStore.set({
+              name: key,
+              value: value,
+              httpOnly: true,
+              secure: process.env.NODE_ENV === 'production',
+              sameSite: 'lax',
+              path: '/',
+              maxAge: 60 * 60 * 24 * 365,
+            });
+          },
+          removeItem: (key) => {
+            cookieStore.set({
+              name: key,
+              value: '',
+              httpOnly: true,
+              maxAge: 0,
+            });
+          },
         },
       },
     }
