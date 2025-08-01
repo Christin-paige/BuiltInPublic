@@ -260,4 +260,6 @@ ALTER TABLE "public"."comments" ENABLE ROW LEVEL SECURITY;
 
 ALTER TABLE "public"."endorsements" ENABLE ROW LEVEL SECURITY;
 
+ALTER TABLE "public"."project_updates" ENABLE ROW LEVEL SECURITY;
+
 RESET ALL;
