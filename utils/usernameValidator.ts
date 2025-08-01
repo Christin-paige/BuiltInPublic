@@ -42,7 +42,7 @@ function isUsernameRoute(username: string): boolean {
 }
 
 // Standalone username validator
-export function usernameValidator(username: string): string | null {
+export function usernameIsValid(username: string): string | null {
   // Check if the username is empty
   if (!username || username.trim() === '') {
     return 'Username cannot be empty';
