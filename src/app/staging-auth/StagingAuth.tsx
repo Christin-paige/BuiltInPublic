@@ -26,34 +26,39 @@ export default function StagingAuth() {
   });
 
   const onSubmit = async (formData: StagingAuthSchemaType) => {
-    return await authenticateStaging(formData);
+    const result = await authenticateStaging(formData);
+
+    if (result && !result.success) {
+      form.setError('password', {
+        type: 'manual',
+        message: 'Invalid password',
+      });
+    }
   };
 
   return (
-    <section>
-      <Card>
-        <CardTitle>{'Access Staging Environment'}</CardTitle>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)}>
-            <FormField
-              control={form.control}
-              name='password'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{'Password'}</FormLabel>
-                  <FormControl>
-                    <Input type='password' {...field} />
-                  </FormControl>
-                  <FormDescription>
-                    {'Enter staging environment password'}
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </form>
-        </Form>
-      </Card>
-    </section>
+    <Card className='p-6 w-3/4 md:w-1/3 lg:w-1/5'>
+      <CardTitle>{'Access Staging Environment'}</CardTitle>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)}>
+          <FormField
+            control={form.control}
+            name='password'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>{'Password'}</FormLabel>
+                <FormControl>
+                  <Input type='password' {...field} />
+                </FormControl>
+                <FormDescription>
+                  {'Enter staging environment password'}
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </form>
+      </Form>
+    </Card>
   );
 }

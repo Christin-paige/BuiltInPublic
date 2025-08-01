@@ -6,10 +6,14 @@ const publicRoutes = ['/auth'];
 
 export async function updateSession(request: NextRequest) {
   const isStaging = process.env.NEXT_PUBLIC_STAGING === 'true';
+  const isStagingAuthPage = request.nextUrl.pathname === '/staging-auth';
+
+  if (!isStaging && isStagingAuthPage) {
+    return NextResponse.redirect(new URL('/', request.url));
+  }
 
   if (isStaging) {
     const stagingAuth = request.cookies.get('staging-auth');
-    const isStagingAuthPage = request.nextUrl.pathname === '/staging-auth';
 
     if (!stagingAuth?.value && !isStagingAuthPage) {
       return NextResponse.redirect(new URL('/staging-auth', request.url));
