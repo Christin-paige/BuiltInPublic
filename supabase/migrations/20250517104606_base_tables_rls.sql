@@ -123,8 +123,8 @@ CREATE TABLE IF NOT EXISTS "public"."follows" (
 -- Create enum type for project visibility
 CREATE TYPE "public"."project_visibility" AS ENUM ('public', 'private');
 
--- Create enum type for project status - in-progress, on-hold, completed, launched
-CREATE TYPE "public"."project_status" AS ENUM ('in-progress', 'on-hold', 'completed', 'launched');
+-- Create enum type for project status - planning, in-progress, on-hold, completed, launched
+CREATE TYPE "public"."project_status" AS ENUM ('planning', 'in-progress', 'on-hold', 'completed', 'launched');
 
 -- Create projects table with id, owner_id, name, description, visibility, repo_url, created_at, updated_at
 CREATE TABLE IF NOT EXISTS "public"."projects" (
