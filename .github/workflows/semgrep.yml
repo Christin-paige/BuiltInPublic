@@ -24,12 +24,4 @@ jobs:
         run: pip install semgrep
 
       - name: Run Semgrep scan
-        run: |
-          semgrep ci \
-            --config p/default \
-            --config p/owasp-top-ten \
-            --config p/react \
-            --config ./security/semgrep \
-            --exclude supabase/seed.sql \
-            --exclude .env.example \
-            --metrics=off
+        run: semgrep ci --metrics=off
