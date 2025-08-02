@@ -12,4 +12,16 @@ export interface ProjectDTO {
   status: ProjectStatus;
   repo_url: string | null;
   created_at: Date;
+};
+
+// Create interface for the project entity
+export interface Project {
+  id: string;
+  ownerId: string;
+  name: string;
+  description?: string;
+  visibility: ProjectVisibility;
+  status: ProjectStatus;
+  repoUrl?: string;
+  createdAt: Date;
 }
