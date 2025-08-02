@@ -28,6 +28,11 @@ const nextConfig = {
             key: 'Referrer-Policy',
             value: 'strict-origin-when-cross-origin',
           },
+          // ✅ Strict-Transport-Security
+           {
+            key: 'Strict-Transport-Security',
+            value: 'max-age=63072000; includeSubDomains; preload', // 2 years
+          },
           // ✅ Permissions Policy
           {
             key: 'Permissions-Policy',
