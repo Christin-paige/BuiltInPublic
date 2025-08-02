@@ -5,7 +5,7 @@ on:
     branches:
       - development
     types:
-      - closed  # triggers when PR is closed (merged or not)
+      - closed # triggers when PR is closed (merged or not)
 
 jobs:
   push-migrations:
@@ -30,4 +30,3 @@ jobs:
         run: |
           supabase link --project-ref "$SUPABASE_PROJECT_ID"
           supabase db push --include-all
-          
