@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS "public"."project_updates" (
     "updated_at" TIMESTAMPTZ NOT NULL DEFAULT now ()
 );
 
--- project_updates
+-- project_updates table row level security policies
 CREATE POLICY "Anyone can read public project updates" ON "public"."project_updates" FOR SELECT USING (EXISTS (
     SELECT 1 FROM public.projects p WHERE p.id = project_id AND p.visibility = 'public'
 ));
@@ -24,3 +24,5 @@ CREATE POLICY "Users can delete their own project updates" ON "public"."project_
     SELECT 1 FROM public.projects p WHERE p.id = project_id AND p.owner_id = auth.uid()
 ));
 
+-- Enable row level security
+ALTER TABLE "public"."project_updates" ENABLE ROW LEVEL SECURITY;
