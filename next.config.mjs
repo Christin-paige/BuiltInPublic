@@ -2,22 +2,22 @@
 const nextConfig = {
   // 🚫 Disable X-Powered-By header
   poweredByHeader: false,
+
   async headers() {
-    const isProdOrStaging =
-      process.env.NODE_ENV === 'production' ||
-      process.env.NEXT_PUBLIC_ENV === 'staging';
+    const isProd = process.env.NODE_ENV === 'production';
+    const isStaging = process.env.NEXT_PUBLIC_ENV === 'staging';
+    const isProdOrStaging = isProd || isStaging;
 
     return [
       {
         source: '/(.*)',
         headers: [
-          // ✅ Content Security Policy (Updated)
+          // ✅ Content Security Policy
           {
             key: 'Content-Security-Policy',
-            value:
-              process.env.NODE_ENV === 'production'
-                ? "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self'; frame-ancestors 'self'; base-uri 'self'; form-action 'self';"
-                : "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' ws://localhost:* http://localhost:*; frame-ancestors 'self'; base-uri 'self'; form-action 'self';",
+            value: isProdOrStaging
+              ? "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self'; frame-ancestors 'self'; base-uri 'self'; form-action 'self';"
+              : "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' ws://localhost:* http://localhost:*; frame-ancestors 'self'; base-uri 'self'; form-action 'self';",
           },
 
           // ✅ X-Frame-Options
@@ -38,12 +38,22 @@ const nextConfig = {
             value: 'strict-origin-when-cross-origin',
           },
 
-          // ✅ Strict-Transport-Security (only for staging & production)
+          // ✅ Strict-Transport-Security (staging & prod only)
           ...(isProdOrStaging
             ? [
                 {
                   key: 'Strict-Transport-Security',
                   value: 'max-age=63072000; includeSubDomains', // no preload yet
+                },
+              ]
+            : []),
+
+          // ✅ X-Robots-Tag (staging only)
+          ...(isStaging
+            ? [
+                {
+                  key: 'X-Robots-Tag',
+                  value: 'noindex, nofollow',
                 },
               ]
             : []),
@@ -78,3 +88,4 @@ const nextConfig = {
 };
 
 export default nextConfig;
+
