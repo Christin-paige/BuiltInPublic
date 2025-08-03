@@ -10,7 +10,7 @@ jobs:
     env:
       # this is the token stored in Settings → Secrets as SEMGREP_APP_TOKEN
       SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
-      GITHUB_APP_TOKEN: ${{ secrets.GITHUB_APP_TOKEN }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
       - name: Checkout code
