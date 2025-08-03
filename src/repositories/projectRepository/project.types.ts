@@ -25,3 +25,12 @@ export interface Project {
   repoUrl?: string;
   createdAt: Date;
 }
+
+// Create interface for the project updates DTO & entity
+export interface ProjectUpdates {
+  id: string;
+  project_id: string;
+  update: string;
+  created_at: Date;
+  updated_at: Date;
+}
