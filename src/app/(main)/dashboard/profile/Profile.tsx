@@ -9,6 +9,8 @@ export default function Profile() {
   if (isLoading) {
     return <></>;
   }
+
+  const baddata = 'lorem <b>ipsum</b>';
   return (
     <div className='flex flex-col items-center justify-center text-center max-w-3xl mx-auto px-4 gap-4'>
       {!data?.id ? (
@@ -26,6 +28,7 @@ export default function Profile() {
       <h1 className='text-md font-bold justify-items-center'>
         {data?.username}
       </h1>
+      <div dangerouslySetInnerHTML={{ __html: baddata }} />
     </div>
   );
 }
