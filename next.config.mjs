@@ -1,5 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // 🚫 Disable X-Powered-By header
+  poweredByHeader: false,
   async headers() {
     const isProdOrStaging =
       process.env.NODE_ENV === 'production' ||
