@@ -30,19 +30,8 @@ jobs:
         with:
           version: latest
 
-<<<<<<< HEAD
       - name: Link Supabase project
         run: echo "y" | supabase link --project-ref "$SUPABASE_PROJECT_ID"
 
       - name: Push Supabase migrations
         run: supabase db push --include-all
-=======
-      - name: Link and Push Supabase Migrations
-        env:
-          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
-          SUPABASE_PROJECT_ID: ${{ secrets.SUPABASE_PROJECT_ID }}
-          SUPABASE_DB_PASSWORD: ${{ secrets.STAGING_DB_PASSWORD }}
-        run: |
-          echo "y" | supabase link --project-ref "$SUPABASE_PROJECT_ID"
-          supabase db push --debug
->>>>>>> 63ca87a268c940d4a43c708fcccb23a778b57e14
