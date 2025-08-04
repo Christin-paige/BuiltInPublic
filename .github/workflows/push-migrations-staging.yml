@@ -30,5 +30,5 @@ jobs:
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
           SUPABASE_PROJECT_ID: ${{ secrets.SUPABASE_PROJECT_ID }}
         run: |
-          supabase link --project-ref "$SUPABASE_PROJECT_ID"
-          supabase db push --include-all --linked --debug
+          echo "y" | supabase link --project-ref "$SUPABASE_PROJECT_ID"
+          supabase db push --debug
