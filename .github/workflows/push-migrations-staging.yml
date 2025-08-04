@@ -5,12 +5,18 @@ on:
     branches:
       - development
     types:
-      - closed # triggers when PR is closed (merged or not)
+      - closed
 
 jobs:
   push-migrations:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
+
+    env:
+      SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+      SUPABASE_PROJECT_ID: ${{ secrets.SUPABASE_PROJECT_ID }}
+      SUPABASE_DB_PASSWORD: ${{ secrets.STAGING_DB_PASSWORD }}
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -25,11 +31,8 @@ jobs:
         with:
           version: latest
 
-      - name: Link and Push Supabase Migrations
-        env:
-          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
-          SUPABASE_PROJECT_ID: ${{ secrets.SUPABASE_PROJECT_ID }}
-          SUPABASE_DB_PASSWORD: ${{ secrets.STAGING_DB_PASSWORD }}
-        run: |
-          echo "y" | supabase link --project-ref "$SUPABASE_PROJECT_ID"
-          supabase db push --debug
+      - name: Link Supabase project
+        run: echo "y" | supabase link --project-ref "$SUPABASE_PROJECT_ID"
+
+      - name: Push Supabase migrations
+        run: supabase db push --include-all
