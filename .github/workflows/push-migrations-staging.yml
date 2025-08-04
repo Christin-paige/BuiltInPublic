@@ -29,6 +29,7 @@ jobs:
         env:
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
           SUPABASE_PROJECT_ID: ${{ secrets.SUPABASE_PROJECT_ID }}
+          SUPABASE_DB_PASSWORD: ${{ secrets.STAGING_DB_PASSWORD }}
         run: |
           echo "y" | supabase link --project-ref "$SUPABASE_PROJECT_ID"
           supabase db push --debug
