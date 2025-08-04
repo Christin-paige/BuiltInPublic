@@ -21,7 +21,9 @@ jobs:
           node-version: '22'
 
       - name: Install Supabase CLI
-        run: npm install -g supabase
+        uses: supabase/setup-cli@v1
+        with:
+          version: latest
 
       - name: Link and Push Supabase Migrations
         env:
