@@ -1,6 +1,6 @@
-import { BaseRepository } from "@/repositories/base.repository";
-import { AnySupabaseClient } from "utils/supabase/server";
-import { Project, ProjectDTO, ProjectUpdates } from "./project.types";
+import { BaseRepository } from '@/repositories/base.repository';
+import { AnySupabaseClient } from 'utils/supabase/server';
+import { Project, ProjectDTO, ProjectUpdates } from './project.types';
 
 export class ProjectRepository extends BaseRepository<ProjectDTO, Project> {
   constructor(supabase: AnySupabaseClient) {
@@ -11,9 +11,11 @@ export class ProjectRepository extends BaseRepository<ProjectDTO, Project> {
   getRawBaseQuery(count: boolean = false) {
     const query = this.supabase
       .from('projects')
-      .select('*, owner:profiles(username), updates(*)', count ? { count: 'exact' } : undefined);
+      .select(
+        '*, owner:profiles(username), updates(*)',
+        count ? { count: 'exact' } : undefined
+      );
 
     return query;
   }
-
 }
