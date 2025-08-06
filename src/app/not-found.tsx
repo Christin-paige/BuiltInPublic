@@ -35,7 +35,8 @@ export default function NotFound() {
       </h1>
 
       <p className='text-muted-foreground text-lg max-w-xl'>
-        We couldn’t find what you’re looking for, but here’s something fun instead:
+        We couldn’t find what you’re looking for, but here’s something fun
+        instead:
       </p>
 
       <div className='w-full max-w-xl overflow-hidden rounded-xl shadow-lg ring-2 ring-border bg-muted'>
