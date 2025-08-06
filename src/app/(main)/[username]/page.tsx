@@ -44,7 +44,6 @@ export default function Profile({ params }: ProfileProps) {
         <GradientBlobs />
         <UserInfo profile={profile} />
         <ProjectList />
-        
       </div>
     </main>
   );
