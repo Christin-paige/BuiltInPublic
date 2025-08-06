@@ -12,7 +12,7 @@ export async function authenticateStaging(formData: StagingAuthSchemaType) {
       maxAge: 60 * 60 * 2,
       httpOnly: true,
       secure: true,
-      sameSite: 'strict',
+      sameSite: 'lax',
       path: '/',
     });
 
