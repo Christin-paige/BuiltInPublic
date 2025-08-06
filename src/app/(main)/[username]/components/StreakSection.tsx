@@ -21,7 +21,11 @@ const StreakSection = () => {
     }) as Activity[];
   };
 
-  return <section className='flex flex-col gap-4 w-1/4'></section>;
+  return (
+    <section className='flex flex-col gap-4 w-1/4'>
+      
+    </section>
+  );
 };
 
 export default StreakSection;
