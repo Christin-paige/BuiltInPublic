@@ -3,7 +3,7 @@
 import React, { use } from 'react';
 import './profile.css';
 import Image from 'next/image';
-import FeedSection from './components/FeedSection';
+import ProjectList from '@/app/(main)/dashboard/projects/ProjectList';
 import UserInfo from './components/UserInfo';
 import StreakSection from './components/StreakSection';
 import GradientBlobs from './components/GradientBlobs';
@@ -43,8 +43,8 @@ export default function Profile({ params }: ProfileProps) {
       <div className='flex p-8 gap-12 w-full relative'>
         <GradientBlobs />
         <UserInfo profile={profile} />
-        <FeedSection />
-        <StreakSection />
+        <ProjectList />
+        
       </div>
     </main>
   );
