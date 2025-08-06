@@ -1,3 +1,9 @@
+-- Create enum type for project status - planning, in-progress, on-hold, completed, launched
+CREATE TYPE "public"."project_status" AS ENUM ('planning', 'in-progress', 'on-hold', 'completed', 'launched');
+
+-- Update projects table to include the status column
+ALTER TABLE "public"."projects" ADD COLUMN IF NOT EXISTS "status" "public"."project_status" NOT NULL DEFAULT "planning";
+
 -- Create project_updates table with id, project_id, update text, created_at, and updated_at
 CREATE TABLE IF NOT EXISTS "public"."project_updates" (
     "id" UUID PRIMARY KEY DEFAULT gen_random_uuid (),
