@@ -2,7 +2,7 @@
 CREATE TYPE "public"."project_status" AS ENUM ('planning', 'in-progress', 'on-hold', 'completed', 'launched');
 
 -- Update projects table to include the status column
-ALTER TABLE "public"."projects" ADD COLUMN IF NOT EXISTS "status" "public"."project_status" NOT NULL DEFAULT "planning";
+ALTER TABLE "public"."projects" ADD COLUMN IF NOT EXISTS "status" "public"."project_status" NOT NULL DEFAULT 'planning';
 
 -- Create project_updates table with id, project_id, update text, created_at, and updated_at
 CREATE TABLE IF NOT EXISTS "public"."project_updates" (
@@ -29,6 +29,10 @@ CREATE POLICY "Users can update their own project updates" ON "public"."project_
 CREATE POLICY "Users can delete their own project updates" ON "public"."project_updates" FOR DELETE TO authenticated USING (EXISTS (
     SELECT 1 FROM public.projects p WHERE p.id = project_id AND p.owner_id = auth.uid()
 ));
+
+-- Drop and recreate the policy for selecting public projects to allow all users to read public projects
+DROP POLICY IF EXISTS "Anyone can read public projects" ON "public"."projects";
+CREATE POLICY "Anyone can read public projects" ON "public"."projects" FOR SELECT USING (visibility = 'public');
 
 -- Enable row level security
 ALTER TABLE "public"."project_updates" ENABLE ROW LEVEL SECURITY;
