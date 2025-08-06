@@ -17,24 +17,34 @@ export class ProjectRepository extends BaseRepository<ProjectDTO, Project> {
       );
 
     return query;
-  };
+  }
 
   transformDTO(row: ProjectDTO): Project {
-      const { id, owner, name, description, visibility, status, repo_url, createdAt, updates } = row;
+    const {
+      id,
+      owner,
+      name,
+      description,
+      visibility,
+      status,
+      repo_url,
+      createdAt,
+      updates,
+    } = row;
 
-      return {
-          id,
-          owner: {
-              id: owner.id,
-              username: owner.username,
-          },
-          name,
-          description: description || '',
-          visibility,
-          status,
-          repoUrl: repo_url || '',
-          createdAt,
-          updates: updates || [],
-      } satisfies Project;
+    return {
+      id,
+      owner: {
+        id: owner.id,
+        username: owner.username,
+      },
+      name,
+      description: description || '',
+      visibility,
+      status,
+      repoUrl: repo_url || '',
+      createdAt,
+      updates: updates || [],
+    } satisfies Project;
   }
 }
