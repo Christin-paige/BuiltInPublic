@@ -197,6 +197,7 @@ CREATE POLICY "Users can follow others" ON "public"."follows" FOR INSERT TO auth
 CREATE POLICY "Users can unfollow" ON "public"."follows" FOR DELETE TO authenticated USING (auth.uid () = follower_id);
 
 -- projects
+CREATE POLICY "Anyone can read public projects" ON "public"."projects" FOR SELECT USING (visibility = 'public');
 CREATE POLICY "Users can read their own private projects" ON "public"."projects" FOR SELECT TO authenticated USING (visibility = 'private' AND auth.uid() = owner_id);
 CREATE POLICY "Users can create projects" ON "public"."projects" FOR INSERT TO authenticated WITH CHECK (auth.uid () = owner_id);
 CREATE POLICY "Users can update their own projects" ON "public"."projects" FOR UPDATE TO authenticated USING (auth.uid () = owner_id);

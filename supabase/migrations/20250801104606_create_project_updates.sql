@@ -30,8 +30,5 @@ CREATE POLICY "Users can delete their own project updates" ON "public"."project_
     SELECT 1 FROM public.projects p WHERE p.id = project_id AND p.owner_id = auth.uid()
 ));
 
--- Create policy for projects table to allow anyone to read public projects
-CREATE POLICY "Anyone can read public projects" ON "public"."projects" FOR SELECT USING (visibility = 'public');
-
 -- Enable row level security
 ALTER TABLE "public"."project_updates" ENABLE ROW LEVEL SECURITY;
