@@ -28,7 +28,7 @@ export default async function Feed() {
         <div key={post.id}>
           <p>{post.profiles.name}</p>
           <p>{post.content}</p>
-          <Likes post={post} user={user} />
+          {/*<Likes post={post} user={user} />*/}
         </div>
       ))}
     </div>

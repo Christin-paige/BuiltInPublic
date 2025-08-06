@@ -13,7 +13,7 @@ If you’ve discovered a vulnerability or something that doesn’t look quite ri
 **Please don’t open a public issue.**  
 Instead, reach out to us at:
 
-📧 **christinpmartin@gmail.com**
+📧 **builtinpublic1@gmail.com**
 
 When reporting, include as much detail as you can:
 
