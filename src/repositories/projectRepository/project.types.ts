@@ -26,11 +26,19 @@ export interface ProjectDTO {
 // Create interface for the project entity
 export interface Project {
   id: string;
-  ownerId: string;
+  owner: {
+    id: string;
+    username: string;
+  };
   name: string;
   description?: string;
   visibility: projectVisibility;
   status: projectStatus;
   repoUrl?: string;
-  createdAt: Date;
-}
+  createdAt: string;
+  updates: {
+    id: string;
+    project_id: string;
+    createdAt: string;
+  }[] | null;
+};
