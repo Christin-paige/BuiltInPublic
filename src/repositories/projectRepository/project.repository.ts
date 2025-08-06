@@ -1,6 +1,6 @@
 import { BaseRepository } from '@/repositories/base.repository';
 import { AnySupabaseClient } from 'utils/supabase/server';
-import { Project, ProjectDTO, ProjectUpdates } from './project.types';
+import { Project, ProjectDTO } from './project.types';
 
 export class ProjectRepository extends BaseRepository<ProjectDTO, Project> {
   constructor(supabase: AnySupabaseClient) {
@@ -17,5 +17,24 @@ export class ProjectRepository extends BaseRepository<ProjectDTO, Project> {
       );
 
     return query;
+  };
+
+  transformDTO(row: ProjectDTO): Project {
+      const { id, owner, name, description, visibility, status, repo_url, createdAt, updates } = row;
+
+      return {
+          id,
+          owner: {
+              id: owner.id,
+              username: owner.username,
+          },
+          name,
+          description: description || '',
+          visibility,
+          status,
+          repoUrl: repo_url || '',
+          createdAt,
+          updates: updates || [],
+      } satisfies Project;
   }
 }
