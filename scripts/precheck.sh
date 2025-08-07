@@ -51,12 +51,12 @@ echo "$CANDIDATES" | while IFS= read -r file; do
 done | tee /tmp/empty_files.txt >/dev/null
 
 if [ -s /tmp/empty_files.txt ]; then
-  echo "🛑 Empty files detected:"
+  echo -e "🛑 Empty files detected:\n"
   cat /tmp/empty_files.txt
-  echo "Please remove them or add content before pushing."
+  echo -e "Please remove them or add content before pushing.\n"
   exit 1
 else
-  echo "✅ No empty files found."
+  echo -e "✅ No empty files found.\n"
 fi
 
 # 1. Format check & fix
