@@ -24,7 +24,7 @@ done
 
 # 1. Format check & fix
 echo "🎨 Running Prettier..."
-npx prettier --config .prettierrc.yml --write .
+npx prettier --config .prettierrc.yml --write --list-different .
 
 # 2. ESLint check & fix
 echo "🧹 Running ESLint..."

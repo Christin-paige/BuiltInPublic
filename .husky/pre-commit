@@ -8,6 +8,3 @@ if ! gitleaks detect --source="$(pwd)" --config=".gitleaks.toml" --exit-code 1; 
   exit 1
 fi
 echo "✅ No secrets found. Proceeding with commit."
-
-# Run lint-staged on staged files only
-npx lint-staged
