@@ -21,6 +21,22 @@ for tool in "${REQUIRED_TOOLS[@]}"; do
   fi
 done
 
+# Check for empty files in the staged changes
+echo "📂 Checking for empty files..."
+EMPTY_FILES=$(git diff --cached --name-only --diff-filter=AM origin/main...HEAD | while read file; do
+  if [ -f "$file" ] && [ ! -s "$file" ]; then
+    echo "$file"
+  fi
+done)
+
+if [ -n "$EMPTY_FILES" ]; then
+  echo "🛑 Empty files detected:"
+  echo "$EMPTY_FILES"
+  echo "Please remove them or add content before pushing."
+  exit 1
+else
+  echo "✅ No empty files found."
+fi
 
 # 1. Format check & fix
 echo "🎨 Running Prettier..."
