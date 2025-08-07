@@ -40,7 +40,7 @@ fi
 # 2. ESLint check & fix
 echo "🧹 Running ESLint..."
 if ! npm run lint . --fix; then
-  echo "❌ ESLint errors found that could not be auto-fixed. Aborting push."
+  echo -e "❌ ESLint errors found that could not be auto-fixed. Aborting push.\n"
   exit 1
 fi
 echo -e "✅ ESLint passed.\n"
@@ -59,10 +59,10 @@ if ! git diff --cached --quiet || ! git diff --quiet; then
   git add .
   git commit -m "style: auto-fix linting and formatting issues [skip-precheck]"
 
-  echo "🛑 Formatting fixes committed. Please review and push again."
+  echo -e "🛑 Formatting fixes committed. Please review and push again.\n"
   exit 1
 else
-  echo "✅ No changes to commit."
+  echo -e "✅ No changes to commit.\n"
 fi
 
-echo "🚀 All checks passed. Ready to push!"
+echo -e "🚀 All checks passed. Ready to push!\n"
