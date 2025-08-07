@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { createAnonClient } from '../../../../utils/supabase/server';
 import { isSafeNextPath } from '@/lib/utils';
 import { ProfileRepository } from '@/repositories/profileRepository/profile.repository';
-import { redirect } from "next/navigation";
+import { redirect } from 'next/navigation';
 
 export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url);
