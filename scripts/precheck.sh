@@ -22,7 +22,7 @@ for tool in "${REQUIRED_TOOLS[@]}"; do
 done
 
 # Check for empty files in the staged changes
-echo -e "📂 Checking for empty files...\n"
+echo "📂 Checking for empty files..."
 
 # Files we allow to be empty (placeholders, etc.)
 ALLOW_EMPTY_REGEX='(^|/)\.gitkeep$|(^|/)\.keep$'
@@ -51,12 +51,12 @@ echo "$CANDIDATES" | while IFS= read -r file; do
 done | tee /tmp/empty_files.txt >/dev/null
 
 if [ -s /tmp/empty_files.txt ]; then
-  echo -e "🛑 Empty files detected:\n"
+  echo "🛑 Empty files detected:"
   cat /tmp/empty_files.txt
-  echo -e "Please remove them or add content before pushing.\n"
+  echo "Please remove them or add content before pushing."
   exit 1
 else
-  echo -e "✅ No empty files found.\n"
+  echo "✅ No empty files found."
 fi
 
 # 1. Format check & fix
