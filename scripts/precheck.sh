@@ -21,24 +21,18 @@ for tool in "${REQUIRED_TOOLS[@]}"; do
   fi
 done
 
-# 1. Run lint-staged for staged file linting/formatting
-echo "🧼 Running lint-staged on staged files..."
-if ! npx lint-staged; then
-  echo "❌ lint-staged found issues that couldn't be auto-fixed. Aborting push."
-  exit 1
-fi
-echo "✅ lint-staged passed."
+
 # 1. Format check & fix
-#echo "🎨 Running Prettier..."
-#npx prettier --config .prettierrc.yml --write .
+echo "🎨 Running Prettier..."
+npx prettier --config .prettierrc.yml --write .
 
 # 2. ESLint check & fix
-#echo "🧹 Running ESLint..."
-#if ! npm run lint . --fix; then
-#  echo "❌ ESLint errors found that could not be auto-fixed. Aborting push."
-#  exit 1
-#fi
-#echo "✅ ESLint passed."
+echo "🧹 Running ESLint..."
+if ! npm run lint . --fix; then
+  echo "❌ ESLint errors found that could not be auto-fixed. Aborting push."
+  exit 1
+fi
+echo "✅ ESLint passed."
 
 # 3. Secrets scan with Gitleaks
 echo "🕵️‍♀️ Running Gitleaks..."
