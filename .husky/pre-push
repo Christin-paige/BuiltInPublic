@@ -1,2 +1,3 @@
 #!/bin/sh
 npm run precheck
+npx lint-staged
