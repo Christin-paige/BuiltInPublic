@@ -24,7 +24,18 @@ done
 
 # 1. Format check & fix
 echo "🎨 Running Prettier..."
-npx prettier --config .prettierrc.yml --write --list-different .
+CHANGED_FILES=$(npx prettier --config .prettierrc.yml --write --list-different .)
+if [ -n "$CHANGED_FILES" ]; then
+  echo "💾 Prettier made changes to the following files:"
+  echo "$CHANGED_FILES"
+  git add $CHANGED_FILES
+  git commit -m "style: auto-format code with Prettier [skip-precheck]"
+
+  echo "🛑 Formatting changes committed. Please review and push again."
+  exit 1
+else
+  echo "✅ Prettier passed."
+fi
 
 # 2. ESLint check & fix
 echo "🧹 Running ESLint..."
