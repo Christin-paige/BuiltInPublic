@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { createAnonClient } from '../../../../utils/supabase/server';
-import { isSafeNextPath } from '@/lib/utils';
+import { isSafeNextPath } from "@/lib/utils";
 import { ProfileRepository } from '@/repositories/profileRepository/profile.repository';
 import { redirect } from 'next/navigation';
 
