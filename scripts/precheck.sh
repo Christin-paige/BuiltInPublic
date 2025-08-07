@@ -23,20 +23,27 @@ done
 
 # Check for empty files in the staged changes
 echo "📂 Checking for empty files..."
-EMPTY_FILES=$(git diff --cached --name-only --diff-filter=AM origin/main...HEAD | while read file; do
-  if [ -f "$file" ] && [ ! -s "$file" ]; then
-    echo "$file"
-  fi
-done)
+ALLOW_EMPTY_REGEX='(^|/)\.gitkeep$|(^|/)\.keep$'
 
-if [ -n "$EMPTY_FILES" ]; then
+BASE=$(git merge-base HEAD @{u})
+CANDIDATES=$(git diff --name-only --diff-filter=AM "$BASE"..HEAD)
+
+EMPTY_LIST=""
+while IFS= read -r file; do
+  [ -z "$file" ] && continue
+  [[ "$file" =~ $ALLOW_EMPTY_REGEX ]] && continue
+  if [ -f "$file" ] && [ ! -s "$file" ]; then
+    EMPTY_LIST+="$file"$'\n'
+  fi
+done <<< "$CANDIDATES"
+
+if [ -n "$EMPTY_LIST" ]; then
   echo "🛑 Empty files detected:"
-  echo "$EMPTY_FILES"
-  echo "Please remove them or add content before pushing."
+  printf "%s" "$EMPTY_LIST"
+  echo "Remove them or add content before pushing."
   exit 1
-else
-  echo "✅ No empty files found."
 fi
+echo "✅ No empty files found."
 
 # 1. Format check & fix
 echo "🎨 Running Prettier..."
