@@ -28,14 +28,15 @@ echo "📂 Checking for empty files in commits being pushed..."
 # Files we allow to be empty (placeholders, etc.)
 ALLOW_EMPTY_REGEX='(^|/)\.gitkeep$|(^|/)\.keep$'
 
-if git rev-parse --abbrev-ref --symbolic-full-name @{u} >/dev/null 2>&1; then
-  BASE=$(git merge-base HEAD @{u})
+# Get the base commit for comparison
+# If there's an upstream branch, use that; otherwise, compare against the last commit
+if git rev-parse --abbrev-ref --symbolic-full-name "@{u}" >/dev/null 2>&1; then
+  BASE=$(git merge-base HEAD "@{u}")
   FILES_TO_CHECK=$(git diff --name-only --diff-filter=AM "$BASE"..HEAD)
 else
   echo "⚠️ No upstream configured — checking last commit instead."
   FILES_TO_CHECK=$(git diff --name-only --diff-filter=AM HEAD~1..HEAD 2>/dev/null || true)
 fi
-
 
 EMPTY_FILES=""
 while IFS= read -r file; do
