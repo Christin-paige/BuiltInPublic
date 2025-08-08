@@ -21,25 +21,30 @@ for tool in "${REQUIRED_TOOLS[@]}"; do
   fi
 done
 
+
 # Check for empty files in the staged changes
 echo "📂 Checking for empty files..."
 
 # Files we allow to be empty (placeholders, etc.)
 ALLOW_EMPTY_REGEX='(^|/)\.gitkeep$|(^|/)\.keep$'
 
+CANDIDATES=""
+
+# 1) Committed files ahead of upstream
 if git rev-parse --abbrev-ref --symbolic-full-name @{u} >/dev/null 2>&1; then
-  # Diff from upstream merge-base to current HEAD
   BASE=$(git merge-base HEAD @{u})
-  CANDIDATES=$(git diff --name-only --diff-filter=AM "$BASE"..HEAD)
-else
-  # No upstream yet (first push) — check all committed changes
-  CANDIDATES=$(git diff --name-only --diff-filter=AM HEAD~1..HEAD 2>/dev/null || git ls-files)
+  CANDIDATES+=$(git diff --name-only --diff-filter=AM "$BASE"..HEAD)
 fi
+
+# 2) Staged but not committed files
+CANDIDATES+=$'\n'$(git diff --cached --name-only --diff-filter=AM)
+
+# Remove duplicates
+CANDIDATES=$(echo "$CANDIDATES" | sort -u)
 
 EMPTY_FILES=""
 while IFS= read -r file; do
   [ -z "$file" ] && continue
-  # Skip allowed placeholders
   if echo "$file" | grep -Eq "$ALLOW_EMPTY_REGEX"; then
     continue
   fi
@@ -50,11 +55,12 @@ done <<< "$CANDIDATES"
 
 if [ -n "$EMPTY_FILES" ]; then
   echo -e "🛑 Empty files detected:\n$EMPTY_FILES"
-  echo -e "Please remove them or add content before pushing.\n"
+  echo "Please remove them or add content before pushing."
   exit 1
 else
-  echo -e "✅ No empty files found.\n"
+  echo "✅ No empty files found."
 fi
+
 
 # 1. Format check & fix
 echo "🎨 Running Prettier..."
