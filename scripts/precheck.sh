@@ -26,7 +26,7 @@ done
 echo "📂 Checking for empty files in the entire repository..."
 
 # Files we allow to be empty (placeholders, etc.)
-ALLOW_EMPTY_REGEX='(^|/)\.gitkeep$|(^|/)\.keep$|^supabase/migrations/20250803000000_add_project_updates_table\.sql$'
+ALLOW_EMPTY_REGEX='(^|/)\.gitkeep$|(^|/)\.keep$'
 
 # List all tracked files in the repo
 ALL_TRACKED_FILES=$(git ls-files)
