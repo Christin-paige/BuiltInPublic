@@ -1,5 +1,9 @@
+-- allow nullable usernames, enforce lowercase usernames, add index to username
 alter table "public"."profiles" alter column "username" drop not null;
+alter table "public"."profiles" add constraint username_lowercase check (username = lower(username));
+create unique index idx_profiles_username on public.profiles(username);
 
+-- function inserts new profile with null username
 CREATE OR REPLACE FUNCTION "public"."insert_profile_for_new_user"() RETURNS "trigger"
     LANGUAGE "plpgsql" SECURITY DEFINER
     set search_path to ''
