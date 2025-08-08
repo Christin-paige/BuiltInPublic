@@ -26,3 +26,5 @@ export const onboardingFormSchema = z.object({
     message: 'bio cannot cannot be longer than 300 characters',
   }),
 });
+
+export type OnboardingFormSchema = z.infer<typeof onboardingFormSchema>;

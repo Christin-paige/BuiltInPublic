@@ -1,6 +1,9 @@
 'use client';
 
-import { onboardingFormSchema } from './onboarding-form.schema';
+import {
+  OnboardingFormSchema,
+  onboardingFormSchema,
+} from './onboarding-form.schema';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -18,9 +21,14 @@ import {
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+import useUser from '@/hooks/useUser/useUser';
+import { onboardingFormSubmit } from './actions';
+import UINotification from '@/services/UINotification.service';
 
 export default function OnboardingForm() {
-  const onboardingForm = useForm<z.infer<typeof onboardingFormSchema>>({
+  const { data: user, isLoading } = useUser();
+
+  const onboardingForm = useForm<OnboardingFormSchema>({
     resolver: zodResolver(onboardingFormSchema),
     mode: 'onChange',
     reValidateMode: 'onChange',
@@ -31,9 +39,20 @@ export default function OnboardingForm() {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof onboardingFormSchema>) => {
-    console.log(values);
+  const onSubmit = async (values: OnboardingFormSchema) => {
+    if (user?.id) {
+      const result = await onboardingFormSubmit(values, user.id);
+
+      if (!result?.success) {
+        UINotification.error(result?.message);
+      }
+    }
   };
+
+  // TODO: add loading skeleton for form
+  if (isLoading || !user) {
+    return null;
+  }
 
   return (
     <Form {...onboardingForm}>
@@ -82,7 +101,7 @@ export default function OnboardingForm() {
         />
         <Button
           variant='outline'
-          className='w-1/2 flex items-center gap-2 p-2 cursor-pointer justify-center bg-linear-to-bl from-violet-500 to-fuchsia-500 text-white font-bold py-2 px-4 rounded-full mt-4 hover:scale-105 transition-all duration-300 cursor-pointer text-xl hover:shadow-lg hover:shadow-violet-500/40 '
+          className='w-1/2 flex items-center gap-2 p-2 cursor-pointer justify-center bg-linear-to-bl from-violet-500 to-fuchsia-500 text-white font-bold py-2 px-4 rounded-full mt-4 hover:scale-105 transition-all duration-300 text-xl hover:shadow-lg hover:shadow-violet-500/40 '
           type='submit'
         >
           submit

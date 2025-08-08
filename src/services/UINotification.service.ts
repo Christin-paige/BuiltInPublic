@@ -16,7 +16,7 @@ export default class UINotification {
   }
 
   // Method to display error notification with a custom message.
-  static error(message: string): void {
+  static error(message: string = 'Something went wrong'): void {
     toast.error(message, {
       position: 'top-center',
       autoClose: 3000,

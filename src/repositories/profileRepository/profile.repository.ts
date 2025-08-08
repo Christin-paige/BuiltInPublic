@@ -21,7 +21,7 @@ export class ProfileRepository extends BaseRepository<ProfileDTO, Profile> {
 
     return {
       id,
-      username: username || 'Unknown',
+      username: username,
       avatarUrl: avatar_url || '',
       bio: bio || '',
     } satisfies Profile;
