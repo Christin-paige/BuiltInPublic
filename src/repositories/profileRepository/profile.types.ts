@@ -7,7 +7,7 @@ export interface ProfileDTO {
 
 export interface Profile {
   id: string;
-  username: string;
+  username: string | null;
   avatarUrl: string | null;
   bio?: string;
 }
