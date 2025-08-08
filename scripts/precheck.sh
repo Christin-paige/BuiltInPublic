@@ -22,25 +22,14 @@ for tool in "${REQUIRED_TOOLS[@]}"; do
 done
 
 
-# Check for empty files in the staged changes
-echo "📂 Checking for empty files..."
+# Check for empty files in the entire repository
+echo "📂 Checking for empty files in the entire repository..."
 
 # Files we allow to be empty (placeholders, etc.)
 ALLOW_EMPTY_REGEX='(^|/)\.gitkeep$|(^|/)\.keep$'
 
-CANDIDATES=""
-
-# 1) Committed files ahead of upstream
-if git rev-parse --abbrev-ref --symbolic-full-name @{u} >/dev/null 2>&1; then
-  BASE=$(git merge-base HEAD @{u})
-  CANDIDATES+=$(git diff --name-only --diff-filter=AM "$BASE"..HEAD)
-fi
-
-# 2) Staged but not committed files
-CANDIDATES+=$'\n'$(git diff --cached --name-only --diff-filter=AM)
-
-# Remove duplicates
-CANDIDATES=$(echo "$CANDIDATES" | sort -u)
+# List all tracked files in the repo
+ALL_TRACKED_FILES=$(git ls-files)
 
 EMPTY_FILES=""
 while IFS= read -r file; do
@@ -51,15 +40,16 @@ while IFS= read -r file; do
   if [ -f "$file" ] && [ ! -s "$file" ]; then
     EMPTY_FILES+="$file"$'\n'
   fi
-done <<< "$CANDIDATES"
+done <<< "$ALL_TRACKED_FILES"
 
 if [ -n "$EMPTY_FILES" ]; then
-  echo -e "🛑 Empty files detected:\n$EMPTY_FILES"
-  echo "Please remove them or add content before pushing."
+  echo -e "🛑 Empty files detected in repository:\n"
+  printf "%s" "$EMPTY_FILES"
+  echo -e "\nPlease remove them or add content before pushing."
   exit 1
-else
-  echo "✅ No empty files found."
 fi
+
+echo -e "✅ No empty files found in repository.\n"
 
 
 # 1. Format check & fix
