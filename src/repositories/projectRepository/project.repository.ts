@@ -2,6 +2,7 @@ import { BaseRepository } from '@/repositories/base.repository';
 import { AnySupabaseClient } from 'utils/supabase/server';
 import { Project, ProjectDTO } from './project.types';
 
+// This class extends the BaseRepository to provide specific methods for the Project entity
 export class ProjectRepository extends BaseRepository<ProjectDTO, Project> {
   constructor(supabase: AnySupabaseClient) {
     super(supabase);
@@ -19,6 +20,7 @@ export class ProjectRepository extends BaseRepository<ProjectDTO, Project> {
     return query;
   }
 
+  // Transform the raw database row into a Project object
   transformDTO(row: ProjectDTO): Project {
     const {
       id,
