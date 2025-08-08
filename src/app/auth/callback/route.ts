@@ -22,7 +22,7 @@ export async function GET(request: Request) {
       if (userProfile?.username) {
         return redirect(`/${userProfile.username}`);
       } else {
-        return NextResponse.redirect('/dashboard');
+        return redirect('/onboarding');
       }
     }
   }
