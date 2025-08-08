@@ -5,7 +5,6 @@ import { loginWithEmail } from './actions';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
-
 export default function DevSignIn() {
   // use state to store email, password, error, and success messages
   const [email, setEmail] = useState('');
