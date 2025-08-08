@@ -30,8 +30,11 @@ ALLOW_EMPTY_REGEX='(^|/)\.gitkeep$|(^|/)\.keep$'
 
 # Get the base commit for comparison
 # If there's an upstream branch, use that; otherwise, compare against the last commit
-if git rev-parse --abbrev-ref --symbolic-full-name "@{u}" >/dev/null 2>&1; then
-  BASE=$(git merge-base HEAD "@{u}")
+# Check if this branch has an upstream
+UPSTREAM=$(git rev-parse --abbrev-ref --symbolic-full-name HEAD@{u} 2>/dev/null || true)
+
+if [ -n "$UPSTREAM" ]; then
+  BASE=$(git merge-base HEAD "$UPSTREAM")
   FILES_TO_CHECK=$(git diff --name-only --diff-filter=AM "$BASE"..HEAD)
 else
   echo "⚠️ No upstream configured — checking last commit instead."
