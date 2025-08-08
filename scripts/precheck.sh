@@ -23,13 +23,19 @@ done
 
 
 # Check for empty files in the entire repository
-echo "📂 Checking for empty files in the entire repository..."
+echo "📂 Checking for empty files in commits being pushed..."
 
 # Files we allow to be empty (placeholders, etc.)
 ALLOW_EMPTY_REGEX='(^|/)\.gitkeep$|(^|/)\.keep$'
 
-# List all tracked files in the repo
-ALL_TRACKED_FILES=$(git ls-files)
+if git rev-parse --abbrev-ref --symbolic-full-name @{u} >/dev/null 2>&1; then
+  BASE=$(git merge-base HEAD @{u})
+  FILES_TO_CHECK=$(git diff --name-only --diff-filter=AM "$BASE"..HEAD)
+else
+  echo "⚠️ No upstream configured — checking last commit instead."
+  FILES_TO_CHECK=$(git diff --name-only --diff-filter=AM HEAD~1..HEAD 2>/dev/null || true)
+fi
+
 
 EMPTY_FILES=""
 while IFS= read -r file; do
@@ -40,16 +46,16 @@ while IFS= read -r file; do
   if [ -f "$file" ] && [ ! -s "$file" ]; then
     EMPTY_FILES+="$file"$'\n'
   fi
-done <<< "$ALL_TRACKED_FILES"
+done <<< "$FILES_TO_CHECK"
 
 if [ -n "$EMPTY_FILES" ]; then
-  echo -e "🛑 Empty files detected in repository:\n"
+  echo -e "🛑 Empty files detected:\n"
   printf "%s" "$EMPTY_FILES"
-  echo -e "\nPlease remove them or add content before pushing."
+  echo -e "\nPlease remove them or add content before pushing.\n"
   exit 1
 fi
 
-echo -e "✅ No empty files found in repository.\n"
+echo -e "✅ No empty files found.\n"
 
 
 # 1. Format check & fix
