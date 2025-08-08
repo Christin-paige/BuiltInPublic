@@ -27,32 +27,29 @@ echo "📂 Checking for empty files..."
 # Files we allow to be empty (placeholders, etc.)
 ALLOW_EMPTY_REGEX='(^|/)\.gitkeep$|(^|/)\.keep$'
 
-# Try to diff against upstream if it exists; otherwise, diff the last commit
 if git rev-parse --abbrev-ref --symbolic-full-name @{u} >/dev/null 2>&1; then
-# Changes between upstream and HEAD (added or modified files)
-  DIFF_RANGE="$(git merge-base HEAD @{u})..HEAD"
-  CANDIDATES=$(git diff --name-only --diff-filter=AM $DIFF_RANGE)
+  # Diff from upstream merge-base to current HEAD
+  BASE=$(git merge-base HEAD @{u})
+  CANDIDATES=$(git diff --name-only --diff-filter=AM "$BASE"..HEAD)
 else
-# No upstream yet (first push): check files changed in the last commit
-  CANDIDATES=$(git diff --name-only --diff-filter=AM HEAD~1..HEAD 2>/dev/null || git diff --name-only --diff-filter=AM)
+  # No upstream yet (first push) — check all committed changes
+  CANDIDATES=$(git diff --name-only --diff-filter=AM HEAD~1..HEAD 2>/dev/null || git ls-files)
 fi
 
 EMPTY_FILES=""
-# Check size on disk for each candidate that actually exists
-echo "$CANDIDATES" | while IFS= read -r file; do
+while IFS= read -r file; do
   [ -z "$file" ] && continue
-# Skip allowed placeholders
+  # Skip allowed placeholders
   if echo "$file" | grep -Eq "$ALLOW_EMPTY_REGEX"; then
     continue
   fi
   if [ -f "$file" ] && [ ! -s "$file" ]; then
-    echo "$file"
+    EMPTY_FILES+="$file"$'\n'
   fi
-done | tee /tmp/empty_files.txt >/dev/null
+done <<< "$CANDIDATES"
 
-if [ -s /tmp/empty_files.txt ]; then
-  echo -e "🛑 Empty files detected:\n"
-  cat /tmp/empty_files.txt
+if [ -n "$EMPTY_FILES" ]; then
+  echo -e "🛑 Empty files detected:\n$EMPTY_FILES"
   echo -e "Please remove them or add content before pushing.\n"
   exit 1
 else
