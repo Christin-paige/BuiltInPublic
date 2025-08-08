@@ -6,6 +6,7 @@ const routes = [
   '/',
   'about',
   'dashboard',
+  'onboarding',
   // Add more routes as needed
 ];
 
@@ -22,12 +23,12 @@ function loadCustomWordList() {
 loadCustomWordList();
 
 // Function to check for profanity in a given text
-function checkProfanity(text: string): boolean {
+export function checkProfanity(text: string): boolean {
   return leoProfanity.check(text);
 }
 
 // Function to check if the username is the same as a route
-function isUsernameRoute(username: string): boolean {
+export function isUsernameRoute(username: string): boolean {
   const normalizedUsername = username.toLowerCase();
   return routes.includes(normalizedUsername);
 }

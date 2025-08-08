@@ -33,7 +33,7 @@ export default function UserInfo({ profile }: UserInfoProps) {
     }
     setIsLoading(true);
     try {
-      if (field === 'username') {
+      if (field === 'username' && newValue) {
         const exists = await checkUsernameExists(newValue);
         if (exists) throw new Error('That username is already taken');
       }
@@ -74,7 +74,7 @@ export default function UserInfo({ profile }: UserInfoProps) {
         {editingField === 'username' ? (
           <input
             className='text-3xl w-40 bg-slate-900 border border-[#00c7ff] rounded px-2 py-1 text-white focus:outline-none focus:ring-2 focus:ring-[#00c7ff]'
-            value={fieldValues.username}
+            value={fieldValues.username || ''}
             onChange={(e) =>
               setFieldValues((vals) => ({ ...vals, username: e.target.value }))
             }
@@ -86,7 +86,7 @@ export default function UserInfo({ profile }: UserInfoProps) {
           />
         ) : (
           <>
-            <h1 className='text-3xl'>{fieldValues.username}</h1>
+            <h1 className='text-3xl'>{fieldValues.username || ''}</h1>
             {canEdit && (
               <button
                 onClick={() => setEditingField('username')}

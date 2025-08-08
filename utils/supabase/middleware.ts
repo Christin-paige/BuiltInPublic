@@ -1,5 +1,6 @@
-import { NextResponse, type NextRequest } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { createAnonClient } from './server';
+import { ProfileRepository } from '@/repositories/profileRepository/profile.repository';
 
 const protectedRoutes = ['/dashboard', '/profile', '/onboarding'];
 const publicRoutes = ['/auth'];
@@ -54,16 +55,38 @@ export async function updateSession(request: NextRequest) {
     (route) => path === route || path.startsWith(route)
   );
 
+  const isOnboardingRoute = path === '/onboarding';
+
   if (isProtectedRoute && !user) {
     const redirectUrl = new URL('/auth', request.url);
 
     return NextResponse.redirect(redirectUrl);
   }
 
-  if (isPublicRoute && user) {
-    const redirectUrl = new URL('/dashboard', request.url);
+  if (isOnboardingRoute && user) {
+    const profileRepository = new ProfileRepository(supabase);
+    const userProfile = await profileRepository.getById(user.id);
 
-    return NextResponse.redirect(redirectUrl);
+    if (userProfile?.username) {
+      const redirectUrl = new URL(`/${userProfile.username}`, request.url);
+
+      return NextResponse.redirect(redirectUrl);
+    }
+  }
+
+  if (isPublicRoute && user) {
+    const profileRepository = new ProfileRepository(supabase);
+    const userProfile = await profileRepository.getById(user.id);
+
+    if (userProfile?.username) {
+      const redirectUrl = new URL(`/${userProfile.username}`, request.url);
+
+      return NextResponse.redirect(redirectUrl);
+    } else {
+      const redirectUrl = new URL('/onboarding', request.url);
+
+      return NextResponse.redirect(redirectUrl);
+    }
   }
 
   // IMPORTANT: You *must* return the supabaseResponse object as it is.

@@ -1,7 +1,7 @@
 #!/bin/bash
 # Skip checks if the latest commit has [skip-precheck]
 LAST_COMMIT_MSG=$(git log -1 --pretty=%B)
-if echo "$LAST_COMMIT_MSG" | grep -qi '\[local-skip\]'; then
+if echo "$LAST_COMMIT_MSG" | grep -qi '\[skip-precheck\]'; then
   echo "⚠️ Skipping pre-push checks due to [skip-precheck] tag in last commit."
   exit 0
 fi
@@ -24,20 +24,31 @@ done
 
 # 1. Format check & fix
 echo "🎨 Running Prettier..."
-npx prettier --config .prettierrc.yml --write .
+CHANGED_FILES=$(npx prettier --config .prettierrc.yml --write --list-different .)
+if [ -n "$CHANGED_FILES" ]; then
+  echo -e "💾 Prettier made changes to the following files:\n"
+  echo -e "$CHANGED_FILES\n"
+  git add $CHANGED_FILES
+  git commit -m "style: auto-format code with Prettier [skip-precheck]"
+
+  echo -e "🛑 Formatting changes committed. Please review and push again.\n"
+  exit 1
+else
+  echo -e "✅ Prettier passed.\n"
+fi
 
 # 2. ESLint check & fix
 echo "🧹 Running ESLint..."
 if ! npm run lint . --fix; then
-  echo "❌ ESLint errors found that could not be auto-fixed. Aborting push."
+  echo -e "❌ ESLint errors found that could not be auto-fixed. Aborting push.\n"
   exit 1
 fi
-echo "✅ ESLint passed."
+echo -e "✅ ESLint passed.\n"
 
 # 3. Secrets scan with Gitleaks
-echo "🕵️‍♀️ Running Gitleaks..."
+echo -e "🕵️‍♀️ Running Gitleaks...\n"
 if ! gitleaks detect --source . --report-path gitleaks-report.json --config .gitleaks.toml; then
-  echo "🛑 Gitleaks detected secrets. Aborting push."
+  echo -e "🛑 Gitleaks detected secrets. Aborting push.\n"
   exit 1
 fi
 
@@ -48,10 +59,10 @@ if ! git diff --cached --quiet || ! git diff --quiet; then
   git add .
   git commit -m "style: auto-fix linting and formatting issues [skip-precheck]"
 
-  echo "🛑 Formatting fixes committed. Please review and push again."
+  echo -e "🛑 Formatting fixes committed. Please review and push again.\n"
   exit 1
 else
-  echo "✅ No changes to commit."
+  echo -e "✅ No changes to commit.\n"
 fi
 
-echo "🚀 All checks passed. Ready to push!"
+echo -e "🚀 All checks passed. Ready to push!\n"

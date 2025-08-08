@@ -1,3 +1,3 @@
-const profanityList = ['ass', 'shit', 'damn', 'hell'];
+const profanityList = ['ass', 'shit', 'damn', 'hell', 'fuck'];
 
 export default profanityList;
