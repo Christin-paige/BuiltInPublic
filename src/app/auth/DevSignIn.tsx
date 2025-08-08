@@ -5,11 +5,8 @@ import { loginWithEmail } from './actions';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
+
 export default function DevSignIn() {
-  // 🔒 Prevent rendering in production
-  if (process.env.NODE_ENV === 'production') {
-    return null;
-  }
   // use state to store email, password, error, and success messages
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -32,6 +29,11 @@ export default function DevSignIn() {
       setError('');
     }, 3000);
   };
+
+  // ✅ Safe conditional render (hooks above this line)
+  if (process.env.NODE_ENV === 'production') {
+    return null;
+  }
 
   return (
     <div className='flex items-center justify-center w-full'>
