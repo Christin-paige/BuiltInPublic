@@ -6,6 +6,10 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 export default function DevSignIn() {
+  // 🔒 Prevent rendering in production
+  if (process.env.NODE_ENV === 'production') {
+    return null;
+  }
   // use state to store email, password, error, and success messages
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
