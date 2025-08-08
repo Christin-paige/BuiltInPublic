@@ -29,6 +29,11 @@ export default function DevSignIn() {
     }, 3000);
   };
 
+  // ✅ Safe conditional render (hooks above this line)
+  if (process.env.NODE_ENV === 'production') {
+    return null;
+  }
+
   return (
     <div className='flex items-center justify-center w-full'>
       <div className='w-96 text-center rounded-md border p-5 space-y-5 relative bg-slate-950'>
