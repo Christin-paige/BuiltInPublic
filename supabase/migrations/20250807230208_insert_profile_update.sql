@@ -1,6 +1,8 @@
--- allow nullable usernames, enforce lowercase usernames, add index to username
+-- allow nullable usernames, enforce lowercase usernames, add index to username, add display_name
 alter table "public"."profiles" alter column "username" drop not null;
 alter table "public"."profiles" add constraint username_lowercase check (username = lower(username));
+alter table "public"."profiles" add column "display_name" text;
+
 create unique index idx_profiles_username on public.profiles(username);
 
 -- function inserts new profile with null username
