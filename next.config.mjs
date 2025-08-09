@@ -16,8 +16,8 @@ const nextConfig = {
           {
             key: 'Content-Security-Policy',
             value: isProdOrStaging
-              ? "default-src 'self'; script-src 'self' 'unsafe-inline' https://features.vote; style-src 'self' https://features.vote; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://features.vote; frame-ancestors 'self'; base-uri 'self'; form-action 'self';"
-              : "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://features.vote; style-src 'self' 'unsafe-inline' https://features.vote; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' ws://localhost:* http://localhost:* https://features.vote; frame-ancestors 'self'; base-uri 'self'; form-action 'self';",
+              ? "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self'; frame-ancestors 'self'; base-uri 'self'; form-action 'self';"
+              : "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' ws://localhost:* http://localhost:*; frame-ancestors 'self'; base-uri 'self'; form-action 'self';",
           },
 
           // ✅ X-Frame-Options
