@@ -8,9 +8,21 @@ export async function GET(req: Request) {
 
   const supabase = await createAnonClient();
 
+  const additionalOptions =
+    provider === 'google'
+      ? {
+          scopes: 'openid email profile',
+          queryParams: {
+            access_type: 'online',
+            include_granted_scopes: 'false',
+          },
+        }
+      : {};
+
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: provider,
     options: {
+      ...additionalOptions,
       redirectTo: `${process.env.NEXT_PUBLIC_APP_HOST}/auth/callback`,
     },
   });
