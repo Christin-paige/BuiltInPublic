@@ -22,6 +22,43 @@ for tool in "${REQUIRED_TOOLS[@]}"; do
 done
 
 
+# Check for empty files in the entire repository
+echo "📂 Checking for empty files in commits being pushed..."
+
+# Files we allow to be empty (placeholders, etc.)
+ALLOW_EMPTY_REGEX='(^|/)\.gitkeep$|(^|/)\.keep$'
+
+# Get the base commit for comparison
+# If there's an upstream branch, use that; otherwise, compare against the last commit
+if [ -n "$UPSTREAM" ]; then
+  BASE=$(git merge-base HEAD "$UPSTREAM")
+  FILES_TO_CHECK=$(git diff --name-only --diff-filter=AM "$BASE"..HEAD)
+else
+  echo "⚠️ No upstream configured (first push) — scanning entire repo..."
+  FILES_TO_CHECK=$(git ls-files)
+fi
+
+EMPTY_FILES=""
+while IFS= read -r file; do
+  [ -z "$file" ] && continue
+  if echo "$file" | grep -Eq "$ALLOW_EMPTY_REGEX"; then
+    continue
+  fi
+  if [ -f "$file" ] && [ ! -s "$file" ]; then
+    EMPTY_FILES+="$file"$'\n'
+  fi
+done <<< "$FILES_TO_CHECK"
+
+if [ -n "$EMPTY_FILES" ]; then
+  echo -e "🛑 Empty files detected:\n"
+  printf "%s" "$EMPTY_FILES"
+  echo -e "\nPlease remove them or add content before pushing.\n"
+  exit 1
+fi
+
+echo -e "✅ No empty files found.\n"
+
+
 # 1. Format check & fix
 echo "🎨 Running Prettier..."
 CHANGED_FILES=$(npx prettier --config .prettierrc.yml --write --list-different .)
