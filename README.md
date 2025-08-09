@@ -29,20 +29,12 @@ Before getting started, make sure you have the following installed:
 <summary>📁 Click to expand project file structure</summary>
 
 ```plaintext
-..
-├── @
-│   └── components
-│       └── ui
-│           └── button.jsx
-├── components.json
-├── docs
-│   ├── appregistered.png
-│   ├── oathapps.png
-│   ├── pull_request_template.md
-│   └── registerapp.png
+.
+├── .DS_Store
+├── .env
 ├── .env.example
-├── eslint.config.mjs
 ├── .eslintrc.json
+├── .gitguardian.toml
 ├── .github
 │   ├── dependabot.yml
 │   ├── ISSUE_TEMPLATE
@@ -51,56 +43,106 @@ Before getting started, make sure you have the following installed:
 │       ├── codeql.yml
 │       ├── dependabot-security-auto-merge.yml
 │       ├── gitleaks.yml
+│       ├── npmaudit.yml
 │       ├── prettier.yml
-│       └── semgrep.yml
+│       ├── semgrep.yml
+│       └── syft.yml
 ├── .gitignore
 ├── .gitleaks.toml
 ├── .husky
+│   ├── _
+│   │   ├── .gitignore
+│   │   ├── applypatch-msg
+│   │   ├── commit-msg
+│   │   ├── h
+│   │   ├── husky.sh
+│   │   ├── post-applypatch
+│   │   ├── post-checkout
+│   │   ├── post-commit
+│   │   ├── post-merge
+│   │   ├── post-rewrite
+│   │   ├── pre-applypatch
+│   │   ├── pre-auto-gc
+│   │   ├── pre-commit
+│   │   ├── pre-merge-commit
+│   │   ├── pre-push
+│   │   ├── pre-rebase
+│   │   └── prepare-commit-msg
 │   ├── pre-commit
 │   └── pre-push
+├── .prettierignore
+├── .prettierrc.yml
+├── components.json
+├── config
+│   └── private
+│       └── profanity-list.ts
+├── docs
+│   ├── appregistered.png
+│   ├── oathapps.png
+│   ├── pull_request_template.md
+│   └── registerapp.png
+├── eslint.config.mjs
+├── gitleaks-report.json
 ├── LICENSE
+├── next-env.d.ts
 ├── next.config.mjs
-├── package.json
 ├── package-lock.json
+├── package.json
 ├── postcss.config.mjs
 ├── public
+│   ├── .DS_Store
+│   ├── 404
+│   │   ├── .DS_Store
+│   │   ├── funny1.gif
+│   │   ├── funny2.gif
+│   │   ├── funny3.gif
+│   │   ├── funny4.gif
+│   │   ├── funny5.gif
+│   │   ├── funny6.gif
+│   │   ├── funny7.gif
+│   │   ├── funny8.gif
+│   │   └── funny9.gif
 │   ├── BuiltInPublic.png
 │   ├── door.jpg
 │   ├── example-cover-img.jpg
 │   ├── logo3.png
+│   ├── og-image.jpg
 │   └── terminal-logo.png
 ├── README.md
 ├── scripts
 │   ├── generateSupabaseTypes.ts
 │   ├── precheck.sh
-│   ├── seeds
-│   │   ├── auth-users.ts
-│   │   ├── posts.ts
-│   │   ├── profile-skills.ts
-│   │   ├── projects.ts
-│   │   ├── skills.ts
-│   │   └── social.ts
-│   └── seed.ts
+│   ├── seed.ts
+│   └── seeds
+│       ├── auth-users.ts
+│       ├── posts.ts
+│       ├── profile-skills.ts
+│       ├── projects.ts
+│       ├── skills.ts
+│       └── social.ts
 ├── security
 │   └── semgrep
 │       └── general.yml
 ├── SECURITY.md
 ├── src
 │   ├── app
+│   │   ├── (main)
+│   │   │   ├── [username]
+│   │   │   ├── dashboard
+│   │   │   ├── layout.tsx
+│   │   │   └── onboarding
 │   │   ├── about
 │   │   │   └── page.tsx
 │   │   ├── auth
 │   │   │   ├── actions.ts
 │   │   │   ├── callback
 │   │   │   ├── DevSignIn.tsx
+│   │   │   ├── oauth
 │   │   │   └── page.tsx
 │   │   ├── favicon.ico
 │   │   ├── globals.css
 │   │   ├── layout.tsx
-│   │   ├── (main)
-│   │   │   ├── dashboard
-│   │   │   ├── layout.tsx
-│   │   │   └── [username]
+│   │   ├── not-found.tsx
 │   │   └── page.tsx
 │   ├── components
 │   │   ├── Footer.tsx
@@ -109,9 +151,17 @@ Before getting started, make sure you have the following installed:
 │   │   │   ├── index.ts
 │   │   │   └── Navbar.tsx
 │   │   ├── ProfileIcon.tsx
-│   │   └── Providers
-│   │       ├── QueryProvider.tsx
-│   │       └── ThemeProvider.tsx
+│   │   ├── Providers
+│   │   │   ├── QueryProvider.tsx
+│   │   │   └── ThemeProvider.tsx
+│   │   └── ui
+│   │       ├── button.tsx
+│   │       ├── form.tsx
+│   │       ├── input.tsx
+│   │       ├── label.tsx
+│   │       └── textarea.tsx
+│   ├── contexts
+│   │   └── ProfileEditContext.tsx
 │   ├── hooks
 │   │   ├── useProfile
 │   │   │   ├── actions.ts
@@ -131,8 +181,18 @@ Before getting started, make sure you have the following installed:
 │   │   └── UINotification.service.ts
 │   └── setupTests.ts
 ├── supabase
-│   ├── config.toml
+│   ├── __tests__
+│   │   ├── rls-policies
+│   │   │   ├── profiles.test.ts
+│   │   │   └── projects.test.ts
+│   │   ├── testClients.ts
+│   │   └── testUser.ts
+│   ├── .branches
+│   │   └── _current_branch
 │   ├── .gitignore
+│   ├── .temp
+│   │   └── cli-latest
+│   ├── config.toml
 │   ├── migrations
 │   │   ├── 20250517104606_base_tables_rls.sql
 │   │   └── 20250518145124_new_profile_trigger.sql
@@ -140,10 +200,10 @@ Before getting started, make sure you have the following installed:
 ├── tsconfig.json
 ├── utils
 │   ├── supabase
-│   │   ├── client.ts
 │   │   ├── middleware.ts
 │   │   └── server.ts
-│   └── types.ts
+│   ├── types.ts
+│   └── usernameValidator.ts
 └── vitest.config.mts
 ```
 
