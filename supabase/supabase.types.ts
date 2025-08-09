@@ -324,6 +324,38 @@ export type Database = {
           },
         ];
       };
+      project_updates: {
+        Row: {
+          id: string;
+          project_id: string;
+          content: string;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          project_id: string;
+          content: string;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          project_id?: string;
+          content?: string;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "project_updates_project_id_fkey";
+            columns: ["project_id"];
+            isOneToOne: false;
+            referencedRelation: "projects";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       skills: {
         Row: {
           id: number;
