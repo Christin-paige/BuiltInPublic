@@ -1,8 +1,8 @@
 import { Database } from 'supabase/supabase.types';
 
-type projectVisibility =
+type ProjectVisibility =
   Database['public']['Tables']['projects']['Row']['visibility'];
-type projectStatus = Database['public']['Tables']['projects']['Row']['status'];
+type ProjectStatus = Database['public']['Tables']['projects']['Row']['status'];
 
 // Create interface for the project data transfer object (DTO)
 export interface ProjectDTO {
@@ -13,8 +13,8 @@ export interface ProjectDTO {
   };
   name: string;
   description: string | null;
-  visibility: projectVisibility;
-  status: projectStatus;
+  visibility: ProjectVisibility;
+  status: ProjectStatus;
   repo_url: string | null;
   createdAt: string;
   updates:
@@ -35,8 +35,8 @@ export interface Project {
   };
   name: string;
   description?: string;
-  visibility: projectVisibility;
-  status: projectStatus;
+  visibility: ProjectVisibility;
+  status: ProjectStatus;
   repoUrl?: string;
   createdAt: string;
   updates:

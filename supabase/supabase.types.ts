@@ -292,6 +292,7 @@ export type Database = {
           repo_url: string | null;
           updated_at: string;
           visibility: string;
+          status: string;
         };
         Insert: {
           created_at?: string;
@@ -302,6 +303,7 @@ export type Database = {
           repo_url?: string | null;
           updated_at?: string;
           visibility?: string;
+          status?: string;
         };
         Update: {
           created_at?: string;
@@ -312,6 +314,7 @@ export type Database = {
           repo_url?: string | null;
           updated_at?: string;
           visibility?: string;
+          status?: string;
         };
         Relationships: [
           {
@@ -319,6 +322,38 @@ export type Database = {
             columns: ["owner_id"];
             isOneToOne: false;
             referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      project_updates: {
+        Row: {
+          id: string;
+          project_id: string;
+          content: string;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          project_id: string;
+          content: string;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          project_id?: string;
+          content?: string;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "project_updates_project_id_fkey";
+            columns: ["project_id"];
+            isOneToOne: false;
+            referencedRelation: "projects";
             referencedColumns: ["id"];
           },
         ];
