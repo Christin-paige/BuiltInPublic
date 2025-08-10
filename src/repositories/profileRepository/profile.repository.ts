@@ -48,8 +48,12 @@ export class ProfileRepository extends BaseRepository<ProfileDTO, Profile> {
         error: authUserError,
       } = await this.supabase.auth.getUser();
 
-      if (authUserError || !user) {
+      if (authUserError) {
         throw new Error('Cannot find user');
+      }
+
+      if (!user) {
+        return null;
       }
 
       const profile = await this.getById(user.id);
@@ -68,8 +72,12 @@ export class ProfileRepository extends BaseRepository<ProfileDTO, Profile> {
         id,
       }).maybeSingle();
 
-      if (!data || error) {
+      if (error) {
         throw new Error('Cannot find profile');
+      }
+
+      if (!data) {
+        return null;
       }
 
       const profile = this.safeTransformDTO(data);
@@ -88,8 +96,12 @@ export class ProfileRepository extends BaseRepository<ProfileDTO, Profile> {
         username,
       }).maybeSingle();
 
-      if (!data || error) {
+      if (error) {
         throw new Error('Profile not found');
+      }
+
+      if (!data) {
+        return null;
       }
 
       const profile = this.safeTransformDTO(data);
