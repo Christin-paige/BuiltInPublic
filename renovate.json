@@ -2,8 +2,6 @@
   "extends": ["config:base"],
   "labels": ["dependencies"],
   "timezone": "America/New_York",
-
-  // ✅ Global PR limits
   "prConcurrentLimit": 5,
 
   "packageRules": [
