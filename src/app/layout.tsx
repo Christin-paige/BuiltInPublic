@@ -72,7 +72,10 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang='en' className={`${audioWide.variable} ${raleway.variable} ${lato.variable}`}>
+    <html
+      lang='en'
+      className={`${audioWide.variable} ${raleway.variable} ${lato.variable}`}
+    >
       <body>
         <ThemeProvider
           attribute='class'
