@@ -1,0 +1,25 @@
+{
+  "extends": ["config:base"],
+  "labels": ["dependencies"],
+  "timezone": "America/New_York",
+
+  // ✅ Global PR limits
+  "prConcurrentLimit": 5,
+
+  "packageRules": [
+    {
+      "description": "Auto-merge security updates daily",
+      "matchUpdateTypes": ["security"],
+      "automerge": true,
+      "labels": ["security"],
+      "schedule": ["after 12am every day"]
+    },
+    {
+      "description": "Open weekly PRs for normal dependencies (no automerge)",
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+      "automerge": false,
+      "groupName": "weekly dependency updates",
+      "schedule": ["before 6am on Monday"]
+    }
+  ]
+}
