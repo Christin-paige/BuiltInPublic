@@ -3,7 +3,6 @@
   "labels": ["dependencies"],
   "timezone": "America/New_York",
   "prConcurrentLimit": 5,
-
   "packageRules": [
     {
       "description": "Auto-merge security updates daily",
