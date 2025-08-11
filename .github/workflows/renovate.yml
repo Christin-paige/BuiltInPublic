@@ -1,6 +1,6 @@
 name: Renovate
 on:
-  workflow_dispatch:    # Allow manual trigger
+  workflow_dispatch: # Allow manual trigger
   schedule:
     - cron: '0 0 * * *' # Run daily at midnight UTC
 
