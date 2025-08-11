@@ -121,6 +121,22 @@
   }
 }
 
+/* Tailwind Utility classes */
+@layer utilities {
+  .animate-shimmer {
+    background: linear-gradient(-45deg, var(--color-zinc-800) 40%, var(--color-zinc-600)50%, var(--color-zinc-800) 60%);
+    background-size: 300%;
+    background-position-x: 100%;
+    animation: shimmer 1s infinite linear;
+  }
+
+  @keyframes shimmer {
+    to {
+      background-position-x: 0%;
+    }
+  }
+}
+
 .glowbox {
   position: absolute;
   top: calc(50% - 20px);
