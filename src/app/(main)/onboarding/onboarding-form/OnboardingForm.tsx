@@ -8,6 +8,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { Skeleton } from '@/components/ui/skeleton';
 
 import {
   Form,
@@ -51,7 +52,14 @@ export default function OnboardingForm() {
 
   // TODO: add loading skeleton for form
   if (isLoading || !user) {
-    return null;
+    return (
+      <div className='flex flex-col gap-8 w-full max-w-sm items-center'>
+        <Skeleton className='h-8 w-full' />
+        <Skeleton className='h-8 w-full' />
+        <Skeleton className='h-16 w-full' />
+        <Skeleton className='h-8 w-1/2 rounded-full' />
+      </div>
+    );
   }
 
   return (
