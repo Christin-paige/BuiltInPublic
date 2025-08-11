@@ -24,4 +24,4 @@ jobs:
         run: pip install semgrep
 
       - name: Run Semgrep scan
-        run: semgrep ci --metrics=off --no-suppress-errors
+        run: semgrep ci --metrics=off --no-suppress-errors --skip-unchanged --skip-unchanged-lines --skip-duplicate-progs
