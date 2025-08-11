@@ -4,6 +4,30 @@ import { ThemeProvider } from '../components/Providers/ThemeProvider';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+// Import and setup fonts
+import { Audiowide, Lato, Raleway } from 'next/font/google';
+
+const audioWide = Audiowide({
+  subsets: ['latin'],
+  weight: '400',
+  variable: '--font-audioWide',
+  display: 'swap',
+});
+
+const raleway = Raleway({
+  subsets: ['latin'],
+  weight: '400',
+  variable: '--font-subheading',
+  display: 'swap',
+});
+
+const lato = Lato({
+  subsets: ['latin'],
+  weight: '400',
+  variable: '--font-body',
+  display: 'swap',
+});
+
 export const metadata = {
   title: 'Built In Public',
   description:
@@ -48,7 +72,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang='en'>
+    <html lang='en' className={`${audioWide.variable} ${raleway.variable} ${lato.variable}`}>
       <body>
         <ThemeProvider
           attribute='class'
