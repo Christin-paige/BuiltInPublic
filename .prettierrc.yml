@@ -9,4 +9,4 @@ bracketSpacing: true
 arrowParens: always
 endOfLine: lf
 jsxSingleQuote: true
-insertFinalNewline: false
+insertFinalNewLine: false
