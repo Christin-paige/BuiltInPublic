@@ -53,11 +53,20 @@ export default function OnboardingForm() {
   // TODO: add loading skeleton for form
   if (isLoading || !user) {
     return (
-      <div className='flex flex-col gap-8 w-full max-w-sm items-center'>
-        <Skeleton className='h-8 w-full' />
-        <Skeleton className='h-8 w-full' />
-        <Skeleton className='h-16 w-full' />
-        <Skeleton className='h-8 w-1/2 rounded-full' />
+      <div className='flex flex-col gap-4 w-full max-w-sm items-center'>
+        <div className="flex flex-col w-full gap-2">
+          <Skeleton className='h-6 w-32' />
+          <Skeleton className='h-8 w-full' />
+        </div>
+        <div className="flex flex-col w-full gap-2">
+          <Skeleton className='h-6 w-32' />
+          <Skeleton className='h-8 w-full' />
+        </div>
+        <div className="flex flex-col w-full gap-2">
+          <Skeleton className='h-6 w-32' />
+          <Skeleton className='h-16 w-full' />
+        </div>
+        <Skeleton className='h-10 w-1/2 rounded-full' />
       </div>
     );
   }
