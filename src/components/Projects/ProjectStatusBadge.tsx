@@ -1,7 +1,9 @@
 // components/ProjectStatusBadge.tsx
 import React from 'react';
+import { Database } from 'supabase/supabase.types';
 
-type Status = 'Planning' | 'In Progress' | 'On Hold' | 'Launched';
+// TS type comes directly from Supabase
+type Status = Database['public']['Enums']['project_status'];
 
 // Whitelist for runtime validation
 const SAFE_STATUSES = [
