@@ -16,7 +16,9 @@ const STATUS_ENTRIES = [
 ] as const satisfies readonly Readonly<[SafeStatus, string]>[];
 
 // Map keyed by the string portion of your DB enum
-const STATUS_STYLE_MAP: ReadonlyMap<SafeStatus, string> = new Map(STATUS_ENTRIES);
+const STATUS_STYLE_MAP: ReadonlyMap<SafeStatus, string> = new Map(
+  STATUS_ENTRIES
+);
 
 export function ProjectStatusBadge({ status }: { status: Status }) {
   // If the column is nullable, provide a sane fallback; otherwise this is just a cast.
