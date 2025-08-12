@@ -4,407 +4,420 @@ export type Json =
   | boolean
   | null
   | { [key: string]: Json | undefined }
-  | Json[];
+  | Json[]
 
 export type Database = {
   graphql_public: {
     Tables: {
-      [_ in never]: never;
-    };
+      [_ in never]: never
+    }
     Views: {
-      [_ in never]: never;
-    };
+      [_ in never]: never
+    }
     Functions: {
       graphql: {
         Args: {
-          operationName?: string;
-          query?: string;
-          variables?: Json;
-          extensions?: Json;
-        };
-        Returns: Json;
-      };
-    };
+          extensions?: Json
+          operationName?: string
+          query?: string
+          variables?: Json
+        }
+        Returns: Json
+      }
+    }
     Enums: {
-      [_ in never]: never;
-    };
+      [_ in never]: never
+    }
     CompositeTypes: {
-      [_ in never]: never;
-    };
-  };
+      [_ in never]: never
+    }
+  }
   public: {
     Tables: {
       comments: {
         Row: {
-          content: string;
-          created_at: string;
-          id: string;
-          post_id: string;
-          user_id: string;
-        };
+          content: string
+          created_at: string
+          id: string
+          post_id: string
+          user_id: string
+        }
         Insert: {
-          content: string;
-          created_at?: string;
-          id?: string;
-          post_id: string;
-          user_id: string;
-        };
+          content: string
+          created_at?: string
+          id?: string
+          post_id: string
+          user_id: string
+        }
         Update: {
-          content?: string;
-          created_at?: string;
-          id?: string;
-          post_id?: string;
-          user_id?: string;
-        };
+          content?: string
+          created_at?: string
+          id?: string
+          post_id?: string
+          user_id?: string
+        }
         Relationships: [
           {
-            foreignKeyName: "comments_post_id_fkey";
-            columns: ["post_id"];
-            isOneToOne: false;
-            referencedRelation: "posts";
-            referencedColumns: ["id"];
+            foreignKeyName: "comments_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "posts"
+            referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "comments_user_id_fkey";
-            columns: ["user_id"];
-            isOneToOne: false;
-            referencedRelation: "profiles";
-            referencedColumns: ["id"];
+            foreignKeyName: "comments_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
           },
-        ];
-      };
+        ]
+      }
       endorsements: {
         Row: {
-          created_at: string;
-          endorsed_to: string;
-          id: string;
-          skill_id: number;
-          user_id: string;
-        };
+          created_at: string
+          endorsed_to: string
+          id: string
+          skill_id: number
+          user_id: string
+        }
         Insert: {
-          created_at?: string;
-          endorsed_to: string;
-          id?: string;
-          skill_id: number;
-          user_id: string;
-        };
+          created_at?: string
+          endorsed_to: string
+          id?: string
+          skill_id: number
+          user_id: string
+        }
         Update: {
-          created_at?: string;
-          endorsed_to?: string;
-          id?: string;
-          skill_id?: number;
-          user_id?: string;
-        };
+          created_at?: string
+          endorsed_to?: string
+          id?: string
+          skill_id?: number
+          user_id?: string
+        }
         Relationships: [
           {
-            foreignKeyName: "endorsements_endorsed_to_fkey";
-            columns: ["endorsed_to"];
-            isOneToOne: false;
-            referencedRelation: "profiles";
-            referencedColumns: ["id"];
+            foreignKeyName: "endorsements_endorsed_to_fkey"
+            columns: ["endorsed_to"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "endorsements_skill_id_fkey";
-            columns: ["skill_id"];
-            isOneToOne: false;
-            referencedRelation: "skills";
-            referencedColumns: ["id"];
+            foreignKeyName: "endorsements_skill_id_fkey"
+            columns: ["skill_id"]
+            isOneToOne: false
+            referencedRelation: "skills"
+            referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "endorsements_user_id_fkey";
-            columns: ["user_id"];
-            isOneToOne: false;
-            referencedRelation: "profiles";
-            referencedColumns: ["id"];
+            foreignKeyName: "endorsements_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
           },
-        ];
-      };
+        ]
+      }
       follows: {
         Row: {
-          created_at: string;
-          followee_id: string;
-          follower_id: string;
-        };
+          created_at: string
+          followee_id: string
+          follower_id: string
+        }
         Insert: {
-          created_at?: string;
-          followee_id: string;
-          follower_id: string;
-        };
+          created_at?: string
+          followee_id: string
+          follower_id: string
+        }
         Update: {
-          created_at?: string;
-          followee_id?: string;
-          follower_id?: string;
-        };
+          created_at?: string
+          followee_id?: string
+          follower_id?: string
+        }
         Relationships: [
           {
-            foreignKeyName: "follows_followee_id_fkey";
-            columns: ["followee_id"];
-            isOneToOne: false;
-            referencedRelation: "profiles";
-            referencedColumns: ["id"];
+            foreignKeyName: "follows_followee_id_fkey"
+            columns: ["followee_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "follows_follower_id_fkey";
-            columns: ["follower_id"];
-            isOneToOne: false;
-            referencedRelation: "profiles";
-            referencedColumns: ["id"];
+            foreignKeyName: "follows_follower_id_fkey"
+            columns: ["follower_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
           },
-        ];
-      };
+        ]
+      }
       likes: {
         Row: {
-          created_at: string;
-          id: number;
-          post_id: string;
-          user_id: string;
-        };
+          created_at: string
+          id: number
+          post_id: string
+          user_id: string
+        }
         Insert: {
-          created_at?: string;
-          id?: number;
-          post_id: string;
-          user_id: string;
-        };
+          created_at?: string
+          id?: number
+          post_id: string
+          user_id: string
+        }
         Update: {
-          created_at?: string;
-          id?: number;
-          post_id?: string;
-          user_id?: string;
-        };
+          created_at?: string
+          id?: number
+          post_id?: string
+          user_id?: string
+        }
         Relationships: [
           {
-            foreignKeyName: "likes_post_id_fkey";
-            columns: ["post_id"];
-            isOneToOne: false;
-            referencedRelation: "posts";
-            referencedColumns: ["id"];
+            foreignKeyName: "likes_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "posts"
+            referencedColumns: ["id"]
           },
-        ];
-      };
+        ]
+      }
       posts: {
         Row: {
-          content: string;
-          created_at: string;
-          id: string;
-          updated_at: string;
-          user_id: string;
-          visibility: string;
-        };
+          content: string
+          created_at: string
+          id: string
+          updated_at: string
+          user_id: string
+          visibility: string
+        }
         Insert: {
-          content: string;
-          created_at?: string;
-          id?: string;
-          updated_at?: string;
-          user_id: string;
-          visibility?: string;
-        };
+          content: string
+          created_at?: string
+          id?: string
+          updated_at?: string
+          user_id: string
+          visibility?: string
+        }
         Update: {
-          content?: string;
-          created_at?: string;
-          id?: string;
-          updated_at?: string;
-          user_id?: string;
-          visibility?: string;
-        };
+          content?: string
+          created_at?: string
+          id?: string
+          updated_at?: string
+          user_id?: string
+          visibility?: string
+        }
         Relationships: [
           {
-            foreignKeyName: "posts_user_id_fkey";
-            columns: ["user_id"];
-            isOneToOne: false;
-            referencedRelation: "profiles";
-            referencedColumns: ["id"];
+            foreignKeyName: "posts_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
           },
-        ];
-      };
+        ]
+      }
       profile_skills: {
         Row: {
-          level: number;
-          profile_id: string;
-          skill_id: number;
-        };
+          level: number
+          profile_id: string
+          skill_id: number
+        }
         Insert: {
-          level: number;
-          profile_id: string;
-          skill_id: number;
-        };
+          level: number
+          profile_id: string
+          skill_id: number
+        }
         Update: {
-          level?: number;
-          profile_id?: string;
-          skill_id?: number;
-        };
+          level?: number
+          profile_id?: string
+          skill_id?: number
+        }
         Relationships: [
           {
-            foreignKeyName: "profile_skills_profile_id_fkey";
-            columns: ["profile_id"];
-            isOneToOne: false;
-            referencedRelation: "profiles";
-            referencedColumns: ["id"];
+            foreignKeyName: "profile_skills_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "profile_skills_skill_id_fkey";
-            columns: ["skill_id"];
-            isOneToOne: false;
-            referencedRelation: "skills";
-            referencedColumns: ["id"];
+            foreignKeyName: "profile_skills_skill_id_fkey"
+            columns: ["skill_id"]
+            isOneToOne: false
+            referencedRelation: "skills"
+            referencedColumns: ["id"]
           },
-        ];
-      };
+        ]
+      }
       profiles: {
         Row: {
-          avatar_url: string | null;
-          bio: string | null;
-          created_at: string;
-          headline: string | null;
-          id: string;
-          links: string[] | null;
-          location: string | null;
-          username: string;
-        };
+          avatar_url: string | null
+          bio: string | null
+          created_at: string
+          display_name: string | null
+          headline: string | null
+          id: string
+          links: string[] | null
+          location: string | null
+          username: string | null
+        }
         Insert: {
-          avatar_url?: string | null;
-          bio?: string | null;
-          created_at?: string;
-          headline?: string | null;
-          id: string;
-          links?: string[] | null;
-          location?: string | null;
-          username: string;
-        };
+          avatar_url?: string | null
+          bio?: string | null
+          created_at?: string
+          display_name?: string | null
+          headline?: string | null
+          id: string
+          links?: string[] | null
+          location?: string | null
+          username?: string | null
+        }
         Update: {
-          avatar_url?: string | null;
-          bio?: string | null;
-          created_at?: string;
-          headline?: string | null;
-          id?: string;
-          links?: string[] | null;
-          location?: string | null;
-          username?: string;
-        };
-        Relationships: [];
-      };
-      projects: {
-        Row: {
-          created_at: string;
-          description: string | null;
-          id: string;
-          name: string;
-          owner_id: string;
-          repo_url: string | null;
-          updated_at: string;
-          visibility: string;
-          status: string;
-        };
-        Insert: {
-          created_at?: string;
-          description?: string | null;
-          id?: string;
-          name: string;
-          owner_id: string;
-          repo_url?: string | null;
-          updated_at?: string;
-          visibility?: string;
-          status?: string;
-        };
-        Update: {
-          created_at?: string;
-          description?: string | null;
-          id?: string;
-          name?: string;
-          owner_id?: string;
-          repo_url?: string | null;
-          updated_at?: string;
-          visibility?: string;
-          status?: string;
-        };
-        Relationships: [
-          {
-            foreignKeyName: "projects_owner_id_fkey";
-            columns: ["owner_id"];
-            isOneToOne: false;
-            referencedRelation: "profiles";
-            referencedColumns: ["id"];
-          },
-        ];
-      };
+          avatar_url?: string | null
+          bio?: string | null
+          created_at?: string
+          display_name?: string | null
+          headline?: string | null
+          id?: string
+          links?: string[] | null
+          location?: string | null
+          username?: string | null
+        }
+        Relationships: []
+      }
       project_updates: {
         Row: {
-          id: string;
-          project_id: string;
-          content: string;
-          created_at: string;
-          updated_at: string;
-        };
+          created_at: string
+          id: string
+          project_id: string
+          update: string
+          updated_at: string
+        }
         Insert: {
-          id?: string;
-          project_id: string;
-          content: string;
-          created_at?: string;
-          updated_at?: string;
-        };
+          created_at?: string
+          id?: string
+          project_id: string
+          update: string
+          updated_at?: string
+        }
         Update: {
-          id?: string;
-          project_id?: string;
-          content?: string;
-          created_at?: string;
-          updated_at?: string;
-        };
+          created_at?: string
+          id?: string
+          project_id?: string
+          update?: string
+          updated_at?: string
+        }
         Relationships: [
           {
-            foreignKeyName: "project_updates_project_id_fkey";
-            columns: ["project_id"];
-            isOneToOne: false;
-            referencedRelation: "projects";
-            referencedColumns: ["id"];
+            foreignKeyName: "project_updates_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
           },
-        ];
-      };
+        ]
+      }
+      projects: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          name: string
+          owner_id: string
+          repo_url: string | null
+          status: Database["public"]["Enums"]["project_status"]
+          updated_at: string
+          visibility: Database["public"]["Enums"]["project_visibility"]
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          name: string
+          owner_id: string
+          repo_url?: string | null
+          status?: Database["public"]["Enums"]["project_status"]
+          updated_at?: string
+          visibility?: Database["public"]["Enums"]["project_visibility"]
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          name?: string
+          owner_id?: string
+          repo_url?: string | null
+          status?: Database["public"]["Enums"]["project_status"]
+          updated_at?: string
+          visibility?: Database["public"]["Enums"]["project_visibility"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "projects_owner_id_fkey"
+            columns: ["owner_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       skills: {
         Row: {
-          id: number;
-          name: string;
-        };
+          id: number
+          name: string
+        }
         Insert: {
-          id?: number;
-          name: string;
-        };
+          id?: number
+          name: string
+        }
         Update: {
-          id?: number;
-          name?: string;
-        };
-        Relationships: [];
-      };
-    };
+          id?: number
+          name?: string
+        }
+        Relationships: []
+      }
+    }
     Views: {
-      [_ in never]: never;
-    };
+      [_ in never]: never
+    }
     Functions: {
-      [_ in never]: never;
-    };
+      [_ in never]: never
+    }
     Enums: {
-      [_ in never]: never;
-    };
+      project_status:
+        | "planning"
+        | "in-progress"
+        | "on-hold"
+        | "completed"
+        | "launched"
+      project_visibility: "public" | "private"
+    }
     CompositeTypes: {
-      [_ in never]: never;
-    };
-  };
-};
+      [_ in never]: never
+    }
+  }
+}
 
-type DefaultSchema = Database[Extract<keyof Database, "public">];
+type DatabaseWithoutInternals = Omit<Database, "__InternalSupabase">
+
+type DefaultSchema = DatabaseWithoutInternals[Extract<keyof Database, "public">]
 
 export type Tables<
   DefaultSchemaTableNameOrOptions extends
     | keyof (DefaultSchema["Tables"] & DefaultSchema["Views"])
-    | { schema: keyof Database },
+    | { schema: keyof DatabaseWithoutInternals },
   TableName extends DefaultSchemaTableNameOrOptions extends {
-    schema: keyof Database;
+    schema: keyof DatabaseWithoutInternals
   }
-    ? keyof (Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
-        Database[DefaultSchemaTableNameOrOptions["schema"]]["Views"])
+    ? keyof (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
+        DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])
     : never = never,
-> = DefaultSchemaTableNameOrOptions extends { schema: keyof Database }
-  ? (Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
-      Database[DefaultSchemaTableNameOrOptions["schema"]]["Views"])[TableName] extends {
-      Row: infer R;
+> = DefaultSchemaTableNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
+      DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])[TableName] extends {
+      Row: infer R
     }
     ? R
     : never
@@ -412,93 +425,111 @@ export type Tables<
         DefaultSchema["Views"])
     ? (DefaultSchema["Tables"] &
         DefaultSchema["Views"])[DefaultSchemaTableNameOrOptions] extends {
-        Row: infer R;
+        Row: infer R
       }
       ? R
       : never
-    : never;
+    : never
 
 export type TablesInsert<
   DefaultSchemaTableNameOrOptions extends
     | keyof DefaultSchema["Tables"]
-    | { schema: keyof Database },
+    | { schema: keyof DatabaseWithoutInternals },
   TableName extends DefaultSchemaTableNameOrOptions extends {
-    schema: keyof Database;
+    schema: keyof DatabaseWithoutInternals
   }
-    ? keyof Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
+    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
     : never = never,
-> = DefaultSchemaTableNameOrOptions extends { schema: keyof Database }
-  ? Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
-      Insert: infer I;
+> = DefaultSchemaTableNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+      Insert: infer I
     }
     ? I
     : never
   : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema["Tables"]
     ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
-        Insert: infer I;
+        Insert: infer I
       }
       ? I
       : never
-    : never;
+    : never
 
 export type TablesUpdate<
   DefaultSchemaTableNameOrOptions extends
     | keyof DefaultSchema["Tables"]
-    | { schema: keyof Database },
+    | { schema: keyof DatabaseWithoutInternals },
   TableName extends DefaultSchemaTableNameOrOptions extends {
-    schema: keyof Database;
+    schema: keyof DatabaseWithoutInternals
   }
-    ? keyof Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
+    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
     : never = never,
-> = DefaultSchemaTableNameOrOptions extends { schema: keyof Database }
-  ? Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
-      Update: infer U;
+> = DefaultSchemaTableNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+      Update: infer U
     }
     ? U
     : never
   : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema["Tables"]
     ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
-        Update: infer U;
+        Update: infer U
       }
       ? U
       : never
-    : never;
+    : never
 
 export type Enums<
   DefaultSchemaEnumNameOrOptions extends
     | keyof DefaultSchema["Enums"]
-    | { schema: keyof Database },
+    | { schema: keyof DatabaseWithoutInternals },
   EnumName extends DefaultSchemaEnumNameOrOptions extends {
-    schema: keyof Database;
+    schema: keyof DatabaseWithoutInternals
   }
-    ? keyof Database[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"]
+    ? keyof DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"]
     : never = never,
-> = DefaultSchemaEnumNameOrOptions extends { schema: keyof Database }
-  ? Database[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"][EnumName]
+> = DefaultSchemaEnumNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"][EnumName]
   : DefaultSchemaEnumNameOrOptions extends keyof DefaultSchema["Enums"]
     ? DefaultSchema["Enums"][DefaultSchemaEnumNameOrOptions]
-    : never;
+    : never
 
 export type CompositeTypes<
   PublicCompositeTypeNameOrOptions extends
     | keyof DefaultSchema["CompositeTypes"]
-    | { schema: keyof Database },
+    | { schema: keyof DatabaseWithoutInternals },
   CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
-    schema: keyof Database;
+    schema: keyof DatabaseWithoutInternals
   }
-    ? keyof Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
+    ? keyof DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
     : never = never,
-> = PublicCompositeTypeNameOrOptions extends { schema: keyof Database }
-  ? Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
+> = PublicCompositeTypeNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
   : PublicCompositeTypeNameOrOptions extends keyof DefaultSchema["CompositeTypes"]
     ? DefaultSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
-    : never;
+    : never
 
 export const Constants = {
   graphql_public: {
     Enums: {},
   },
   public: {
-    Enums: {},
+    Enums: {
+      project_status: [
+        "planning",
+        "in-progress",
+        "on-hold",
+        "completed",
+        "launched",
+      ],
+      project_visibility: ["public", "private"],
+    },
   },
-} as const;
+} as const
+
