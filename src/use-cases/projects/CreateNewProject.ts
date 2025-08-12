@@ -18,6 +18,10 @@ export default class CreateNewProject extends BaseUseCase<CreateNewProjectData> 
       stripIgnoreTagBody: ['script'],
     });
 
+    if (!sanitizedName) {
+      return { success: false, message: 'Name is required' };
+    }
+
     const { data, error } = await this.supabase
       .from('projects')
       .insert({ name: sanitizedName, owner_id: ownerId })
