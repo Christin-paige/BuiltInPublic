@@ -1,3 +1,4 @@
+import xss from 'xss';
 import { BaseUseCase } from '../BaseUseCase';
 
 export interface CreateNewProjectData {
@@ -11,9 +12,15 @@ export default class CreateNewProject extends BaseUseCase<CreateNewProjectData> 
     message: string;
     projectId?: string;
   }> {
+    const sanitizedName = xss(name, {
+      whiteList: {},
+      stripIgnoreTag: true,
+      stripIgnoreTagBody: ['script'],
+    });
+
     const { data, error } = await this.supabase
       .from('projects')
-      .insert({ name, owner_id: ownerId })
+      .insert({ name: sanitizedName, owner_id: ownerId })
       .select()
       .single();
 
