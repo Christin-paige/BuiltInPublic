@@ -1,15 +1,10 @@
 import { BaseRepository } from '@/repositories/base.repository';
 import { AnySupabaseClient } from 'utils/supabase/server';
 
-export abstract class BaseUseCase<
-  Tr extends BaseRepository<any, any, any>,
-  TParams,
-> {
-  repository: Tr;
+export abstract class BaseUseCase<TParams> {
   supabase: AnySupabaseClient;
 
-  constructor(repository: Tr, supabase: AnySupabaseClient) {
-    this.repository = repository;
+  constructor(supabase: AnySupabaseClient) {
     this.supabase = supabase;
   }
 
