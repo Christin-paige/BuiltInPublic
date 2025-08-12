@@ -4,7 +4,12 @@ import React from 'react';
 type Status = 'Planning' | 'In Progress' | 'On Hold' | 'Launched';
 
 // Whitelist for runtime validation
-const SAFE_STATUSES = ['Planning', 'In Progress', 'On Hold', 'Launched'] as const;
+const SAFE_STATUSES = [
+  'Planning',
+  'In Progress',
+  'On Hold',
+  'Launched',
+] as const;
 
 // Type guard to ensure only allowed values pass through
 const isSafeStatus = (s: unknown): s is Status =>
