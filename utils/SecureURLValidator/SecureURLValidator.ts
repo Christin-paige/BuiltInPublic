@@ -7,7 +7,7 @@ interface ValidationOptions {
   allowedDomains?: string[];
   blockedDomains?: string[];
   allowLocalhost?: boolean;
-  allowPrivateIPs?: boolean;
+
   maxUrlLength?: number;
   allowSubdomains?: boolean;
   allowPorts?: boolean;
@@ -33,9 +33,9 @@ interface ValidationResult {
 
 export class SecureURLValidator {
   private readonly defaultOptions: ValidationOptions = {
-    allowedProtocols: ['https:', 'http:'],
+    allowedProtocols: ['https:'],
     allowLocalhost: false,
-    allowPrivateIPs: false,
+
     maxUrlLength: 2048,
     allowSubdomains: true,
     allowPorts: false,
@@ -232,15 +232,12 @@ export class SecureURLValidator {
       return false;
     }
 
-    // Check for IP addresses
+    // Check for IP addresses - private IPs are never allowed
     if (net.isIP(hostname)) {
-      // Check for private IPs
-      if (!this.options.allowPrivateIPs) {
-        for (const range of this.privateIPRanges) {
-          if (range.test(hostname)) {
-            errors.push('Private IP addresses are not allowed');
-            return false;
-          }
+      for (const range of this.privateIPRanges) {
+        if (range.test(hostname)) {
+          errors.push('Private IP addresses are not allowed');
+          return false;
         }
       }
     }
@@ -378,14 +375,12 @@ export class SecureURLValidator {
         return false;
       }
 
-      // Check resolved IPs against private ranges
-      if (!this.options.allowPrivateIPs) {
-        for (const address of addresses) {
-          for (const range of this.privateIPRanges) {
-            if (range.test(address)) {
-              errors.push('Domain resolves to a private IP address');
-              return false;
-            }
+      // Check resolved IPs against private ranges - private IPs are never allowed
+      for (const address of addresses) {
+        for (const range of this.privateIPRanges) {
+          if (range.test(address)) {
+            errors.push('Domain resolves to a private IP address');
+            return false;
           }
         }
       }
