@@ -16,7 +16,7 @@ function truncate(text: string, max = 140) {
 }
 
 export default function ProjectCard({
-  title,
+  name,
   description = '',
   status,
   href,
@@ -25,12 +25,12 @@ export default function ProjectCard({
     <Link
       href={href}
       className='block focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 rounded-2xl'
-      aria-label={`Open project: ${title}`}
+      aria-label={`Open project: ${name}`}
     >
       <Card className='w-full rounded-2xl border border-slate-700/70 bg-slate-900/60 shadow-sm ring-1 ring-white/5 transition hover:bg-slate-900/80 hover:shadow cursor-pointer'>
         <CardHeader className='flex flex-row items-start justify-between space-y-0 gap-3'>
           <CardTitle className='text-base font-semibold text-slate-100'>
-            {title}
+            {name}
           </CardTitle>
           <ProjectStatusBadge status={status} />
         </CardHeader>
