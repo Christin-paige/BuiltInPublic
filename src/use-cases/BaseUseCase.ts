@@ -11,4 +11,22 @@ export abstract class BaseUseCase<TParams> {
   abstract execute(
     params: TParams
   ): Promise<{ success: boolean; message: string }>;
+
+  compactUpdateData(updateData: Partial<TParams>): Partial<TParams> {
+    if (!(updateData satisfies Partial<TParams>)) {
+      throw new Error('INVALID_UPDATE_DATA');
+    }
+
+    const update = Object.fromEntries(
+      Object.entries(updateData).filter(
+        ([key, value]) => value !== null && value !== undefined && value !== ''
+      )
+    ) as Partial<TParams>;
+
+    if (!Object.entries(update).length) {
+      throw new Error('NO_VALID_FIELDS');
+    }
+
+    return update;
+  }
 }

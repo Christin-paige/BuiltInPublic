@@ -54,7 +54,7 @@ describe('Use case - UpdateProject', () => {
     const updateProject = new UpdateProject(mockSupabase);
 
     const actual = await updateProject.execute({
-      externalUrl: url,
+      external_url: url,
       projectId: 'test-id',
     });
 

@@ -60,7 +60,7 @@ export class UpdateUserProfile extends BaseUseCase<UserProfileUpdateData> {
           })
         : undefined;
 
-      const update = stripObjectNullish({
+      const update = this.compactUpdateData({
         username,
         bio: sanitizedBio,
         display_name: sanitizedDisplayName,

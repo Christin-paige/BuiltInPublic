@@ -10,7 +10,7 @@ export interface UpdateProjectParams {
   visibility?: Database['public']['Enums']['project_visibility'];
   status?: Database['public']['Enums']['project_status'];
   description?: string;
-  externalUrl?: string;
+  external_url?: string;
 }
 
 export class UpdateProject extends BaseUseCase<UpdateProjectParams> {
@@ -20,7 +20,7 @@ export class UpdateProject extends BaseUseCase<UpdateProjectParams> {
     visibility,
     status,
     description,
-    externalUrl,
+    external_url,
   }: UpdateProjectParams): Promise<{ success: boolean; message: string }> {
     const sanitizedName = name
       ? xss(name, {
@@ -43,9 +43,9 @@ export class UpdateProject extends BaseUseCase<UpdateProjectParams> {
       : undefined;
 
     let validatedUrl: string | undefined = undefined;
-    if (externalUrl) {
+    if (external_url) {
       const urlValidator = new SecureURLValidator();
-      const result = await urlValidator.validate(externalUrl);
+      const result = await urlValidator.validate(external_url);
 
       if (!result.isValid) {
         return { success: false, message: 'Must be valid URL' };
@@ -55,7 +55,7 @@ export class UpdateProject extends BaseUseCase<UpdateProjectParams> {
     }
 
     try {
-      const update = stripObjectNullish({
+      const update = this.compactUpdateData({
         name: sanitizedName,
         description: sanitizedDescription,
         external_url: validatedUrl,
