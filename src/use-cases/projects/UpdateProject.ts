@@ -27,7 +27,7 @@ export class UpdateProject extends BaseUseCase<UpdateProjectParams> {
           whiteList: {},
           stripIgnoreTag: true,
           stripIgnoreTagBody: ['script'],
-        })
+        }).trim()
       : undefined;
 
     if (name && !sanitizedName) {
@@ -39,7 +39,7 @@ export class UpdateProject extends BaseUseCase<UpdateProjectParams> {
           whiteList: {},
           stripIgnoreTag: true,
           stripIgnoreTagBody: ['script'],
-        })
+        }).trim()
       : undefined;
 
     let validatedUrl: string | undefined = undefined;

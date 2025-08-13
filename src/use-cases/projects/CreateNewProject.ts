@@ -16,7 +16,7 @@ export default class CreateNewProject extends BaseUseCase<CreateNewProjectParams
       whiteList: {},
       stripIgnoreTag: true,
       stripIgnoreTagBody: ['script'],
-    });
+    }).trim();
 
     if (!sanitizedName) {
       return { success: false, message: 'Name is required' };
