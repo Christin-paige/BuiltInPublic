@@ -1,8 +1,7 @@
 import { Database } from 'supabase/supabase.types';
 import { BaseUseCase } from '../BaseUseCase';
-import xss, { stripBlankChar } from 'xss';
+import xss from 'xss';
 import { SecureURLValidator } from 'utils/SecureURLValidator/SecureURLValidator';
-import { stripObjectNullish } from 'utils/stripObjectNullish';
 
 export interface UpdateProjectParams {
   projectId: string;

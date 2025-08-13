@@ -3,7 +3,6 @@ import { BaseUseCase } from '../BaseUseCase';
 import { checkProfanity, isUsernameRoute } from 'utils/usernameValidator';
 import xss from 'xss';
 import { AnySupabaseClient } from 'utils/supabase/server';
-import { stripObjectNullish } from 'utils/stripObjectNullish';
 
 export interface UserProfileUpdateData {
   id: string;
