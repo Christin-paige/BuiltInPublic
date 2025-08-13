@@ -20,7 +20,7 @@ export default async function ProjectList() {
   const { data: userRes, error: userErr } = await supabase.auth.getUser();
   if (userErr) {
     return (
-      <div className="bg-gradient-to-b from-[#1d1d1d] to-[#86059F] rounded-md shadow p-5 text-center text-rose-400">
+      <div className='bg-gradient-to-b from-[#1d1d1d] to-[#86059F] rounded-md shadow p-5 text-center text-rose-400'>
         Failed to load user: {userErr.message}
       </div>
     );
@@ -28,7 +28,7 @@ export default async function ProjectList() {
   const user = userRes?.user;
   if (!user) {
     return (
-      <div className="bg-gradient-to-b from-[#1d1d1d] to-[#86059F] rounded-md shadow p-5 text-center text-slate-300">
+      <div className='bg-gradient-to-b from-[#1d1d1d] to-[#86059F] rounded-md shadow p-5 text-center text-slate-300'>
         Sign in to see your projects.
       </div>
     );
@@ -47,13 +47,15 @@ export default async function ProjectList() {
   // Fetch the signed-in user’s projects
   const { data: rows, error } = await supabase
     .from('projects')
-    .select('id, name, description, visibility, status, repo_url, created_at, owner_id')
+    .select(
+      'id, name, description, visibility, status, repo_url, created_at, owner_id'
+    )
     .eq('owner_id', user.id)
     .order('created_at', { ascending: false });
 
   if (error) {
     return (
-      <div className="bg-gradient-to-b from-[#1d1d1d] to-[#86059F] rounded-md shadow p-5 text-center text-rose-400">
+      <div className='bg-gradient-to-b from-[#1d1d1d] to-[#86059F] rounded-md shadow p-5 text-center text-rose-400'>
         Failed to load projects: {error.message}
       </div>
     );
@@ -61,7 +63,7 @@ export default async function ProjectList() {
 
   if (!rows || rows.length === 0) {
     return (
-      <div className="bg-gradient-to-b from-[#1d1d1d] to-[#86059F] rounded-md shadow p-5 text-center text-slate-300">
+      <div className='bg-gradient-to-b from-[#1d1d1d] to-[#86059F] rounded-md shadow p-5 text-center text-slate-300'>
         No projects yet. Create your first one!
       </div>
     );
@@ -81,39 +83,41 @@ export default async function ProjectList() {
   }));
 
   return (
-    <div className="bg-gradient-to-b from-[#1d1d1d] to-[#86059F] rounded-md shadow p-5">
-      <h1 className="font-semibold text-xl text-center mb-4">Projects</h1>
+    <div className='bg-gradient-to-b from-[#1d1d1d] to-[#86059F] rounded-md shadow p-5'>
+      <h1 className='font-semibold text-xl text-center mb-4'>Projects</h1>
 
       {/* Column headers for desktop */}
-      <div className="hidden sm:grid grid-cols-3 gap-4 px-1 pb-2 text-sm font-semibold text-slate-300 border-b border-slate-700 mb-3">
+      <div className='hidden sm:grid grid-cols-3 gap-4 px-1 pb-2 text-sm font-semibold text-slate-300 border-b border-slate-700 mb-3'>
         <div>Title</div>
         <div>Description</div>
         <div>Status</div>
       </div>
 
       {/* Rows (table-style; aligned with headers) */}
-      <div className="divide-y divide-slate-800">
+      <div className='divide-y divide-slate-800'>
         {(rows as ProjectRow[]).map((p) => (
           <div
             key={p.id}
-            className="
+            className='
               grid grid-cols-1 md:grid-cols-[1.6fr_3fr_auto]
               gap-3 md:gap-4 px-3 py-3 items-start
               hover:bg-slate-900/40 transition rounded-lg md:rounded-none
-            "
+            '
           >
             {/* Title → link to project page */}
-            <div className="text-white font-medium">
-              <Link href={`${hrefBase}/${p.id}`} className="hover:underline">
+            <div className='text-white font-medium'>
+              <Link href={`${hrefBase}/${p.id}`} className='hover:underline'>
                 {p.name}
               </Link>
             </div>
 
             {/* 100-char Description */}
-            <div className="text-slate-400 text-sm">{truncate100(p.description)}</div>
+            <div className='text-slate-400 text-sm'>
+              {truncate100(p.description)}
+            </div>
 
             {/* Status badge via your component */}
-            <div className="md:justify-self-end">
+            <div className='md:justify-self-end'>
               <ProjectStatusBadge status={p.status} />
             </div>
           </div>
