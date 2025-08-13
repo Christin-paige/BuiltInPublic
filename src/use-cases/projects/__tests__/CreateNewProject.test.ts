@@ -20,7 +20,7 @@ const mockSupabaseFails = {
   }),
 } as unknown as SupabaseAnonClient;
 
-describe('CreateNewProject', () => {
+describe('Use case - CreateNewProject', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     mockInsert.mockReturnValue(mockSupabase);

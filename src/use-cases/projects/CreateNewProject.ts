@@ -1,13 +1,13 @@
 import xss from 'xss';
 import { BaseUseCase } from '../BaseUseCase';
 
-export interface CreateNewProjectData {
+export interface CreateNewProjectParams {
   name: string;
   ownerId: string;
 }
 
-export default class CreateNewProject extends BaseUseCase<CreateNewProjectData> {
-  async execute({ name, ownerId }: CreateNewProjectData): Promise<{
+export default class CreateNewProject extends BaseUseCase<CreateNewProjectParams> {
+  async execute({ name, ownerId }: CreateNewProjectParams): Promise<{
     success: boolean;
     message: string;
     projectId?: string;
@@ -16,7 +16,7 @@ export default class CreateNewProject extends BaseUseCase<CreateNewProjectData> 
       whiteList: {},
       stripIgnoreTag: true,
       stripIgnoreTagBody: ['script'],
-    });
+    }).trim();
 
     if (!sanitizedName) {
       return { success: false, message: 'Name is required' };

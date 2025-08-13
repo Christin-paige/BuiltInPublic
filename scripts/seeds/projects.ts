@@ -8,7 +8,7 @@ const projectsRaw = [
       'A social media platform for devs to share projects and ideas.',
     username: 'testuser1',
     visibility: 'private',
-    repo_url: 'https://github.com/codespheredevs/devhub',
+    external_url: 'https://github.com/codespheredevs/devhub',
   },
   {
     name: 'NextGen Portfolio',
@@ -16,7 +16,7 @@ const projectsRaw = [
       'A modern, animated developer portfolio with filtering and tags.',
     username: 'testuser2',
     visibility: 'public',
-    repo_url: 'https://github.com/codespheredevs/nextgen-portfolio',
+    external_url: 'https://github.com/codespheredevs/nextgen-portfolio',
   },
   {
     name: 'AI Code Assistant',
@@ -24,7 +24,7 @@ const projectsRaw = [
       'An AI-powered code assistant that integrates with VSCode and JetBrains IDEs.',
     username: 'testuser3',
     visibility: 'private',
-    repo_url: 'https://github.com/codespheredevs/ai-code-assistant',
+    external_url: 'https://github.com/codespheredevs/ai-code-assistant',
   },
 ];
 
@@ -58,7 +58,7 @@ export async function seedProjects() {
         description: entry.description,
         owner_id: profile_id,
         visibility: entry.visibility,
-        repo_url: entry.repo_url,
+        external_url: entry.external_url,
       };
     })
     .filter(Boolean); // remove nulls
