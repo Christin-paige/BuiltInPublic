@@ -1,7 +1,8 @@
 import { Database } from 'supabase/supabase.types';
 import { BaseUseCase } from '../BaseUseCase';
-import xss from 'xss';
+import xss, { stripBlankChar } from 'xss';
 import { SecureURLValidator } from 'utils/SecureURLValidator/SecureURLValidator';
+import { stripObjectNullish } from 'utils/stripObjectNullish';
 
 export interface UpdateProjectParams {
   projectId: string;
@@ -53,26 +54,30 @@ export class UpdateProject extends BaseUseCase<UpdateProjectParams> {
       validatedUrl = externalUrl;
     }
 
-    const updateData = {
-      name: sanitizedName,
-      description: sanitizedDescription,
-      external_url: validatedUrl,
-      visibility,
-      status,
-    };
+    try {
+      const update = stripObjectNullish({
+        name: sanitizedName,
+        description: sanitizedDescription,
+        external_url: validatedUrl,
+        visibility,
+        status,
+      });
 
-    // spread to remove undefineds
-    const update = { ...updateData };
+      const { error } = await this.supabase
+        .from('projects')
+        .update(update)
+        .eq('id', projectId);
 
-    const { error } = await this.supabase
-      .from('projects')
-      .update(update)
-      .eq('id', projectId);
+      if (error) {
+        throw error;
+      }
 
-    if (error) {
+      return { success: true, message: 'Project updated!' };
+    } catch (e) {
+      console.error(
+        `Update failed for project: ${projectId} with: ${JSON.stringify(e, null, 2)}`
+      );
       return { success: false, message: 'Project update failed' };
     }
-
-    return { success: true, message: 'Project updated!' };
   }
 }

@@ -1,6 +1,5 @@
-import { describe } from 'node:test';
 import { SupabaseAnonClient } from 'utils/supabase/server';
-import { beforeEach, expect, it, vi } from 'vitest';
+import { beforeEach, expect, it, vi, describe } from 'vitest';
 import { UpdateProject } from '../UpdateProject';
 
 const mockUpdate = vi.fn();

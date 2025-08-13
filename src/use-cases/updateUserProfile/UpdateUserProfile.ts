@@ -3,6 +3,7 @@ import { BaseUseCase } from '../BaseUseCase';
 import { checkProfanity, isUsernameRoute } from 'utils/usernameValidator';
 import xss from 'xss';
 import { AnySupabaseClient } from 'utils/supabase/server';
+import { stripObjectNullish } from 'utils/stripObjectNullish';
 
 export interface UserProfileUpdateData {
   id: string;
@@ -59,13 +60,11 @@ export class UpdateUserProfile extends BaseUseCase<UserProfileUpdateData> {
           })
         : undefined;
 
-      const sanitizedUpdate = {
+      const update = stripObjectNullish({
         username,
         bio: sanitizedBio,
         display_name: sanitizedDisplayName,
-      };
-      // spread sanitizedUpdate to remove fields that are undefined
-      const update = { ...sanitizedUpdate };
+      });
 
       const { error } = await this.supabase
         .from('profiles')
@@ -78,6 +77,9 @@ export class UpdateUserProfile extends BaseUseCase<UserProfileUpdateData> {
 
       return { success: true, message: 'Profile updated' };
     } catch (e) {
+      console.error(
+        `Update profile failed for: ${id} with: ${JSON.stringify(e, null, 2)}`
+      );
       return { success: false, message: 'Update failed' };
     }
   }
