@@ -51,7 +51,7 @@ export class UpdateProject extends BaseUseCase<UpdateProjectParams> {
         return { success: false, message: 'Must be valid URL' };
       }
 
-      validatedUrl = externalUrl;
+      validatedUrl = result.sanitizedUrl;
     }
 
     try {
