@@ -2,7 +2,10 @@
 'use server';
 
 import { ProjectRepository } from '@/repositories/projectRepository/project.repository';
-import { Project, ProjectDTO } from '@/repositories/projectRepository/project.types';
+import {
+  Project,
+  ProjectDTO,
+} from '@/repositories/projectRepository/project.types';
 import { ProfileRepository } from '@/repositories/profileRepository/profile.repository';
 import { createAnonClient, SupabaseAnonClient } from 'utils/supabase/server';
 
