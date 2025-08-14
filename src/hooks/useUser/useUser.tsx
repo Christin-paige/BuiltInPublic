@@ -1,7 +1,7 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { getCurrentUser } from './actions';
+import { getCurrentUser, signOutUser } from './actions';
 import UINotification from '@/services/UINotification.service';
 
 export default function useUser() {
@@ -14,5 +14,5 @@ export default function useUser() {
     UINotification.error('Could not retrieve user');
   }
   // TODO: check for error in useQuery response and notify user
-  return { data, isLoading, error };
+  return { data, isLoading, error, signOutUser };
 }
