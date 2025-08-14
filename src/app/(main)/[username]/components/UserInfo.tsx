@@ -155,15 +155,15 @@ export default function UserInfo({ profile }: UserInfoProps) {
         </div>
       )}
       {canEdit && (
-            <Button
-              onClick={handleSignOut}
-              type='button'
-              title='Sign Out'
-              aria-label='Sign Out'
-            >
-              Sign Out
-            </Button>
-        )}
+        <Button
+          onClick={handleSignOut}
+          type='button'
+          title='Sign Out'
+          aria-label='Sign Out'
+        >
+          Sign Out
+        </Button>
+      )}
     </section>
   );
 }
