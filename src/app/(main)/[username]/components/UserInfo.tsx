@@ -147,7 +147,6 @@ export default function UserInfo({ profile }: UserInfoProps) {
       {canEdit && (
             <Button
               onClick={signOutUser}
-              className='w-fit cursor-pointer bg-secondary-800'
               type='button'
               title='Sign Out'
               aria-label='Sign Out'
