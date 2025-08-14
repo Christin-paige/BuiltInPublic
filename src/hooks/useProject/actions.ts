@@ -2,7 +2,10 @@
 'use server';
 
 import { ProjectRepository } from '@/repositories/projectRepository/project.repository';
-import { Project, ProjectDTO } from '@/repositories/projectRepository/project.types';
+import {
+  Project,
+  ProjectDTO,
+} from '@/repositories/projectRepository/project.types';
 import { ProfileRepository } from '@/repositories/profileRepository/profile.repository';
 import { createAnonClient, SupabaseAnonClient } from 'utils/supabase/server';
 
@@ -29,7 +32,9 @@ export async function getProjectsForDashboard(): Promise<Project[]> {
  * Get all projects owned by a specific username.
  * Resolves username -> profile.id, then filters projects by owner_id.
  */
-export async function getProjectsByOwnerUsername(username: string): Promise<Project[]> {
+export async function getProjectsByOwnerUsername(
+  username: string
+): Promise<Project[]> {
   const supabase: SupabaseAnonClient = await createAnonClient();
 
   const profileRepository = new ProfileRepository(supabase);
@@ -51,7 +56,9 @@ export async function getProjectsByOwnerUsername(username: string): Promise<Proj
 /**
  * Get a single project by id.
  */
-export async function getProjectById(projectId: string): Promise<Project | null> {
+export async function getProjectById(
+  projectId: string
+): Promise<Project | null> {
   const supabase: SupabaseAnonClient = await createAnonClient();
   const projectRepository = new ProjectRepository(supabase);
 
