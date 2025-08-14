@@ -4,7 +4,10 @@
 import { createClient } from '@supabase/supabase-js';
 import type { Database } from 'supabase/supabase.types';
 import { ProjectRepository } from '@/repositories/projectRepository/project.repository';
-import type { Project, ProjectDTO } from '@/repositories/projectRepository/project.types';
+import type {
+  Project,
+  ProjectDTO,
+} from '@/repositories/projectRepository/project.types';
 
 // Local, edge-safe anon client (no session persistence or refresh)
 function createEdgeAnonClient() {
@@ -42,4 +45,6 @@ export async function getProjectsForDashboard(): Promise<Project[]> {
 }
 
 // Optional helper type for the hook
-export type FetchProjectsResult = Awaited<ReturnType<typeof getProjectsForDashboard>>;
+export type FetchProjectsResult = Awaited<
+  ReturnType<typeof getProjectsForDashboard>
+>;
