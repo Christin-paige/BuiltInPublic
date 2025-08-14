@@ -66,6 +66,16 @@ export default function UserInfo({ profile }: UserInfoProps) {
     handleFieldEdit(field);
   };
 
+  // Function to handle signing out. Once the signOutUser function returns true, the user will be routed to the homepage.
+  const handleSignOut = async () => {
+    const result = await signOutUser();
+    if (result === true) {
+      router.push('/');
+    } else {
+      toast.error((result as { message: string }).message || 'Sign out failed');
+    }
+  };
+
   return (
     <section className='flex flex-col gap-4 w-1/4 relative transform -translate-y-32'>
       <div className='rounded-full border-2 border-[#00c7ff] w-40 h-40 flex items-center justify-center cyan-glow'>
@@ -146,7 +156,7 @@ export default function UserInfo({ profile }: UserInfoProps) {
       )}
       {canEdit && (
             <Button
-              onClick={signOutUser}
+              onClick={handleSignOut}
               type='button'
               title='Sign Out'
               aria-label='Sign Out'

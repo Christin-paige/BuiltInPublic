@@ -3,7 +3,7 @@ import useUser from '@/hooks/useUser/useUser';
 
 interface ProfileEditContextValue {
   canEdit: boolean;
-  signOutUser: () => Promise<{message: string} | void>;
+  signOutUser: () => Promise<{message: string} | boolean>;
 }
 
 const ProfileEditContext = createContext<ProfileEditContextValue | undefined>(
