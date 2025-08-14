@@ -1,48 +1,55 @@
-// components/ProjectCard.tsx
+'use client';
+
 import React from 'react';
-import Link from 'next/link';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { ProjectStatusBadge } from './ProjectStatusBadge';
-import type { Project } from '@/repositories/projectRepository/project.types';
+import { useProjectList } from '@/hooks/useProject/useProject';
+import ProjectCard from '@/components/ProjectCard';
 
-interface ProjectCardProps extends Project {
-  href: string;
-}
+export default function ProjectList() {
+  const { data, isLoading, isError, error } = useProjectList();
 
-function truncate(text: string, max = 140) {
-  if (!text) return '';
-  if (text.length <= max) return text;
-  return text.slice(0, max - 1).trimEnd() + '…';
-}
+  if (isLoading) {
+    return (
+      <div className="bg-gradient-to-b from-[#1d1d1d] to-[#86059F] rounded-md shadow p-3">
+        <h1 className="font-semibold text-center mb-2">Projects</h1>
+        <div className="space-y-2">
+          <div className="h-24 w-full rounded-md bg-white/5 animate-pulse" />
+          <div className="h-24 w-full rounded-md bg-white/5 animate-pulse" />
+          <div className="h-24 w-full rounded-md bg-white/5 animate-pulse" />
+        </div>
+      </div>
+    );
+  }
 
-export default function ProjectCard({
-  name,
-  description = '',
-  status,
-  href,
-}: ProjectCardProps) {
+  if (isError) {
+    return (
+      <div className="bg-gradient-to-b from-[#1d1d1d] to-[#86059F] rounded-md shadow p-3">
+        <h1 className="font-semibold text-center mb-2">Projects</h1>
+        <p className="text-sm text-red-300">
+          Failed to load projects{error instanceof Error ? `: ${error.message}` : '.'}
+        </p>
+      </div>
+    );
+  }
+
+  const projects = data ?? [];
+
   return (
-    <Link
-      href={href}
-      className='block focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 rounded-2xl'
-      aria-label={`Open project: ${name}`}
-    >
-      <Card className='w-full rounded-2xl border border-slate-700/70 bg-slate-900/60 shadow-sm ring-1 ring-white/5 transition hover:bg-slate-900/80 hover:shadow cursor-pointer'>
-        <CardHeader className='flex flex-row items-start justify-between space-y-0 gap-3'>
-          <CardTitle className='text-base font-semibold text-slate-100'>
-            {name}
-          </CardTitle>
-          <ProjectStatusBadge status={status} />
-        </CardHeader>
+    <div className="bg-gradient-to-b from-[#1d1d1d] to-[#86059F] rounded-md shadow p-3">
+      <h1 className="font-semibold text-center mb-2">Projects</h1>
 
-        {description ? (
-          <CardContent>
-            <p className='text-sm leading-6 text-slate-300'>
-              {truncate(description, 140)}
-            </p>
-          </CardContent>
-        ) : null}
-      </Card>
-    </Link>
+      {projects.length === 0 ? (
+        <p className="text-center text-sm text-slate-300 py-8">No projects yet.</p>
+      ) : (
+        <div className="grid grid-cols-1 gap-3">
+          {projects.map((p) => (
+            <ProjectCard
+              key={p.id}
+              href={`/projects/${p.id}`}  // 🔁 tweak if your route differs
+              {...p}                      // spreads: name, description, status, etc.
+            />
+          ))}
+        </div>
+      )}
+    </div>
   );
 }
