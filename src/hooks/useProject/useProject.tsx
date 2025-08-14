@@ -1,25 +1,30 @@
-// src/hooks/useProject/useProject.tsx
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import { getProjectById } from './actions';
 import UINotification from '@/services/UINotification.service';
+import { getProjectsForDashboard } from './actions';
+import type { Project } from '@/repositories/projectRepository/project.types';
 
 const projectQueryKeys = {
-  all: ['project'] as const,
-  id: (projectId: string) => [...projectQueryKeys.all, projectId] as const,
+  all: ['projects'] as const,
+  dashboard: () => [...projectQueryKeys.all, 'dashboard'] as const,
 };
 
-export default function useProject(projectId: string) {
-  const { data, isLoading, error } = useQuery({
-    queryKey: projectQueryKeys.id(projectId),
-    queryFn: () => getProjectById(projectId),
-    enabled: !!projectId, // avoid firing until we have an id
+/**
+ * Hook to fetch dashboard projects
+ */
+export function useProjectsForDashboard() {
+  const { data, isLoading, error } = useQuery<Project[]>({
+    queryKey: projectQueryKeys.dashboard(),
+    queryFn: getProjectsForDashboard,
   });
 
   if (error) {
-    UINotification.error('Error fetching project');
+    UINotification.error('Error fetching projects');
   }
 
   return { data, isLoading, error };
 }
+
+// ✅ Alias so imports using `useProjectList` still work
+export { useProjectsForDashboard as useProjectList };
