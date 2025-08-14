@@ -1,14 +1,38 @@
 'use server';
 
-import { ProjectRepository } from '@/repositories/projectRepository/project.repository';
-import type { Project } from '@/repositories/projectRepository/project.types';
-import {
-  createAnonClient,
-  type SupabaseAnonClient,
-} from 'utils/supabase/server';
+import { ProfileRepository } from '@/repositories/profileRepository/profile.repository';
+import { Profile } from '@/repositories/profileRepository/profile.types';
+import { createAnonClient, SupabaseAnonClient } from 'utils/supabase/server';
 
-export async function getProjectsForDashboard(): Promise<Project[]> {
+export async function getProfileByUsername(
+  username: string
+): Promise<Profile | null> {
   const supabase: SupabaseAnonClient = await createAnonClient();
-  const repo = new ProjectRepository(supabase);
-  return await repo.listForDashboard();
+  const profileRepository = new ProfileRepository(supabase);
+
+  const profile = await profileRepository.getByUsername(username);
+
+  return profile ?? null;
+}
+
+export async function checkUsernameExists(username: string): Promise<boolean> {
+  const supabase: SupabaseAnonClient = await createAnonClient();
+  const profileRepository = new ProfileRepository(supabase);
+  return await profileRepository.checkUsernameExists(username);
+}
+
+export async function updateProfile(
+  profileId: string,
+  fields: Partial<{ username: string; bio: string }>
+): Promise<boolean> {
+  try {
+    const supabase: SupabaseAnonClient = await createAnonClient();
+    const profileRepository = new ProfileRepository(supabase);
+
+    await profileRepository.updateProfileFields(profileId, fields);
+    return true;
+  } catch (error) {
+    console.error('Error updating profile:', error);
+    return false;
+  }
 }
