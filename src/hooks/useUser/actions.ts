@@ -24,7 +24,6 @@ export async function signOutUser() {
     if (error) {
       throw new Error('Error signing out');
     }
-
   } catch (e) {
     return {
       message: 'Could not log out',
