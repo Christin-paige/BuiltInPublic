@@ -17,14 +17,14 @@ const audioWide = Audiowide({
 const raleway = Raleway({
   subsets: ['latin'],
   weight: '400',
-  variable: '--font-subheading',
+  variable: '--font-raleway',
   display: 'swap',
 });
 
 const lato = Lato({
   subsets: ['latin'],
   weight: '400',
-  variable: '--font-body',
+  variable: '--font-lato',
   display: 'swap',
 });
 

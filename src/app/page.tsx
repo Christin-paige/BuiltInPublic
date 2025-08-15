@@ -9,22 +9,24 @@ const Home: FC = () => {
     <section className='px-4 md:px-10 py-20 w-full h-full bg-gray-900 min-h-screen relative'>
       <div className='absolute top-0 left-0 size-40 md:size-100 xl:size-120 rounded-full bg-radial from-sky-500/60 to-indigo-900/60 via-indigo-900/60 blur-3xl'></div>
       <div className='absolute top-[15%] md:top-[20%] lg:top-[20%] left-[-10] md:left-[25%] xl:left-[30%] w-full md:w-1/2 xl:w-2/5 h-1/5 lg:h-1/4 xl:h-1/3 rounded-full bg-radial from-pink-500/60 to-indigo-600/60 blur-3xl'></div>
-      <div className='relative pt-[20vh] h-full bg-cover bg-center flex flex-col items-center justify-center font-sans pb-8 gap-20'>
+      <div className='relative pt-[20vh] h-full bg-cover bg-center flex flex-col items-center justify-center pb-8 gap-20'>
         <div className='flex flex-col items-center justify-center text-center max-w-3xl w-full md:w-1/2 mx-auto px-4 gap-4'>
-          <h1 className='text-5xl text-white font-bold'>BuiltInPublic</h1>
-          <h3 className='font-bold text-white text-3xl'>
-            Where Devs Build in Public - Together
-          </h3>
-          <p className='text-white max-w-md text-lg'>
+          <header className='flex flex-col gap-2'>
+            <h1 className='text-5xl text-text-100 font-bold font-heading'>BuiltInPublic</h1>
+            <h3 className='font-bold text-text-200 text-3xl font-subheading'>
+              Where We Build in Public - Together
+            </h3>
+          </header>
+          <p className='text-text-300 max-w-md text-lg font-body'>
             Join our supportive community where developers collaborate, share
             progress, and grow together
           </p>
           <Link
             href='/auth'
-            className='w-xs md:w-sm bg-linear-to-bl from-violet-500 to-fuchsia-500 text-white font-bold py-2 px-4 rounded-full mt-4
-            hover:scale-105 transition-all duration-300 cursor-pointer text-xl hover:shadow-lg hover:shadow-violet-500/40'
+            className='w-xs md:w-sm bg-linear-to-bl from-violet-500 to-fuchsia-500 text-text-100 font-bold py-2 px-4 rounded-full mt-4
+             hover:scale-105 transition-all duration-300 cursor-pointer text-xl hover:shadow-lg hover:shadow-violet-500/40 active:scale-100 font-subheading'
           >
-            Join
+            Click to Join
           </Link>
         </div>
 
