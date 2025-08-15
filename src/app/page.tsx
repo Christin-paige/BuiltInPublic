@@ -23,8 +23,8 @@ const Home: FC = () => {
           </p>
           <Link
             href='/auth'
-            className='w-xs md:w-sm bg-linear-to-bl from-violet-500 to-fuchsia-500 text-text-100 font-bold py-2 px-4 rounded-full mt-4
-             hover:scale-105 transition-all duration-300 cursor-pointer text-xl hover:shadow-lg hover:shadow-violet-500/40 active:scale-100 font-subheading'
+            className='w-fit bg-linear-to-bl from-accent-900 via-accent-600 to-accent-900 text-text-100 font-bold py-2 px-8 rounded-full mt-4 border border-accent-800
+             hover:scale-105 transition-all duration-300 cursor-pointer text-xl hover:shadow-lg hover:shadow-accent-600/30 active:scale-100 font-subheading'
           >
             Click to Join
           </Link>
