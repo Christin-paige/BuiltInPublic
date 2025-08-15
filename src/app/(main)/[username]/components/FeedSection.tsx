@@ -21,7 +21,9 @@ const FeedSection = () => {
         <button
           onClick={() => setActiveTab('projects')}
           className={`px-3 py-1 rounded-md ${
-            activeTab === 'projects' ? 'bg-purple-600 text-white' : 'bg-white/10'
+            activeTab === 'projects'
+              ? 'bg-purple-600 text-white'
+              : 'bg-white/10'
           }`}
         >
           Projects
@@ -32,7 +34,7 @@ const FeedSection = () => {
       {activeTab === 'projects' && (
         <>
           {isLoading && <p>Loading projects…</p>}
-          {isError && <p className="text-red-400">{error?.message}</p>}
+          {isError && <p className='text-red-400'>{error?.message}</p>}
           {projects?.map((project) => (
             <ProjectCard key={project.id} project={project} />
           ))}
