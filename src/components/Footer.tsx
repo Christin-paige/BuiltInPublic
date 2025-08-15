@@ -1,15 +1,24 @@
+import Link from 'next/link';
+
 export default function Footer() {
   return (
-    <div className='hidden md:block w-full'>
+    <footer className='w-full flex justify-center py-4 px-8 gap-12 bg-primary-950/70 border-t border-primary-700 text-text-300'>
       <a
         href='https://builtinpublic.features.vote/board'
         target='_blank'
-        className='underline hover:no-underline'
+        rel='noopener noreferrer'
+        aria-label='Suggest a feature on BuiltInPublic'
+        className='font-body text-lg transition-all duration-300 hover:text-text-400 hover:underline'
       >
         Suggest a feature
       </a>
-      <h1>About</h1>
-      <h1>Questions?</h1>
-    </div>
+      <Link
+        href='/about'
+        className='font-body text-lg transition-all duration-300 hover:text-text-400 hover:underline'
+        aria-label='Learn more about BuiltInPublic'
+      >
+        About Us
+      </Link>
+    </footer>
   );
 }
