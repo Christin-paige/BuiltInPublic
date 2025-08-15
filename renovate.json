@@ -1,8 +1,5 @@
 {
-  "extends": [
-    "config:base",
-    "security:openssf"
-  ],
+  "extends": ["config:base", "security:openssf"],
   "labels": ["dependencies"],
   "osvVulnerabilityAlerts": true,
   "packageRules": [
