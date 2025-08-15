@@ -26,7 +26,6 @@ export async function signOutUser() {
     } else {
       await supabase.auth.signOut();
     }
-
   } catch (e) {
     return {
       message: 'Could not log out',
