@@ -4,21 +4,8 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import ProfileIcon from '../ProfileIcon';
-import useUser from '@/hooks/useUser/useUser';
-import { signOutUser } from './actions';
 
 export default function NavBar() {
-  const { data: user } = useUser();
-
-  // Sign out the user
-  const handleSignOut = async () => {
-    try {
-      // Sign out from the server
-      await signOutUser();
-    } catch (error) {
-      console.error('Error signing out:', error);
-    }
-  };
 
   return (
     <nav className='fixed top-0 w-[100vw] flex items-center justify-between px-2 md:px-10 py-2 bg-black opacity-75 z-50'>
@@ -44,15 +31,6 @@ export default function NavBar() {
         <Link href='/dashboard' className='hover:text-[#ff00ea]'>
           Dashboard
         </Link>
-        {user && (
-          <button
-            key='logout'
-            onClick={handleSignOut}
-            className='bg-[#00c7ff] shadow-lg shadow-cyan-500/40 px-5 py-1 rounded-sm cursor-pointer hover:bg-[#008cff] transition-all duration-100'
-          >
-            Logout
-          </button>
-        )}
       </div>
     </nav>
   );
