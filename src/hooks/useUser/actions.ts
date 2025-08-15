@@ -23,7 +23,10 @@ export async function signOutUser() {
 
     if (error) {
       throw new Error('Error signing out');
+    } else {
+      await supabase.auth.signOut();
     }
+
   } catch (e) {
     return {
       message: 'Could not log out',
