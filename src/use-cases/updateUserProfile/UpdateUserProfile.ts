@@ -2,6 +2,7 @@ import { ProfileRepository } from '@/repositories/profileRepository/profile.repo
 import { BaseUseCase } from '../BaseUseCase';
 import { checkProfanity, isUsernameRoute } from 'utils/usernameValidator';
 import xss from 'xss';
+import { AnySupabaseClient } from 'utils/supabase/server';
 
 export interface UserProfileUpdateData {
   id: string;
@@ -10,10 +11,14 @@ export interface UserProfileUpdateData {
   display_name?: string;
 }
 
-export class UpdateUserProfile extends BaseUseCase<
-  ProfileRepository,
-  UserProfileUpdateData
-> {
+export class UpdateUserProfile extends BaseUseCase<UserProfileUpdateData> {
+  repository: ProfileRepository;
+
+  constructor(repository: ProfileRepository, supabase: AnySupabaseClient) {
+    super(supabase);
+    this.repository = repository;
+  }
+
   async execute(params: UserProfileUpdateData) {
     const { id, username, display_name, bio } = params;
 
@@ -54,13 +59,11 @@ export class UpdateUserProfile extends BaseUseCase<
           })
         : undefined;
 
-      const sanitizedUpdate = {
+      const update = this.compactUpdateData({
         username,
         bio: sanitizedBio,
         display_name: sanitizedDisplayName,
-      };
-      // spread sanitizedUpdate to remove fields that are undefined
-      const update = { ...sanitizedUpdate };
+      });
 
       const { error } = await this.supabase
         .from('profiles')
@@ -73,6 +76,9 @@ export class UpdateUserProfile extends BaseUseCase<
 
       return { success: true, message: 'Profile updated' };
     } catch (e) {
+      console.error(
+        `Update profile failed for: ${id} with: ${JSON.stringify(e, null, 2)}`
+      );
       return { success: false, message: 'Update failed' };
     }
   }

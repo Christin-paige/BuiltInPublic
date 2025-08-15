@@ -15,7 +15,7 @@ export interface ProjectDTO {
   description: string | null;
   visibility: ProjectVisibility;
   status: ProjectStatus;
-  repo_url: string | null;
+  external_url: string | null;
   createdAt: string;
   updates:
     | {
