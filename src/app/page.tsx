@@ -14,23 +14,23 @@ const Home: FC = () => {
           <header className='flex flex-col gap-2'>
             <h1 className='text-5xl text-text-100 font-bold font-heading'>BuiltInPublic</h1>
             <h3 className='font-bold text-text-200 text-3xl font-subheading'>
-              Where We Build in Public - Together
+              Where we build in public — together
             </h3>
           </header>
           <p className='text-text-300 max-w-md text-lg font-body'>
             Join our supportive community where developers collaborate, share
-            progress, and grow together
+            progress, and grow together.
           </p>
           <Link
             href='/auth'
             className='w-fit bg-linear-to-bl from-accent-900 via-accent-600 to-accent-900 text-text-100 font-bold py-2 px-8 rounded-full mt-4 border border-accent-800
              hover:scale-105 transition-all duration-300 cursor-pointer text-xl hover:shadow-lg hover:shadow-accent-600/30 active:scale-100 font-subheading'
           >
-            Click to Join
+            Join now
           </Link>
         </div>
 
-        <div className='flex w-full md:-3/4 lg:w-2/3 justify-around px-2 gap-8 md:px-20'>
+        <div className='flex w-full md:-3/4 lg:w-2/3 justify-around px-2 gap-8 md:px-20 text-text-300'>
           <div className='flex flex-col items-center'>
             <Share2 size={36} />
             <h3 className='font-bold text-lg'>Post</h3>
@@ -39,7 +39,7 @@ const Home: FC = () => {
           <div className='flex flex-col items-center'>
             <MessageSquareCode size={36} />
             <h3 className='font-bold text-lg'>Connect</h3>
-            <p className='text-md'>with devs</p>
+            <p className='text-md'>with builders</p>
           </div>
           <div className='flex flex-col items-center'>
             <MessagesSquare size={36} />
