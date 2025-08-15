@@ -76,7 +76,7 @@ export default async function RootLayout({
       lang='en'
       className={`${audioWide.variable} ${raleway.variable} ${lato.variable}`}
     >
-      <body>
+      <body className='bg-zinc-950'>
         <ThemeProvider
           attribute='class'
           defaultTheme='dark'
