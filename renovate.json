@@ -1,24 +1,24 @@
 {
   "extends": [
     "config:base",
-    "security:openssf-scorecard"
+    "security:openssf"
   ],
   "labels": ["dependencies"],
-  "timezone": "America/New_York",
-  "prConcurrentLimit": 5,
-  "vulnerabilityAlerts": {
-    "enabled": true,
-    "labels": ["security"],
-    "automerge": true
-  },
   "osvVulnerabilityAlerts": true,
   "packageRules": [
     {
-      "description": "Open weekly PRs for normal dependencies (no automerge)",
-      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
       "automerge": false,
+      "description": "Open weekly PRs for normal dependencies (no automerge)",
       "groupName": "weekly dependency updates",
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
       "schedule": ["before 6am on Monday"]
     }
-  ]
+  ],
+  "prConcurrentLimit": 5,
+  "timezone": "America/New_York",
+  "vulnerabilityAlerts": {
+    "automerge": true,
+    "enabled": true,
+    "labels": ["security"]
+  }
 }
