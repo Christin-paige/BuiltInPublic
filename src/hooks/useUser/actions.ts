@@ -25,13 +25,12 @@ export async function signOutUser() {
       throw new Error('Error signing out');
     }
 
-    // Sign out the user from the server
-    await supabase.auth.signOut();
-
-    return true;
   } catch (e) {
     return {
       message: 'Could not log out',
     };
   }
+
+  // Redirect to the home page after signing out
+  redirect('/');
 }
