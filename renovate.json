@@ -6,16 +6,12 @@
   "labels": ["dependencies"],
   "timezone": "America/New_York",
   "prConcurrentLimit": 5,
-
-  // ✅ Security fixes: create & auto-merge as soon as alerts exist
   "vulnerabilityAlerts": {
     "enabled": true,
     "labels": ["security"],
     "automerge": true
   },
   "osvVulnerabilityAlerts": true,
-
-  // ✅ Normal dependency updates batched weekly (no automerge)
   "packageRules": [
     {
       "description": "Open weekly PRs for normal dependencies (no automerge)",
