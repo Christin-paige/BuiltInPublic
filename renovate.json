@@ -10,7 +10,14 @@
       "automerge": false,
       "description": "Open weekly PRs for normal dependencies (no automerge)",
       "groupName": "weekly dependency updates",
-      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+      "matchUpdateTypes": [
+        "major",
+        "minor",
+        "patch",
+        "pin",
+        "digest",
+        "lockFileMaintenance"
+      ],
       "schedule": ["before 6am on Monday"]
     }
   ],
