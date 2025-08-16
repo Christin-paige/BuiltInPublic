@@ -50,7 +50,6 @@ export default function OnboardingForm() {
     }
   };
 
-  // TODO: add loading skeleton for form
   if (isLoading || !user) {
     return (
       <div className='flex flex-col gap-4 w-full max-w-sm items-center'>
