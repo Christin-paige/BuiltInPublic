@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import Image from 'next/image';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useProfileEdit } from '@/contexts/ProfileEditContext';
 import { Profile } from '@/repositories/profileRepository/profile.types';
 import { Pencil } from 'lucide-react';
@@ -68,13 +68,10 @@ export default function UserInfo({ profile }: UserInfoProps) {
 
   return (
     <section className='flex flex-col gap-4 w-1/4 relative transform -translate-y-32'>
-      <Image
-        src={profile.avatarUrl || '/default-profile.png'}
-        alt='Profile Picture'
-        width={160}
-        height={160}
-        className='rounded-full border'
-      />
+      <Avatar className='w-24 h-24'>
+        <AvatarImage src={profile.avatarUrl || ''} />
+        <AvatarFallback>CN</AvatarFallback>
+      </Avatar>
 
       <div className='flex items-center gap-2'>
         {editingField === 'username' ? (
