@@ -1,7 +1,6 @@
-import { BaseRepository } from '@/repositories/base.repository';
 import { AnySupabaseClient } from 'utils/supabase/server';
 
-export abstract class BaseUseCase<TParams> {
+export abstract class BaseMutationUseCase<TParams> {
   supabase: AnySupabaseClient;
 
   constructor(supabase: AnySupabaseClient) {
@@ -12,7 +11,7 @@ export abstract class BaseUseCase<TParams> {
     params: TParams
   ): Promise<{ success: boolean; message: string }>;
 
-  compactUpdateData(updateData: Partial<TParams>): Partial<TParams> {
+  protected compactUpdateData(updateData: Partial<TParams>): Partial<TParams> {
     if (!(updateData satisfies Partial<TParams>)) {
       throw new Error('INVALID_UPDATE_DATA');
     }

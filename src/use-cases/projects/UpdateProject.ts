@@ -1,5 +1,5 @@
 import { Database } from 'supabase/supabase.types';
-import { BaseUseCase } from '../BaseUseCase';
+import { BaseMutationUseCase } from '../BaseMutationUseCase';
 import xss from 'xss';
 import { SecureURLValidator } from 'utils/SecureURLValidator/SecureURLValidator';
 
@@ -12,7 +12,7 @@ export interface UpdateProjectParams {
   external_url?: string;
 }
 
-export class UpdateProject extends BaseUseCase<UpdateProjectParams> {
+export class UpdateProject extends BaseMutationUseCase<UpdateProjectParams> {
   async execute({
     projectId,
     name,

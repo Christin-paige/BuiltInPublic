@@ -1,5 +1,5 @@
 import { ProfileRepository } from '@/repositories/profileRepository/profile.repository';
-import { BaseUseCase } from '../BaseUseCase';
+import { BaseMutationUseCase } from '../BaseMutationUseCase';
 import { checkProfanity, isUsernameRoute } from 'utils/usernameValidator';
 import xss from 'xss';
 import { AnySupabaseClient } from 'utils/supabase/server';
@@ -11,7 +11,7 @@ export interface UserProfileUpdateData {
   display_name?: string;
 }
 
-export class UpdateUserProfile extends BaseUseCase<UserProfileUpdateData> {
+export class UpdateUserProfile extends BaseMutationUseCase<UserProfileUpdateData> {
   repository: ProfileRepository;
 
   constructor(repository: ProfileRepository, supabase: AnySupabaseClient) {
