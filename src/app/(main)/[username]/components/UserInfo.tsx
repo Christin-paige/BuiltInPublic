@@ -5,9 +5,8 @@ import { Pencil } from 'lucide-react';
 import { checkUsernameExists, updateProfile } from '@/hooks/useProfile/actions';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
-import { Button } from '@/components/ui/button';
+import SignOutBtn from '@/components/Buttons/SignOutBtn';
 import 'react-toastify/dist/ReactToastify.css';
-import { signOutUser } from '@/hooks/useUser/actions';
 
 interface UserInfoProps {
   profile: Profile;
@@ -145,14 +144,7 @@ export default function UserInfo({ profile }: UserInfoProps) {
         </div>
       )}
       {canEdit && (
-        <Button
-          onClick={signOutUser}
-          type='button'
-          title='Sign Out'
-          aria-label='Sign Out'
-        >
-          Sign Out
-        </Button>
+        <SignOutBtn />
       )}
     </section>
   );
