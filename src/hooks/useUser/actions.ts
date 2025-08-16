@@ -3,6 +3,7 @@
 import { Profile } from '@/repositories/profileRepository/profile.types';
 import { ProfileRepository } from '@/repositories/profileRepository/profile.repository';
 import { createAnonClient, SupabaseAnonClient } from 'utils/supabase/server';
+import { redirect } from 'next/navigation';
 
 export async function getCurrentUser(): Promise<Profile | null> {
   const supabase: SupabaseAnonClient = await createAnonClient();
@@ -11,4 +12,26 @@ export async function getCurrentUser(): Promise<Profile | null> {
   const userProfile = await profileRepository.getCurrentUser();
 
   return userProfile ?? null;
+}
+
+export async function signOutUser() {
+  const supabase = await createAnonClient();
+
+  // Sign out the user from the client
+  try {
+    const { error } = await supabase.auth.signOut();
+
+    if (error) {
+      throw new Error('Error signing out');
+    } else {
+      await supabase.auth.signOut();
+    }
+  } catch (e) {
+    return {
+      message: 'Could not log out',
+    };
+  }
+
+  // Redirect to the home page after signing out
+  redirect('/');
 }
