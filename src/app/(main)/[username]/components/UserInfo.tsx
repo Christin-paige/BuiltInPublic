@@ -67,7 +67,7 @@ export default function UserInfo({ profile }: UserInfoProps) {
   };
 
   return (
-    <section className='flex flex-col gap-4 w-1/4 relative transform -translate-y-32'>
+    <section className='flex flex-col gap-4 w-1/4 relative transform -translate-y-28'>
       <Avatar className='w-24 h-24'>
         <AvatarImage src={profile.avatarUrl || ''} />
         <AvatarFallback>CN</AvatarFallback>
