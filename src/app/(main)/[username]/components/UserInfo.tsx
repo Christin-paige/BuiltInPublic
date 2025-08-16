@@ -1,7 +1,8 @@
 import { useState, useRef } from 'react';
+import Image from 'next/image';
 import { useProfileEdit } from '@/contexts/ProfileEditContext';
 import { Profile } from '@/repositories/profileRepository/profile.types';
-import { Settings, Pencil } from 'lucide-react';
+import { Pencil } from 'lucide-react';
 import { checkUsernameExists, updateProfile } from '@/hooks/useProfile/actions';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
@@ -66,9 +67,13 @@ export default function UserInfo({ profile }: UserInfoProps) {
 
   return (
     <section className='flex flex-col gap-4 w-1/4 relative transform -translate-y-32'>
-      <div className='rounded-full border-2 border-[#00c7ff] w-40 h-40 flex items-center justify-center cyan-glow'>
-        Image Goes Here
-      </div>
+      <Image
+        src={profile.avatarUrl || '/default-profile.png'}
+        alt='Profile Picture'
+        width={160}
+        height={160}
+        className='rounded-full border'
+      />
 
       <div className='flex items-center gap-2'>
         {editingField === 'username' ? (
