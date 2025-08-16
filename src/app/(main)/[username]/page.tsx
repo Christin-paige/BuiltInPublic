@@ -33,7 +33,7 @@ export default function Profile({ params }: ProfileProps) {
 
   return (
     <ProfileEditProvider profileUserId={profile.id}>
-      <main className='h-screen flex flex-col py-16 items-center gap-8 -z-10 overflow-hidden'>
+      <main className='h-screen flex flex-col items-center gap-8 -z-10 overflow-hidden'>
         <Image
           src='/example-cover-img.jpg'
           alt='Cover Photo'
