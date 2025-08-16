@@ -1,5 +1,5 @@
-import useUser from "@/hooks/useUser/useUser";
-import { Button } from "@/components/ui/button";
+import useUser from '@/hooks/useUser/useUser';
+import { Button } from '@/components/ui/button';
 
 export default function SignOutBtn() {
   const { signOutUser } = useUser();

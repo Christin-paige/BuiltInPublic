@@ -143,9 +143,7 @@ export default function UserInfo({ profile }: UserInfoProps) {
           )}
         </div>
       )}
-      {canEdit && (
-        <SignOutBtn />
-      )}
+      {canEdit && <SignOutBtn />}
     </section>
   );
 }
