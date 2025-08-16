@@ -1,13 +1,13 @@
 import { use } from 'react';
 
 interface ProjectProps {
-  params: Promise<{
+  params: {
     id: string;
-  }>;
+  };
 }
 
-export default function Project({ params }: ProjectProps) {
-  const { id } = use(params);
+export default async function Project({ params }: ProjectProps) {
+  const { id } = params;
 
   return <h1 className='text-2xl text-center'>Project {id}</h1>;
 }

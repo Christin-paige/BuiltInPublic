@@ -49,4 +49,31 @@ export class ProjectRepository extends BaseRepository<ProjectDTO, Project> {
       updates: updates || [],
     } satisfies Project;
   }
+
+  async getById(id: string): Promise<Project | null> {
+    try {
+      const query = this.getBaseQuery();
+
+      const { data, error } = await this.applyFilters(query, {
+        id,
+      }).maybeSingle();
+
+      if (error) {
+        throw error;
+      }
+
+      if (!data) {
+        throw new Error('Project not found');
+      }
+
+      const project = this.safeTransformDTO(data);
+
+      return project;
+    } catch (e) {
+      console.error(
+        `Failed to fetch project with: ${JSON.stringify(e, null, 2)} id: ${id}`
+      );
+      throw e;
+    }
+  }
 }
