@@ -32,6 +32,7 @@ export function CreateProjectButton() {
 
   const form = useForm<CreateProjectSchema>({
     resolver: zodResolver(createProjectSchema),
+    mode: 'onChange',
     defaultValues: {
       name: '',
     },
@@ -62,6 +63,15 @@ export function CreateProjectButton() {
     }
   };
 
+  const onCloseDialog = () => {
+    form.reset();
+  };
+
+  const disableSubmit =
+    !form.formState.isValid ||
+    form.formState.isSubmitting ||
+    form.formState.isSubmitted;
+
   if (isLoadingUser) {
     return <Skeleton className='h-8 w-32' />;
   }
@@ -71,15 +81,15 @@ export function CreateProjectButton() {
   }
 
   return (
-    <Dialog>
-      <Form {...form}>
-        <form>
-          <DialogTrigger asChild>
-            <Button variant='outline' disabled={isLoadingUser}>
-              Create Project
-            </Button>
-          </DialogTrigger>
-          <DialogContent>
+    <Dialog onOpenChange={onCloseDialog}>
+      <DialogTrigger asChild>
+        <Button variant='outline' disabled={isLoadingUser}>
+          Create Project
+        </Button>
+      </DialogTrigger>
+      <DialogContent>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(submit)}>
             <DialogHeader>
               <DialogTitle>{'Create Project'}</DialogTitle>
               <DialogDescription>{'Create a new project'}</DialogDescription>
@@ -97,12 +107,12 @@ export function CreateProjectButton() {
                 </FormItem>
               )}
             />
-            <Button variant={'outline'} type='submit'>
+            <Button disabled={disableSubmit} variant={'outline'} type='submit'>
               Create
             </Button>
-          </DialogContent>
-        </form>
-      </Form>
+          </form>
+        </Form>
+      </DialogContent>
     </Dialog>
   );
 }
