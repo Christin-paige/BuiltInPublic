@@ -27,7 +27,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { createProject } from './actions';
 import UINotification from '@/services/UINotification.service';
 
-export function CreateProjectButton() {
+export function CreateProjectButton({ canEdit = true }: { canEdit?: boolean }) {
   const { data: user, isLoading: isLoadingUser } = useUser();
 
   const form = useForm<CreateProjectSchema>({
@@ -72,12 +72,12 @@ export function CreateProjectButton() {
     form.formState.isSubmitting ||
     form.formState.isSubmitted;
 
-  if (isLoadingUser) {
-    return <Skeleton className='h-8 w-32' />;
+  if (!canEdit) {
+    return null;
   }
 
-  if (!user) {
-    return null;
+  if (isLoadingUser) {
+    return <Skeleton className='h-8 w-32' />;
   }
 
   return (
