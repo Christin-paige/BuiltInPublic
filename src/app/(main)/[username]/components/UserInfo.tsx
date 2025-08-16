@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Skeleton } from '@/components/ui/skeleton';
 import { useProfileEdit } from '@/contexts/ProfileEditContext';
 import { Profile } from '@/repositories/profileRepository/profile.types';
 import { Pencil } from 'lucide-react';
@@ -8,6 +9,7 @@ import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
 import SignOutBtn from '@/components/Buttons/SignOutBtn';
 import 'react-toastify/dist/ReactToastify.css';
+import { tree } from 'next/dist/build/templates/app-page';
 
 interface UserInfoProps {
   profile: Profile;
@@ -68,10 +70,14 @@ export default function UserInfo({ profile }: UserInfoProps) {
 
   return (
     <section className='flex flex-col gap-4 w-1/4 relative transform -translate-y-28'>
-      <Avatar className='w-24 h-24'>
-        <AvatarImage src={profile.avatarUrl || ''} />
-        <AvatarFallback>CN</AvatarFallback>
-      </Avatar>
+      {isLoading ? (
+        <Skeleton className='w-24 h-24 rounded-full' />
+      ) : (
+        <Avatar className='w-24 h-24'>
+          <AvatarImage src={profile.avatarUrl || ''} />
+          <AvatarFallback>CN</AvatarFallback>
+        </Avatar>
+      )}
 
       <div className='flex items-center gap-2'>
         {editingField === 'username' ? (
