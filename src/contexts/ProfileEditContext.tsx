@@ -3,7 +3,6 @@ import useUser from '@/hooks/useUser/useUser';
 
 interface ProfileEditContextValue {
   canEdit: boolean;
-  signOutUser: () => Promise<{ message: string }>;
 }
 
 const ProfileEditContext = createContext<ProfileEditContextValue | undefined>(
@@ -27,12 +26,12 @@ export const ProfileEditProvider: React.FC<ProfileEditProviderProps> = ({
   profileUserId,
   children,
 }) => {
-  const { data: user, signOutUser } = useUser();
+  const { data: user } = useUser();
 
   const canEdit = user?.id === profileUserId;
 
   return (
-    <ProfileEditContext.Provider value={{ canEdit, signOutUser }}>
+    <ProfileEditContext.Provider value={{ canEdit }}>
       {children}
     </ProfileEditContext.Provider>
   );
