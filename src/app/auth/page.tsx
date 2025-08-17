@@ -19,15 +19,15 @@ export default function Page() {
           <Globe className='text-accent-600' />
         </div>
         <p className='text-lg text-text-300 font-subheading mb-4'>Register or Sign In</p>
-        <div className='flex flex-col gap-4'>
-          <Link className='w-full' href={'/auth/oauth?provider=google'}>
-            <Button className='w-full'>
+        <div className='flex gap-3 items-center justify-center mb-4'>
+          <Link className='w-fit' href={'/auth/oauth?provider=google'}>
+            <Button>
               <FcGoogle className='w-5 h-5' />
               Google
             </Button>
           </Link>
-          <Link className='w-full' href={'/auth/oauth?provider=github'}>
-            <Button className='w-full'>
+          <Link className='w-fit' href={'/auth/oauth?provider=github'}>
+            <Button>
               <FaGithub className='w-5 h-5' />
               Google
             </Button>
