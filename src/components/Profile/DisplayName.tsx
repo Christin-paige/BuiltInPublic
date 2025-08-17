@@ -70,7 +70,6 @@ export default function DisplayName({ profile }: { profile?: Profile }) {
     return <Skeleton className="h-6" />;
   }
 
-  console.log(user)
   if (profile?.id !== userProfile?.id) {
     return (
       <>
@@ -108,8 +107,7 @@ export default function DisplayName({ profile }: { profile?: Profile }) {
       ) : (
         <div className="flex items-center font-body text-lg group gap-8">
           <p>{profile?.displayName}</p>
-          <button className="rounded-full border border-white p-1 cursor-pointer hidden group-hover:block hover:border-zinc-400 transition-all duration-300
-            hover:text-zinc-400" 
+          <button className="cursor-pointer hidden group-hover:block transition-all duration-300 text-zinc-400 hover:text-zinc-100" 
             onClick={() => setIsEditing(true)}>
             <Pencil className="w-4 h-4" />
           </button>
