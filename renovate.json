@@ -27,6 +27,8 @@
       "schedule": ["before 6am on Monday"],
       "automerge": true,
       "automergeType": "pr",
+      "platformAutomerge": true,
+      "stabilityDays": 3,
       "labels": ["dependencies", "automerge"]
     },
     {
@@ -43,6 +45,14 @@
     "schedule": ["before 6am on Tuesday"],
     "automerge": true,
     "automergeType": "pr",
+    "platformAutomerge": true,
     "labels": ["lockfile-maintenance"]
+  },
+
+  // --- npm hygiene ---
+  "npm": {
+    "rangeStrategy": "bump",
+    "postUpdateOptions": ["npmDedupe"],
+    "ignoreScripts": true
   }
 }
