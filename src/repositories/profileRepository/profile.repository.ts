@@ -17,13 +17,14 @@ export class ProfileRepository extends BaseRepository<ProfileDTO, Profile> {
   }
 
   transformDTO(row: ProfileDTO): Profile {
-    const { id, username, avatar_url, bio } = row;
+    const { id, username, avatar_url, bio, display_name } = row;
 
     return {
       id,
       username: username,
       avatarUrl: avatar_url || '',
       bio: bio || '',
+      displayName: display_name || '',
     } satisfies Profile;
   }
 
