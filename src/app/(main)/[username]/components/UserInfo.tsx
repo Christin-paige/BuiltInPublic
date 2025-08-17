@@ -1,10 +1,9 @@
-import { useState } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Skeleton } from '@/components/ui/skeleton';
 import DisplayName from '@/components/Profile/DisplayName';
 import Bio from '@/components/Profile/Bio';
-import { useProfileEdit } from '@/contexts/ProfileEditContext';
 import { Profile } from '@/repositories/profileRepository/profile.types';
+import useProfile from '@/hooks/useProfile/useProfile';
 import SignOutBtn from '@/components/Buttons/SignOutBtn';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -13,9 +12,7 @@ interface UserInfoProps {
 }
 
 export default function UserInfo({ profile }: UserInfoProps) {
-  const { canEdit } = useProfileEdit();
-
-  const [isLoading, setIsLoading] = useState(false);
+  const { isLoading } = useProfile(profile.id);
 
   return (
     <section className='flex flex-col gap-4 w-1/4 relative transform -translate-y-28'>

@@ -5,24 +5,23 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Profile } from '@/repositories/profileRepository/profile.types';
 
 export default function SignOutBtn({ profile }: { profile: Profile }) {
-  const { signOutUser, data, isLoading } = useUser();
+  const { signOutUser, data } = useUser();
+  const { isLoading: isProfileLoading } = useProfile(profile.id);
 
   if (data?.id !== profile.id) return null;
 
+  if (isProfileLoading) {
+    return <Skeleton className='h-10' />;
+  }
+
   return (
-    <>
-      {isLoading ? (
-        <Skeleton className='h-10' />
-      ) : (
-        <Button
-          onClick={signOutUser}
-          type='button'
-          title='Sign Out'
-          aria-label='Sign Out'
-        >
-          Sign Out
-        </Button>
-      )}
-    </>
+    <Button
+      onClick={signOutUser}
+      type='button'
+      title='Sign Out'
+      aria-label='Sign Out'
+    >
+      Sign Out
+    </Button>
   );
 }
