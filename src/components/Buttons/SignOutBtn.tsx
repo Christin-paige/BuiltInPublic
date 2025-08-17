@@ -1,11 +1,13 @@
 import useUser from '@/hooks/useUser/useUser';
+import useProfile from '@/hooks/useProfile/useProfile';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Profile } from '@/repositories/profileRepository/profile.types';
 
-export default function SignOutBtn() {
+export default function SignOutBtn({ profile }: { profile: Profile }) {
   const { signOutUser, data, isLoading } = useUser();
 
-  if (!data) return null;
+  if (data?.id !== profile.id) return null;
 
   return (
     <>
