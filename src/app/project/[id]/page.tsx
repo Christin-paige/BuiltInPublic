@@ -1,5 +1,7 @@
-import ProjectPanel from '@/components/Projects/ProjectPanel';
-import { GetProject } from '@/use-cases/projects/GetProject';
+'use server';
+
+import { ProjectDisplayPanel } from '@/components/Projects/ProjectPanel/ProjectDisplayPanel';
+import { GetPublicProject } from '@/use-cases/projects/GetProject';
 import { notFound } from 'next/navigation';
 
 interface PageProps {
@@ -10,7 +12,7 @@ interface PageProps {
 
 export default async function Page({ params }: PageProps) {
   const { id } = params;
-  const getProject = await GetProject.create();
+  const getProject = await GetPublicProject.create();
 
   const project = await getProject.execute({ id });
 
@@ -18,5 +20,5 @@ export default async function Page({ params }: PageProps) {
     notFound();
   }
 
-  return <ProjectPanel project={project} canEdit={false} />;
+  return <ProjectDisplayPanel project={project} />;
 }

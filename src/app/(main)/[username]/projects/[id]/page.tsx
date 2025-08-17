@@ -1,3 +1,4 @@
+import { ProjectPanel } from '@/components/Projects/ProjectPanel/ProjectPanel';
 import { use } from 'react';
 
 interface ProjectProps {
@@ -9,5 +10,9 @@ interface ProjectProps {
 export default async function Project({ params }: ProjectProps) {
   const { id } = params;
 
-  return <h1 className='text-2xl text-center'>Project {id}</h1>;
+  return (
+    <section className='w-full h-full'>
+      <ProjectPanel projectId={id} />
+    </section>
+  );
 }
