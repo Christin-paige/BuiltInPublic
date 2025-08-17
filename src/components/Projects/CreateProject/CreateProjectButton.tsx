@@ -26,6 +26,7 @@ import { Input } from '@/components/ui/input';
 import { Skeleton } from '@/components/ui/skeleton';
 import { createProject } from './actions';
 import UINotification from '@/services/UINotification.service';
+import { Plus } from 'lucide-react';
 
 export function CreateProjectButton({ canEdit = true }: { canEdit?: boolean }) {
   const { data: user, isLoading: isLoadingUser } = useUser();
@@ -83,16 +84,16 @@ export function CreateProjectButton({ canEdit = true }: { canEdit?: boolean }) {
   return (
     <Dialog onOpenChange={onCloseDialog}>
       <DialogTrigger asChild>
-        <Button variant='outline' disabled={isLoadingUser}>
+        <Button disabled={isLoadingUser}>
           Create Project
+          <Plus />
         </Button>
       </DialogTrigger>
       <DialogContent>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(submit)}>
+          <form className='flex flex-col gap-3' onSubmit={form.handleSubmit(submit)}>
             <DialogHeader>
               <DialogTitle>{'Create Project'}</DialogTitle>
-              <DialogDescription>{'Create a new project'}</DialogDescription>
             </DialogHeader>
             <FormField
               control={form.control}
@@ -101,13 +102,13 @@ export function CreateProjectButton({ canEdit = true }: { canEdit?: boolean }) {
                 <FormItem>
                   <FormLabel>{'Project Name'}</FormLabel>
                   <FormControl>
-                    <Input placeholder='new project' {...field} />
+                    <Input placeholder='Enter project title...' {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <Button disabled={disableSubmit} variant={'outline'} type='submit'>
+            <Button disabled={disableSubmit} type='submit'>
               Create
             </Button>
           </form>
