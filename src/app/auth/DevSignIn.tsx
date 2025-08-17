@@ -40,7 +40,6 @@ export default function DevSignIn() {
         <h2 className='text-xl font-bold mb-4'>Dev Login</h2>
         <form onSubmit={handleLoginWithEmail} className='flex flex-col gap-4'>
           <Input
-            className='w-full p-2 rounded-md border'
             type='email'
             name='email'
             placeholder='Email'
@@ -48,7 +47,6 @@ export default function DevSignIn() {
             onChange={(e) => setEmail(e.target.value)}
           />
           <Input
-            className='w-full p-2 rounded-md border'
             type='password'
             name='password'
             placeholder='Password'

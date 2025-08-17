@@ -116,11 +116,10 @@ export default function OnboardingForm() {
           )}
         />
         <Button
-          variant='outline'
-          className='w-1/2 flex items-center gap-2 p-2 cursor-pointer justify-center bg-linear-to-bl from-violet-500 to-fuchsia-500 text-white font-bold py-2 px-4 rounded-full mt-4 hover:scale-105 transition-all duration-300 text-xl hover:shadow-lg hover:shadow-violet-500/40 '
+          className=''
           type='submit'
         >
-          submit
+          Submit
         </Button>
       </form>
     </Form>
