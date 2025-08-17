@@ -25,16 +25,15 @@ UNTRACKED_FILES=$(git ls-files --others --exclude-standard)
 CANDIDATES=$(echo -e "$STAGED_FILES\n$UNTRACKED_FILES" | sort -u)
 
 EMPTY_FILES=""
-while IFS= read -r file; do
+echo "$CANDIDATES" | while IFS= read -r file; do
   [ -z "$file" ] && continue
-  # Skip allowed placeholders
   if echo "$file" | grep -Eq "$ALLOW_EMPTY_REGEX"; then
     continue
   fi
   if [ -f "$file" ] && [ ! -s "$file" ]; then
     EMPTY_FILES+="$file"$'\n'
   fi
-done <<< "$CANDIDATES"
+done
 
 if [ -n "$EMPTY_FILES" ]; then
   echo "🛑 Empty files detected:"
