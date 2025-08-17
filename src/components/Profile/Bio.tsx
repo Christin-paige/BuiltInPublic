@@ -84,7 +84,7 @@ export default function Bio({ profile }: { profile?: Profile }) {
           {profile?.bio ? (
             <p className="font-body text-lg">{profile.bio}</p>
           ) : (
-            <p className="font-body text-lg">{profile?.username}</p>
+            <></>
           )}
         </>
       )
