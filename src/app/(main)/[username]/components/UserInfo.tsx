@@ -2,6 +2,7 @@ import { useState, useRef } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Skeleton } from '@/components/ui/skeleton';
 import DisplayName from '@/components/Profile/DisplayName';
+import Bio from '@/components/Profile/Bio';
 import { useProfileEdit } from '@/contexts/ProfileEditContext';
 import { Profile } from '@/repositories/profileRepository/profile.types';
 import { Pencil } from 'lucide-react';
@@ -80,47 +81,7 @@ export default function UserInfo({ profile }: UserInfoProps) {
       )}
 
       <DisplayName profile={profile} />
-
-      {(editingField === 'bio' || fieldValues.bio || canEdit) && (
-        <div className='flex items-start gap-2 p-4 bg-slate-950 border rounded-lg min-w-0'>
-          {editingField === 'bio' ? (
-            <textarea
-              className='flex-1 w-full min-w-0 resize-none bg-slate-900 border border-[#00c7ff] rounded px-2 py-1 text-white focus:outline-none focus:ring-2 focus:ring-[#00c7ff]'
-              rows={4}
-              value={fieldValues.bio}
-              onChange={(e) =>
-                setFieldValues((vals) => ({ ...vals, bio: e.target.value }))
-              }
-              onKeyDown={handleKeyDown('bio')}
-              onBlur={handleBlur('bio')}
-              disabled={isLoading}
-              maxLength={256}
-              autoFocus
-            />
-          ) : (
-            <>
-              <p className='flex-1 w-full min-w-0 break-words overflow-hidden text-ellipsis max-h-[120px]'>
-                {!fieldValues.bio && canEdit ? (
-                  <span className='text-gray-500'>Write a short bio…</span>
-                ) : (
-                  fieldValues.bio
-                )}
-              </p>
-              {canEdit && (
-                <button
-                  onClick={() => setEditingField('bio')}
-                  className='p-1 ml-2 border border-[#00c7ff] rounded-full hover:bg-[#23263a] transition-colors duration-100'
-                  type='button'
-                  title='Edit Bio'
-                  aria-label='Edit Bio'
-                >
-                  <Pencil className='w-5 h-5 text-[#00c7ff] cursor-pointer' />
-                </button>
-              )}
-            </>
-          )}
-        </div>
-      )}
+      <Bio profile={profile} />
       {canEdit && <SignOutBtn />}
     </section>
   );
