@@ -29,6 +29,9 @@ export default class CreateNewProject extends BaseUseCase<CreateNewProjectParams
       .single();
 
     if (error || !data.id) {
+      console.error(
+        `Project creation failed with: ${JSON.stringify(error, null, 2)} for user: ${ownerId}`
+      );
       return { success: false, message: 'Project creation failed' };
     }
 
