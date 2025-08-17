@@ -7,11 +7,7 @@ import useProfile from '@/hooks/useProfile/useProfile';
 import SignOutBtn from '@/components/Buttons/SignOutBtn';
 import 'react-toastify/dist/ReactToastify.css';
 
-interface UserInfoProps {
-  profile: Profile;
-}
-
-export default function UserInfo({ profile }: UserInfoProps) {
+export default function UserInfo({ profile }: { profile: Profile }) {
   const { isLoading } = useProfile(profile.id);
 
   return (
