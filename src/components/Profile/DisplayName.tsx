@@ -119,7 +119,11 @@ export default function DisplayName({ profile }: { profile?: Profile }) {
         </Form>
       ) : (
         <div className='flex items-center font-body text-lg group gap-8'>
-          <p>{profile?.displayName}</p>
+          {profile?.displayName ? (
+            <p>{profile.displayName}</p>
+          ) : (
+            <p>{profile?.username}</p>
+          )}
           <button
             className='cursor-pointer hidden group-hover:block transition-all duration-300 text-zinc-400 hover:text-zinc-100'
             onClick={() => setIsEditing(true)}
