@@ -79,7 +79,7 @@ export default function UserInfo({ profile }: UserInfoProps) {
         </Avatar>
       )}
 
-      <DisplayName />
+      <DisplayName profile={profile} />
 
       {(editingField === 'bio' || fieldValues.bio || canEdit) && (
         <div className='flex items-start gap-2 p-4 bg-slate-950 border rounded-lg min-w-0'>

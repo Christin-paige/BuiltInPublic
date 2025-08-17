@@ -23,7 +23,7 @@ export async function checkUsernameExists(username: string): Promise<boolean> {
 
 export async function updateProfile(
   profileId: string,
-  fields: Partial<{ username: string; bio: string }>
+  fields: Partial<{ username: string; bio: string; display_name: string }>
 ): Promise<boolean> {
   try {
     const supabase: SupabaseAnonClient = await createAnonClient();

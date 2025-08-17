@@ -115,7 +115,7 @@ export class ProfileRepository extends BaseRepository<ProfileDTO, Profile> {
 
   async updateProfileFields(
     id: string,
-    fields: Partial<{ username: string; bio: string }>
+    fields: Partial<{ username: string; bio: string; display_name: string }>
   ): Promise<void> {
     if (fields.username) {
       const exists = await this.checkUsernameExists(fields.username);
