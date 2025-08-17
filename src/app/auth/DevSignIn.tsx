@@ -1,8 +1,8 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { loginWithEmail } from './actions';
-import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 export default function DevSignIn() {
@@ -36,10 +36,10 @@ export default function DevSignIn() {
 
   return (
     <div className='flex items-center justify-center w-full'>
-      <div className='w-96 text-center rounded-md border p-5 space-y-5 relative bg-slate-950'>
-        <h2 className='text-xl font-bold'>Dev Login</h2>
+      <div className='w-96 text-center border-t-2 border-secondary-900/70 p-4 relative'>
+        <h2 className='text-xl font-bold mb-4'>Dev Login</h2>
         <form onSubmit={handleLoginWithEmail} className='flex flex-col gap-4'>
-          <input
+          <Input
             className='w-full p-2 rounded-md border'
             type='email'
             name='email'
@@ -47,7 +47,7 @@ export default function DevSignIn() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          <input
+          <Input
             className='w-full p-2 rounded-md border'
             type='password'
             name='password'
@@ -56,9 +56,7 @@ export default function DevSignIn() {
             onChange={(e) => setPassword(e.target.value)}
           />
           <Button
-            variant='outline'
-            size='default'
-            className='w-full flex items-center gap-2 p-2 cursor-pointer'
+            className='mx-auto'
             type='submit'
           >
             Login
