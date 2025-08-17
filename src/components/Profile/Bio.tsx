@@ -8,12 +8,10 @@ import { Pencil } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useQueryClient } from "@tanstack/react-query";
 import { BioSchema, bioSchema } from "@/hooks/useProfile/profile.schema";
-import useProfile from "@/hooks/useProfile/useProfile";
+import useProfile, { useUpdateProfile } from "@/hooks/useProfile/useProfile";
 import useUser from "@/hooks/useUser/useUser";
 import { checkProfanity } from "utils/usernameValidator";
-import { updateProfile } from "@/hooks/useProfile/actions";
 import { Profile } from "@/repositories/profileRepository/profile.types";
 import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
@@ -21,9 +19,8 @@ import { toast } from 'react-toastify';
 export default function Bio({ profile }: { profile?: Profile }) {
   const [isEditing, setIsEditing] = useState(false);
   const { data: user, isLoading } = useUser();
-    const queryClient = useQueryClient();
-    
-    const { data: userProfile } = useProfile(user?.username || "");
+  const { data: userProfile } = useProfile(user?.username || "");
+  const updateProfileMutation = useUpdateProfile();
 
     // Form setup to edit bio and test validation
     const form = useForm<BioSchema>({
@@ -53,9 +50,10 @@ export default function Bio({ profile }: { profile?: Profile }) {
       } else {
         // Try to update the profile bio, and show the error if it's not successful
         try {
-          await updateProfile(profile?.id || "", { bio: data.bio });
-          // Invalidate and refetch the profile data to show updated bio
-          await queryClient.invalidateQueries({ queryKey: ['profile', user?.username] });
+          await updateProfileMutation.mutateAsync({
+            profileId: profile?.id || "",
+            fields: { bio: data.bio },
+          });
           toast.success("Bio updated successfully!");
           setIsEditing(false);
         } catch (error) {

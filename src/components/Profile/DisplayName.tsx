@@ -8,12 +8,10 @@ import { Pencil } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useQueryClient } from "@tanstack/react-query";
 import { displayNameSchema, DisplayNameSchema } from "@/hooks/useProfile/profile.schema";
-import useProfile from "@/hooks/useProfile/useProfile";
+import useProfile, { useUpdateProfile } from "@/hooks/useProfile/useProfile";
 import useUser from "@/hooks/useUser/useUser";
 import { checkProfanity } from "utils/usernameValidator";
-import { updateProfile } from "@/hooks/useProfile/actions";
 import { Profile } from "@/repositories/profileRepository/profile.types";
 import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
@@ -21,9 +19,9 @@ import { toast } from 'react-toastify';
 export default function DisplayName({ profile }: { profile?: Profile }) {
   const [isEditing, setIsEditing] = useState(false);
   const { data: user, isLoading } = useUser();
-  const queryClient = useQueryClient();
   
   const { data: userProfile } = useProfile(user?.username || "");
+  const updateProfileMutation = useUpdateProfile();
 
   // Form setup to edit display name and test validation
   const form = useForm<DisplayNameSchema>({
@@ -45,9 +43,10 @@ export default function DisplayName({ profile }: { profile?: Profile }) {
     } else {
       // Try to update the profile display name, and show the error if it's not successful
       try {
-        await updateProfile(profile?.id || "", { display_name: data.displayName });
-        // Invalidate and refetch the profile data to show updated display name
-        await queryClient.invalidateQueries({ queryKey: ['profile', user?.username] });
+        await updateProfileMutation.mutateAsync({
+          profileId: profile?.id || "",
+          fields: { display_name: data.displayName },
+        });
         toast.success("Display name updated successfully!");
         setIsEditing(false);
       } catch (error) {
