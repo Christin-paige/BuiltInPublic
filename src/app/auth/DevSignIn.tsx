@@ -67,7 +67,6 @@ export default function DevSignIn() {
         {error && <p className='text-red-500'>{error}</p>}
         {success && <p className='text-green-500'>{success}</p>}
       </div>
-      <div className='glowbox -z-10'></div>
     </div>
   );
 }

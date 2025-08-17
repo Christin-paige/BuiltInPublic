@@ -10,41 +10,31 @@ import Link from 'next/link';
 
 export default function Page() {
   return (
-    <div className='flex items-center justify-center w-full h-screen'>
-      <div className='w-96 text-center rounded-md border p-5 space-y-5 relative bg-slate-950'>
-        <div className='flex items-center gap-2 justify-center mr-4'>
-          <Globe />
-
-          <h1 className='text-2xl font-bold'>BuiltInPublic</h1>
+    <main className='flex items-center justify-center w-full h-screen bg-primary-950/30'>
+      <div className='w-96 text-center rounded-md border p-5 relative bg-secondary-950/50 flex flex-col gap-2 border-secondary-900/70 shadow-md shadow-black/30
+        transition-all duration-300 hover:border-secondary-800/80'>
+        <div className='flex items-center gap-2 justify-center text-text-100'>
+          <Globe className='text-accent-600' />
+          <h1 className='text-2xl font-heading'>BuiltInPublic</h1>
+          <Globe className='text-accent-600' />
         </div>
-        <p className='text-md text-gray-300'>Register or Sign In</p>
+        <p className='text-lg text-text-300 font-subheading mb-4'>Register or Sign In</p>
         <div className='flex flex-col gap-4'>
-          <a
-            role='button'
-            aria-label='Login with google'
-            href={'/auth/oauth?provider=google'}
-          >
-            <div className='w-full flex justify-center p-2 rounded-md cursor-pointer border-[1px] dark:border-input'>
-              <div className='flex flex-row items-center gap-2'>
-                <FcGoogle /> <span>Google</span>
-              </div>
-            </div>
-          </a>
-          <a
-            role='button'
-            aria-label='Login with github'
-            href={'/auth/oauth?provider=github'}
-          >
-            <div className='w-full flex justify-center p-2 rounded-md cursor-pointer border-[1px] dark:border-input'>
-              <div className='flex flex-row items-center gap-2'>
-                <FaGithub />
-                <span>Github</span>
-              </div>
-            </div>
-          </a>
+          <Link className='w-full' href={'/auth/oauth?provider=google'}>
+            <Button className='w-full'>
+              <FcGoogle className='w-5 h-5' />
+              Google
+            </Button>
+          </Link>
+          <Link className='w-full' href={'/auth/oauth?provider=github'}>
+            <Button className='w-full'>
+              <FaGithub className='w-5 h-5' />
+              Google
+            </Button>
+          </Link>
         </div>
         <DevSignIn />
       </div>
-    </div>
+    </main>
   );
 }
