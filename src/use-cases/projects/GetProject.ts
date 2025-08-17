@@ -1,6 +1,4 @@
-'use server';
-
-import { AnySupabaseClient, createAnonClient } from 'utils/supabase/server';
+import { AnySupabaseClient, createServiceClient } from 'utils/supabase/server';
 import { BaseFetchUseCase } from '../BaseFetchUseCase';
 import { Project } from '@/repositories/projectRepository/project.types';
 import { ProjectRepository } from '@/repositories/projectRepository/project.repository';
@@ -9,21 +7,24 @@ interface GetProjectParams {
   id: string;
 }
 
-export class GetProject extends BaseFetchUseCase<GetProjectParams, Project> {
+export class GetPublicProject extends BaseFetchUseCase<
+  GetProjectParams,
+  Project
+> {
   constructor(supabase: AnySupabaseClient) {
     super(supabase);
   }
 
   static async create() {
-    const supabase = await createAnonClient();
+    const supabase = await createServiceClient();
 
-    return new GetProject(supabase);
+    return new GetPublicProject(supabase);
   }
 
   async execute({ id }: GetProjectParams): Promise<Project | null> {
     const projectRepository = new ProjectRepository(this.supabase);
     try {
-      const project = await projectRepository.getById(id);
+      const project = await projectRepository.getPublicProjectById(id);
 
       return project;
     } catch (e) {
