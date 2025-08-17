@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Skeleton } from '@/components/ui/skeleton';
+import DisplayName from '@/components/Profile/DisplayName';
 import { useProfileEdit } from '@/contexts/ProfileEditContext';
 import { Profile } from '@/repositories/profileRepository/profile.types';
 import { Pencil } from 'lucide-react';
@@ -9,7 +10,6 @@ import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
 import SignOutBtn from '@/components/Buttons/SignOutBtn';
 import 'react-toastify/dist/ReactToastify.css';
-import { tree } from 'next/dist/build/templates/app-page';
 
 interface UserInfoProps {
   profile: Profile;
@@ -79,37 +79,7 @@ export default function UserInfo({ profile }: UserInfoProps) {
         </Avatar>
       )}
 
-      <div className='flex items-center gap-2'>
-        {editingField === 'username' ? (
-          <input
-            className='text-3xl w-40 bg-slate-900 border border-[#00c7ff] rounded px-2 py-1 text-white focus:outline-none focus:ring-2 focus:ring-[#00c7ff]'
-            value={fieldValues.username || ''}
-            onChange={(e) =>
-              setFieldValues((vals) => ({ ...vals, username: e.target.value }))
-            }
-            onKeyDown={handleKeyDown('username')}
-            onBlur={handleBlur('username')}
-            disabled={isLoading}
-            autoFocus
-            maxLength={32}
-          />
-        ) : (
-          <>
-            <h1 className='text-3xl'>{fieldValues.username || ''}</h1>
-            {canEdit && (
-              <button
-                onClick={() => setEditingField('username')}
-                className='p-1 ml-2 border border-[#00c7ff] rounded-full hover:bg-[#23263a] transition-colors duration-100'
-                type='button'
-                title='Edit Username'
-                aria-label='Edit Username'
-              >
-                <Pencil className='w-5 h-5 text-[#00c7ff] cursor-pointer' />
-              </button>
-            )}
-          </>
-        )}
-      </div>
+      <DisplayName />
 
       {(editingField === 'bio' || fieldValues.bio || canEdit) && (
         <div className='flex items-start gap-2 p-4 bg-slate-950 border rounded-lg min-w-0'>
