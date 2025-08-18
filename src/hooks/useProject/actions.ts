@@ -36,7 +36,9 @@ export async function getProjectsForDashboard(): Promise<Project[]> {
 /**
  * Get projects for a specific username (for profile pages).
  */
-export async function getProjectsByUsername(username: string): Promise<Project[]> {
+export async function getProjectsByUsername(
+  username: string
+): Promise<Project[]> {
   const supabase = await createAnonClient();
   const repo = new ProjectRepository(supabase);
 

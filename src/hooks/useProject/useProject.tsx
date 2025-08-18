@@ -36,7 +36,9 @@ export function useProjectsForDashboard(): UseProjectsResult {
  * Hook for fetching projects owned by a specific username.
  * This is useful on profile pages like /[username].
  */
-export function useProjectsByUsername(username: string | null): UseProjectsResult {
+export function useProjectsByUsername(
+  username: string | null
+): UseProjectsResult {
   const { data, isLoading, isError, error } = useQuery<Project[], Error>({
     queryKey: ['projects', 'by-username', username],
     queryFn: () => getProjectsByUsername(username as string),
