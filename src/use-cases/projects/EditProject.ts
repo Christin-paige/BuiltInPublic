@@ -12,7 +12,7 @@ export interface UpdateProjectParams {
   external_url?: string;
 }
 
-export class UpdateProject extends BaseMutationUseCase<UpdateProjectParams> {
+export class EditProject extends BaseMutationUseCase<UpdateProjectParams> {
   async execute({
     projectId,
     name,

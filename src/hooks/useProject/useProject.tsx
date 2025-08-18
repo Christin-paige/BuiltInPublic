@@ -24,7 +24,7 @@ export default function useProject(projectId: string) {
   return { data, isLoading, error };
 }
 
-export function useUpdateProject(projectId: string) {
+export function useEditProject(projectId: string) {
   const queryClient = useQueryClient();
 
   const mutation = useMutation({

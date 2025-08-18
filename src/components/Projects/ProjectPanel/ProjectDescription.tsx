@@ -4,10 +4,10 @@ import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
 import { Textarea } from '@/components/ui/textarea';
 import { useProjectContext } from '@/contexts/ProjectContext';
 import {
-  updateProjectSchema,
-  UpdateProjectSchema,
-} from '@/hooks/useProject/updateProject.schema';
-import { useUpdateProject } from '@/hooks/useProject/useProject';
+  editProjectSchema,
+  EditProjectSchema,
+} from '@/hooks/useProject/editProject.schema';
+import { useEditProject } from '@/hooks/useProject/useProject';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Pencil } from 'lucide-react';
 import { useCallback, useEffect, useState } from 'react';
@@ -20,17 +20,17 @@ interface ProjectDescriptionFormProps {
 
 function ProjectDescriptionForm({ stopEditing }: ProjectDescriptionFormProps) {
   const { description, id } = useProjectContext();
-  const mutation = useUpdateProject(id);
+  const mutation = useEditProject(id);
 
-  const form = useForm<UpdateProjectSchema>({
-    resolver: zodResolver(updateProjectSchema),
+  const form = useForm<EditProjectSchema>({
+    resolver: zodResolver(editProjectSchema),
     mode: 'onChange',
     defaultValues: {
       description: description || '',
     },
   });
 
-  const submit = async (formData: UpdateProjectSchema) => {
+  const submit = async (formData: EditProjectSchema) => {
     mutation.mutate(
       { projectId: id, data: formData },
       {
@@ -38,7 +38,7 @@ function ProjectDescriptionForm({ stopEditing }: ProjectDescriptionFormProps) {
           if (error && error instanceof ValidationError) {
             Object.entries(error.validationErrors).forEach(
               ([field, messages]) => {
-                form.setError(field as keyof UpdateProjectSchema, {
+                form.setError(field as keyof EditProjectSchema, {
                   message: messages.join(', '),
                 });
               }

@@ -1,10 +1,10 @@
 import { useProjectContext } from '@/contexts/ProjectContext';
-import { useUpdateProject } from '@/hooks/useProject/useProject';
+import { useEditProject } from '@/hooks/useProject/useProject';
 import { useForm } from 'react-hook-form';
 import {
-  updateProjectSchema,
-  UpdateProjectSchema,
-} from '../../../hooks/useProject/updateProject.schema';
+  editProjectSchema,
+  EditProjectSchema,
+} from '../../../hooks/useProject/editProject.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ValidationError } from 'utils/errors/ValidationError';
 import {
@@ -32,17 +32,17 @@ interface ProjectTitleFormProps {
 
 function ProjectTitleForm({ stopEditing }: ProjectTitleFormProps) {
   const { name, id } = useProjectContext();
-  const mutation = useUpdateProject(id);
+  const mutation = useEditProject(id);
 
-  const form = useForm<UpdateProjectSchema>({
-    resolver: zodResolver(updateProjectSchema),
+  const form = useForm<EditProjectSchema>({
+    resolver: zodResolver(editProjectSchema),
     mode: 'onChange',
     defaultValues: {
       name: name,
     },
   });
 
-  const submit = async (formData: UpdateProjectSchema) => {
+  const submit = async (formData: EditProjectSchema) => {
     mutation.mutate(
       { projectId: id, data: formData },
       {
@@ -50,7 +50,7 @@ function ProjectTitleForm({ stopEditing }: ProjectTitleFormProps) {
           if (error && error instanceof ValidationError) {
             Object.entries(error.validationErrors).forEach(
               ([field, messages]) => {
-                form.setError(field as keyof UpdateProjectSchema, {
+                form.setError(field as keyof EditProjectSchema, {
                   message: messages.join(', '),
                 });
               }

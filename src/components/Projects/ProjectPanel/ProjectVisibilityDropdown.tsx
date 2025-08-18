@@ -1,5 +1,5 @@
 import { ProjectVisibility } from '@/repositories/projectRepository/project.types';
-import { useUpdateProject } from '@/hooks/useProject/useProject';
+import { useEditProject } from '@/hooks/useProject/useProject';
 import { useProjectContext } from '@/contexts/ProjectContext';
 import { useCallback } from 'react';
 import {
@@ -17,7 +17,7 @@ const PROJECT_VISIBILITIES: { value: ProjectVisibility; label: string }[] = [
 
 export function ProjectVisibilityDropdown() {
   const { id, visibility } = useProjectContext();
-  const mutation = useUpdateProject(id);
+  const mutation = useEditProject(id);
 
   const handleVisibilityChange = useCallback(
     (newVisibility: ProjectVisibility) => {

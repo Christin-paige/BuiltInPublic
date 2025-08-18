@@ -6,10 +6,10 @@ import {
   ProjectStatus,
   ProjectVisibility,
 } from '@/repositories/projectRepository/project.types';
-import { UpdateProject } from '@/use-cases/projects/UpdateProject';
+import { EditProject } from '@/use-cases/projects/EditProject';
 import { Database } from 'supabase/supabase.types';
 import { createAnonClient } from 'utils/supabase/server';
-import { updateProjectSchema } from './updateProject.schema';
+import { editProjectSchema } from './editProject.schema';
 import { ValidationError } from 'utils/errors/ValidationError';
 
 export async function getProjectById(id: string) {
@@ -32,7 +32,7 @@ interface EditProjectParams {
 }
 
 export async function editProject({ projectId, data }: EditProjectParams) {
-  const validatedData = updateProjectSchema.safeParse(data);
+  const validatedData = editProjectSchema.safeParse(data);
 
   if (!validatedData.success) {
     const errors: Record<string, string[]> = {};
@@ -47,9 +47,9 @@ export async function editProject({ projectId, data }: EditProjectParams) {
     throw new ValidationError('Validation failed', errors);
   } else {
     const supabase = await createAnonClient();
-    const updateProject = new UpdateProject(supabase);
+    const editProject = new EditProject(supabase);
 
-    const result = await updateProject.execute({ projectId, ...data });
+    const result = await editProject.execute({ projectId, ...data });
 
     if (!result.success) {
       throw new Error(result.message);

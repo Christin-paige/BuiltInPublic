@@ -1,11 +1,11 @@
 import { ProjectStatus } from '@/repositories/projectRepository/project.types';
 import { useForm } from 'react-hook-form';
 import {
-  updateProjectSchema,
-  UpdateProjectSchema,
-} from '../../../hooks/useProject/updateProject.schema';
+  editProjectSchema,
+  EditProjectSchema,
+} from '../../../hooks/useProject/editProject.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useUpdateProject } from '@/hooks/useProject/useProject';
+import { useEditProject } from '@/hooks/useProject/useProject';
 import { useProjectContext } from '@/contexts/ProjectContext';
 import { useCallback } from 'react';
 import {
@@ -26,7 +26,7 @@ const PROJECT_STATUSES: { value: ProjectStatus; label: string }[] = [
 
 export function ProjectStatusDropdown() {
   const { id, status } = useProjectContext();
-  const mutation = useUpdateProject(id);
+  const mutation = useEditProject(id);
 
   const handleStatusChange = useCallback(
     (newStatus: ProjectStatus) => {

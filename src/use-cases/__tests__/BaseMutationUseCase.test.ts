@@ -1,9 +1,9 @@
 import { describe, expect, it, beforeEach } from 'vitest';
-import { BaseUseCase } from '../BaseUseCase';
+import { BaseMutationUseCase } from '../BaseMutationUseCase';
 import { AnySupabaseClient } from 'utils/supabase/server';
 
 // Mock concrete implementation for testing
-class TestUseCase extends BaseUseCase<TestParams> {
+class TestUseCase extends BaseMutationUseCase<TestParams> {
   async execute(
     params: TestParams
   ): Promise<{ success: boolean; message: string }> {

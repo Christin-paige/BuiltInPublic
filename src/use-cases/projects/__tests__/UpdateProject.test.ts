@@ -1,6 +1,6 @@
 import { SupabaseAnonClient } from 'utils/supabase/server';
 import { beforeEach, expect, it, vi, describe } from 'vitest';
-import { UpdateProject } from '../UpdateProject';
+import { EditProject } from '../EditProject';
 
 const mockUpdate = vi.fn();
 const mockSupabase = {
@@ -18,7 +18,7 @@ const mockSupabaseFails = {
   }),
 } as unknown as SupabaseAnonClient;
 
-describe('Use case - UpdateProject', () => {
+describe('Use case - EditProject', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     mockUpdate.mockReturnValue(mockSupabase);
@@ -26,9 +26,9 @@ describe('Use case - UpdateProject', () => {
   });
 
   it('returns success: true and a message if update succeeds', async () => {
-    const updateProject = new UpdateProject(mockSupabase);
+    const editProject = new EditProject(mockSupabase);
 
-    const actual = await updateProject.execute({
+    const actual = await editProject.execute({
       description: 'a test project for testing project tests',
       projectId: 'test-id',
     });
@@ -38,9 +38,9 @@ describe('Use case - UpdateProject', () => {
   });
 
   it('returns success: false and a message if update fails', async () => {
-    const updateProject = new UpdateProject(mockSupabaseFails);
+    const editProject = new EditProject(mockSupabaseFails);
 
-    const actual = await updateProject.execute({ projectId: 'test-id' });
+    const actual = await editProject.execute({ projectId: 'test-id' });
 
     expect(actual.success).toBe(false);
     expect(actual.message).toBe('Project update failed');
@@ -51,9 +51,9 @@ describe('Use case - UpdateProject', () => {
     'www.hundredyears.rickandmorty.com',
     'ww.wwww.rickandmorty.hundred.yearsadventure.com',
   ])('fails if a provided URL is invalid', async (url) => {
-    const updateProject = new UpdateProject(mockSupabase);
+    const editProject = new EditProject(mockSupabase);
 
-    const actual = await updateProject.execute({
+    const actual = await editProject.execute({
       external_url: url,
       projectId: 'test-id',
     });
@@ -63,9 +63,9 @@ describe('Use case - UpdateProject', () => {
   });
 
   it('sanitizes descriptions', async () => {
-    const updateProject = new UpdateProject(mockSupabase);
+    const editProject = new EditProject(mockSupabase);
 
-    const actual = await updateProject.execute({
+    const actual = await editProject.execute({
       description: '<script>window.alert()</script>malicious descriptious',
       projectId: 'test-id',
     });
@@ -76,9 +76,9 @@ describe('Use case - UpdateProject', () => {
   });
 
   it('sanitizes name updates', async () => {
-    const updateProject = new UpdateProject(mockSupabase);
+    const editProject = new EditProject(mockSupabase);
 
-    const actual = await updateProject.execute({
+    const actual = await editProject.execute({
       name: '<script>window.alert()</script>bad name',
       projectId: 'test-id',
     });
@@ -87,9 +87,9 @@ describe('Use case - UpdateProject', () => {
   });
 
   it('fails if sanitized name update results in an empty string', async () => {
-    const updateProject = new UpdateProject(mockSupabase);
+    const editProject = new EditProject(mockSupabase);
 
-    const actual = await updateProject.execute({
+    const actual = await editProject.execute({
       name: '<script>window.alert()</script>',
       projectId: 'test-id',
     });

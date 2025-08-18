@@ -11,7 +11,7 @@ export abstract class BaseMutationUseCase<TParams> {
     params: TParams
   ): Promise<{ success: boolean; message: string }>;
 
-  protected compactUpdateData(updateData: Partial<TParams>): Partial<TParams> {
+  compactUpdateData(updateData: Partial<TParams>): Partial<TParams> {
     if (!(updateData satisfies Partial<TParams>)) {
       throw new Error('INVALID_UPDATE_DATA');
     }

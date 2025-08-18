@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const updateProjectSchema = z.object({
+export const editProjectSchema = z.object({
   name: z.string().min(2).max(100).optional(),
   description: z.string().min(2).max(500).optional(),
   status: z
@@ -10,4 +10,4 @@ export const updateProjectSchema = z.object({
   externalUrl: z.url().optional(),
 });
 
-export type UpdateProjectSchema = z.infer<typeof updateProjectSchema>;
+export type EditProjectSchema = z.infer<typeof editProjectSchema>;
