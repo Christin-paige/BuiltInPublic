@@ -3,10 +3,10 @@ import { Database } from 'supabase/supabase.types';
 // Raw DB rows from Supabase types
 export type ProjectRow = Database['public']['Tables']['projects']['Row'];
 export type ProfileRow = Database['public']['Tables']['profiles']['Row'];
-export type UpdateRow  = Database['public']['Tables']['project_updates']['Row'];
+export type UpdateRow = Database['public']['Tables']['project_updates']['Row'];
 
 export type ProjectVisibility = ProjectRow['visibility'];
-export type ProjectStatus     = ProjectRow['status'];
+export type ProjectStatus = ProjectRow['status'];
 
 /**
  * Shape returned directly by your Supabase select:
@@ -35,8 +35,8 @@ export interface Project {
   description: string | null;
   visibility: ProjectVisibility;
   status: ProjectStatus;
-  repoUrl: string | null;   // from repo_url
-  createdAt: string;        // ISO string from created_at
+  repoUrl: string | null; // from repo_url
+  createdAt: string; // ISO string from created_at
 
   owner: {
     id: string;

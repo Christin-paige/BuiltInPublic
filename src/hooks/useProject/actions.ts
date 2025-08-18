@@ -2,7 +2,10 @@
 
 import { ProjectRepository } from '@/repositories/projectRepository/project.repository';
 import { createAnonClient } from 'utils/supabase/server';
-import type { Project, ProjectDTO } from '@/repositories/projectRepository/project.types';
+import type {
+  Project,
+  ProjectDTO,
+} from '@/repositories/projectRepository/project.types';
 
 export async function getProjectsForDashboard(): Promise<Project[]> {
   const supabase = await createAnonClient(); // server-side util only

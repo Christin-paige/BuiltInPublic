@@ -16,12 +16,7 @@ type UseProjectsResult = {
  * Uses React Query under the hood to manage loading, error, and caching states.
  */
 export function useProjectsForDashboard(): UseProjectsResult {
-  const {
-    data,
-    isLoading,
-    isError,
-    error,
-  } = useQuery<Project[], Error>({
+  const { data, isLoading, isError, error } = useQuery<Project[], Error>({
     queryKey: ['projects', 'dashboard'],
     queryFn: () => getProjectsForDashboard(),
     staleTime: 30_000, // 30s fresh
