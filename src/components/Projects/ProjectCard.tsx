@@ -1,48 +1,40 @@
-// components/ProjectCard.tsx
-import React from 'react';
-import Link from 'next/link';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { ProjectStatusBadge } from './ProjectStatusBadge';
+// src/components/Projects/ProjectCard.tsx
 import type { Project } from '@/repositories/projectRepository/project.types';
 
-interface ProjectCardProps extends Project {
-  href: string;
-}
+export type ProjectCardProps = {
+  project: Project;
+  showDescription?: boolean;
+};
 
-function truncate(text: string, max = 140) {
-  if (!text) return '';
-  if (text.length <= max) return text;
-  return text.slice(0, max - 1).trimEnd() + '…';
-}
+export default function ProjectCard({ project, showDescription = true }: ProjectCardProps) {
+  const { id, name, description, status, owner } = project;
+  const username = owner?.username ?? null;
+  const href = username ? `/${username}/projects/${id}` : null;
 
-export default function ProjectCard({
-  name,
-  description = '',
-  status,
-  href,
-}: ProjectCardProps) {
+  const statusClass =
+    'rounded-lg border border-white/30 bg-[#23262d] px-3 py-[2px] text-xs leading-5 text-slate-200';
+
   return (
-    <Link
-      href={href}
-      className='block focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 rounded-2xl'
-      aria-label={`Open project: ${name}`}
-    >
-      <Card className='w-full rounded-2xl border border-slate-700/70 bg-slate-900/60 shadow-sm ring-1 ring-white/5 transition hover:bg-slate-900/80 hover:shadow cursor-pointer'>
-        <CardHeader className='flex flex-row items-start justify-between space-y-0 gap-3'>
-          <CardTitle className='text-base font-semibold text-slate-100'>
+    <div className="rounded-[22px] border-2 border-white/25 bg-[#121418] p-4">
+      <div className="mb-3 flex items-start justify-between">
+        {href ? (
+          <a
+            href={href}
+            className="text-[16px] font-semibold text-white hover:underline"
+          >
             {name}
-          </CardTitle>
-          <ProjectStatusBadge status={status} />
-        </CardHeader>
+          </a>
+        ) : (
+          <span className="text-[16px] font-semibold text-white">{name}</span>
+        )}
+        <span className={statusClass}>{status}</span>
+      </div>
 
-        {description ? (
-          <CardContent>
-            <p className='text-sm leading-6 text-slate-300'>
-              {truncate(description, 140)}
-            </p>
-          </CardContent>
-        ) : null}
-      </Card>
-    </Link>
+      {showDescription && (
+        <p className="text-[15px] leading-7 text-slate-200">
+          {description ?? 'No description'}
+        </p>
+      )}
+    </div>
   );
 }

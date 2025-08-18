@@ -1,49 +1,47 @@
 import { Database } from 'supabase/supabase.types';
 
-type ProjectVisibility =
-  Database['public']['Tables']['projects']['Row']['visibility'];
-type ProjectStatus = Database['public']['Tables']['projects']['Row']['status'];
+// Raw DB rows from Supabase types
+export type ProjectRow = Database['public']['Tables']['projects']['Row'];
+export type ProfileRow = Database['public']['Tables']['profiles']['Row'];
+export type UpdateRow  = Database['public']['Tables']['project_updates']['Row'];
 
-// Create interface for the project data transfer object (DTO)
-export interface ProjectDTO {
+export type ProjectVisibility = ProjectRow['visibility'];
+export type ProjectStatus     = ProjectRow['status'];
+
+/**
+ * Shape returned directly by your Supabase select:
+ * '*, owner:profiles(id, username), updates:project_updates(*)'
+ */
+export interface ProjectDTO extends ProjectRow {
+  owner: Pick<ProfileRow, 'id' | 'username'> | null;
+  updates: UpdateRow[] | null;
+}
+
+/** Convenience type for a single normalized update item (app-facing). */
+export type ProjectUpdate = {
   id: string;
-  owner: {
-    id: string;
-    username: string;
-  };
+  projectId: string;
+  createdAt: string;
+  text?: string | null;
+};
+
+/**
+ * App-facing entity used by the UI.
+ * Normalize snake_case -> camelCase in your repository transform.
+ */
+export interface Project {
+  id: string;
   name: string;
   description: string | null;
   visibility: ProjectVisibility;
   status: ProjectStatus;
-  external_url: string | null;
-  createdAt: string;
-  updates:
-    | {
-        id: string;
-        project_id: string;
-        createdAt: string;
-      }[]
-    | null;
-}
+  repoUrl: string | null;   // from repo_url
+  createdAt: string;        // ISO string from created_at
 
-// Create interface for the project entity
-export interface Project {
-  id: string;
   owner: {
     id: string;
-    username: string;
-  };
-  name: string;
-  description?: string;
-  visibility: ProjectVisibility;
-  status: ProjectStatus;
-  repoUrl?: string;
-  createdAt: string;
-  updates:
-    | {
-        id: string;
-        project_id: string;
-        createdAt: string;
-      }[]
-    | null;
+    username: string | null;
+  } | null;
+
+  updates: ProjectUpdate[];
 }
