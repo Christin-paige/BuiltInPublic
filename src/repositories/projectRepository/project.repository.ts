@@ -8,16 +8,16 @@ export class ProjectRepository extends BaseRepository<ProjectDTO, Project> {
     super(supabase);
   }
 
-  // Get the projects from the database and the project updates then join them to include the updates in the project data and project owners username
+  // Get the projects from the database and the project updates then join
   getRawBaseQuery(count: boolean = false) {
-    const query = this.supabase
-      .from('projects')
-      .select(
-        '*, owner:profiles(username), updates(*)',
-        count ? { count: 'exact' } : undefined
-      );
+  const query = this.supabase
+    .from('projects')
+    .select(
+      '*, owner:profiles(id, username), updates:project_updates(*)',
+      count ? { count: 'exact' } : undefined
+    );
 
-    return query;
+  return query;
   }
 
   // Transform the raw database row into a Project object
