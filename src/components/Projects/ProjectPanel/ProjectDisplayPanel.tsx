@@ -26,7 +26,7 @@ export function ProjectDisplayPanel({ project }: ProjectPanelProps) {
         </CardHeader>
         <CardDescription className='sr-only'>{`Details of project named: ${name}`}</CardDescription>
         <CardContent>
-          <p>{description}</p>
+          <p className='whitespace-pre-wrap'>{description}</p>
         </CardContent>
       </Card>
       {updates?.map((update) => (

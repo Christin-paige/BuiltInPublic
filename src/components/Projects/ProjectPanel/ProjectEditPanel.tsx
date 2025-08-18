@@ -12,13 +12,14 @@ import { ProjectStatusDropdown } from './ProjectStatusDropdown';
 import { useProjectContext } from '@/contexts/ProjectContext';
 import { ProjectVisibilityDropdown } from './ProjectVisibilityDropdown';
 import { ProjectTitle } from './ProjectTitle';
+import { ProjectDescription } from './ProjectDescription';
 
 export function ProjectEditPanel() {
   const { name, description, updates } = useProjectContext();
   return (
     <>
       <Card>
-        <CardHeader className='flex justify-between items-center'>
+        <CardHeader className='flex flex-col md:flex-row md:justify-between md:items-center'>
           <ProjectTitle />
           <div className='flex gap-2.5 items-center'>
             <ProjectVisibilityDropdown />
@@ -26,9 +27,7 @@ export function ProjectEditPanel() {
           </div>
         </CardHeader>
         <CardDescription className='sr-only'>{`Details of project named: ${name}`}</CardDescription>
-        <CardContent>
-          <p>{description}</p>
-        </CardContent>
+        <ProjectDescription />
       </Card>
       {updates?.map((update) => (
         <ProjectUpdateCard
