@@ -5,13 +5,13 @@ import { GetPublicProject } from '@/use-cases/projects/GetProject';
 import { notFound } from 'next/navigation';
 
 interface PageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 export default async function Page({ params }: PageProps) {
-  const { id } = params;
+  const { id } = await params;
   const getProject = await GetPublicProject.create();
 
   const project = await getProject.execute({ id });

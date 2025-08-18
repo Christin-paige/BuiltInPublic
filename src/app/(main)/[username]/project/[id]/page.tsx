@@ -1,14 +1,15 @@
+'use server';
+
 import { ProjectPanel } from '@/components/Projects/ProjectPanel/ProjectPanel';
-import { use } from 'react';
 
 interface ProjectProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 export default async function Project({ params }: ProjectProps) {
-  const { id } = params;
+  const { id } = await params;
 
   return (
     <section className='w-full h-full p-4 flex-col'>
