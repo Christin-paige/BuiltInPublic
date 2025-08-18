@@ -72,7 +72,9 @@ export async function getProjectsByUsername(
 /**
  * Get a single project by ID (for detail pages).
  */
-export async function getProjectById(projectId: string): Promise<Project | null> {
+export async function getProjectById(
+  projectId: string
+): Promise<Project | null> {
   const supabase = await createAnonClient();
   const repo = new ProjectRepository(supabase);
 
