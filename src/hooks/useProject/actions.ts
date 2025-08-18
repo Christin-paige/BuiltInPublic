@@ -9,6 +9,8 @@ import {
 import { UpdateProject } from '@/use-cases/projects/UpdateProject';
 import { Database } from 'supabase/supabase.types';
 import { createAnonClient } from 'utils/supabase/server';
+import { updateProjectSchema } from './updateProject.schema';
+import { ValidationError } from 'utils/errors/ValidationError';
 
 export async function getProjectById(id: string) {
   const supabase = await createAnonClient();
@@ -30,14 +32,29 @@ interface EditProjectParams {
 }
 
 export async function editProject({ projectId, data }: EditProjectParams) {
-  const supabase = await createAnonClient();
-  const updateProject = new UpdateProject(supabase);
+  const validatedData = updateProjectSchema.safeParse(data);
 
-  const result = await updateProject.execute({ projectId, ...data });
+  if (!validatedData.success) {
+    const errors: Record<string, string[]> = {};
 
-  if (!result.success) {
-    throw new Error(result.message);
+    for (const issue of validatedData.error.issues) {
+      const path = issue.path.join('.');
+      if (!errors[path]) {
+        errors[path] = [];
+      }
+      errors[path].push(issue.message);
+    }
+    throw new ValidationError('Validation failed', errors);
+  } else {
+    const supabase = await createAnonClient();
+    const updateProject = new UpdateProject(supabase);
+
+    const result = await updateProject.execute({ projectId, ...data });
+
+    if (!result.success) {
+      throw new Error(result.message);
+    }
+
+    return { ...result, errors: [] };
   }
-
-  return result;
 }

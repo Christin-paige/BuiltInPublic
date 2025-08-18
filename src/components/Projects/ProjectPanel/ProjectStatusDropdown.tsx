@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import {
   updateProjectSchema,
   UpdateProjectSchema,
-} from './updateProject.schema';
+} from '../../../hooks/useProject/updateProject.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useUpdateProject } from '@/hooks/useProject/useProject';
 import { useProjectContext } from '@/contexts/ProjectContext';

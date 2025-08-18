@@ -3,6 +3,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { editProject, getProjectById } from './actions';
 import UINotification from '@/services/UINotification.service';
+import { ValidationError } from 'utils/errors/ValidationError';
 
 const projectQueryKeys = {
   all: ['project'] as const,
@@ -29,6 +30,10 @@ export function useUpdateProject(projectId: string) {
   const mutation = useMutation({
     mutationFn: editProject,
     onError: (error) => {
+      if (error instanceof ValidationError) {
+        // let onSettled handle validation errors
+        return;
+      }
       UINotification.error(error.message);
     },
     onSuccess: (result) => {

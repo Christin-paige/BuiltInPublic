@@ -11,6 +11,7 @@ import ProjectUpdateCard from '../ProjectUpdateCard';
 import { ProjectStatusDropdown } from './ProjectStatusDropdown';
 import { useProjectContext } from '@/contexts/ProjectContext';
 import { ProjectVisibilityDropdown } from './ProjectVisibilityDropdown';
+import { ProjectTitle } from './ProjectTitle';
 
 export function ProjectEditPanel() {
   const { name, description, updates } = useProjectContext();
@@ -18,7 +19,7 @@ export function ProjectEditPanel() {
     <>
       <Card>
         <CardHeader className='flex justify-between items-center'>
-          <CardTitle className='mt-1'>{name}</CardTitle>
+          <ProjectTitle />
           <div className='flex gap-2.5 items-center'>
             <ProjectVisibilityDropdown />
             <ProjectStatusDropdown />
