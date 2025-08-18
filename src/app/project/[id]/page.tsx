@@ -20,5 +20,9 @@ export default async function Page({ params }: PageProps) {
     notFound();
   }
 
-  return <ProjectDisplayPanel project={project} />;
+  return (
+    <section className='w-full h-full p-4 flex-col'>
+      <ProjectDisplayPanel project={project} />
+    </section>
+  );
 }
