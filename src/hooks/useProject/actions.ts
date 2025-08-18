@@ -68,3 +68,25 @@ export async function getProjectsByUsername(
 
   return (data ?? []).map((row) => repo.transformDTO(row as ProjectDTO));
 }
+
+/**
+ * Get a single project by ID (for detail pages).
+ */
+export async function getProjectById(projectId: string): Promise<Project | null> {
+  const supabase = await createAnonClient();
+  const repo = new ProjectRepository(supabase);
+
+  const { data, error } = await supabase
+    .from('projects')
+    .select(
+      '*, owner:profiles!projects_owner_id_fkey(id, username), updates:project_updates(*)'
+    )
+    .eq('id', projectId)
+    .single();
+
+  if (error || !data) {
+    return null;
+  }
+
+  return repo.transformDTO(data as ProjectDTO);
+}
