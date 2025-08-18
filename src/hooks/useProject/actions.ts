@@ -55,6 +55,6 @@ export async function editProject({ projectId, data }: EditProjectParams) {
       throw new Error(result.message);
     }
 
-    return { ...result, errors: [] };
+    return result;
   }
 }
