@@ -23,8 +23,6 @@ import useProfile, { useUpdateProfile } from '@/hooks/useProfile/useProfile';
 import useUser from '@/hooks/useUser/useUser';
 import { checkProfanity } from 'utils/usernameValidator';
 import { Profile } from '@/repositories/profileRepository/profile.types';
-import 'react-toastify/dist/ReactToastify.css';
-import { toast } from 'react-toastify';
 
 export default function DisplayName({ profile }: { profile?: Profile }) {
   const [isEditing, setIsEditing] = useState(false);
@@ -54,13 +52,12 @@ export default function DisplayName({ profile }: { profile?: Profile }) {
       // Try to update the profile display name, and show the error if it's not successful
       try {
         await updateProfileMutation.mutateAsync({
-          profileId: profile?.id || '',
-          fields: { display_name: data.displayName },
+          id: profile?.id || '',
+          display_name: data.displayName,
         });
-        toast.success('Display name updated successfully!');
         setIsEditing(false);
       } catch (error) {
-        toast.error('Failed to update display name');
+        console.error('Error updating display name:', error);
       }
     }
   };
