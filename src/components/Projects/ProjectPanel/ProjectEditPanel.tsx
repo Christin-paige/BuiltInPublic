@@ -16,10 +16,11 @@ import { ProjectDescription } from './ProjectDescription';
 import { ProjectUpdateButton } from './ProjectUpdateButton';
 
 export function ProjectEditPanel() {
-  const { name, description, updates } = useProjectContext();
+  const { name, updates } = useProjectContext();
+
   return (
     <>
-      <Card>
+      <Card className='w-full'>
         <CardHeader className='flex flex-col md:flex-row md:justify-between md:items-center'>
           <ProjectTitle />
           <div className='flex gap-2.5 items-center'>
@@ -27,15 +28,17 @@ export function ProjectEditPanel() {
             <ProjectStatusDropdown />
           </div>
         </CardHeader>
-        <CardDescription className='sr-only'>{`Details of project named: ${name}`}</CardDescription>
-        <ProjectDescription />
-        <ProjectUpdateButton />
+        <CardContent>
+          <CardDescription className='sr-only'>{`Details of project named: ${name}`}</CardDescription>
+          <ProjectDescription />
+          <ProjectUpdateButton />
+        </CardContent>
       </Card>
       {updates?.map((update) => (
         <ProjectUpdateCard
           key={`${name}-update-${update.id}`}
-          createdAt={update.createdAt}
-          text={update.text}
+          createdAt={update.created_at}
+          update={update.update}
         />
       ))}
     </>
