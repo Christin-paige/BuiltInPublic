@@ -321,10 +321,10 @@ export type Database = {
         Row: {
           created_at: string
           description: string | null
+          external_url: string | null
           id: string
           name: string
           owner_id: string
-          repo_url: string | null
           status: Database["public"]["Enums"]["project_status"]
           updated_at: string
           visibility: Database["public"]["Enums"]["project_visibility"]
@@ -332,10 +332,10 @@ export type Database = {
         Insert: {
           created_at?: string
           description?: string | null
+          external_url?: string | null
           id?: string
           name: string
           owner_id: string
-          repo_url?: string | null
           status?: Database["public"]["Enums"]["project_status"]
           updated_at?: string
           visibility?: Database["public"]["Enums"]["project_visibility"]
@@ -343,10 +343,10 @@ export type Database = {
         Update: {
           created_at?: string
           description?: string | null
+          external_url?: string | null
           id?: string
           name?: string
           owner_id?: string
-          repo_url?: string | null
           status?: Database["public"]["Enums"]["project_status"]
           updated_at?: string
           visibility?: Database["public"]["Enums"]["project_visibility"]
