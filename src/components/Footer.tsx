@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <div className='hidden md:block w-full'>
+    <div className='hidden md:block w-full flex-shrink-0'>
       <a
         href='https://builtinpublic.features.vote/board'
         target='_blank'
