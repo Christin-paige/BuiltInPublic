@@ -13,6 +13,7 @@ import { useProjectContext } from '@/contexts/ProjectContext';
 import { ProjectVisibilityDropdown } from './ProjectVisibilityDropdown';
 import { ProjectTitle } from './ProjectTitle';
 import { ProjectDescription } from './ProjectDescription';
+import { ProjectUpdateButton } from './ProjectUpdateButton';
 
 export function ProjectEditPanel() {
   const { name, description, updates } = useProjectContext();
@@ -28,6 +29,7 @@ export function ProjectEditPanel() {
         </CardHeader>
         <CardDescription className='sr-only'>{`Details of project named: ${name}`}</CardDescription>
         <ProjectDescription />
+        <ProjectUpdateButton />
       </Card>
       {updates?.map((update) => (
         <ProjectUpdateCard

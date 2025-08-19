@@ -66,4 +66,6 @@ export function useUpdateProject(projectId: string) {
       });
     },
   });
+
+  return mutation;
 }

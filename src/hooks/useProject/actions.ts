@@ -66,11 +66,14 @@ export async function editProject({ projectId, data }: EditProjectParams) {
 
 interface UpdateProjectParams {
   projectId: string;
-  update: string;
+  data: {
+    update: string;
+  };
 }
 
 export async function updateProject(params: UpdateProjectParams) {
-  const validatedUpdate = updateProjectSchema.safeParse(params);
+  const { projectId, data } = params;
+  const validatedUpdate = updateProjectSchema.safeParse(data);
 
   if (!validatedUpdate.success) {
     const errors: Record<string, string[]> = {};
@@ -88,7 +91,10 @@ export async function updateProject(params: UpdateProjectParams) {
 
     const updateProject = new UpdateProject(supabase);
 
-    const result = await updateProject.execute(validatedUpdate.data);
+    const result = await updateProject.execute({
+      projectId,
+      ...validatedUpdate.data,
+    });
 
     if (!result.success) {
       throw new Error(result.message);
