@@ -112,5 +112,4 @@ export class ProfileRepository extends BaseRepository<ProfileDTO, Profile> {
       throw e;
     }
   }
-
 }
