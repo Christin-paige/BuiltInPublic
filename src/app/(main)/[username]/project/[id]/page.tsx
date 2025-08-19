@@ -12,7 +12,7 @@ export default async function Project({ params }: ProjectProps) {
   const { id } = await params;
 
   return (
-    <section className='w-full h-full p-4 flex-col'>
+    <section className='w-full min-h-screen h-full p-4 flex-col bg-primary-950/30'>
       <ProjectPanel projectId={id} />
     </section>
   );

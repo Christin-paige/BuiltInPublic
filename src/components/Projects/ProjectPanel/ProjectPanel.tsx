@@ -6,6 +6,7 @@ import { notFound } from 'next/navigation';
 import { ProjectDisplayPanel } from './ProjectDisplayPanel';
 import { ProjectEditPanel } from './ProjectEditPanel';
 import { ProjectProvider } from '@/contexts/ProjectContext';
+import { Skeleton } from '@/components/ui/skeleton';
 
 interface ProjectPanelProps {
   projectId: string;
@@ -18,7 +19,9 @@ export function ProjectPanel({ projectId }: ProjectPanelProps) {
   const isLoading = isLoadingProject || isLoadingUser;
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <Skeleton className='w-full h-48 p-4 flex-col' />
+    );
   }
 
   if (!project) {

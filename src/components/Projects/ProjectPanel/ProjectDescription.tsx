@@ -75,12 +75,14 @@ function ProjectDescriptionForm({ stopEditing }: ProjectDescriptionFormProps) {
             </FormItem>
           )}
         />
-        <Button type='submit' disabled={disableButton}>
-          Save
-        </Button>
-        <Button variant={'outline'} onClick={stopEditing}>
-          Cancel
-        </Button>
+        <div className='flex gap-2 mt-2'>
+          <Button type='submit' disabled={disableButton}>
+            Save
+          </Button>
+          <Button variant={'outline'} onClick={stopEditing}>
+            Cancel
+          </Button>
+        </div>
       </form>
     </Form>
   );
