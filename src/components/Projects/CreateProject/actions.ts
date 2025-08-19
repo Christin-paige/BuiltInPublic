@@ -43,6 +43,6 @@ export async function createProject(params: CreateProjectParams) {
       return { success, message };
     }
 
-    redirect(`/${username}/projects/${projectId}`);
+    redirect(`/${username}/project/${projectId}`);
   }
 }
