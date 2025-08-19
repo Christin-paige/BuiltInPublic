@@ -45,7 +45,11 @@ const useUpdateProfile = (): UseMutationResult<
       updateProfile(profileId, fields),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: profileQueryKeys.all });
+      UINotification.success('Profile updated successfully');
     },
+    onError: (error: Error) => {
+      UINotification.error('Error updating profile');
+    }
   });
 
   return mutation;
