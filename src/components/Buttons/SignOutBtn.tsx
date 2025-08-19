@@ -23,5 +23,5 @@ export default function SignOutBtn({ profile }: { profile: Profile }) {
     >
       Sign Out
     </Button>
-  )
+  );
 }
