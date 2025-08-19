@@ -113,23 +113,4 @@ export class ProfileRepository extends BaseRepository<ProfileDTO, Profile> {
     }
   }
 
-  async updateProfileFields(
-    id: string,
-    fields: Partial<{ username: string; bio: string; display_name: string }>
-  ): Promise<void> {
-    if (fields.username) {
-      const exists = await this.checkUsernameExists(fields.username);
-      if (exists) {
-        throw new Error('Username already exists');
-      }
-    }
-    const { error } = await this.supabase
-      .from('profiles')
-      .update(fields)
-      .eq('id', id);
-
-    if (error) {
-      throw error;
-    }
-  }
 }
