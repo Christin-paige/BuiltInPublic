@@ -8,11 +8,11 @@ export default function SignOutBtn({ profile }: { profile: Profile }) {
   const { signOutUser, data } = useUser();
   const { isLoading: isProfileLoading } = useProfile(profile.id);
 
-  if (data?.id !== profile.id) return null;
-
   if (isProfileLoading) {
     return <Skeleton className='h-10' />;
   }
+
+  if (data?.id) return null;
 
   return (
     <Button
@@ -23,5 +23,5 @@ export default function SignOutBtn({ profile }: { profile: Profile }) {
     >
       Sign Out
     </Button>
-  );
+  )
 }
