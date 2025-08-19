@@ -1,7 +1,6 @@
-import { BaseRepository } from '@/repositories/base.repository';
 import { AnySupabaseClient } from 'utils/supabase/server';
 
-export abstract class BaseUseCase<TParams> {
+export abstract class BaseMutationUseCase<TParams> {
   supabase: AnySupabaseClient;
 
   constructor(supabase: AnySupabaseClient) {

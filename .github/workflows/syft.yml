@@ -18,12 +18,12 @@ jobs:
 
     steps:
       - name: ⬇️ Checkout Repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: 🧰 Setup Node (optional if you're scanning Node project)
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
 
       - name: 📦 Install Dependencies (optional, improves scan)
         run: npm ci

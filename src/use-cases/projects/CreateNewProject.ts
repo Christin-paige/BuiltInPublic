@@ -1,12 +1,12 @@
 import xss from 'xss';
-import { BaseUseCase } from '../BaseUseCase';
+import { BaseMutationUseCase } from '../BaseMutationUseCase';
 
 export interface CreateNewProjectParams {
   name: string;
   ownerId: string;
 }
 
-export default class CreateNewProject extends BaseUseCase<CreateNewProjectParams> {
+export default class CreateNewProject extends BaseMutationUseCase<CreateNewProjectParams> {
   async execute({ name, ownerId }: CreateNewProjectParams): Promise<{
     success: boolean;
     message: string;

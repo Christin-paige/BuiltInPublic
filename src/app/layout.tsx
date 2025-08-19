@@ -76,14 +76,14 @@ export default async function RootLayout({
       lang='en'
       className={`${audioWide.variable} ${raleway.variable} ${lato.variable}`}
     >
-      <body>
+      <body className='min-h-screen flex flex-col'>
         <ThemeProvider
           attribute='class'
           defaultTheme='dark'
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <main className='flex-1'>{children}</main>
           <ToastContainer
             position='top-right'
             autoClose={3000}
