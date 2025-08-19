@@ -34,7 +34,7 @@ export default function Bio({ profile }: { profile?: Profile }) {
     resolver: zodResolver(bioSchema),
     mode: 'onChange',
     defaultValues: {
-      bio: '',
+      bio: userProfile?.bio || '',
     },
   });
 
