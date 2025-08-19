@@ -12,7 +12,7 @@ export default function SignOutBtn({ profile }: { profile: Profile }) {
     return <Skeleton className='h-10' />;
   }
 
-  if (data?.id) return null;
+  if (data?.id !== profile.id) return null;
 
   return (
     <Button
