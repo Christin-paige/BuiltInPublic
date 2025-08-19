@@ -20,8 +20,6 @@ import useProfile, { useUpdateProfile } from '@/hooks/useProfile/useProfile';
 import useUser from '@/hooks/useUser/useUser';
 import { checkProfanity } from 'utils/usernameValidator';
 import { Profile } from '@/repositories/profileRepository/profile.types';
-import 'react-toastify/dist/ReactToastify.css';
-import { toast } from 'react-toastify';
 
 export default function Bio({ profile }: { profile?: Profile }) {
   const [isEditing, setIsEditing] = useState(false);
@@ -60,13 +58,12 @@ export default function Bio({ profile }: { profile?: Profile }) {
       // Try to update the profile bio, and show the error if it's not successful
       try {
         await updateProfileMutation.mutateAsync({
-          profileId: profile?.id || '',
-          fields: { bio: data.bio },
+          id: profile?.id || '',
+          bio: data.bio,
         });
-        toast.success('Bio updated successfully!');
         setIsEditing(false);
       } catch (error) {
-        toast.error('Failed to update bio');
+        console.error('Error updating bio:', error);
       }
     }
   };
