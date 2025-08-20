@@ -59,8 +59,8 @@ export default function Bio({ profile }: { profile?: Profile }) {
       try {
         await updateProfileMutation.mutateAsync({
           id: profile?.id || '',
-          bio: data.bio,
-          display_name: profile?.displayName || '',
+          bio: data.bio || '',
+          ...(profile?.displayName && { display_name: profile.displayName }),
         });
         setIsEditing(false);
       } catch (error) {

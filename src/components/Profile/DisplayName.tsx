@@ -42,7 +42,8 @@ export default function DisplayName({ profile }: { profile?: Profile }) {
 
   // Handle the form submission and test display name for profanity
   const onSubmit = async (data: DisplayNameSchema) => {
-    const isProfane = await checkProfanity(data.displayName);
+    const displayName = data?.displayName;
+    const isProfane = await checkProfanity(displayName as string);
     if (isProfane) {
       form.setError('displayName', {
         type: 'manual',
@@ -53,7 +54,7 @@ export default function DisplayName({ profile }: { profile?: Profile }) {
       try {
         await updateProfileMutation.mutateAsync({
           id: profile?.id || '',
-          display_name: data.displayName,
+          display_name: displayName as string,
         });
         setIsEditing(false);
       } catch (error) {
