@@ -60,6 +60,7 @@ export default function Bio({ profile }: { profile?: Profile }) {
         await updateProfileMutation.mutateAsync({
           id: profile?.id || '',
           bio: data.bio,
+          display_name: profile?.displayName || '',
         });
         setIsEditing(false);
       } catch (error) {
