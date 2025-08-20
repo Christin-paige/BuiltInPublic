@@ -96,7 +96,7 @@ export function ProjectDescription() {
 
   if (isEditing) {
     return (
-      <Card className='border-none p-4'>
+      <Card className='border-none'>
         <CardHeader className='pl-0'>
           <CardTitle>Description</CardTitle>
         </CardHeader>
@@ -106,7 +106,7 @@ export function ProjectDescription() {
   }
 
   return (
-    <Card className='border-none p-4'>
+    <Card className='border-none'>
       <CardHeader className='flex justify-start items-center pl-0'>
         <CardTitle>Description</CardTitle>
         <Button variant={'ghost'} onClick={() => setIsEditing(true)}>
