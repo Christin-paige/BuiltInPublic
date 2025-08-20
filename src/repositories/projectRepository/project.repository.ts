@@ -13,7 +13,7 @@ export class ProjectRepository extends BaseRepository<ProjectDTO, Project> {
     const query = this.supabase
       .from('projects')
       .select(
-        '*, owner:profiles(id, username), updates:project_updates(*)',
+        '*, owner:profiles!inner(id, username), updates:project_updates(*)',
         count ? { count: 'exact' } : undefined
       );
 
@@ -104,6 +104,38 @@ export class ProjectRepository extends BaseRepository<ProjectDTO, Project> {
     } catch (e) {
       console.error(
         `Failed to fetch project with: ${JSON.stringify(e, null, 2)} id: ${id}`
+      );
+      throw e;
+    }
+  }
+
+  async getProjectsByUsername(username: string): Promise<Project[] | null> {
+    try {
+      const query = this.getBaseQuery();
+
+      const { data, error } = await this.applyFilters(query, {
+        'profiles.username': username,
+      });
+
+      if (error) {
+        throw error;
+      }
+
+      if (!data) {
+        throw new Error('No Projects found');
+      }
+
+      const projects: Project[] = [];
+
+      for (const rawProject of data) {
+        const project = this.safeTransformDTO(rawProject);
+        projects.push(project);
+      }
+
+      return projects;
+    } catch (e) {
+      console.error(
+        `Failed to fetch projects with: ${JSON.stringify(e, null, 2)} for username: ${username}`
       );
       throw e;
     }

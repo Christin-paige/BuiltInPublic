@@ -23,6 +23,15 @@ export async function getProjectById(id: string) {
   return project ?? null;
 }
 
+export async function getProjectsByUsername(username: string) {
+  const supabase = await createAnonClient();
+  const projectRepository = new ProjectRepository(supabase);
+
+  const projects = await projectRepository.getProjectsByUsername(username);
+
+  return projects ?? null;
+}
+
 interface EditProjectParams {
   projectId: string;
   data: {
