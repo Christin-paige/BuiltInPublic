@@ -6,7 +6,7 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "prepare": "husky install",
+    "prepare": "husky",
     "lint": "next lint",
     "precheck": "bash ./scripts/precheck.sh",
     "semgrep": "semgrep scan --config p/default --config p/owasp-top-ten --config security/semgrep/general.yml --exclude supabase/seed.sql --exclude .env.example --metrics=off --error",
