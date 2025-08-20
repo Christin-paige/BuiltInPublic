@@ -24,6 +24,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+  DialogClose
 } from '@/components/ui/dialog';
 
 interface ProjectTitleFormProps {
@@ -90,7 +91,10 @@ function ProjectTitleForm({ stopEditing }: ProjectTitleFormProps) {
         <Button type='submit' disabled={disableButton}>
           Save
         </Button>
-        <Button variant='outline' onClick={stopEditing}>
+        <Button variant='outline' onClick={(e) => {
+          e.preventDefault();
+          stopEditing();
+        }}>
           Cancel
         </Button>
       </form>
