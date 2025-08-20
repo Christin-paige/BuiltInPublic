@@ -1,8 +1,14 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
-import { getProfileByUsername } from './actions';
+import {
+  useQuery,
+  useMutation,
+  UseMutationResult,
+  useQueryClient,
+} from '@tanstack/react-query';
+import { getProfileByUsername, updateProfile } from './actions';
 import UINotification from '@/services/UINotification.service';
+import { UserProfileUpdateData } from '@/use-cases/updateUserProfile/UpdateUserProfile';
 
 const profileQueryKeys = {
   all: ['profile'] as const,
@@ -22,3 +28,26 @@ export default function useProfile(username: string) {
 
   return { data, isLoading, error };
 }
+
+const useUpdateProfile = (): UseMutationResult<
+  { success: boolean; message: string },
+  Error,
+  UserProfileUpdateData
+> => {
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: (fields: UserProfileUpdateData) => updateProfile(fields),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: profileQueryKeys.all });
+      UINotification.success('Profile updated successfully');
+    },
+    onError: (error: Error) => {
+      UINotification.error('Error updating profile');
+    },
+  });
+
+  return mutation;
+};
+
+export { useUpdateProfile };

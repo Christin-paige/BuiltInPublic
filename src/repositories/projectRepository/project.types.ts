@@ -22,8 +22,8 @@ export interface ProjectDTO {
     | {
         id: string;
         project_id: string;
-        createdAt: string;
-        text: string;
+        created_at: string;
+        update: string;
       }[]
     | null;
 }
@@ -45,8 +45,8 @@ export interface Project {
     | {
         id: string;
         project_id: string;
-        createdAt: string;
-        text: string;
+        created_at: string;
+        update: string;
       }[]
     | null;
 }
