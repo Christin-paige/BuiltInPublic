@@ -32,8 +32,8 @@ export function ProjectDisplayPanel({ project }: ProjectPanelProps) {
       {updates?.map((update) => (
         <ProjectUpdateCard
           key={`${name}-update-${update.id}`}
-          createdAt={update.createdAt}
-          text={update.text}
+          createdAt={update.created_at}
+          update={update.update}
         />
       ))}
     </>
