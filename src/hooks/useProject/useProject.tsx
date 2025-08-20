@@ -1,7 +1,12 @@
 'use client';
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { editProject, getProjectById, getProjectsByUsername, updateProject } from './actions';
+import {
+  editProject,
+  getProjectById,
+  getProjectsByUsername,
+  updateProject,
+} from './actions';
 import UINotification from '@/services/UINotification.service';
 import { ValidationError } from 'utils/errors/ValidationError';
 
