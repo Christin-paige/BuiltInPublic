@@ -10,7 +10,6 @@ import GradientBlobs from './components/GradientBlobs';
 import useProfile from '@/hooks/useProfile/useProfile';
 import { notFound } from 'next/navigation';
 import { ProfileEditProvider } from '@/contexts/ProfileEditContext';
-import ProjectList from '../dashboard/projects/ProjectList';
 
 interface ProfileProps {
   params: Promise<{
@@ -43,7 +42,7 @@ export default function Profile({ params }: ProfileProps) {
           className='w-full h-48 object-cover hover:opacity-80 transition-all duration-100 transform-content object-top'
         />
 
-        <div className='flex p-8 gap-12 w-full relative'>
+        <div className='p-8 gap-12 w-full relative grid grid-cols-1 md:grid-cols-[1fr_2fr_1fr]'>
           <GradientBlobs />
           <UserInfo profile={profile} />
           <FeedSection username={username} />

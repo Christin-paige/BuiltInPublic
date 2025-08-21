@@ -140,7 +140,7 @@ export default function Bio({ profile }: { profile?: Profile }) {
               <CardContent>
                 <CardTitle className='text-text-300 flex gap-4 items-center justify-between'>
                   Bio
-                  <EditButton onClick={() => setIsEditing(true)} />
+                  <EditButton label='Bio' onClick={() => setIsEditing(true)} />
                 </CardTitle>
                 <p className='font-body text-text-200 whitespace-pre-line'>
                   {profile.bio}

@@ -125,7 +125,7 @@ export default function DisplayName({ profile }: { profile?: Profile }) {
           ) : (
             <p>{profile?.username}</p>
           )}
-          <EditButton onClick={() => setIsEditing(true)} />
+          <EditButton label='Display Name' onClick={() => setIsEditing(true)} />
         </div>
       )}
     </>

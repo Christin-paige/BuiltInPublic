@@ -7,7 +7,7 @@ const FeedSection = ({ username }: { username: string }) => {
   const [activeTab, setActiveTab] = useState<'posts' | 'projects'>('posts');
   const { canEdit } = useProfileEdit();
   return (
-    <section className='flex flex-col gap-4 w-2/4'>
+    <section className='flex flex-col gap-4'>
       <CreateProjectButton canEdit={canEdit} />
       <ProjectsList username={username} />
     </section>

@@ -11,7 +11,7 @@ export default function UserInfo({ profile }: { profile: Profile }) {
   const { isLoading } = useProfile(profile.id);
 
   return (
-    <section className='flex flex-col gap-4 w-1/4 relative transform -translate-y-28'>
+    <section className='flex flex-col gap-4 relative transform -translate-y-28'>
       {isLoading ? (
         <Skeleton className='w-24 h-24 rounded-full' />
       ) : (
