@@ -17,7 +17,7 @@ export default function UserInfo({ profile }: { profile: Profile }) {
       ) : (
         <Avatar className='w-24 h-24'>
           <AvatarImage src={profile.avatarUrl || ''} />
-          <AvatarFallback>CN</AvatarFallback>
+          <AvatarFallback>Avatar</AvatarFallback>
         </Avatar>
       )}
 

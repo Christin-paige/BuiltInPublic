@@ -18,11 +18,13 @@ export default function SignOutBtn({ profile }: { profile: Profile }) {
   return (
     <Button
       onClick={signOutUser}
+      variant={'destructive'}
       type='button'
       title='Sign Out'
       aria-label='Sign Out'
     >
       Sign Out
+      <LogOut />
     </Button>
   );
 }

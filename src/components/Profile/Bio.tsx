@@ -10,6 +10,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardTitle } from '@/components/ui/card';
 import { Pencil } from 'lucide-react';
 // Hooks & Utilities
 import { useEffect, useState } from 'react';
@@ -87,7 +88,12 @@ export default function Bio({ profile }: { profile?: Profile }) {
     return (
       <>
         {profile?.bio ? (
-          <p className='font-body text-lg'>{profile.bio}</p>
+          <Card>
+            <CardContent>
+              <CardTitle className='text-text-300'>Bio</CardTitle>
+              <p className='font-body text-text-200'>{profile.bio}</p>
+            </CardContent>
+          </Card>
         ) : (
           <></>
         )}
@@ -118,15 +124,26 @@ export default function Bio({ profile }: { profile?: Profile }) {
           </div>
         </Form>
       ) : (
-        <div className='flex items-center font-body text-lg group gap-8'>
-          <p>{profile?.bio || 'Add a bio…'}</p>
-          <button
-            className='cursor-pointer hidden group-hover:block transition-all duration-300 text-zinc-400 hover:text-zinc-100'
-            onClick={() => setIsEditing(true)}
-          >
-            <Pencil className='w-4 h-4' />
-          </button>
-        </div>
+        <>
+          {profile?.bio ? (
+            <Card className='py-2'>
+              <CardContent>
+                <CardTitle className='text-text-300 flex gap-4 items-center justify-between'>
+                  Bio
+                  <button
+                    className='hover:bg-secondary-950 p-1 cursor-pointer rounded-sm transition-all duration-300 border hover:border-secondary-800 active:scale-95'
+                    onClick={() => setIsEditing(true)}
+                  >
+                    <Pencil className='h-4 w-4' />
+                  </button>
+                </CardTitle>
+                <p className='font-body text-text-200'>{profile.bio}</p>
+              </CardContent>
+            </Card>
+          ) : (
+            <p className='text-text-200'>Add your bio...</p>
+          )}
+        </>
       )}
     </>
   );
