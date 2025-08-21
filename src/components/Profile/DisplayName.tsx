@@ -112,7 +112,9 @@ export default function DisplayName({ profile }: { profile?: Profile }) {
             )}
           />
           <div className='flex items-center gap-2'>
-            <Button variant={'outline'} onClick={() => setIsEditing(false)}>Cancel</Button>
+            <Button variant={'outline'} onClick={() => setIsEditing(false)}>
+              Cancel
+            </Button>
             <Button onClick={form.handleSubmit(onSubmit)}>Save</Button>
           </div>
         </Form>

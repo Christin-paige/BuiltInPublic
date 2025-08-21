@@ -12,7 +12,9 @@ const Home: FC = () => {
       <div className='relative lg:pt-8 2xl:pt-[20vh] h-full bg-cover bg-center flex flex-col items-center justify-center pb-8 gap-20'>
         <div className='flex flex-col items-center justify-center text-center max-w-3xl w-full md:w-1/2 mx-auto px-4 gap-4'>
           <header className='flex flex-col gap-2'>
-            <h1 className='text-3xl sm:text-4xl xl:text-5xl text-text-100 font-bold font-heading'>BuiltInPublic</h1>
+            <h1 className='text-3xl sm:text-4xl xl:text-5xl text-text-100 font-bold font-heading'>
+              BuiltInPublic
+            </h1>
             <h3 className='font-bold text-text-200 text-xl sm:text-2xl xl:text-3xl font-subheading'>
               Where we build in public — together
             </h3>

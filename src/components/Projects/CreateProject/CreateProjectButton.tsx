@@ -91,7 +91,10 @@ export function CreateProjectButton({ canEdit = true }: { canEdit?: boolean }) {
       </DialogTrigger>
       <DialogContent>
         <Form {...form}>
-          <form className='flex flex-col gap-3' onSubmit={form.handleSubmit(submit)}>
+          <form
+            className='flex flex-col gap-3'
+            onSubmit={form.handleSubmit(submit)}
+          >
             <DialogHeader>
               <DialogTitle>{'Create Project'}</DialogTitle>
             </DialogHeader>

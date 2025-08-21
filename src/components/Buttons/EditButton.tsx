@@ -1,5 +1,5 @@
-import { Pencil } from "lucide-react";
- 
+import { Pencil } from 'lucide-react';
+
 export default function EditButton({ onClick }: { onClick: () => void }) {
   return (
     <button

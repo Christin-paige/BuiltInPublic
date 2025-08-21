@@ -53,10 +53,7 @@ export default function DevSignIn() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <Button
-            className='mx-auto'
-            type='submit'
-          >
+          <Button className='mx-auto' type='submit'>
             Login
           </Button>
         </form>
