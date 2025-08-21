@@ -1,0 +1,77 @@
+name: Renovate Lockfile Auto-Merge (npm)
+
+on:
+  pull_request:
+    types: [opened, synchronize, labeled, reopened, ready_for_review]
+    branches: [main, development]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: renovate-lockfile-${{ github.event.pull_request.number }}
+  cancel-in-progress: false
+
+jobs:
+  gate-and-automerge:
+    name: Gate & enable auto-merge
+    if: >
+      github.actor == 'renovate[bot]' &&
+      github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify PR only changes package-lock.json (root or workspaces)
+        uses: actions/github-script@v7
+        id: verify
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            const files = await github.paginate(
+              github.rest.pulls.listFiles,
+              { owner: context.repo.owner, repo: context.repo.repo, pull_number: pr.number }
+            );
+
+            const changed = files.map(f => f.filename);
+
+            // Allow only package-lock.json anywhere (root or nested workspaces)
+            const offenders = files
+              .filter(f => !/(^|\/)package-lock\.json$/.test(f.filename))
+              .map(f => f.filename);
+
+            // Explicitly block any package.json change
+            const hasPkgJson = changed.some(p => /(^|\/)package\.json$/.test(p));
+
+            if (hasPkgJson) {
+              core.setFailed('package.json change detected — not a lockfile-only PR.');
+            } else if (offenders.length) {
+              core.setFailed(`Non-lockfile changes detected: ${offenders.join(', ')}`);
+            } else if (changed.length === 0) {
+              core.setFailed('No file changes found.');
+            } else {
+              core.info(`Lockfile-only change set -> ${changed.join(', ')}`);
+            }
+
+      - name: Enable native auto-merge (SQUASH)
+        if: ${{ success() }}
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+
+            // Enable GitHub's native auto-merge; it will merge after required checks pass.
+            await github.graphql(
+              `
+              mutation ($pullRequestId: ID!) {
+                enablePullRequestAutoMerge(input: {
+                  pullRequestId: $pullRequestId,
+                  mergeMethod: SQUASH
+                }) {
+                  clientMutationId
+                }
+              }
+              `,
+              { pullRequestId: pr.node_id }
+            );
+
+            core.info('Auto-merge enabled (SQUASH). GitHub will merge after required checks pass.');
