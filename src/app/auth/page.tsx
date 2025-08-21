@@ -15,8 +15,9 @@ export default function Page() {
         blur-3xl opacity-40"
       >
       </div>
-      <div className='w-96 text-center rounded-md border p-5 relative bg-secondary-950/50 backdrop-blur-3xl flex flex-col gap-2 border-secondary-900/70 shadow-md shadow-black/30
-        transition-all duration-300 hover:border-secondary-800/80 ease-in-out'>
+      <div className='w-full md:w-96 text-center rounded-md md:border p-5 relative backdrop-blur-3xl flex flex-col gap-2 border-secondary-900/70 shadow-md shadow-black/30
+        transition-all duration-300 hover:border-secondary-800/80 ease-in-out h-full md:h-fit items-center justify-center bg-linear-0 from-transparent via-secondary-950/50 to-transparent
+        md:from-secondary-950/50 md:to-secondary-950/50'>
         <div className='flex items-center gap-2 justify-center text-text-100'>
           <Globe className='text-accent-600' />
           <h1 className='text-2xl font-heading'>BuiltInPublic</h1>
