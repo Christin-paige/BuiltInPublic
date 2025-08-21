@@ -9,7 +9,8 @@ export const displayNameSchema = z.object({
     .regex(
       /^[a-zA-Z'\- ]+$/,
       'Can only contain letters, apostrophes, hyphens, and spaces'
-    ),
+    )
+    .optional(),
 });
 
 // Schema function for user profile bio

@@ -35,13 +35,13 @@ export async function updateProfile({
   bio,
   display_name,
 }: UserProfileUpdateData) {
-  const validateDisplayName = displayNameSchema.safeParse({
-    displayName: display_name,
-  });
-  const validateBio = bioSchema.safeParse({ bio: bio });
+  const errors: Record<string, string[]> = {};
 
-  if (!validateDisplayName.success || !validateBio.success) {
-    const errors: Record<string, string[]> = {};
+  // Only validate display_name if it's provided and not empty
+  if (display_name && display_name.trim() !== '') {
+    const validateDisplayName = displayNameSchema.safeParse({
+      displayName: display_name,
+    });
 
     if (!validateDisplayName.success) {
       for (const issue of validateDisplayName.error.issues) {
@@ -52,6 +52,11 @@ export async function updateProfile({
         errors[path].push(issue.message);
       }
     }
+  }
+
+  // Only validate bio if it's provided
+  if (bio !== undefined) {
+    const validateBio = bioSchema.safeParse({ bio: bio });
 
     if (!validateBio.success) {
       for (const issue of validateBio.error.issues) {
@@ -62,7 +67,10 @@ export async function updateProfile({
         errors[path].push(issue.message);
       }
     }
+  }
 
+  // Only throw validation error if there are actual errors
+  if (Object.keys(errors).length > 0) {
     throw new ValidationError('Validation failed', errors);
   } else {
     const supabase = await createAnonClient();
