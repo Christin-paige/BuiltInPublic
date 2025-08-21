@@ -12,10 +12,10 @@ const ProfileEditContext = createContext<ProfileEditContextValue | undefined>(
   undefined
 );
 
-export const useProfileProvider = () => {
+export const useProfileContext = () => {
   const context = useContext(ProfileEditContext);
   if (!context) {
-    throw new Error('useProfileProvider must be used within a ProfileProvider');
+    throw new Error('useProfileContext must be used within a ProfileProvider');
   }
   return context;
 };

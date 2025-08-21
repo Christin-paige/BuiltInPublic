@@ -9,7 +9,7 @@ import StreakSection from './components/StreakSection';
 import GradientBlobs from './components/GradientBlobs';
 import useProfile from '@/hooks/useProfile/useProfile';
 import { notFound } from 'next/navigation';
-import { ProfileProvider } from '@/contexts/ProfileProvider';
+import { ProfileProvider } from '@/components/Providers/ProfileProvider';
 import ProjectList from '../dashboard/projects/ProjectList';
 
 interface ProfileProps {

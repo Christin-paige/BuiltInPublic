@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/dialog';
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
 import { Textarea } from '@/components/ui/textarea';
-import { useProjectContext } from '@/contexts/ProjectContext';
+import { useProjectContext } from '@/components/Providers/ProjectProvider';
 import {
   updateProjectSchema,
   UpdateProjectSchema,

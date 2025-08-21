@@ -6,7 +6,7 @@ import {
 } from '../../../hooks/useProject/editProject.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useEditProject } from '@/hooks/useProject/useProject';
-import { useProjectContext } from '@/contexts/ProjectContext';
+import { useProjectContext } from '@/components/Providers/ProjectProvider';
 import { useCallback } from 'react';
 import {
   DropdownMenu,

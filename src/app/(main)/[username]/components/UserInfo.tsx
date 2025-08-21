@@ -4,10 +4,10 @@ import DisplayName from '@/components/Profile/DisplayName';
 import Bio from '@/components/Profile/Bio';
 import SignOutBtn from '@/components/Buttons/SignOutBtn';
 import 'react-toastify/dist/ReactToastify.css';
-import { useProfileProvider } from '@/contexts/ProfileProvider';
+import { useProfileContext } from '@/components/Providers/ProfileProvider';
 
 export default function UserInfo() {
-  const { isLoading, profile } = useProfileProvider();
+  const { isLoading, profile } = useProfileContext();
 
   return (
     <section className='flex flex-col gap-4 w-1/4 relative transform -translate-y-28'>
