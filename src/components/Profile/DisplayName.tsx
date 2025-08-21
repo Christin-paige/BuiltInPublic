@@ -10,6 +10,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Button } from '@/components/ui/button';
+import EditButton from '@/components/Buttons/EditButton';
 import { Pencil } from 'lucide-react';
 // Hooks & Utilities
 import { useEffect, useState } from 'react';
@@ -111,7 +112,7 @@ export default function DisplayName({ profile }: { profile?: Profile }) {
             )}
           />
           <div className='flex items-center gap-2'>
-            <Button onClick={() => setIsEditing(false)}>Cancel</Button>
+            <Button variant={'outline'} onClick={() => setIsEditing(false)}>Cancel</Button>
             <Button onClick={form.handleSubmit(onSubmit)}>Save</Button>
           </div>
         </Form>
@@ -122,12 +123,7 @@ export default function DisplayName({ profile }: { profile?: Profile }) {
           ) : (
             <p>{profile?.username}</p>
           )}
-          <button
-            className='cursor-pointer hidden group-hover:block transition-all duration-300 text-zinc-400 hover:text-zinc-100'
-            onClick={() => setIsEditing(true)}
-          >
-            <Pencil className='w-4 h-4' />
-          </button>
+          <EditButton onClick={() => setIsEditing(true)} />
         </div>
       )}
     </>

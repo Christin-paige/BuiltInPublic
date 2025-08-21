@@ -11,6 +11,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardTitle } from '@/components/ui/card';
+import EditButton from '@/components/Buttons/EditButton';
 import { Pencil } from 'lucide-react';
 // Hooks & Utilities
 import { useEffect, useState } from 'react';
@@ -88,7 +89,7 @@ export default function Bio({ profile }: { profile?: Profile }) {
     return (
       <>
         {profile?.bio ? (
-          <Card>
+          <Card className='py-2 max-h-30 overflow-scroll'>
             <CardContent>
               <CardTitle className='text-text-300'>Bio</CardTitle>
               <p className='font-body text-text-200 whitespace-pre-line'>
@@ -126,7 +127,7 @@ export default function Bio({ profile }: { profile?: Profile }) {
             )}
           />
           <div className='flex items-center gap-2'>
-            <Button onClick={() => setIsEditing(false)}>Cancel</Button>
+            <Button variant={'outline'} onClick={() => setIsEditing(false)}>Cancel</Button>
             <Button onClick={form.handleSubmit(onSubmit)}>Save</Button>
           </div>
         </Form>
@@ -137,12 +138,7 @@ export default function Bio({ profile }: { profile?: Profile }) {
               <CardContent>
                 <CardTitle className='text-text-300 flex gap-4 items-center justify-between'>
                   Bio
-                  <button
-                    className='hover:bg-secondary-950 p-1 cursor-pointer rounded-sm transition-all duration-300 border hover:border-secondary-800 active:scale-95'
-                    onClick={() => setIsEditing(true)}
-                  >
-                    <Pencil className='h-4 w-4' />
-                  </button>
+                  <EditButton onClick={() => setIsEditing(true)} />
                 </CardTitle>
                 <p className='font-body text-text-200 whitespace-pre-line'>
                   {profile.bio}
