@@ -1,100 +1,76 @@
 import { SupabaseAnonClient } from 'utils/supabase/server';
-import { beforeEach, expect, it, vi, describe } from 'vitest';
-import { EditProject } from '../EditProject';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { UpdateProject } from '../UpdateProject';
 
-const mockUpdate = vi.fn();
+const mockInsert = vi.fn();
 const mockSupabase = {
   from: (table: string) => mockSupabase,
-  update: mockUpdate,
-  eq: vi.fn().mockResolvedValue({ error: null, data: { id: 'test-id' } }),
+  insert: mockInsert,
 } as unknown as SupabaseAnonClient;
 
-const mockUpdateFails = vi.fn();
+const mockInsertFails = vi.fn();
 const mockSupabaseFails = {
   from: (table: string) => mockSupabaseFails,
-  update: mockUpdateFails,
-  eq: vi.fn().mockResolvedValue({
-    error: { message: 'violation or whatever', code: 'string' },
-  }),
+  insert: mockInsertFails,
+  select: () => mockSupabaseFails,
 } as unknown as SupabaseAnonClient;
 
-describe('Use case - EditProject', () => {
+describe('Use case - UpdateProject', () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    mockUpdate.mockReturnValue(mockSupabase);
-    mockUpdateFails.mockReturnValue(mockSupabaseFails);
+    mockInsert.mockResolvedValue({ error: null, data: { id: 'test-id' } });
+    mockInsertFails.mockResolvedValue({
+      error: { message: 'violation or whatever', code: 'string' },
+    });
   });
 
-  it('returns success: true and a message if update succeeds', async () => {
-    const editProject = new EditProject(mockSupabase);
+  it('should respond with success: true and a message when creation succeeds', async () => {
+    const updateProject = new UpdateProject(mockSupabase);
 
-    const actual = await editProject.execute({
-      description: 'a test project for testing project tests',
-      projectId: 'test-id',
+    const actual = await updateProject.execute({
+      update: 'test project',
+      projectId: 'test-owner',
     });
 
     expect(actual.success).toBe(true);
-    expect(actual.message).toBe('Project updated!');
+    expect(actual.message).toBe('Update added!');
   });
 
-  it('returns success: false and a message if update fails', async () => {
-    const editProject = new EditProject(mockSupabaseFails);
+  it('should sanitize input', async () => {
+    const updateProject = new UpdateProject(mockSupabase);
 
-    const actual = await editProject.execute({ projectId: 'test-id' });
+    const actual = updateProject.execute({
+      update: '<script>window.alert()</script>test update',
+      projectId: 'test-owner',
+    });
 
-    expect(actual.success).toBe(false);
-    expect(actual.message).toBe('Project update failed');
+    expect(mockInsert).toHaveBeenCalledWith({
+      update: 'test update',
+      project_id: 'test-owner',
+    });
   });
 
-  it.each([
-    'rick and morty a hundred years forever',
-    'www.hundredyears.rickandmorty.com',
-    'ww.wwww.rickandmorty.hundred.yearsadventure.com',
-  ])('fails if a provided URL is invalid', async (url) => {
-    const editProject = new EditProject(mockSupabase);
+  it('should fail if sanitizing input results in empty string for update', async () => {
+    const updateProject = new UpdateProject(mockSupabase);
 
-    const actual = await editProject.execute({
-      external_url: url,
-      projectId: 'test-id',
+    const actual = await updateProject.execute({
+      update: '<script>window.alert()</script>',
+      projectId: 'test-owner',
     });
 
     expect(actual.success).toBe(false);
-    expect(actual.message).toBe('Must be valid URL');
+    expect(actual.message).toBe('Update cannot be blank');
   });
 
-  it('sanitizes descriptions', async () => {
-    const editProject = new EditProject(mockSupabase);
+  it('should respond with success: false and a message when creation fails', async () => {
+    const updateProject = new UpdateProject(mockSupabaseFails);
 
-    const actual = await editProject.execute({
-      description: '<script>window.alert()</script>malicious descriptious',
-      projectId: 'test-id',
-    });
-
-    expect(mockUpdate).toHaveBeenCalledWith({
-      description: 'malicious descriptious',
-    });
-  });
-
-  it('sanitizes name updates', async () => {
-    const editProject = new EditProject(mockSupabase);
-
-    const actual = await editProject.execute({
-      name: '<script>window.alert()</script>bad name',
-      projectId: 'test-id',
-    });
-
-    expect(mockUpdate).toHaveBeenCalledWith({ name: 'bad name' });
-  });
-
-  it('fails if sanitized name update results in an empty string', async () => {
-    const editProject = new EditProject(mockSupabase);
-
-    const actual = await editProject.execute({
-      name: '<script>window.alert()</script>',
-      projectId: 'test-id',
+    const actual = await updateProject.execute({
+      update: 'test project',
+      projectId: 'test-owner',
     });
 
     expect(actual.success).toBe(false);
-    expect(actual.message).toBe('Name cannot be blank');
+    expect(actual.message).toBe('Creating Update failed');
   });
 });

@@ -10,6 +10,7 @@ import GradientBlobs from './components/GradientBlobs';
 import useProfile from '@/hooks/useProfile/useProfile';
 import { notFound } from 'next/navigation';
 import { ProfileEditProvider } from '@/contexts/ProfileEditContext';
+import ProjectList from '../dashboard/projects/ProjectList';
 
 interface ProfileProps {
   params: Promise<{
@@ -33,7 +34,7 @@ export default function Profile({ params }: ProfileProps) {
 
   return (
     <ProfileEditProvider profileUserId={profile.id}>
-      <main className='h-screen flex flex-col py-16 items-center gap-8 -z-10 overflow-hidden bg-primary-950/30'>
+      <main className='h-screen flex flex-col items-center gap-8 -z-10 overflow-hidden'>
         <Image
           src='/example-cover-img.jpg'
           alt='Cover Photo'
@@ -45,7 +46,7 @@ export default function Profile({ params }: ProfileProps) {
         <div className='flex p-8 gap-12 w-full relative'>
           <GradientBlobs />
           <UserInfo profile={profile} />
-          <FeedSection />
+          <FeedSection username={username} />
           <StreakSection />
         </div>
       </main>

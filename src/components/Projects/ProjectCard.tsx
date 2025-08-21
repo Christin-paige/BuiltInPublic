@@ -5,7 +5,7 @@ import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { ProjectStatusBadge } from './ProjectStatusBadge';
 import type { Project } from '@/repositories/projectRepository/project.types';
 
-interface ProjectCardProps extends Project {
+interface ProjectCardProps extends Partial<Project> {
   href: string;
 }
 
@@ -18,7 +18,7 @@ function truncate(text: string, max = 140) {
 export default function ProjectCard({
   name,
   description = '',
-  status,
+  status = 'planning',
   href,
 }: ProjectCardProps) {
   return (

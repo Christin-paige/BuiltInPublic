@@ -87,14 +87,18 @@ function ProjectTitleForm({ stopEditing }: ProjectTitleFormProps) {
             </FormItem>
           )}
         />
-        <div className='flex gap-2 mt-2'>
-          <Button type='submit' disabled={disableButton}>
-            Save
-          </Button>
-          <Button variant='outline' onClick={stopEditing}>
-            Cancel
-          </Button>
-        </div>
+        <Button type='submit' disabled={disableButton}>
+          Save
+        </Button>
+        <Button
+          variant='outline'
+          onClick={(e) => {
+            e.preventDefault();
+            stopEditing();
+          }}
+        >
+          Cancel
+        </Button>
       </form>
     </Form>
   );
