@@ -7,7 +7,7 @@ import {
   FormLabel,
   Form,
 } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardTitle } from '@/components/ui/card';
@@ -91,7 +91,9 @@ export default function Bio({ profile }: { profile?: Profile }) {
           <Card>
             <CardContent>
               <CardTitle className='text-text-300'>Bio</CardTitle>
-              <p className='font-body text-text-200'>{profile.bio}</p>
+              <p className='font-body text-text-200 whitespace-pre-line'>
+                {profile.bio}
+              </p>
             </CardContent>
           </Card>
         ) : (
@@ -112,7 +114,12 @@ export default function Bio({ profile }: { profile?: Profile }) {
               <FormItem>
                 <FormLabel>Bio</FormLabel>
                 <FormControl>
-                  <Input autoFocus placeholder='Edit your bio' {...field} />
+                  <Textarea
+                    className='resize-none'
+                    autoFocus
+                    placeholder='Edit your bio'
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -137,7 +144,9 @@ export default function Bio({ profile }: { profile?: Profile }) {
                     <Pencil className='h-4 w-4' />
                   </button>
                 </CardTitle>
-                <p className='font-body text-text-200'>{profile.bio}</p>
+                <p className='font-body text-text-200 whitespace-pre-line'>
+                  {profile.bio}
+                </p>
               </CardContent>
             </Card>
           ) : (

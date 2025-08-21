@@ -17,8 +17,7 @@ export const displayNameSchema = z.object({
 export const bioSchema = z.object({
   bio: z
     .string()
-    .max(256, 'Bio must be no more than 256 characters')
-    .regex(/^[a-zA-Z0-9'.,!?":;()\-\s]*$/, 'Bio contains invalid characters')
+    .max(300, 'Bio must be no more than 300 characters')
     .optional(),
 });
 
