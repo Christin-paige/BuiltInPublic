@@ -15,13 +15,13 @@ concurrency:
 
 jobs:
   gate:
-    name: "Gate: package-lock.json only + renovate actor"
+    name: 'Gate: package-lock.json only + renovate actor'
     if: >
       github.actor == 'renovate[bot]' &&
       github.event.pull_request.draft == false
     runs-on: ubuntu-latest
     steps:
-      - name: "Verify PR only changes package-lock.json (root or workspaces)"
+      - name: 'Verify PR only changes package-lock.json (root or workspaces)'
         uses: actions/github-script@v7
         with:
           script: |
@@ -52,24 +52,24 @@ jobs:
             }
 
   approve:
-    name: "Auto-approve (MERGE_TOKEN)"
+    name: 'Auto-approve (MERGE_TOKEN)'
     needs: gate
     if: ${{ needs.gate.result == 'success' }}
     runs-on: ubuntu-latest
     steps:
-      - name: "Approve PR"
+      - name: 'Approve PR'
         uses: hmarr/auto-approve-action@v3
         with:
           # PAT with 'repo' scope stored as MERGE_TOKEN
           github-token: ${{ secrets.MERGE_TOKEN }}
 
   enable-automerge:
-    name: "Enable native auto-merge"
+    name: 'Enable native auto-merge'
     needs: approve
     if: ${{ needs.approve.result == 'success' }}
     runs-on: ubuntu-latest
     steps:
-      - name: "Enable native auto-merge (SQUASH)"
+      - name: 'Enable native auto-merge (SQUASH)'
         uses: actions/github-script@v7
         with:
           script: |
