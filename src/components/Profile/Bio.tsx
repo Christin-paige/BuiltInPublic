@@ -116,7 +116,7 @@ export default function Bio({ profile }: { profile?: Profile }) {
                 <FormLabel>Bio</FormLabel>
                 <FormControl>
                   <Textarea
-                    className='resize-none'
+                    className='resize-none max-w-md'
                     autoFocus
                     placeholder='Edit your bio'
                     {...field}
@@ -136,7 +136,7 @@ export default function Bio({ profile }: { profile?: Profile }) {
       ) : (
         <>
           {profile?.bio ? (
-            <Card className='py-2 max-h-30 overflow-scroll'>
+            <Card className='py-2 max-h-30 overflow-scroll max-w-md'>
               <CardContent>
                 <CardTitle className='text-text-300 flex gap-4 items-center justify-between'>
                   Bio
