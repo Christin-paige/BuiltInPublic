@@ -35,61 +35,57 @@ export async function updateProfile({
   bio,
   display_name,
 }: UserProfileUpdateData) {
-  const errors: Record<string, string[]> = {};
-
   // Only validate display_name if it's provided and not empty
-  if (display_name && display_name.trim() !== '') {
-    const validateDisplayName = displayNameSchema.safeParse({
+  if (display_name) {
+    const validatedDisplayName = displayNameSchema.safeParse({
       displayName: display_name,
     });
 
-    if (!validateDisplayName.success) {
-      for (const issue of validateDisplayName.error.issues) {
+    if (!validatedDisplayName.success) {
+      const errors: Record<string, string[]> = {};
+      for (const issue of validatedDisplayName.error.issues) {
         const path = issue.path.join('.');
         if (!errors[path]) {
           errors[path] = [];
         }
         errors[path].push(issue.message);
       }
+
+      throw new ValidationError('Validation failed', errors);
     }
   }
 
   // Only validate bio if it's provided
   if (bio !== undefined) {
-    const validateBio = bioSchema.safeParse({ bio: bio });
+    const validatedBio = bioSchema.safeParse({ bio: bio });
 
-    if (!validateBio.success) {
-      for (const issue of validateBio.error.issues) {
+    if (!validatedBio.success) {
+      const errors: Record<string, string[]> = {};
+      for (const issue of validatedBio.error.issues) {
         const path = issue.path.join('.');
         if (!errors[path]) {
           errors[path] = [];
         }
         errors[path].push(issue.message);
       }
+
+      throw new ValidationError('Validation failed', errors);
     }
   }
 
-  // Only throw validation error if there are actual errors
-  if (Object.keys(errors).length > 0) {
-    throw new ValidationError('Validation failed', errors);
-  } else {
-    const supabase = await createAnonClient();
-    const profileRepository = new ProfileRepository(supabase);
-    const updateUserProfile = new UpdateUserProfile(
-      profileRepository,
-      supabase
-    );
+  const supabase = await createAnonClient();
+  const profileRepository = new ProfileRepository(supabase);
+  const updateUserProfile = new UpdateUserProfile(profileRepository, supabase);
 
-    const result = await updateUserProfile.execute({
-      id,
-      bio,
-      display_name,
-    });
+  const result = await updateUserProfile.execute({
+    id,
+    bio,
+    display_name,
+  });
 
-    if (!result.success) {
-      throw new Error(result.message);
-    }
-
-    return result;
+  if (!result.success) {
+    throw new Error(result.message);
   }
+
+  return result;
 }
