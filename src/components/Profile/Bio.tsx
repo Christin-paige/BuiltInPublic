@@ -133,7 +133,7 @@ export default function Bio({ profile }: { profile?: Profile }) {
       ) : (
         <>
           {profile?.bio ? (
-            <Card className='py-2'>
+            <Card className='py-2 max-h-30 overflow-scroll'>
               <CardContent>
                 <CardTitle className='text-text-300 flex gap-4 items-center justify-between'>
                   Bio
