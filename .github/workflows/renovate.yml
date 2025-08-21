@@ -5,6 +5,7 @@ on:
     types: [opened, synchronize, labeled, reopened, ready_for_review]
     branches: [main, development]
 
+# Needed for review + enabling native auto-merge with GITHUB_TOKEN
 permissions:
   contents: write
   pull-requests: write
@@ -14,8 +15,8 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  gate-and-automerge:
-    name: Gate & enable auto-merge
+  gate:
+    name: Gate: package-lock.json only + renovate actor
     if: >
       github.actor == 'renovate[bot]' &&
       github.event.pull_request.draft == false
@@ -23,7 +24,6 @@ jobs:
     steps:
       - name: Verify PR only changes package-lock.json (root or workspaces)
         uses: actions/github-script@v7
-        id: verify
         with:
           script: |
             const pr = context.payload.pull_request;
@@ -52,14 +52,31 @@ jobs:
               core.info(`Lockfile-only change set -> ${changed.join(', ')}`);
             }
 
+  approve:
+    name: Auto-approve (MERGE_TOKEN)
+    needs: gate
+    if: needs.gate.result == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Approve PR
+        uses: hmarr/auto-approve-action@v3
+        with:
+          # PAT with 'repo' scope stored as MERGE_TOKEN
+          github-token: ${{ secrets.MERGE_TOKEN }}
+
+  enable-automerge:
+    name: Enable native auto-merge
+    needs: approve
+    if: needs.approve.result == 'success'
+    runs-on: ubuntu-latest
+    steps:
       - name: Enable native auto-merge (SQUASH)
-        if: ${{ success() }}
         uses: actions/github-script@v7
         with:
           script: |
             const pr = context.payload.pull_request;
 
-            // Enable GitHub's native auto-merge; it will merge after required checks pass.
+            // Queue native auto-merge; respects branch protection & required checks
             await github.graphql(
               `
               mutation ($pullRequestId: ID!) {
@@ -74,4 +91,4 @@ jobs:
               { pullRequestId: pr.node_id }
             );
 
-            core.info('Auto-merge enabled (SQUASH). GitHub will merge after required checks pass.');
+            core.info('Auto-merge enabled (SQUASH). Will merge after required checks pass.');
