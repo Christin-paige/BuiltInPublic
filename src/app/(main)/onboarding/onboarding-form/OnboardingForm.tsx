@@ -111,7 +111,7 @@ export default function OnboardingForm() {
               <FormControl>
                 <Textarea
                   className='resize-none'
-                  maxLength={300}
+                  maxLength={256}
                   placeholder='bio'
                   {...field}
                 />
