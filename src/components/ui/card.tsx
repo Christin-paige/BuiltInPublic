@@ -1,12 +1,6 @@
 import * as React from 'react';
 
 import { cn } from '@/lib/utils';
-import { cva, type VariantProps } from 'class-variance-authority';
-
-const cardVariants = {
-  default: 'bg-card text-card-foreground',
-  outlined: 'border border-muted-foreground',
-};
 
 function Card({ className, ...props }: React.ComponentProps<'div'>) {
   return (
