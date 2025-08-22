@@ -81,12 +81,12 @@ function BioForm({ profile }: { profile?: Profile }) {
               <FormLabel>Bio</FormLabel>
               <FormControl>
                 <Textarea
-                    className='resize-none max-w-md'
-                    autoFocus
-                    placeholder='Edit your bio'
-                    maxLength={256}
-                    {...field}
-                  />
+                  className='resize-none max-w-md'
+                  autoFocus
+                  placeholder='Edit your bio'
+                  maxLength={256}
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -105,11 +105,13 @@ function BioForm({ profile }: { profile?: Profile }) {
   return (
     <Card className='relative min-w-xs max-w-md pt-2 max-h-22 overflow-y-scroll scroll-hide'>
       <CardTitle className='sr-only h-0'>Bio</CardTitle>
-        <div className="absolute top-2 right-2 z-10">
-          <EditButton label='Edit Bio' onClick={() => setIsEditing(true)} />
-        </div>
+      <div className='absolute top-2 right-2 z-10'>
+        <EditButton label='Edit Bio' onClick={() => setIsEditing(true)} />
+      </div>
       <CardContent className='flex justify-between'>
-        <p className='whitespace-pre-wrap break-words w-11/12 text-base font-body'>{profile?.bio || ''}</p>
+        <p className='whitespace-pre-wrap break-words w-11/12 text-base font-body'>
+          {profile?.bio || ''}
+        </p>
       </CardContent>
     </Card>
   );
@@ -131,7 +133,9 @@ export default function Bio() {
     <Card className='relative min-w-xs max-w-md pt-2 max-h-22 overflow-y-scroll scroll-hide'>
       <CardTitle className='sr-only h-0'>Bio</CardTitle>
       <CardContent className='flex justify-between'>
-        <p className='whitespace-pre-wrap break-words w-11/12 text-base font-body'>{profile?.bio || 'No bio available'}</p>
+        <p className='whitespace-pre-wrap break-words w-11/12 text-base font-body'>
+          {profile?.bio || 'No bio available'}
+        </p>
       </CardContent>
     </Card>
   );

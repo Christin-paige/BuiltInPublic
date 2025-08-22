@@ -109,7 +109,12 @@ export default function OnboardingForm() {
             <FormItem className='w-full'>
               <FormLabel>Bio</FormLabel>
               <FormControl>
-                <Textarea className='resize-none' maxLength={300} placeholder='bio' {...field} />
+                <Textarea
+                  className='resize-none'
+                  maxLength={300}
+                  placeholder='bio'
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>

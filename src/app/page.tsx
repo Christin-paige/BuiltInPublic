@@ -9,17 +9,20 @@ const Home: FC = () => {
     <section className='px-4 pb-8 md:px-10 pt-24 sm:pt-36 xl:pt-54 gap-16 xl:gap-20 w-full min-h-screen relative bg-primary-950/30 flex flex-col items-center'>
       <div className='absolute top-0 left-0 size-40 md:size-100 xl:size-120 rounded-full bg-radial from-sky-500/60 to-indigo-900/60 via-indigo-900/60 blur-3xl z-0'></div>
       <div className='absolute top-[7%] md:top-[20%] lg:top-[16%] xl:top-[20%] left-[-10] md:left-[25%] xl:left-[30%] w-full md:w-1/2 xl:w-2/5 h-1/5 lg:h-1/4 xl:h-1/3 rounded-full bg-radial from-pink-500/60 to-indigo-600/60 blur-3xl z-0'></div>
-      
+
       <div className='flex flex-col items-center gap-4 md:gap-8 z-10 relative'>
         <header className='flex flex-col items-center gap-2 text-center z-10 relative'>
           <h1 className='text-3xl md:text-4xl xl:text-5xl font-heading font-bold text-text-100'>
             BuiltInPublic
           </h1>
-          <h2 className='text-xl md:text-2xl xl:text-3xl font-subheading text-text-200'>Where we build in public — together.</h2>
+          <h2 className='text-xl md:text-2xl xl:text-3xl font-subheading text-text-200'>
+            Where we build in public — together.
+          </h2>
         </header>
 
         <div className='flex flex-col items-center gap-2'>
-          <p className='text-lg xl:text-xl text-text-300 max-w-md text-center'>Join our supportive community where developers collaborate, share
+          <p className='text-lg xl:text-xl text-text-300 max-w-md text-center'>
+            Join our supportive community where developers collaborate, share
             progress, and grow together.
           </p>
           <Link
@@ -73,7 +76,6 @@ const Home: FC = () => {
           <p>Track your progress, learn from others</p>
         </div>
       </div>
-
     </section>
   );
 };

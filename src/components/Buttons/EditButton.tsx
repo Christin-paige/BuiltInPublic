@@ -1,6 +1,12 @@
 import { Pencil } from 'lucide-react';
 
-export default function EditButton({ onClick, label }: { onClick: () => void, label: string }) {
+export default function EditButton({
+  onClick,
+  label,
+}: {
+  onClick: () => void;
+  label: string;
+}) {
   return (
     <button
       aria-label={`Edit ${label}`}

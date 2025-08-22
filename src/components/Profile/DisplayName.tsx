@@ -101,7 +101,10 @@ function DisplayNameForm({ profile }: { profile?: Profile }) {
       ) : (
         <p>{profile?.username}</p>
       )}
-      <EditButton label='Edit Display Name' onClick={() => setIsEditing(true)} />
+      <EditButton
+        label='Edit Display Name'
+        onClick={() => setIsEditing(true)}
+      />
     </div>
   );
 }

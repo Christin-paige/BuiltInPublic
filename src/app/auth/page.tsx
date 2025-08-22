@@ -30,11 +30,27 @@ export default function Page() {
           </p>
         </div>
         <div className='flex flex-col gap-2 w-full items-center justify-center'>
-          <Link className='w-fit transition-all duration-300 hover:scale-[1.04] active:scale-100 ease-in-out' href={'/auth/oauth?provider=google'}>
-            <Image src='/icons/web_neutral_rd_si.svg' alt='Google Sign in button' width={184} height={32} />
+          <Link
+            className='w-fit transition-all duration-300 hover:scale-[1.04] active:scale-100 ease-in-out'
+            href={'/auth/oauth?provider=google'}
+          >
+            <Image
+              src='/icons/web_neutral_rd_si.svg'
+              alt='Google Sign in button'
+              width={184}
+              height={32}
+            />
           </Link>
-          <Link className='w-fit transition-all duration-300 hover:scale-[1.04] active:scale-100 ease-in-out' href={'/auth/oauth?provider=github'}>
-            <Image src='/icons/github-sign-in-btn.svg' alt='GitHub Sign in button' width={184} height={32} />
+          <Link
+            className='w-fit transition-all duration-300 hover:scale-[1.04] active:scale-100 ease-in-out'
+            href={'/auth/oauth?provider=github'}
+          >
+            <Image
+              src='/icons/github-sign-in-btn.svg'
+              alt='GitHub Sign in button'
+              width={184}
+              height={32}
+            />
           </Link>
         </div>
         <DevSignIn />
