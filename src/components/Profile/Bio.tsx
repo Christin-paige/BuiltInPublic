@@ -10,7 +10,6 @@ import {
 import { Textarea } from '@/components/ui/textarea';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Button } from '@/components/ui/button';
-import { Pencil } from 'lucide-react';
 import { Card, CardContent, CardTitle } from '@/components/ui/card';
 // Hooks & Utilities
 import { useState } from 'react';
@@ -97,7 +96,7 @@ function BioForm({ profile }: { profile?: Profile }) {
   }
 
   return (
-    <Card className='relative max-w-full pt-2 max-h-22 overflow-y-scroll scroll-hide'>
+    <Card className='relative min-w-xs max-w-md pt-2 max-h-22 overflow-y-scroll scroll-hide'>
       <CardTitle className='sr-only h-0'>Bio</CardTitle>
         <div className="absolute top-2 right-2 z-10">
           <EditButton label='Edit Bio' onClick={() => setIsEditing(true)} />
