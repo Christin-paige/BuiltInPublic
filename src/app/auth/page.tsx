@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { Globe } from 'lucide-react';
-import { Auth } from '@supabase/auth-ui-react';
 import DevSignIn from './DevSignIn';
 import Link from 'next/link';
 import Image from 'next/image';
