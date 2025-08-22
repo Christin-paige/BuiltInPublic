@@ -115,7 +115,7 @@ export default function OnboardingForm() {
             </FormItem>
           )}
         />
-        <Button className='' type='submit'>
+        <Button className='mt-6' type='submit'>
           Submit
         </Button>
       </form>
