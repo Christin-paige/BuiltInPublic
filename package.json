@@ -26,7 +26,6 @@
     "@radix-ui/react-label": "^2.1.7",
     "@radix-ui/react-slot": "^1.2.3",
     "@supabase/auth-helpers-nextjs": "^0.10.0",
-    "@supabase/auth-ui-react": "^0.4.7",
     "@supabase/gotrue-js": "^2.71.1",
     "@supabase/postgrest-js": "^1.21.2",
     "@supabase/ssr": "^0.6.1",
