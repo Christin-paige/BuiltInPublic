@@ -96,50 +96,11 @@ function DisplayNameForm({ profile }: { profile?: Profile }) {
   }
 
   return (
-<<<<<<< HEAD
-    <>
-      {isEditing ? (
-        <Form {...form}>
-          <FormField
-            control={form.control}
-            name='displayName'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Display Name</FormLabel>
-                <FormControl>
-                  <Input
-                    autoFocus
-                    placeholder='Enter your display name'
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <div className='flex items-center gap-2'>
-            <Button variant={'outline'} onClick={() => setIsEditing(false)}>
-              Cancel
-            </Button>
-            <Button onClick={form.handleSubmit(onSubmit)}>Save</Button>
-          </div>
-        </Form>
-      ) : (
-        <div className='flex items-center font-body text-lg group gap-8'>
-          {profile?.displayName ? (
-            <p>{profile.displayName}</p>
-          ) : (
-            <p>{profile?.username}</p>
-          )}
-          <EditButton label='Display Name' onClick={() => setIsEditing(true)} />
-        </div>
-=======
     <div className='flex items-center font-body text-lg group gap-8'>
       {profile?.displayName ? (
         <p>{profile.displayName}</p>
       ) : (
         <p>{profile?.username}</p>
->>>>>>> 7daa1da5580384c2515bbad88e8e6f7d64e2ec3a
       )}
       <Button variant='ghost' onClick={() => setIsEditing(true)}>
         <Pencil className='w-4 h-4' />

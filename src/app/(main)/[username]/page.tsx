@@ -33,15 +33,8 @@ export default function Profile({ params }: ProfileProps) {
 
   return (
     <ProfileProvider profile={profile}>
-      <main className='h-screen flex flex-col items-center gap-4 -z-10 overflow-hidden bg-primary-950/30 pt-16 lg:pt-22 overflow-x-hidden'>
-        <Image
-          src='/example-cover-img.jpg'
-          alt='Cover Photo'
-          width={2000}
-          height={1200}
-          className='w-full h-48 object-cover hover:opacity-80 transition-all duration-100 transform-content object-top'
-        />
-
+      <main className='h-screen flex flex-col items-center gap-4 overflow-hidden bg-primary-950/30 pt-16 lg:pt-22 relative'>
+    
         <div className="w-full h-36 lg:h-42 absolute top-0 left-0 z-0 bg-linear-90 from-primary-950/30 via-primary-900/50 to-primary-950/30 overflow-hidden border-b
         flex justify-center items-center">
           <Image
@@ -53,7 +46,7 @@ export default function Profile({ params }: ProfileProps) {
           />
         </div>
 
-        <div className='p-8 gap-8 lg:gap-12 w-full relative grid grid-cols-1 lg:grid-cols-[1fr_2fr_1fr]'>
+        <div className='p-8 gap-8 lg:gap-12 w-full relative grid lg:grid-cols-4'>
           <GradientBlobs />
           <UserInfo />
           <FeedSection username={username} />

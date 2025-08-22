@@ -200,4 +200,10 @@
       background-position-x: 0%;
     }
   }
+
+  .scroll-hide {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
 }
