@@ -108,7 +108,7 @@ export function ProjectDescription() {
   }
 
   return (
-    <Card className='border-none'>
+    <Card className='border-none bg-transparent'>
       <CardHeader className='flex justify-start items-center pl-0'>
         <CardTitle>Description</CardTitle>
         <Button variant={'ghost'} onClick={() => setIsEditing(true)}>

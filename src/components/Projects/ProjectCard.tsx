@@ -27,8 +27,8 @@ export default function ProjectCard({
       className='block focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 rounded-2xl'
       aria-label={`Open project: ${name}`}
     >
-      <Card className='w-full rounded-2xl border border-slate-700/70 bg-slate-900/60 shadow-sm ring-1 ring-white/5 transition hover:bg-slate-900/80 hover:shadow cursor-pointer'>
-        <CardHeader className='flex flex-row items-start justify-between space-y-0 gap-3'>
+      <Card className='w-full rounded-2xl shadow-sm backdrop-blur-2xl hover:shadow cursor-pointer'>
+        <CardHeader className='flex px-4 flex-row items-start justify-between space-y-0 gap-3 font-subheading'>
           <CardTitle className='text-base font-semibold text-slate-100'>
             {name}
           </CardTitle>
@@ -37,7 +37,7 @@ export default function ProjectCard({
 
         {description ? (
           <CardContent>
-            <p className='text-sm leading-6 text-slate-300'>
+            <p className='text-sm leading-6 text-slate-300 font-body'>
               {truncate(description, 140)}
             </p>
           </CardContent>

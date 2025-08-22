@@ -25,10 +25,10 @@ export default function Page() {
           <h1 className='text-2xl font-heading'>BuiltInPublic</h1>
           <Globe className='text-accent-600' />
         </div>
-        <p className='text-lg text-text-300 font-subheading mb-4'>
+        <p className='text-lg text-text-300 font-subheading'>
           Register or Sign In
         </p>
-        <div className='flex gap-3 items-center justify-center mb-4'>
+        <div className='flex gap-3 items-center justify-center'>
           <Link className='w-fit' href={'/auth/oauth?provider=google'}>
             <Button>
               <FcGoogle className='w-5 h-5' />
@@ -38,7 +38,7 @@ export default function Page() {
           <Link className='w-fit' href={'/auth/oauth?provider=github'}>
             <Button>
               <FaGithub className='w-5 h-5' />
-              Google
+              GitHub
             </Button>
           </Link>
         </div>
