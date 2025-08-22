@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createAnonClient } from './server';
+import { AnySupabaseClient, createAnonClient } from './server';
 import { ProfileRepository } from '@/repositories/profileRepository/profile.repository';
+import { ProfileDTO } from '@/repositories/profileRepository/profile.types';
 
 const protectedRoutes = ['/dashboard', '/profile', '/onboarding'];
 const publicRoutes = ['/auth'];
@@ -56,6 +57,25 @@ export async function updateSession(request: NextRequest) {
   );
 
   const isOnboardingRoute = path === '/onboarding';
+
+  const isDashboardRoute = path === '/dashboard';
+
+  const isRoot = path === '/';
+
+  if ((isDashboardRoute || isRoot) && user) {
+    const profileRepository = new ProfileRepository(supabase);
+    const userProfile = await profileRepository.getById(user.id);
+
+    if (userProfile?.username) {
+      const redirectUrl = new URL(`/${userProfile.username}`, request.url);
+
+      return NextResponse.redirect(redirectUrl);
+    } else {
+      const redirectUrl = new URL('/onboarding', request.url);
+
+      return NextResponse.redirect(redirectUrl);
+    }
+  }
 
   if (isProtectedRoute && !user) {
     const redirectUrl = new URL('/auth', request.url);
