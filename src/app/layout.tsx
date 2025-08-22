@@ -5,7 +5,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 // Import and setup fonts
-import { Audiowide, Lato, Raleway } from 'next/font/google';
+import { Audiowide, Lato, Raleway, Roboto } from 'next/font/google';
 
 const audioWide = Audiowide({
   subsets: ['latin'],
@@ -18,6 +18,13 @@ const raleway = Raleway({
   subsets: ['latin'],
   weight: '400',
   variable: '--font-raleway',
+  display: 'swap',
+});
+
+const roboto = Roboto({
+  subsets: ['latin'],
+  weight: '400',
+  variable: '--font-roboto',
   display: 'swap',
 });
 
@@ -74,7 +81,7 @@ export default async function RootLayout({
   return (
     <html
       lang='en'
-      className={`${audioWide.variable} ${raleway.variable} ${lato.variable}`}
+      className={`${audioWide.variable} ${raleway.variable} ${lato.variable} ${roboto.variable}`}
     >
       <body className='min-h-screen flex flex-col bg-zinc-950'>
         <ThemeProvider
