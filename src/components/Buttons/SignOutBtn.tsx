@@ -12,7 +12,7 @@ export default function SignOutBtn() {
     return <Skeleton className='h-10' />;
   }
 
-  if (data?.id) {
+  if (!data?.id) {
     return null;
   }
 

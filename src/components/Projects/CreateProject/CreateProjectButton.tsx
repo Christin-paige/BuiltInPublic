@@ -84,7 +84,7 @@ export function CreateProjectButton({ canEdit = true }: { canEdit?: boolean }) {
   return (
     <Dialog onOpenChange={onCloseDialog}>
       <DialogTrigger asChild>
-        <Button disabled={isLoadingUser}>
+        <Button className='self-end' disabled={isLoadingUser}>
           Create Project
           <Plus />
         </Button>

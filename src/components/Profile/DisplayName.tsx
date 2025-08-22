@@ -10,7 +10,6 @@ import { Input } from '@/components/ui/input';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Button } from '@/components/ui/button';
 import EditButton from '@/components/Buttons/EditButton';
-import { Pencil } from 'lucide-react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -102,9 +101,7 @@ function DisplayNameForm({ profile }: { profile?: Profile }) {
       ) : (
         <p>{profile?.username}</p>
       )}
-      <Button variant='ghost' onClick={() => setIsEditing(true)}>
-        <Pencil className='w-4 h-4' />
-      </Button>
+      <EditButton label='Edit Display Name' onClick={() => setIsEditing(true)} />
     </div>
   );
 }

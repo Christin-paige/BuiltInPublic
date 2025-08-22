@@ -21,11 +21,17 @@ import { Profile } from '@/repositories/profileRepository/profile.types';
 import { ValidationError } from 'utils/errors/ValidationError';
 import { useProfileContext } from '../Providers/ProfileProvider';
 import EditButton from '@/components/Buttons/EditButton';
+import { ca } from 'zod/v4/locales';
 
 function BioForm({ profile }: { profile?: Profile }) {
   const [isEditing, setIsEditing] = useState(false);
 
   const updateProfileMutation = useUpdateProfile();
+
+  const cancelForm = () => {
+    setIsEditing(false);
+    form.reset();
+  };
 
   // Form setup to edit bio and test validation
   const form = useForm<BioSchema>({
@@ -78,6 +84,7 @@ function BioForm({ profile }: { profile?: Profile }) {
                     className='resize-none max-w-md'
                     autoFocus
                     placeholder='Edit your bio'
+                    maxLength={256}
                     {...field}
                   />
               </FormControl>
@@ -86,7 +93,7 @@ function BioForm({ profile }: { profile?: Profile }) {
           )}
         />
         <div className='flex items-center gap-2'>
-          <Button variant='outline' onClick={() => setIsEditing(false)}>
+          <Button variant='outline' onClick={cancelForm}>
             Cancel
           </Button>
           <Button onClick={form.handleSubmit(onSubmit)}>Save</Button>
@@ -121,10 +128,10 @@ export default function Bio() {
   }
 
   return (
-    <Card>
-      <CardTitle>Bio</CardTitle>
-      <CardContent>
-        <p className='whitespace-pre-wrap text-lg'>{profile.bio || ''}</p>
+    <Card className='relative min-w-xs max-w-md pt-2 max-h-22 overflow-y-scroll scroll-hide'>
+      <CardTitle className='sr-only h-0'>Bio</CardTitle>
+      <CardContent className='flex justify-between'>
+        <p className='whitespace-pre-wrap break-words w-11/12 text-base font-body'>{profile?.bio || 'No bio available'}</p>
       </CardContent>
     </Card>
   );
