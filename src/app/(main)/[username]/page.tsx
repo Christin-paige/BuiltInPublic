@@ -9,7 +9,7 @@ import StreakSection from './components/StreakSection';
 import GradientBlobs from './components/GradientBlobs';
 import useProfile from '@/hooks/useProfile/useProfile';
 import { notFound } from 'next/navigation';
-import { ProfileEditProvider } from '@/contexts/ProfileEditContext';
+import { ProfileProvider } from '@/components/Providers/ProfileProvider';
 import ProjectList from '../dashboard/projects/ProjectList';
 
 interface ProfileProps {
@@ -33,7 +33,7 @@ export default function Profile({ params }: ProfileProps) {
   }
 
   return (
-    <ProfileEditProvider profileUserId={profile.id}>
+    <ProfileProvider profile={profile}>
       <main className='h-screen flex flex-col items-center gap-8 -z-10 overflow-hidden'>
         <Image
           src='/example-cover-img.jpg'
@@ -45,11 +45,11 @@ export default function Profile({ params }: ProfileProps) {
 
         <div className='flex p-8 gap-12 w-full relative'>
           <GradientBlobs />
-          <UserInfo profile={profile} />
+          <UserInfo />
           <FeedSection username={username} />
           <StreakSection />
         </div>
       </main>
-    </ProfileEditProvider>
+    </ProfileProvider>
   );
 }

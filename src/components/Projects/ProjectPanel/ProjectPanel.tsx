@@ -5,7 +5,7 @@ import useUser from '@/hooks/useUser/useUser';
 import { notFound } from 'next/navigation';
 import { ProjectDisplayPanel } from './ProjectDisplayPanel';
 import { ProjectEditPanel } from './ProjectEditPanel';
-import { ProjectProvider } from '@/contexts/ProjectContext';
+import { ProjectProvider } from '@/components/Providers/ProjectProvider';
 
 interface ProjectPanelProps {
   projectId: string;
