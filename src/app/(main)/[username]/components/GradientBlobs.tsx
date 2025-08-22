@@ -22,6 +22,15 @@ const GradientBlobs = () => {
     'from-emerald-600 to-teal-600',
   ];
 
+  const getGradientClass = (index: number): string => {
+    const safeIndex = Math.abs(index) % gradientCombinations.length;
+    return (
+      gradientCombinations.at(safeIndex) ??
+      gradientCombinations.at(0) ??
+      'from-purple-600 to-pink-600'
+    );
+  };
+
   useEffect(() => {
     const positions = Array.from({ length: numBlobs }, () => ({
       x: Math.random() * window.innerWidth,
@@ -34,9 +43,7 @@ const GradientBlobs = () => {
   return (
     <>
       {blobPositions.map((position, index) => {
-        const gradientClass =
-          gradientCombinations[index % gradientCombinations.length] ||
-          gradientCombinations[0];
+        const gradientClass = getGradientClass(index);
         return (
           <div
             key={index}
