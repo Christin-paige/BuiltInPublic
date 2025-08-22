@@ -2,13 +2,12 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Skeleton } from '@/components/ui/skeleton';
 import DisplayName from '@/components/Profile/DisplayName';
 import Bio from '@/components/Profile/Bio';
-import { Profile } from '@/repositories/profileRepository/profile.types';
-import useProfile from '@/hooks/useProfile/useProfile';
 import SignOutBtn from '@/components/Buttons/SignOutBtn';
 import 'react-toastify/dist/ReactToastify.css';
+import { useProfileContext } from '@/components/Providers/ProfileProvider';
 
-export default function UserInfo({ profile }: { profile: Profile }) {
-  const { isLoading } = useProfile(profile.id);
+export default function UserInfo() {
+  const { isLoading, profile } = useProfileContext();
 
   return (
     <section className='flex flex-col gap-4 relative'>
@@ -21,9 +20,9 @@ export default function UserInfo({ profile }: { profile: Profile }) {
         </Avatar>
       )}
 
-      <DisplayName profile={profile} />
-      <Bio profile={profile} />
-      <SignOutBtn profile={profile} />
+      <DisplayName />
+      <Bio />
+      <SignOutBtn />
     </section>
   );
 }

@@ -9,6 +9,7 @@ import {
 import { getProfileByUsername, updateProfile } from './actions';
 import UINotification from '@/services/UINotification.service';
 import { UserProfileUpdateData } from '@/use-cases/updateUserProfile/UpdateUserProfile';
+import { ValidationError } from 'utils/errors/ValidationError';
 
 const profileQueryKeys = {
   all: ['profile'] as const,
@@ -20,6 +21,7 @@ export default function useProfile(username: string) {
   const { data, isLoading, error } = useQuery({
     queryKey: profileQueryKeys.username(username),
     queryFn: () => getProfileByUsername(username),
+    enabled: Boolean(username),
   });
 
   if (error) {
@@ -43,6 +45,10 @@ const useUpdateProfile = (): UseMutationResult<
       UINotification.success('Profile updated successfully');
     },
     onError: (error: Error) => {
+      if (error instanceof ValidationError) {
+        // let onSettled handle validation errors
+        return;
+      }
       UINotification.error('Error updating profile');
     },
   });

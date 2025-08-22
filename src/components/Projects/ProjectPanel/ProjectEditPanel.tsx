@@ -9,7 +9,7 @@ import { Project } from '@/repositories/projectRepository/project.types';
 import { ProjectStatusBadge } from '../ProjectStatusBadge';
 import ProjectUpdateCard from '../ProjectUpdateCard';
 import { ProjectStatusDropdown } from './ProjectStatusDropdown';
-import { useProjectContext } from '@/contexts/ProjectContext';
+import { useProjectContext } from '@/components/Providers/ProjectProvider';
 import { ProjectVisibilityDropdown } from './ProjectVisibilityDropdown';
 import { ProjectTitle } from './ProjectTitle';
 import { ProjectDescription } from './ProjectDescription';

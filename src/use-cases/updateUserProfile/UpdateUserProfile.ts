@@ -48,7 +48,7 @@ export class UpdateUserProfile extends BaseMutationUseCase<UserProfileUpdateData
             whiteList: {},
             stripIgnoreTag: true,
             stripIgnoreTagBody: ['script'],
-          })
+          }).trim()
         : undefined;
 
       const sanitizedDisplayName = display_name
@@ -56,7 +56,7 @@ export class UpdateUserProfile extends BaseMutationUseCase<UserProfileUpdateData
             whiteList: {},
             stripIgnoreTag: true,
             stripIgnoreTagBody: ['script'],
-          })
+          }).trim()
         : undefined;
 
       const update = this.compactUpdateData({
