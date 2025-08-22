@@ -2,11 +2,10 @@
 
 import React from 'react';
 import { Globe } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { FcGoogle } from 'react-icons/fc';
-import { FaGithub } from 'react-icons/fa6';
+import { Auth } from '@supabase/auth-ui-react';
 import DevSignIn from './DevSignIn';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Page() {
   return (
@@ -28,18 +27,13 @@ export default function Page() {
         <p className='text-lg text-text-300 font-subheading'>
           Register or Sign In
         </p>
-        <div className='flex gap-3 items-center justify-center'>
+        <div className='flex flex-col gap-2 w-full items-center justify-center'>
           <Link className='w-fit' href={'/auth/oauth?provider=google'}>
-            <Button>
-              <FcGoogle className='w-5 h-5' />
-              Google
-            </Button>
+            <Image src='/icons/web_neutral_rd_si.svg' alt='Google Icon' width={160} height={32} />
           </Link>
-          <Link className='w-fit' href={'/auth/oauth?provider=github'}>
-            <Button>
-              <FaGithub className='w-5 h-5' />
-              GitHub
-            </Button>
+          <Link className='w-fit flex bg-[#f2f2f2] text-[13px] text-black rounded-full font-semibold font-mono items-center py-1 gap-1 h-10 px-2' href={'/auth/oauth?provider=github'}>
+            <Image src='/icons/github-mark.svg' className='relative transform -translate-x-[0.5px] -translate-y-[0.3px]' alt='GitHub Icon' width={22} height={22} />
+            Sign in with GitHub
           </Link>
         </div>
         <DevSignIn />
