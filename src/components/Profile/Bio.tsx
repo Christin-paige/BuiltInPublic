@@ -20,11 +20,12 @@ import useProfile, { useUpdateProfile } from '@/hooks/useProfile/useProfile';
 import useUser from '@/hooks/useUser/useUser';
 import { checkProfanity } from 'utils/usernameValidator';
 import { Profile } from '@/repositories/profileRepository/profile.types';
+import { ValidationError } from 'utils/errors/ValidationError';
+import { useProfileContext } from '../Providers/ProfileProvider';
 
-export default function Bio({ profile }: { profile?: Profile }) {
+function BioForm({ profile }: { profile?: Profile }) {
   const [isEditing, setIsEditing] = useState(false);
-  const { data: user, isLoading } = useUser();
-  const { data: userProfile } = useProfile(user?.username || '');
+
   const updateProfileMutation = useUpdateProfile();
 
   // Form setup to edit bio and test validation
@@ -32,102 +33,85 @@ export default function Bio({ profile }: { profile?: Profile }) {
     resolver: zodResolver(bioSchema),
     mode: 'onChange',
     defaultValues: {
-      bio: userProfile?.bio || '',
+      bio: profile?.bio || '',
     },
   });
 
-  // Handle the form submission and test bio for profanity
-  const onSubmit = async (data: BioSchema) => {
-    // Split the bio into individual words and check each for profanity
-    const bioList = data.bio?.split(' ') || [];
-    const profanityResults = await Promise.all(
-      bioList.map(async (element) => {
-        return await checkProfanity(element);
-      })
-    );
+  const onSubmit = (data: BioSchema) => {
+    if (profile?.id) {
+      updateProfileMutation.mutate(
+        {
+          id: profile.id,
+          bio: data.bio,
+        },
+        {
+          onSettled: (data, error) => {
+            if (error && error instanceof ValidationError) {
+              Object.entries(error.validationErrors).forEach(
+                ([field, messages]) => {
+                  form.setError(field as keyof BioSchema, {
+                    message: messages.join(', '),
+                  });
+                }
+              );
+            }
 
-    // Check if any word is profane
-    const isProfane = profanityResults.some((result) => result === true);
-
-    if (isProfane) {
-      form.setError('bio', {
-        type: 'manual',
-        message: 'Please avoid using inappropriate language.',
-      });
-    } else {
-      // Try to update the profile bio, and show the error if it's not successful
-      try {
-        await updateProfileMutation.mutateAsync({
-          id: profile?.id || '',
-          bio: data.bio || '',
-          ...(profile?.displayName && { display_name: profile.displayName }),
-        });
-        setIsEditing(false);
-      } catch (error) {
-        console.error('Error updating bio:', error);
-      }
+            if (data && data.success) {
+              setIsEditing(false);
+            }
+          },
+        }
+      );
     }
   };
 
-  // Reset form values when profile data changes
-  useEffect(() => {
-    if (profile) {
-      form.reset({
-        bio: profile.bio || '',
-      });
-    }
-  }, [form, profile]);
+  if (isEditing) {
+    return (
+      <Form {...form}>
+        <FormField
+          control={form.control}
+          name='bio'
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Bio</FormLabel>
+              <FormControl>
+                <Input autoFocus placeholder='Edit your bio' {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <div className='flex items-center gap-2'>
+          <Button variant='outline' onClick={() => setIsEditing(false)}>
+            Cancel
+          </Button>
+          <Button onClick={form.handleSubmit(onSubmit)}>Save</Button>
+        </div>
+      </Form>
+    );
+  }
+
+  return (
+    <div className='flex items-center font-body text-lg group gap-8'>
+      <p className='whitespace-pre-wrap'>{profile?.bio || 'Add a bio…'}</p>
+      <Button variant='ghost' onClick={() => setIsEditing(true)}>
+        <Pencil className='w-4 h-4' />
+      </Button>
+    </div>
+  );
+}
+
+export default function Bio() {
+  const { canEdit, isLoading, profile } = useProfileContext();
 
   // Return the skeleton loader while loading
   if (isLoading) {
     return <Skeleton className='h-6' />;
   }
 
-  if (profile?.id !== userProfile?.id) {
-    return (
-      <>
-        {profile?.bio ? (
-          <p className='font-body text-lg'>{profile.bio}</p>
-        ) : (
-          <></>
-        )}
-      </>
-    );
+  if (canEdit) {
+    return <BioForm profile={profile} />;
   }
 
-  return (
-    <>
-      {isEditing ? (
-        <Form {...form}>
-          <FormField
-            control={form.control}
-            name='bio'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Bio</FormLabel>
-                <FormControl>
-                  <Input autoFocus placeholder='Edit your bio' {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <div className='flex items-center gap-2'>
-            <Button onClick={() => setIsEditing(false)}>Cancel</Button>
-            <Button onClick={form.handleSubmit(onSubmit)}>Save</Button>
-          </div>
-        </Form>
-      ) : (
-        <div className='flex items-center font-body text-lg group gap-8'>
-          <p>{profile?.bio || 'Add a bio…'}</p>
-          <button
-            className='cursor-pointer hidden group-hover:block transition-all duration-300 text-zinc-400 hover:text-zinc-100'
-            onClick={() => setIsEditing(true)}
-          >
-            <Pencil className='w-4 h-4' />
-          </button>
-        </div>
-      )}
-    </>
-  );
+  return <p className='whitespace-pre-wrap text-lg'>{profile.bio || ''}</p>;
 }

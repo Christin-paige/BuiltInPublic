@@ -20,9 +20,9 @@ export default function UserInfo() {
         </Avatar>
       )}
 
-      <DisplayName profile={profile} />
-      <Bio profile={profile} />
-      <SignOutBtn profile={profile} />
+      <DisplayName />
+      <Bio />
+      <SignOutBtn />
     </section>
   );
 }
