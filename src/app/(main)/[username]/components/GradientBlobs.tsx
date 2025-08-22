@@ -33,17 +33,22 @@ const GradientBlobs = () => {
 
   return (
     <>
-      {blobPositions.map((position, index) => (
-        <div
-          key={index}
-          className={`bg-gradient-to-r ${gradientCombinations[index]} rounded-full blur-[100px] absolute -z-10 opacity-30 transition-all duration-1000`}
-          style={{
-            transform: `translate(${position.x}px, ${position.y}px)`,
-            width: `${position.size}px`,
-            height: `${position.size}px`,
-          }}
-        />
-      ))}
+      {blobPositions.map((position, index) => {
+        const gradientClass =
+          gradientCombinations[index % gradientCombinations.length] ||
+          gradientCombinations[0];
+        return (
+          <div
+            key={index}
+            className={`bg-gradient-to-r ${gradientClass} rounded-full blur-[100px] absolute -z-10 opacity-30 transition-all duration-1000`}
+            style={{
+              transform: `translate(${position.x}px, ${position.y}px)`,
+              width: `${position.size}px`,
+              height: `${position.size}px`,
+            }}
+          />
+        );
+      })}
     </>
   );
 };
