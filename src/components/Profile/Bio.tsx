@@ -21,7 +21,7 @@ import useUser from '@/hooks/useUser/useUser';
 import { checkProfanity } from 'utils/usernameValidator';
 import { Profile } from '@/repositories/profileRepository/profile.types';
 import { ValidationError } from 'utils/errors/ValidationError';
-import { useProfileEdit } from '@/contexts/ProfileEditContext';
+import { useProfileContext } from '../Providers/ProfileProvider';
 
 function BioForm({ profile }: { profile?: Profile }) {
   const [isEditing, setIsEditing] = useState(false);
@@ -65,11 +65,6 @@ function BioForm({ profile }: { profile?: Profile }) {
     }
   };
 
-  // Return the skeleton loader while loading
-  if (isLoading) {
-    return <Skeleton className='h-6' />;
-  }
-
   if (isEditing) {
     return (
       <Form {...form}>
@@ -87,7 +82,9 @@ function BioForm({ profile }: { profile?: Profile }) {
           )}
         />
         <div className='flex items-center gap-2'>
-          <Button onClick={() => setIsEditing(false)}>Cancel</Button>
+          <Button variant='outline' onClick={() => setIsEditing(false)}>
+            Cancel
+          </Button>
           <Button onClick={form.handleSubmit(onSubmit)}>Save</Button>
         </div>
       </Form>
@@ -105,5 +102,16 @@ function BioForm({ profile }: { profile?: Profile }) {
 }
 
 export default function Bio() {
-  const { canEdit } = useProfileEdit();
+  const { canEdit, isLoading, profile } = useProfileContext();
+
+  // Return the skeleton loader while loading
+  if (isLoading) {
+    return <Skeleton className='h-6' />;
+  }
+
+  if (canEdit) {
+    return <BioForm profile={profile} />;
+  }
+
+  return <p className='whitespace-pre-wrap text-lg'>{profile.bio || ''}</p>;
 }

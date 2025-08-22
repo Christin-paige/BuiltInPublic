@@ -21,6 +21,7 @@ export default function useProfile(username: string) {
   const { data, isLoading, error } = useQuery({
     queryKey: profileQueryKeys.username(username),
     queryFn: () => getProfileByUsername(username),
+    enabled: Boolean(username),
   });
 
   if (error) {
