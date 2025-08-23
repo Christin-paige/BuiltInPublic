@@ -23,7 +23,7 @@ export default function ProjectUpdateCard({
   update,
 }: ProjectUpdateCardProps) {
   return (
-    <Card className='w-full rounded-2xl border border-slate-700/70 bg-slate-900/60 shadow-sm ring-1 ring-white/5 transition'>
+    <Card className='w-full rounded-2xl bg-primary-900/40 border-primary-900 shadow-sm hover:border-primary-700/80'>
       <CardHeader className='flex flex-row items-start justify-between space-y-0 gap-3'>
         <CardTitle className='text-base font-semibold text-slate-100'>
           Project update

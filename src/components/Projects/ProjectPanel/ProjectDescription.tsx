@@ -53,12 +53,6 @@ function ProjectDescriptionForm({ stopEditing }: ProjectDescriptionFormProps) {
     );
   };
 
-  useEffect(() => {
-    return () => {
-      form.reset();
-    };
-  }, [form]);
-
   const disableButton = form.formState.isSubmitting || !form.formState.isValid;
 
   return (
@@ -70,17 +64,17 @@ function ProjectDescriptionForm({ stopEditing }: ProjectDescriptionFormProps) {
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <Textarea placeholder={description} {...field} />
+                <Textarea className='resize-none' placeholder={description} {...field} />
               </FormControl>
             </FormItem>
           )}
         />
-        <div className='flex gap-2 mt-2'>
-          <Button type='submit' disabled={disableButton}>
-            Save
-          </Button>
+        <div className='flex gap-2 mt-4 justify-end'>
           <Button variant={'outline'} onClick={stopEditing}>
             Cancel
+          </Button>
+          <Button type='submit' disabled={disableButton}>
+            Save
           </Button>
         </div>
       </form>
@@ -98,7 +92,7 @@ export function ProjectDescription() {
 
   if (isEditing) {
     return (
-      <Card className='border-none'>
+      <Card className='border-none bg-transparent'>
         <CardHeader className='pl-0'>
           <CardTitle>Description</CardTitle>
         </CardHeader>
