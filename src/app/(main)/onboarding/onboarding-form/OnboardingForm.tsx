@@ -21,7 +21,6 @@ import {
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
 import useUser from '@/hooks/useUser/useUser';
 import { onboardingFormSubmit } from './actions';
 import UINotification from '@/services/UINotification.service';
@@ -49,6 +48,8 @@ export default function OnboardingForm() {
       }
     }
   };
+
+  const disableSubmit = !onboardingForm.formState.isValid || onboardingForm.formState.isSubmitting;
 
   if (isLoading || !user) {
     return (
@@ -120,7 +121,7 @@ export default function OnboardingForm() {
             </FormItem>
           )}
         />
-        <Button className='mt-6' type='submit'>
+        <Button className='mt-6' type='submit' disabled={disableSubmit}>
           Submit
         </Button>
       </form>
