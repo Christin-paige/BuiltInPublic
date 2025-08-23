@@ -3,7 +3,6 @@
 import React from 'react';
 import { Globe } from 'lucide-react';
 import DevSignIn from './DevSignIn';
-import Link from 'next/link';
 import Image from 'next/image';
 
 export default function Page() {
@@ -29,7 +28,8 @@ export default function Page() {
           </p>
         </div>
         <div className='flex flex-col gap-2 w-full items-center justify-center'>
-          <Link
+          <a
+            aria-label='Sign in with Google'
             className='w-fit transition-all duration-300 hover:scale-[1.04] active:scale-100 ease-in-out'
             href={'/auth/oauth?provider=google'}
           >
@@ -39,8 +39,9 @@ export default function Page() {
               width={184}
               height={32}
             />
-          </Link>
-          <Link
+          </a>
+          <a
+            aria-label='Sign in with GitHub'
             className='w-fit transition-all duration-300 hover:scale-[1.04] active:scale-100 ease-in-out'
             href={'/auth/oauth?provider=github'}
           >
@@ -50,7 +51,7 @@ export default function Page() {
               width={184}
               height={32}
             />
-          </Link>
+          </a>
         </div>
         <DevSignIn />
       </div>
