@@ -57,11 +57,10 @@ export function ProjectUpdateButton() {
     );
   };
 
-  useEffect(() => {
-    return () => {
-      form.reset();
-    };
-  }, [form]);
+  const onCancel = () => {
+    form.reset();
+    setDialogIsOpen(false);
+  };
 
   const disableButton = form.formState.isSubmitting || !form.formState.isValid;
 
@@ -70,7 +69,7 @@ export function ProjectUpdateButton() {
       <DialogTrigger asChild>
         <Button onClick={() => setDialogIsOpen(true)}>Add Update</Button>
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent closeBtnFunction={onCancel}>
         <DialogTitle>Add a Project Update</DialogTitle>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(submit)}>
