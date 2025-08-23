@@ -49,7 +49,8 @@ export default function OnboardingForm() {
     }
   };
 
-  const disableSubmit = !onboardingForm.formState.isValid || onboardingForm.formState.isSubmitting;
+  const disableSubmit =
+    !onboardingForm.formState.isValid || onboardingForm.formState.isSubmitting;
 
   if (isLoading || !user) {
     return (
