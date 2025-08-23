@@ -89,7 +89,7 @@ export function CreateProjectButton({ canEdit = true }: { canEdit?: boolean }) {
           <Plus />
         </Button>
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className='backdrop-blur-md'>
         <Form {...form}>
           <form
             className='flex flex-col gap-3'
