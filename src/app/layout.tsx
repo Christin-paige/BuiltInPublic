@@ -17,14 +17,14 @@ const audioWide = Audiowide({
 const raleway = Raleway({
   subsets: ['latin'],
   weight: '400',
-  variable: '--font-subheading',
+  variable: '--font-raleway',
   display: 'swap',
 });
 
 const lato = Lato({
   subsets: ['latin'],
   weight: '400',
-  variable: '--font-body',
+  variable: '--font-lato',
   display: 'swap',
 });
 
@@ -76,7 +76,7 @@ export default async function RootLayout({
       lang='en'
       className={`${audioWide.variable} ${raleway.variable} ${lato.variable}`}
     >
-      <body className='min-h-screen flex flex-col'>
+      <body className='min-h-screen flex flex-col bg-zinc-950'>
         <ThemeProvider
           attribute='class'
           defaultTheme='dark'

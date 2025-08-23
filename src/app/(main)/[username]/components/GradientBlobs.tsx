@@ -22,6 +22,15 @@ const GradientBlobs = () => {
     'from-emerald-600 to-teal-600',
   ];
 
+  const getGradientClass = (index: number): string => {
+    const safeIndex = Math.abs(index) % gradientCombinations.length;
+    return (
+      gradientCombinations.at(safeIndex) ??
+      gradientCombinations.at(0) ??
+      'from-purple-600 to-pink-600'
+    );
+  };
+
   useEffect(() => {
     const positions = Array.from({ length: numBlobs }, () => ({
       x: Math.random() * window.innerWidth,
@@ -33,17 +42,20 @@ const GradientBlobs = () => {
 
   return (
     <>
-      {blobPositions.map((position, index) => (
-        <div
-          key={index}
-          className={`bg-gradient-to-r ${gradientCombinations[index]} rounded-full blur-[100px] absolute z-[-1] opacity-30 transition-all duration-1000`}
-          style={{
-            transform: `translate(${position.x}px, ${position.y}px)`,
-            width: `${position.size}px`,
-            height: `${position.size}px`,
-          }}
-        />
-      ))}
+      {blobPositions.map((position, index) => {
+        const gradientClass = getGradientClass(index);
+        return (
+          <div
+            key={index}
+            className={`bg-gradient-to-r ${gradientClass} rounded-full blur-[100px] absolute -z-10 opacity-30 transition-all duration-1000`}
+            style={{
+              transform: `translate(${position.x}px, ${position.y}px)`,
+              width: `${position.size}px`,
+              height: `${position.size}px`,
+            }}
+          />
+        );
+      })}
     </>
   );
 };

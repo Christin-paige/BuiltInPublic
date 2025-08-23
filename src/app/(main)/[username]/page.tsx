@@ -10,7 +10,6 @@ import GradientBlobs from './components/GradientBlobs';
 import useProfile from '@/hooks/useProfile/useProfile';
 import { notFound } from 'next/navigation';
 import { ProfileProvider } from '@/components/Providers/ProfileProvider';
-import ProjectList from '../dashboard/projects/ProjectList';
 
 interface ProfileProps {
   params: Promise<{
@@ -34,16 +33,21 @@ export default function Profile({ params }: ProfileProps) {
 
   return (
     <ProfileProvider profile={profile}>
-      <main className='h-screen flex flex-col items-center gap-8 -z-10 overflow-hidden'>
-        <Image
-          src='/example-cover-img.jpg'
-          alt='Cover Photo'
-          width={2000}
-          height={1200}
-          className='w-full h-48 object-cover hover:opacity-80 transition-all duration-100 transform-content object-top'
-        />
+      <main className='h-screen flex flex-col items-center gap-4 overflow-hidden bg-primary-950/30 pt-16 lg:pt-22 relative'>
+        <div
+          className='w-full h-36 lg:h-42 absolute top-0 left-0 z-0 bg-linear-90 from-primary-950/30 via-primary-900/50 to-primary-950/30 overflow-hidden border-b
+        flex justify-center items-center'
+        >
+          <Image
+            src='/BuiltInPublic.png'
+            alt={`BuiltInPublic Banner`}
+            className='w-2/3 md:w-96'
+            width={400}
+            height={200}
+          />
+        </div>
 
-        <div className='flex p-8 gap-12 w-full relative'>
+        <div className='p-8 gap-8 xl:gap-12 w-full relative grid grid-cols-4'>
           <GradientBlobs />
           <UserInfo />
           <FeedSection username={username} />

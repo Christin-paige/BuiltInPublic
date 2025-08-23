@@ -75,12 +75,14 @@ function ProjectDescriptionForm({ stopEditing }: ProjectDescriptionFormProps) {
             </FormItem>
           )}
         />
-        <Button type='submit' disabled={disableButton}>
-          Save
-        </Button>
-        <Button variant={'outline'} onClick={stopEditing}>
-          Cancel
-        </Button>
+        <div className='flex gap-2 mt-2'>
+          <Button type='submit' disabled={disableButton}>
+            Save
+          </Button>
+          <Button variant={'outline'} onClick={stopEditing}>
+            Cancel
+          </Button>
+        </div>
       </form>
     </Form>
   );
@@ -106,7 +108,7 @@ export function ProjectDescription() {
   }
 
   return (
-    <Card className='border-none'>
+    <Card className='border-none bg-transparent'>
       <CardHeader className='flex justify-start items-center pl-0'>
         <CardTitle>Description</CardTitle>
         <Button variant={'ghost'} onClick={() => setIsEditing(true)}>

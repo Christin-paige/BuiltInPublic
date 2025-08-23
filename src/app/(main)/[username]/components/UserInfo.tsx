@@ -10,13 +10,13 @@ export default function UserInfo() {
   const { isLoading, profile } = useProfileContext();
 
   return (
-    <section className='flex flex-col gap-4 w-1/4 relative transform -translate-y-28'>
+    <section className='flex flex-col gap-4 relative w-full col-span-4 xl:col-span-1'>
       {isLoading ? (
         <Skeleton className='w-24 h-24 rounded-full' />
       ) : (
         <Avatar className='w-24 h-24'>
           <AvatarImage src={profile.avatarUrl || ''} />
-          <AvatarFallback>CN</AvatarFallback>
+          <AvatarFallback>Avatar</AvatarFallback>
         </Avatar>
       )}
 
