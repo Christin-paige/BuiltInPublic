@@ -111,7 +111,7 @@ export function CreateProjectButton({ canEdit = true }: { canEdit?: boolean }) {
                 </FormItem>
               )}
             />
-            <Button disabled={disableSubmit} type='submit'>
+            <Button className='self-end' disabled={disableSubmit} type='submit'>
               Create
             </Button>
           </form>
