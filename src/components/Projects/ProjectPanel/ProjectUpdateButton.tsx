@@ -67,24 +67,24 @@ export function ProjectUpdateButton() {
   return (
     <Dialog open={dialogIsOpen} onOpenChange={setDialogIsOpen}>
       <DialogTrigger asChild>
-        <Button onClick={() => setDialogIsOpen(true)}>Add Update</Button>
+        <Button className='ml-auto' onClick={() => setDialogIsOpen(true)}>Add Update</Button>
       </DialogTrigger>
-      <DialogContent closeBtnFunction={onCancel}>
+      <DialogContent className='backdrop-blur-md' closeBtnFunction={onCancel}>
         <DialogTitle>Add a Project Update</DialogTitle>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(submit)}>
+          <form className='flex flex-col' onSubmit={form.handleSubmit(submit)}>
             <FormField
               control={form.control}
               name='update'
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Textarea {...field} />
+                    <Textarea className='resize-none' {...field} />
                   </FormControl>
                 </FormItem>
               )}
             />
-            <Button disabled={disableButton} type='submit'>
+            <Button className='mt-4 self-end' disabled={disableButton} type='submit'>
               Save
             </Button>
           </form>
