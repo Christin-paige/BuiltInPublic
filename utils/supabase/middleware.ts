@@ -27,7 +27,6 @@ async function validateAlphaToken(
       return false;
     }
 
-    // If user is provided, verify the token belongs to this user
     if (userId && tokenData.user_id !== userId) {
       return false;
     }
