@@ -110,7 +110,7 @@ function BioForm({ profile }: { profile?: Profile }) {
       </div>
       <CardContent className='flex justify-between'>
         <p className='whitespace-pre-wrap break-words w-11/12 text-base font-body'>
-          {profile?.bio || ''}
+          {profile?.bio || 'Add a bio...'}
         </p>
       </CardContent>
     </Card>
