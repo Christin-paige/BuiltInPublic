@@ -19,7 +19,7 @@ export function ProjectPanel({ projectId }: ProjectPanelProps) {
   const isLoading = isLoadingProject || isLoadingUser;
 
   if (isLoading) {
-    return <Skeleton className='w-full h-48 p-4 flex-col' />;
+    return <Skeleton className='w-full h-64 md:h-48 p-4' />;
   }
 
   if (!project) {
