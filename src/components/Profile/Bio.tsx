@@ -21,10 +21,8 @@ import { Profile } from '@/repositories/profileRepository/profile.types';
 import { ValidationError } from 'utils/errors/ValidationError';
 import { useProfileContext } from '../Providers/ProfileProvider';
 import EditButton from '@/components/Buttons/EditButton';
-import { ca } from 'zod/v4/locales';
 
 function BioForm({ profile }: { profile?: Profile }) {
-  console.log('Rendering BioForm');
   const [isEditing, setIsEditing] = useState(false);
 
   const updateProfileMutation = useUpdateProfile();
