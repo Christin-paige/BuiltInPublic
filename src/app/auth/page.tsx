@@ -47,7 +47,8 @@ function AuthContent() {
         <div className='flex flex-col gap-2 w-full items-center justify-center'>
           <a
             role='button'
-            aria-label='Login with google'
+            aria-label='Sign in with Google'
+            className='w-fit transition-all duration-300 hover:scale-[1.04] active:scale-100 ease-in-out'
             href={`/auth/oauth?${googleOauthUrlParams.toString()}`}
           >
             <Image
@@ -59,7 +60,8 @@ function AuthContent() {
           </a>
           <a
             role='button'
-            aria-label='Login with github'
+            aria-label='Sign in with GitHub'
+            className='w-fit transition-all duration-300 hover:scale-[1.04] active:scale-100 ease-in-out'
             href={`/auth/oauth?${githubOauthUrlParams.toString()}`}
           >
             <Image
