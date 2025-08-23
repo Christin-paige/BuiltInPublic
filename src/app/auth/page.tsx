@@ -1,11 +1,28 @@
 'use client';
 
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Globe } from 'lucide-react';
 import DevSignIn from './DevSignIn';
 import Image from 'next/image';
+import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 
-export default function Page() {
+function AuthContent() {
+  const searchParams = useSearchParams();
+
+  const token = searchParams.get('token');
+
+  const googleOauthUrlParams = new URLSearchParams();
+  googleOauthUrlParams.set('provider', 'google');
+
+  const githubOauthUrlParams = new URLSearchParams();
+  githubOauthUrlParams.set('provider', 'github');
+
+  if (token) {
+    googleOauthUrlParams.set('token', token);
+    githubOauthUrlParams.set('token', token);
+  }
+
   return (
     <main className='flex items-center justify-center w-full h-screen bg-primary-950/30 relative'>
       <div
@@ -29,9 +46,9 @@ export default function Page() {
         </div>
         <div className='flex flex-col gap-2 w-full items-center justify-center'>
           <a
-            aria-label='Sign in with Google'
-            className='w-fit transition-all duration-300 hover:scale-[1.04] active:scale-100 ease-in-out'
-            href={'/auth/oauth?provider=google'}
+            role='button'
+            aria-label='Login with google'
+            href={`/auth/oauth?${googleOauthUrlParams.toString()}`}
           >
             <Image
               src='/icons/web_neutral_rd_si.svg'
@@ -41,9 +58,9 @@ export default function Page() {
             />
           </a>
           <a
-            aria-label='Sign in with GitHub'
-            className='w-fit transition-all duration-300 hover:scale-[1.04] active:scale-100 ease-in-out'
-            href={'/auth/oauth?provider=github'}
+            role='button'
+            aria-label='Login with github'
+            href={`/auth/oauth?${githubOauthUrlParams.toString()}`}
           >
             <Image
               src='/icons/github-sign-in-btn.svg'
@@ -56,5 +73,13 @@ export default function Page() {
         <DevSignIn />
       </div>
     </main>
+  );
+}
+
+export default function Page() {
+  return (
+    <Suspense>
+      <AuthContent />
+    </Suspense>
   );
 }
