@@ -80,7 +80,7 @@ function ProjectTitleForm({ stopEditing }: ProjectTitleFormProps) {
           control={form.control}
           name='name'
           render={({ field }) => (
-            <FormItem >
+            <FormItem>
               <FormControl>
                 <Input placeholder={name} {...field} />
               </FormControl>
