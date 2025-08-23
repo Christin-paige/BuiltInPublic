@@ -97,7 +97,6 @@ export async function updateSession(request: NextRequest) {
   const isRoot = path === '/';
   const isAuthCallbackRoute = path.startsWith('/auth/callback');
 
-  console.info(`isAuthCallbackRoute: ${isAuthCallbackRoute}`);
   if (
     alphaTokenSystemActive &&
     !isAuthCallbackRoute &&
@@ -105,16 +104,11 @@ export async function updateSession(request: NextRequest) {
   ) {
     const hasValidAlphaToken = await validateAlphaToken(request, user?.id);
 
-    console.log(hasValidAlphaToken);
     if (!hasValidAlphaToken && user) {
+      supabase.auth.signOut();
       const redirectUrl = new URL('/thanks', request.url);
       return NextResponse.redirect(redirectUrl);
     }
-
-    // if (hasValidAlphaToken && user) {
-    //   const redirectUrl = new URL('/', request.url);
-    //   return NextResponse.redirect(redirectUrl);
-    // }
   }
 
   if ((isDashboardRoute || isRoot) && user) {

@@ -51,7 +51,7 @@ function AuthContent() {
             href={`/auth/oauth?${googleOauthUrlParams.toString()}`}
           >
             <Image
-              src='/icons/web_neutral_rd_si.svg'
+              src='/icons/web_neutral_rd_SI.svg'
               alt='Google Sign in button'
               width={184}
               height={32}

@@ -13,7 +13,7 @@ config();
 // Check if the environment variables are set and throw an error if they are not
 if (
   !process.env.NEXT_PUBLIC_SUPABASE_URL ||
-  !process.env.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY
+  !process.env.SUPABASE_SERVICE_ROLE_KEY
 ) {
   throw new Error('Missing Supabase environment variables');
 }
@@ -21,7 +21,7 @@ if (
 // Create a Supabase client with the environment variables
 export const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY,
+  process.env.SUPABASE_SERVICE_ROLE_KEY,
   {
     auth: {
       autoRefreshToken: false,
