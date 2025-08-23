@@ -80,7 +80,7 @@ function ProjectTitleForm({ stopEditing }: ProjectTitleFormProps) {
           control={form.control}
           name='name'
           render={({ field }) => (
-            <FormItem>
+            <FormItem >
               <FormControl>
                 <Input placeholder={name} {...field} />
               </FormControl>
@@ -128,7 +128,7 @@ export function ProjectTitle() {
             {"Set your project's name"}
           </DialogTitle>
         </DialogHeader>
-        <DialogContent>
+        <DialogContent className='backdrop-blur-md'>
           <DialogTitle>{"Set your project's name"}</DialogTitle>
           <ProjectTitleForm stopEditing={handleStopEditing} />
         </DialogContent>
