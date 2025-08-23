@@ -13,7 +13,7 @@ export default async function Project({ params }: ProjectProps) {
   const { id } = await params;
 
   return (
-    <section className='w-full h-full p-4 grid grid-cols-1 md:grid-cols-[1fr_2fr_1fr]'>
+    <section className='w-full min-h-screen p-4 grid grid-cols-1 md:grid-cols-[1fr_2fr_1fr]'>
       <div className='p-4 flex flex-col items-center'>
         <BackButton />
       </div>
