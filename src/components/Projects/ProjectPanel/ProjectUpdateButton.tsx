@@ -67,7 +67,9 @@ export function ProjectUpdateButton() {
   return (
     <Dialog open={dialogIsOpen} onOpenChange={setDialogIsOpen}>
       <DialogTrigger asChild>
-        <Button className='ml-auto' onClick={() => setDialogIsOpen(true)}>Add Update</Button>
+        <Button className='ml-auto' onClick={() => setDialogIsOpen(true)}>
+          Add Update
+        </Button>
       </DialogTrigger>
       <DialogContent className='backdrop-blur-md' closeBtnFunction={onCancel}>
         <DialogTitle>Add a Project Update</DialogTitle>
@@ -84,7 +86,11 @@ export function ProjectUpdateButton() {
                 </FormItem>
               )}
             />
-            <Button className='mt-4 self-end' disabled={disableButton} type='submit'>
+            <Button
+              className='mt-4 self-end'
+              disabled={disableButton}
+              type='submit'
+            >
               Save
             </Button>
           </form>

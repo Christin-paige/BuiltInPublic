@@ -64,7 +64,11 @@ function ProjectDescriptionForm({ stopEditing }: ProjectDescriptionFormProps) {
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <Textarea className='resize-none' placeholder={description} {...field} />
+                <Textarea
+                  className='resize-none'
+                  placeholder={description}
+                  {...field}
+                />
               </FormControl>
             </FormItem>
           )}
