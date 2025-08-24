@@ -1,6 +1,6 @@
 import { ProjectVisibility } from '@/repositories/projectRepository/project.types';
 import { useEditProject } from '@/hooks/useProject/useProject';
-import { useProjectContext } from '@/contexts/ProjectContext';
+import { useProjectContext } from '@/components/Providers/ProjectProvider';
 import { useCallback } from 'react';
 import {
   DropdownMenu,

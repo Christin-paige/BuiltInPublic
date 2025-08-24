@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle } from '@/components/ui/card';
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
 import { Textarea } from '@/components/ui/textarea';
-import { useProjectContext } from '@/contexts/ProjectContext';
+import { useProjectContext } from '@/components/Providers/ProjectProvider';
 import {
   editProjectSchema,
   EditProjectSchema,
@@ -75,12 +75,14 @@ function ProjectDescriptionForm({ stopEditing }: ProjectDescriptionFormProps) {
             </FormItem>
           )}
         />
-        <Button type='submit' disabled={disableButton}>
-          Save
-        </Button>
-        <Button variant={'outline'} onClick={stopEditing}>
-          Cancel
-        </Button>
+        <div className='flex gap-2 mt-2'>
+          <Button type='submit' disabled={disableButton}>
+            Save
+          </Button>
+          <Button variant={'outline'} onClick={stopEditing}>
+            Cancel
+          </Button>
+        </div>
       </form>
     </Form>
   );
@@ -106,7 +108,7 @@ export function ProjectDescription() {
   }
 
   return (
-    <Card className='border-none'>
+    <Card className='border-none bg-transparent'>
       <CardHeader className='flex justify-start items-center pl-0'>
         <CardTitle>Description</CardTitle>
         <Button variant={'ghost'} onClick={() => setIsEditing(true)}>

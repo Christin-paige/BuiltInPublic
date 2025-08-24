@@ -74,7 +74,7 @@ export default function OnboardingForm() {
     <Form {...onboardingForm}>
       <form
         onSubmit={onboardingForm.handleSubmit(onSubmit)}
-        className='flex flex-col gap-4 w-full max-w-sm items-center'
+        className='flex flex-col gap-5 w-full max-w-sm items-center'
       >
         <FormField
           control={onboardingForm.control}
@@ -109,18 +109,19 @@ export default function OnboardingForm() {
             <FormItem className='w-full'>
               <FormLabel>Bio</FormLabel>
               <FormControl>
-                <Textarea placeholder='bio' {...field} />
+                <Textarea
+                  className='resize-none'
+                  maxLength={256}
+                  placeholder='bio'
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button
-          variant='outline'
-          className='w-1/2 flex items-center gap-2 p-2 cursor-pointer justify-center bg-linear-to-bl from-violet-500 to-fuchsia-500 text-white font-bold py-2 px-4 rounded-full mt-4 hover:scale-105 transition-all duration-300 text-xl hover:shadow-lg hover:shadow-violet-500/40 '
-          type='submit'
-        >
-          submit
+        <Button className='mt-6' type='submit'>
+          Submit
         </Button>
       </form>
     </Form>

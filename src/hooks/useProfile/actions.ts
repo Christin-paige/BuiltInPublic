@@ -35,53 +35,57 @@ export async function updateProfile({
   bio,
   display_name,
 }: UserProfileUpdateData) {
-  const validateDisplayName = displayNameSchema.safeParse({
-    displayName: display_name,
-  });
-  const validateBio = bioSchema.safeParse({ bio: bio });
-
-  if (!validateDisplayName.success || !validateBio.success) {
-    const errors: Record<string, string[]> = {};
-
-    if (!validateDisplayName.success) {
-      for (const issue of validateDisplayName.error.issues) {
-        const path = issue.path.join('.');
-        if (!errors[path]) {
-          errors[path] = [];
-        }
-        errors[path].push(issue.message);
-      }
-    }
-
-    if (!validateBio.success) {
-      for (const issue of validateBio.error.issues) {
-        const path = issue.path.join('.');
-        if (!errors[path]) {
-          errors[path] = [];
-        }
-        errors[path].push(issue.message);
-      }
-    }
-
-    throw new ValidationError('Validation failed', errors);
-  } else {
-    const supabase = await createAnonClient();
-    const profileRepository = new ProfileRepository(supabase);
-    const updateUserProfile = new UpdateUserProfile(
-      profileRepository,
-      supabase
-    );
-
-    const result = await updateUserProfile.execute({
-      id,
-      bio,
-      display_name,
+  // Only validate display_name if it's provided and not empty
+  if (display_name) {
+    const validatedDisplayName = displayNameSchema.safeParse({
+      displayName: display_name,
     });
 
-    if (!result.success) {
-      throw new Error(result.message);
-    }
+    if (!validatedDisplayName.success) {
+      const errors: Record<string, string[]> = {};
+      for (const issue of validatedDisplayName.error.issues) {
+        const path = issue.path.join('.');
+        if (!errors[path]) {
+          errors[path] = [];
+        }
+        errors[path].push(issue.message);
+      }
 
-    return result;
+      throw new ValidationError('Validation failed', errors);
+    }
   }
+
+  // Only validate bio if it's provided
+  if (bio !== undefined) {
+    const validatedBio = bioSchema.safeParse({ bio: bio });
+
+    if (!validatedBio.success) {
+      const errors: Record<string, string[]> = {};
+      for (const issue of validatedBio.error.issues) {
+        const path = issue.path.join('.');
+        if (!errors[path]) {
+          errors[path] = [];
+        }
+        errors[path].push(issue.message);
+      }
+
+      throw new ValidationError('Validation failed', errors);
+    }
+  }
+
+  const supabase = await createAnonClient();
+  const profileRepository = new ProfileRepository(supabase);
+  const updateUserProfile = new UpdateUserProfile(profileRepository, supabase);
+
+  const result = await updateUserProfile.execute({
+    id,
+    bio,
+    display_name,
+  });
+
+  if (!result.success) {
+    throw new Error(result.message);
+  }
+
+  return result;
 }

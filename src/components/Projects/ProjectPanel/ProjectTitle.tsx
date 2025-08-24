@@ -1,4 +1,4 @@
-import { useProjectContext } from '@/contexts/ProjectContext';
+import { useProjectContext } from '@/components/Providers/ProjectProvider';
 import { useEditProject } from '@/hooks/useProject/useProject';
 import { useForm } from 'react-hook-form';
 import {

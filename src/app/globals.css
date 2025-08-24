@@ -60,6 +60,10 @@
   --color-accent-800: var(--color-fuchsia-800);
   --color-accent-700: var(--color-fuchsia-700);
   --color-accent-600: var(--color-fuchsia-600);
+  --color-text-100: var(--color-zinc-100);
+  --color-text-200: var(--color-zinc-200);
+  --color-text-300: var(--color-zinc-300);
+  --color-text-400: var(--color-zinc-400);
 }
 
 :root {
@@ -161,6 +165,10 @@
   --color-accent-800: var(--color-fuchsia-800);
   --color-accent-700: var(--color-fuchsia-700);
   --color-accent-600: var(--color-fuchsia-600);
+  --color-text-100: var(--color-zinc-100);
+  --color-text-200: var(--color-zinc-200);
+  --color-text-300: var(--color-zinc-300);
+  --color-text-400: var(--color-zinc-400);
 }
 
 @layer base {
@@ -191,18 +199,9 @@
       background-position-x: 0%;
     }
   }
-}
 
-.glowbox {
-  position: absolute;
-  top: calc(50% - 20px);
-  left: calc(50% - 20px);
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background-color: #fff;
-  box-shadow:
-    0 0 60px 30px #ff0040,
-    /* Neon red */ 0 0 100px 60px #ff00ff,
-    /* Bright magenta */ 0 0 140px 90px #8000ff; /* Purple */
+  .scroll-hide {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
 }

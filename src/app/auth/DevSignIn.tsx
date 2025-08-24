@@ -1,8 +1,8 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { loginWithEmail } from './actions';
-import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 export default function DevSignIn() {
@@ -36,38 +36,30 @@ export default function DevSignIn() {
 
   return (
     <div className='flex items-center justify-center w-full'>
-      <div className='w-96 text-center rounded-md border p-5 space-y-5 relative bg-slate-950'>
-        <h2 className='text-xl font-bold'>Dev Login</h2>
+      <div className='w-96 text-center border-t-2 border-secondary-900/70 p-4 relative'>
+        <h2 className='text-xl font-bold mb-4'>Dev Login</h2>
         <form onSubmit={handleLoginWithEmail} className='flex flex-col gap-4'>
-          <input
-            className='w-full p-2 rounded-md border'
+          <Input
             type='email'
             name='email'
             placeholder='Email'
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          <input
-            className='w-full p-2 rounded-md border'
+          <Input
             type='password'
             name='password'
             placeholder='Password'
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <Button
-            variant='outline'
-            size='default'
-            className='w-full flex items-center gap-2 p-2 cursor-pointer'
-            type='submit'
-          >
+          <Button className='mx-auto' type='submit'>
             Login
           </Button>
         </form>
         {error && <p className='text-red-500'>{error}</p>}
         {success && <p className='text-green-500'>{success}</p>}
       </div>
-      <div className='glowbox -z-10'></div>
     </div>
   );
 }
