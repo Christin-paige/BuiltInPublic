@@ -95,10 +95,7 @@ export function ProjectUpdateButton() {
               >
                 Cancel
               </Button>
-              <Button
-                disabled={disableButton}
-                type='submit'
-              >
+              <Button disabled={disableButton} type='submit'>
                 Save
               </Button>
             </div>
