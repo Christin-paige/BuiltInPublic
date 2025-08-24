@@ -65,7 +65,7 @@ export async function createServiceClient(): Promise<SupabaseServiceClient> {
 
   const client: SupabaseClient<Database> = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!,
     {
       auth: {
         flowType: 'pkce',
@@ -98,4 +98,17 @@ export async function createServiceClient(): Promise<SupabaseServiceClient> {
   (client as any)._brand = 'service-role';
 
   return client as SupabaseServiceClient;
+}
+
+export async function createServiceAdminClient() {
+  return createClient<Database>(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!,
+    {
+      auth: {
+        persistSession: false,
+        autoRefreshToken: false,
+      },
+    }
+  );
 }
