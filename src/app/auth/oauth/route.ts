@@ -18,8 +18,6 @@ export async function GET(req: Request) {
     ? `${baseCallbackUrl}?${callbackParams.toString()}`
     : baseCallbackUrl;
 
-  console.log('callbackUrl', callbackUrl);
-
   const supabase = await createAnonClient();
 
   const additionalOptions =
