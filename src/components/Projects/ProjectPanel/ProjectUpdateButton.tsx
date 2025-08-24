@@ -57,21 +57,23 @@ export function ProjectUpdateButton() {
     );
   };
 
-  const onCancel = () => {
-    form.reset();
-    setDialogIsOpen(false);
+  const handleDialogOpenChange = (open: boolean) => {
+    setDialogIsOpen(open);
+    if (!open) {
+      form.reset();
+    }
   };
 
   const disableButton = form.formState.isSubmitting || !form.formState.isValid;
 
   return (
-    <Dialog open={dialogIsOpen} onOpenChange={setDialogIsOpen}>
+    <Dialog open={dialogIsOpen} onOpenChange={handleDialogOpenChange}>
       <DialogTrigger asChild>
         <Button className='ml-auto' onClick={() => setDialogIsOpen(true)}>
           Add Update
         </Button>
       </DialogTrigger>
-      <DialogContent className='backdrop-blur-md' closeBtnFunction={onCancel}>
+      <DialogContent className='backdrop-blur-md'>
         <DialogTitle>Add a Project Update</DialogTitle>
         <Form {...form}>
           <form className='flex flex-col' onSubmit={form.handleSubmit(submit)}>
@@ -86,13 +88,20 @@ export function ProjectUpdateButton() {
                 </FormItem>
               )}
             />
-            <Button
-              className='mt-4 self-end'
-              disabled={disableButton}
-              type='submit'
-            >
-              Save
-            </Button>
+            <div className='mt-4 flex justify-end gap-2'>
+              <Button
+                variant={'outline'}
+                onClick={() => setDialogIsOpen(false)}
+              >
+                Cancel
+              </Button>
+              <Button
+                disabled={disableButton}
+                type='submit'
+              >
+                Save
+              </Button>
+            </div>
           </form>
         </Form>
       </DialogContent>
