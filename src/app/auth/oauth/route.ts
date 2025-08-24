@@ -6,6 +6,18 @@ export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
   const provider = searchParams.get('provider') as Provider;
 
+  const callbackParams = new URLSearchParams();
+  for (const [key, value] of searchParams.entries()) {
+    if (key !== 'provider') {
+      callbackParams.append(key, value);
+    }
+  }
+
+  const baseCallbackUrl = `${process.env.NEXT_PUBLIC_APP_HOST}/auth/callback`;
+  const callbackUrl = callbackParams.toString()
+    ? `${baseCallbackUrl}?${callbackParams.toString()}`
+    : baseCallbackUrl;
+
   const supabase = await createAnonClient();
 
   const additionalOptions =
@@ -23,7 +35,7 @@ export async function GET(req: Request) {
     provider: provider,
     options: {
       ...additionalOptions,
-      redirectTo: `${process.env.NEXT_PUBLIC_APP_HOST}/auth/callback`,
+      redirectTo: callbackUrl,
     },
   });
 
