@@ -47,11 +47,14 @@ export class UpdateUserProfile extends BaseMutationUseCase<UserProfileUpdateData
       const updateData: Record<string, any> = {};
 
       if (bio !== undefined) {
-        updateData.bio = bio === null ? null : xss(bio, {
-          whiteList: {},
-          stripIgnoreTag: true,
-          stripIgnoreTagBody: ['script'],
-        }).trim();
+        updateData.bio =
+          bio === null
+            ? null
+            : xss(bio, {
+                whiteList: {},
+                stripIgnoreTag: true,
+                stripIgnoreTagBody: ['script'],
+              }).trim();
       }
 
       if (display_name !== undefined) {

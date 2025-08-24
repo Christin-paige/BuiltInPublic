@@ -36,21 +36,17 @@ export function ConfirmationDialog({
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        {children}
-      </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogTrigger asChild>{children}</DialogTrigger>
+      <DialogContent className='sm:max-w-[425px]'>
         <DialogHeader>
-          <h2 className="text-lg font-semibold">{title}</h2>
-          <p className="text-sm text-muted-foreground">
-            {description}
-          </p>
+          <h2 className='text-lg font-semibold'>{title}</h2>
+          <p className='text-sm text-muted-foreground'>{description}</p>
         </DialogHeader>
         <DialogFooter>
-          <Button variant="outline" onClick={() => setOpen(false)}>
+          <Button variant='outline' onClick={() => setOpen(false)}>
             {cancelText}
           </Button>
-          <Button variant="destructive" onClick={handleConfirm}>
+          <Button variant='destructive' onClick={handleConfirm}>
             {confirmText}
           </Button>
         </DialogFooter>
