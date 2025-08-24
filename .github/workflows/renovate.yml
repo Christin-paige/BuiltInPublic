@@ -15,13 +15,13 @@ concurrency:
 
 jobs:
   gate:
-    name: Gate: package-lock.json only + renovate actor
+    name: Gate: lockfile-only + label + renovate actor
     if: >
       github.actor == 'renovate[bot]' &&
       github.event.pull_request.draft == false
     runs-on: ubuntu-latest
     steps:
-      - name: Verify PR only changes package-lock.json (root or workspaces)
+      - name: Verify PR only changes package-lock.json
         uses: actions/github-script@v7
         with:
           script: |
@@ -48,6 +48,17 @@ jobs:
               core.setFailed('No file changes found.');
             } else {
               core.info(`Lockfile-only change set -> ${changed.join(', ')}`);
+            }
+
+      - name: Require "lockfile-maintenance" label
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const labels = context.payload.pull_request.labels.map(l => l.name);
+            if (!labels.includes('lockfile-maintenance')) {
+              core.setFailed('Missing "lockfile-maintenance" label');
+            } else {
+              core.info('Required label present');
             }
 
   approve:
