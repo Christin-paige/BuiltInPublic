@@ -15,7 +15,7 @@ concurrency:
 
 jobs:
   gate:
-    name: Gate: lockfile-only + label + renovate actor
+    name: lockfile-only + label + renovate actor
     if: >
       github.actor == 'renovate[bot]' &&
       github.event.pull_request.draft == false
