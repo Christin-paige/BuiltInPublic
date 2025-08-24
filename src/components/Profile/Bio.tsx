@@ -21,6 +21,8 @@ import { Profile } from '@/repositories/profileRepository/profile.types';
 import { ValidationError } from 'utils/errors/ValidationError';
 import { useProfileContext } from '../Providers/ProfileProvider';
 import EditButton from '@/components/Buttons/EditButton';
+import { Trash2 } from 'lucide-react';
+import { ConfirmationDialog } from '@/components/ui/confirmation-dialog';
 
 function BioForm({ profile }: { profile?: Profile }) {
   const [isEditing, setIsEditing] = useState(false);
@@ -32,12 +34,21 @@ function BioForm({ profile }: { profile?: Profile }) {
     form.reset();
   };
 
+  const handleDeleteBio = () => {
+    if (profile?.id) {
+      updateProfileMutation.mutate({
+        id: profile.id,
+        bio: null,
+      });
+    }
+  };
+
   // Form setup to edit bio and test validation
   const form = useForm<BioSchema>({
     resolver: zodResolver(bioSchema),
     mode: 'onChange',
     defaultValues: {
-      bio: profile?.bio || '',
+      bio: profile?.bio ?? '',
     },
   });
 
@@ -85,6 +96,7 @@ function BioForm({ profile }: { profile?: Profile }) {
                   placeholder='Edit your bio'
                   maxLength={256}
                   {...field}
+                  value={field.value ?? ''}
                 />
               </FormControl>
               <FormMessage />
@@ -104,8 +116,17 @@ function BioForm({ profile }: { profile?: Profile }) {
   return (
     <Card className='relative min-w-xs max-w-md pt-2 max-h-22 overflow-y-scroll scroll-hide'>
       <CardTitle className='sr-only h-0'>Bio</CardTitle>
-      <div className='absolute top-2 right-2 z-10'>
+      <div className='absolute top-2 right-2 z-10 flex gap-1'>
         <EditButton label='Edit Bio' onClick={() => setIsEditing(true)} />
+        {profile?.bio && (
+          <ConfirmationDialog
+            title='Delete Bio'
+            description='Are you sure you want to delete your bio? This action cannot be undone.'
+            onConfirm={handleDeleteBio}
+          >
+            <Trash2 className='hover:bg-secondary-950 p-1 cursor-pointer rounded-sm transition-all duration-300 border hover:border-secondary-800 active:scale-95 w-fit' />
+          </ConfirmationDialog>
+        )}
       </div>
       <CardContent className='flex justify-between'>
         <p className='whitespace-pre-wrap break-words w-11/12 text-base font-body'>

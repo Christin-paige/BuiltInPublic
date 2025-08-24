@@ -18,7 +18,7 @@ export abstract class BaseMutationUseCase<TParams> {
 
     const update = Object.fromEntries(
       Object.entries(updateData).filter(
-        ([key, value]) => value !== null && value !== undefined && value !== ''
+        ([key, value]) => value !== undefined // Only filter out undefined values
       )
     ) as Partial<TParams>;
 

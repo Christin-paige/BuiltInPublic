@@ -7,7 +7,7 @@ import { AnySupabaseClient } from 'utils/supabase/server';
 export interface UserProfileUpdateData {
   id: string;
   username?: string;
-  bio?: string;
+  bio?: string | null;
   display_name?: string;
 }
 
@@ -43,31 +43,37 @@ export class UpdateUserProfile extends BaseMutationUseCase<UserProfileUpdateData
           return { success: false, message: 'Username not allowed' };
         }
       }
-      const sanitizedBio = bio
-        ? xss(bio, {
-            whiteList: {},
-            stripIgnoreTag: true,
-            stripIgnoreTagBody: ['script'],
-          }).trim()
-        : undefined;
+      // Prepare the update data with only the fields that are provided
+      const updateData: Record<string, any> = {};
 
-      const sanitizedDisplayName = display_name
-        ? xss(display_name, {
-            whiteList: {},
-            stripIgnoreTag: true,
-            stripIgnoreTagBody: ['script'],
-          }).trim()
-        : undefined;
+      if (bio !== undefined) {
+        updateData.bio = bio === null ? null : xss(bio, {
+          whiteList: {},
+          stripIgnoreTag: true,
+          stripIgnoreTagBody: ['script'],
+        }).trim();
+      }
 
-      const update = this.compactUpdateData({
-        username,
-        bio: sanitizedBio,
-        display_name: sanitizedDisplayName,
-      });
+      if (display_name !== undefined) {
+        updateData.display_name = xss(display_name, {
+          whiteList: {},
+          stripIgnoreTag: true,
+          stripIgnoreTagBody: ['script'],
+        }).trim();
+      }
+
+      if (username !== undefined) {
+        updateData.username = username;
+      }
+
+      // Only proceed if we have fields to update
+      if (Object.keys(updateData).length === 0) {
+        return { success: false, message: 'No fields to update' };
+      }
 
       const { error } = await this.supabase
         .from('profiles')
-        .update(update)
+        .update(updateData)
         .eq('id', id);
 
       if (error) {
@@ -76,10 +82,7 @@ export class UpdateUserProfile extends BaseMutationUseCase<UserProfileUpdateData
 
       return { success: true, message: 'Profile updated' };
     } catch (e) {
-      console.error(
-        `Update profile failed for: ${id} with: ${JSON.stringify(e, null, 2)}`
-      );
-      return { success: false, message: 'Update failed' };
+      throw e;
     }
   }
 }

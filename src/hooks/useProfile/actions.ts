@@ -55,8 +55,8 @@ export async function updateProfile({
     }
   }
 
-  // Only validate bio if it's provided
-  if (bio !== undefined) {
+  // Only validate bio if it's provided and not null
+  if (bio !== undefined && bio !== null) {
     const validatedBio = bioSchema.safeParse({ bio: bio });
 
     if (!validatedBio.success) {
