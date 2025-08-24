@@ -16,7 +16,7 @@ import {
 } from '@/hooks/useProject/updateProject.schema';
 import { useUpdateProject } from '@/hooks/useProject/useProject';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { ValidationError } from 'utils/errors/ValidationError';
 
