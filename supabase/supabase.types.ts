@@ -34,6 +34,32 @@ export type Database = {
   }
   public: {
     Tables: {
+      alpha_tokens: {
+        Row: {
+          created_at: string
+          id: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "alpha_tokens_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       comments: {
         Row: {
           content: string
