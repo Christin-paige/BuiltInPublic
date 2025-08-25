@@ -18,27 +18,11 @@ export async function GET(request: Request) {
   const code = searchParams.get('code');
   const token = searchParams.get('token');
 
-  console.log('[AUTH CALLBACK] Processing callback with:', {
-    hasCode: !!code,
-    hasToken: !!token,
-    alphaTokenSystemActive,
-    userAgent: request.headers.get('user-agent')?.includes('Google')
-      ? 'Google-related'
-      : 'Other',
-  });
-
   if (code && alphaTokenSystemActive) {
-    console.log('[AUTH CALLBACK] Creating anon client...');
     const supabase = await createAnonClient();
-    console.log('[AUTH CALLBACK] Exchanging code for session...');
+
     const { data: userData, error } =
       await supabase.auth.exchangeCodeForSession(code);
-
-    console.log('[AUTH CALLBACK] Exchange result:', {
-      hasUser: !!userData?.user,
-      hasSession: !!userData?.session,
-      error: error?.message,
-    });
 
     if (!error) {
       let tokenData = {} as
