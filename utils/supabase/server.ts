@@ -1,6 +1,7 @@
 import { cookies } from 'next/headers';
 import { Database } from '../../supabase/supabase.types';
 import { SupabaseClient, createClient } from '@supabase/supabase-js';
+import { NextJSCookieStorage } from './NextJSCookieStorage';
 
 export type SupabaseServiceClient = SupabaseClient<Database> & {
   _brand: 'service-role';
@@ -19,8 +20,8 @@ export function isServiceRoleClient(
 }
 
 export async function createAnonClient(): Promise<SupabaseAnonClient> {
-  // change to supabase server to reduce confusion?
   const cookieStore = await cookies();
+  const storage = new NextJSCookieStorage(cookieStore);
 
   const client: SupabaseClient<Database> = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -28,28 +29,7 @@ export async function createAnonClient(): Promise<SupabaseAnonClient> {
     {
       auth: {
         flowType: 'pkce',
-        storage: {
-          getItem: (key: string) => cookieStore.get(key)?.value ?? null,
-          setItem: (key: string, value: string) => {
-            cookieStore.set({
-              name: key,
-              value: value,
-              httpOnly: true,
-              secure: process.env.NODE_ENV === 'production',
-              sameSite: 'lax',
-              path: '/',
-              maxAge: 60 * 60 * 24 * 365,
-            });
-          },
-          removeItem: (key) => {
-            cookieStore.set({
-              name: key,
-              value: '',
-              httpOnly: true,
-              maxAge: 0,
-            });
-          },
-        },
+        storage,
       },
     }
   );
@@ -60,8 +40,8 @@ export async function createAnonClient(): Promise<SupabaseAnonClient> {
 }
 
 export async function createServiceClient(): Promise<SupabaseServiceClient> {
-  // change to supabase server to reduce confusion?
   const cookieStore = await cookies();
+  const storage = new NextJSCookieStorage(cookieStore);
 
   const client: SupabaseClient<Database> = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -69,28 +49,7 @@ export async function createServiceClient(): Promise<SupabaseServiceClient> {
     {
       auth: {
         flowType: 'pkce',
-        storage: {
-          getItem: (key: string) => cookieStore.get(key)?.value ?? null,
-          setItem: (key: string, value: string) => {
-            cookieStore.set({
-              name: key,
-              value: value,
-              httpOnly: true,
-              secure: process.env.NODE_ENV === 'production',
-              sameSite: 'lax',
-              path: '/',
-              maxAge: 60 * 60 * 24 * 365,
-            });
-          },
-          removeItem: (key) => {
-            cookieStore.set({
-              name: key,
-              value: '',
-              httpOnly: true,
-              maxAge: 0,
-            });
-          },
-        },
+        storage,
       },
     }
   );
@@ -100,6 +59,7 @@ export async function createServiceClient(): Promise<SupabaseServiceClient> {
   return client as SupabaseServiceClient;
 }
 
+// for updating alpha tokens only
 export async function createServiceAdminClient() {
   return createClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
