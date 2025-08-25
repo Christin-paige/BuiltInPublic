@@ -87,18 +87,20 @@ function ProjectTitleForm({ stopEditing }: ProjectTitleFormProps) {
             </FormItem>
           )}
         />
-        <Button type='submit' disabled={disableButton}>
-          Save
-        </Button>
-        <Button
-          variant='outline'
-          onClick={(e) => {
-            e.preventDefault();
-            stopEditing();
-          }}
-        >
-          Cancel
-        </Button>
+        <div className='flex gap-x-2 mt-4 justify-end'>
+          <Button
+            variant='outline'
+            onClick={(e) => {
+              e.preventDefault();
+              stopEditing();
+            }}
+          >
+            Cancel
+          </Button>
+          <Button type='submit' disabled={disableButton}>
+            Save
+          </Button>
+        </div>
       </form>
     </Form>
   );
@@ -126,7 +128,7 @@ export function ProjectTitle() {
             {"Set your project's name"}
           </DialogTitle>
         </DialogHeader>
-        <DialogContent>
+        <DialogContent className='backdrop-blur-md'>
           <DialogTitle>{"Set your project's name"}</DialogTitle>
           <ProjectTitleForm stopEditing={handleStopEditing} />
         </DialogContent>

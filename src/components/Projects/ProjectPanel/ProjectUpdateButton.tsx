@@ -16,7 +16,7 @@ import {
 } from '@/hooks/useProject/updateProject.schema';
 import { useUpdateProject } from '@/hooks/useProject/useProject';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { ValidationError } from 'utils/errors/ValidationError';
 
@@ -57,37 +57,48 @@ export function ProjectUpdateButton() {
     );
   };
 
-  useEffect(() => {
-    return () => {
+  const handleDialogOpenChange = (open: boolean) => {
+    setDialogIsOpen(open);
+    if (!open) {
       form.reset();
-    };
-  }, [form]);
+    }
+  };
 
   const disableButton = form.formState.isSubmitting || !form.formState.isValid;
 
   return (
-    <Dialog open={dialogIsOpen} onOpenChange={setDialogIsOpen}>
+    <Dialog open={dialogIsOpen} onOpenChange={handleDialogOpenChange}>
       <DialogTrigger asChild>
-        <Button onClick={() => setDialogIsOpen(true)}>Add Update</Button>
+        <Button className='ml-auto' onClick={() => setDialogIsOpen(true)}>
+          Add Update
+        </Button>
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className='backdrop-blur-md'>
         <DialogTitle>Add a Project Update</DialogTitle>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(submit)}>
+          <form className='flex flex-col' onSubmit={form.handleSubmit(submit)}>
             <FormField
               control={form.control}
               name='update'
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Textarea {...field} />
+                    <Textarea className='resize-none' {...field} />
                   </FormControl>
                 </FormItem>
               )}
             />
-            <Button disabled={disableButton} type='submit'>
-              Save
-            </Button>
+            <div className='mt-4 flex justify-end gap-2'>
+              <Button
+                variant={'outline'}
+                onClick={() => setDialogIsOpen(false)}
+              >
+                Cancel
+              </Button>
+              <Button disabled={disableButton} type='submit'>
+                Save
+              </Button>
+            </div>
           </form>
         </Form>
       </DialogContent>

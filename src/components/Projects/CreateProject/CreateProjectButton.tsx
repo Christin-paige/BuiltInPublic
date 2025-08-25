@@ -89,7 +89,7 @@ export function CreateProjectButton({ canEdit = true }: { canEdit?: boolean }) {
           <Plus />
         </Button>
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className='backdrop-blur-md'>
         <Form {...form}>
           <form
             className='flex flex-col gap-3'
@@ -111,7 +111,7 @@ export function CreateProjectButton({ canEdit = true }: { canEdit?: boolean }) {
                 </FormItem>
               )}
             />
-            <Button disabled={disableSubmit} type='submit'>
+            <Button className='self-end' disabled={disableSubmit} type='submit'>
               Create
             </Button>
           </form>
