@@ -12,7 +12,9 @@ export class NextJSCookieStorage {
       const value = this.cookieStore.get(key)?.value ?? null;
       return value;
     } catch (error) {
-      console.error(`[AUTH DEBUG] Error getting cookie ${key}:`, error);
+      console.error(
+        `[AUTH DEBUG] Error getting cookie ${key}: ${JSON.stringify(error, null, 2)}`
+      );
       return null;
     }
   }
@@ -37,7 +39,9 @@ export class NextJSCookieStorage {
 
       this.cookieStore.set(cookieOptions);
     } catch (error) {
-      console.error(`[AUTH DEBUG] Error setting cookie ${key}:`, error);
+      console.error(
+        `[AUTH DEBUG] Error setting cookie ${key}: ${JSON.stringify(error, null, 2)}`
+      );
     }
   }
 
@@ -50,7 +54,9 @@ export class NextJSCookieStorage {
         maxAge: 0,
       });
     } catch (error) {
-      console.error(`[AUTH DEBUG] Error removing cookie ${key}:`, error);
+      console.error(
+        `[AUTH DEBUG] Error removing cookie ${key}: ${JSON.stringify(error, null, 2)}`
+      );
     }
   }
 }
