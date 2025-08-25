@@ -20,6 +20,7 @@ export async function GET(request: Request) {
 
   if (code && alphaTokenSystemActive) {
     const supabase = await createAnonClient();
+
     const { data: userData, error } =
       await supabase.auth.exchangeCodeForSession(code);
 
@@ -89,7 +90,7 @@ export async function GET(request: Request) {
         secure: process.env.NODE_ENV === 'production',
         sameSite: 'lax',
         path: '/',
-        maxAge: 60 * 60 * 24 * 365, // 1 year
+        maxAge: 60 * 60 * 24 * 30,
       });
 
       const profileRepository = new ProfileRepository(supabase);
