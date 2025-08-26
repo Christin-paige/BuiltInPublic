@@ -34,7 +34,7 @@ export function useProjects(username?: string) {
   const { data, isLoading, error } = useQuery({
     queryKey: projectQueryKeys.username(username || ''),
     queryFn: () => getProjectsByUsername(username || ''),
-    enabled: Boolean(username)
+    enabled: Boolean(username),
   });
 
   if (error) {
