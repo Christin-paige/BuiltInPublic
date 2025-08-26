@@ -31,7 +31,7 @@ export class NextJSCookieStorage {
         name: key,
         value: value,
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
+        secure: true,
         sameSite: 'none' as const,
         path: '/',
         maxAge: 60 * 60 * 24 * 365,
