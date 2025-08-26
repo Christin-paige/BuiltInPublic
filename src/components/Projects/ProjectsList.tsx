@@ -6,7 +6,7 @@ import ProjectCard from './ProjectCard';
 import { useProfileContext } from '@/components/Providers/ProfileProvider';
 
 export function ProjectsList() {
-  const { profile } = useProfileContext();
+  const { profile, canEdit } = useProfileContext();
   const { data, isLoading } = useProjects(profile?.username || '');
 
   if (isLoading) {
@@ -21,7 +21,7 @@ export function ProjectsList() {
           name={project.name}
           description={project.description}
           status={project.status}
-          href={`/${profile.username}/project/${project.id}`}
+          href={canEdit ? `/${profile.username}/project/${project.id}`: `/project/${project.id}`}
         />
       ))}
     </div>
