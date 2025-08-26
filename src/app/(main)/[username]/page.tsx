@@ -50,7 +50,7 @@ export default function Profile({ params }: ProfileProps) {
         <div className='p-8 gap-8 xl:gap-12 w-full relative grid grid-cols-4'>
           <GradientBlobs />
           <UserInfo />
-          <FeedSection username={username} />
+          <FeedSection />
           <StreakSection />
         </div>
       </main>
