@@ -21,7 +21,11 @@ export function ProjectsList() {
           name={project.name}
           description={project.description}
           status={project.status}
-          href={canEdit ? `/${profile.username}/project/${project.id}`: `/project/${project.id}`}
+          href={
+            canEdit
+              ? `/${profile.username}/project/${project.id}`
+              : `/project/${project.id}`
+          }
         />
       ))}
     </div>
