@@ -26,7 +26,6 @@ export async function GET(req: Request) {
           scopes: 'openid email profile',
           queryParams: {
             access_type: 'online',
-            include_granted_scopes: 'false',
           },
         }
       : {};
