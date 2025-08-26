@@ -1,16 +1,13 @@
 'use client';
 
 import { useProjects } from '@/hooks/useProject/useProject';
-import { use } from 'react';
 import { Skeleton } from '../ui/skeleton';
 import ProjectCard from './ProjectCard';
+import { useProfileContext } from '@/components/Providers/ProfileProvider';
 
-interface ProjectsListProps {
-  username: string;
-}
-
-export function ProjectsList({ username }: ProjectsListProps) {
-  const { data, isLoading } = useProjects(username);
+export function ProjectsList() {
+  const { profile, canEdit } = useProfileContext();
+  const { data, isLoading } = useProjects(profile?.username || '');
 
   if (isLoading) {
     return <Skeleton className='h-64 w-full' />;
@@ -24,7 +21,11 @@ export function ProjectsList({ username }: ProjectsListProps) {
           name={project.name}
           description={project.description}
           status={project.status}
-          href={`/${username}/project/${project.id}`}
+          href={
+            canEdit
+              ? `/${profile.username}/project/${project.id}`
+              : `/project/${project.id}`
+          }
         />
       ))}
     </div>
