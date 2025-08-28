@@ -13,7 +13,7 @@ async function handler(req: Request) {
     return new Response('Missing environment variables', { status: 500 });
   }
 
-  const auth = req.headers.get('Authorization');
+  const auth = req.headers.get('x-supabase-webhook-source');
 
   if (auth !== webhookSecret) {
     return new Response('Unauthorized', { status: 401 });
