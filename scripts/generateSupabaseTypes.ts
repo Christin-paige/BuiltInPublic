@@ -22,8 +22,15 @@ async function generateSupabaseTypes() {
 
     const outputPath = path.resolve(__dirname, '../supabase/supabase.types.ts');
     await writeFileAsync(outputPath, stdout);
+    const functionsOutputPath = path.resolve(
+      __dirname,
+      '../supabase/functions/_shared/supabase.types.ts'
+    );
+    await writeFileAsync(functionsOutputPath, stdout);
 
-    console.log(`✅ Supabase types saved to: ${outputPath}`);
+    console.log(
+      `✅ Supabase types saved to: ${outputPath} and ${functionsOutputPath}`
+    );
   } catch (error) {
     console.error('❌ Failed to generate Supabase types:', error);
     process.exit(1);
