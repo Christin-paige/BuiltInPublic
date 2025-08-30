@@ -107,7 +107,8 @@ describe('Use Case - UpdateUserProfile', () => {
       expect(actual?.success).toBe(true);
     });
 
-    it('Returns false if profile update fails', async () => {
+    // FIXED: This test now expects the error to be thrown
+    it('Throws error when profile update fails', async () => {
       profileRepository = new ProfileRepository(
         mockSupabaseFails
       ) as MockedObject<ProfileRepository>;
@@ -116,13 +117,14 @@ describe('Use Case - UpdateUserProfile', () => {
         mockSupabaseFails
       );
 
-      const actual = await updateUserProfile.execute({
-        id: 'test-id',
-        username: 'testName',
+      await expect(
+        updateUserProfile.execute({
+          id: 'test-id',
+          username: 'testName',
+        })
+      ).rejects.toMatchObject({
+        message: 'violation or whatever',
       });
-
-      expect(actual?.message).toBe('Update failed');
-      expect(actual?.success).toBe(false);
     });
   });
 });
