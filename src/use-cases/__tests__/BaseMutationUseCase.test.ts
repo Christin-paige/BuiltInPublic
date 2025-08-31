@@ -27,7 +27,7 @@ describe('BaseUseCase.compactUpdateData', () => {
     useCase = new TestUseCase(mockSupabase);
   });
 
-  it('removes null values from update data', () => {
+  it('preserves null values in update data', () => {
     const updateData = {
       id: 1,
       name: null,
@@ -38,6 +38,7 @@ describe('BaseUseCase.compactUpdateData', () => {
 
     expect(result).toEqual({
       id: 1,
+      name: null,
       isActive: true,
     });
   });
@@ -57,7 +58,7 @@ describe('BaseUseCase.compactUpdateData', () => {
     });
   });
 
-  it('removes empty string values from update data', () => {
+  it('preserves empty string values in update data', () => {
     const updateData = {
       id: 1,
       name: '',
@@ -68,6 +69,7 @@ describe('BaseUseCase.compactUpdateData', () => {
 
     expect(result).toEqual({
       id: 1,
+      name: '',
       isActive: true,
     });
   });
@@ -90,13 +92,13 @@ describe('BaseUseCase.compactUpdateData', () => {
     });
   });
 
-  it('throws NO_VALID_FIELDS error when all values are nullish', () => {
+  it('throws NO_VALID_FIELDS error when all values are undefined', () => {
     const updateData = {
-      id: null,
+      id: undefined,
       name: undefined,
       isActive: undefined,
-      count: null,
-      metadata: null,
+      count: undefined,
+      metadata: undefined,
     };
 
     expect(() => useCase.compactUpdateData(updateData)).toThrowError(
@@ -117,6 +119,7 @@ describe('BaseUseCase.compactUpdateData', () => {
 
     expect(result).toEqual({
       id: 123,
+      name: null,
       isActive: false,
       metadata: { key: 'value' },
     });
@@ -169,13 +172,14 @@ describe('BaseUseCase.compactUpdateData', () => {
     expect(result).toEqual({
       id: 1,
       metadata: [1, 2, 3],
+      name: null,
     });
   });
 
-  it('preserves non-empty string values', () => {
+  it('preserves all string values including empty strings', () => {
     const updateData = {
       name: 'John Doe',
-      description: ' ', // Space is not empty string
+      description: ' ',
       empty: '',
     };
 
@@ -184,6 +188,22 @@ describe('BaseUseCase.compactUpdateData', () => {
     expect(result).toEqual({
       name: 'John Doe',
       description: ' ',
+      empty: '',
+    });
+  });
+
+  it('preserves null values for bio deletion use case', () => {
+    const updateData = {
+      id: 1,
+      name: null,
+      isActive: undefined,
+    };
+
+    const result = useCase.compactUpdateData(updateData);
+
+    expect(result).toEqual({
+      id: 1,
+      name: null,
     });
   });
 });

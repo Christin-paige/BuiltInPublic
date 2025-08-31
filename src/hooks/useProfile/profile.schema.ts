@@ -12,8 +12,9 @@ export const displayNameSchema = z.object({
 export const bioSchema = z.object({
   bio: z
     .string()
-    .min(1, 'Bio must be at least 1 character')
-    .max(256, 'Bio must be no more than 256 characters'),
+    .max(256, 'Bio must be no more than 256 characters')
+    .nullable()
+    .optional(),
 });
 
 export type DisplayNameSchema = z.infer<typeof displayNameSchema>;
