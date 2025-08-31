@@ -21,12 +21,14 @@ create table "public"."policy_documents" (
 );
 
 create type "public"."revocation_reasons" as enum ('user_request', 'account_deletion', 'other');
+create type "public"."consent_methods" as enum ('checkbox', 'button_clicked');
 
 alter table "public"."policy_documents" enable row level security;
 
 create table "public"."user_consents" (
     "id" uuid not null default gen_random_uuid(),
     "consented_at" timestamp with time zone not null default now(),
+    "consent_method" consent_methods not null,
     "user_id" uuid not null default auth.uid(),
     "document_id" uuid not null default gen_random_uuid(),
     "revoked_at" timestamp with time zone,
