@@ -1,7 +1,7 @@
 create type "public"."policy_doc_types" as enum ('T&C', 'cookies', 'privacy', 'disclaimer');
 
 create table "public"."policy_doc_hashes" (
-    "id" uuid not null default gen_random_uuid(),
+    "id" uuid not null PRIMARY KEY default gen_random_uuid(),
     "created_at" timestamp with time zone not null default now(),
     "document_id" uuid not null default gen_random_uuid(),
     "content_hash" text not null
