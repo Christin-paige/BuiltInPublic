@@ -23,7 +23,7 @@ export class ProfileRepository extends BaseRepository<ProfileDTO, Profile> {
       id,
       username: username,
       avatarUrl: avatar_url || '',
-      bio: bio || '',
+      bio: bio ?? '',
       displayName: display_name || '',
     } satisfies Profile;
   }
