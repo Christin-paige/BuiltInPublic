@@ -43,19 +43,19 @@ alter table "policy"."user_consents" enable row level security;
 CREATE INDEX user_consents_user_id_document_id_idx ON policy.user_consents USING btree (user_id, document_id);
 
 -- Create revokes and grants for tables
-revoke all on table "public"."policy_doc_hashes" from anon, authenticated;
-revoke all on table "public"."policy_documents" from anon, authenticated;
-revoke all on table "public"."user_consents" from anon, authenticated;
+revoke all on table "policy"."policy_doc_hashes" from anon, authenticated;
+revoke all on table "policy"."policy_documents" from anon, authenticated;
+revoke all on table "policy"."user_consents" from anon, authenticated;
 
-grant select on table "public"."policy_documents" to anon, authenticated;
-grant references on table "public"."policy_documents" to anon, authenticated;
+grant select on table "policy"."policy_documents" to anon, authenticated;
+grant references on table "policy"."policy_documents" to anon, authenticated;
 
-grant select on table "public"."user_consents" to authenticated;
-grant insert on table "public"."user_consents" to authenticated; 
-grant update (revoked_at, revocation_reason) on table "public"."user_consents" to authenticated; 
-grant references on table "public"."user_consents" to anon, authenticated; 
+grant select on table "policy"."user_consents" to authenticated;
+grant insert on table "policy"."user_consents" to authenticated; 
+grant update (revoked_at, revocation_reason) on table "policy"."user_consents" to authenticated; 
+grant references on table "policy"."user_consents" to anon, authenticated; 
 
-grant references on table "public"."policy_doc_hashes" to anon, authenticated;
+grant references on table "policy"."policy_doc_hashes" to anon, authenticated;
 
 -- Policies
 create policy "Any user can select"
