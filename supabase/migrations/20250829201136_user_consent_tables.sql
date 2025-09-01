@@ -27,44 +27,27 @@ create type "policy"."revocation_reasons" as enum ('user_request', 'account_dele
 create type "policy"."consent_methods" as enum ('checkbox', 'button_clicked');
 
 create table "policy"."user_consents" (
-    "id" uuid not null default gen_random_uuid(),
+    "id" uuid not null primary key default gen_random_uuid(),
     "consented_at" timestamp with time zone not null default now(),
     "consent_method" "policy"."consent_methods" not null,
-    "user_id" uuid not null default auth.uid(),
-    "document_id" uuid not null default gen_random_uuid(),
+    "user_id" uuid not null default auth.uid() references "auth"."users"("id"),
+    "document_id" uuid not null references "policy"."policy_documents"("id"),
     "revoked_at" timestamp with time zone,
     "revocation_reason" "policy"."revocation_reasons",
-    "ip_address" bigint not null,
+    "ip_address" inet not null,
     "user_agent" text not null
 );
 
--- Remove all update rights for the user consents table
-revoke update on "policy"."user_consents" from authenticated, anon;
-
--- Grant the rights to only update the revoked_at and revocation_reason fields
-GRANT update (revoked_at, revocation_reason) on "policy"."user_consents" to authenticated;
-
 alter table "policy"."user_consents" enable row level security;
 
-CREATE UNIQUE INDEX user_consents_ip_address_key ON policy.user_consents USING btree (ip_address);
-
-CREATE UNIQUE INDEX user_consents_pkey ON policy.user_consents USING btree (id);
-
-alter table "policy"."user_consents" add constraint "user_consents_ip_address_key" UNIQUE using index "user_consents_ip_address_key";
-grant delete on table "policy"."policy_doc_hashes" to "anon";
-grant insert on table "policy"."policy_doc_hashes" to "anon";
+CREATE INDEX user_consents_user_id_document_id_idx ON policy.user_consents USING btree (user_id, document_id);
 grant references on table "policy"."policy_doc_hashes" to "anon";
 grant select on table "policy"."policy_doc_hashes" to "anon";
-grant trigger on table "policy"."policy_doc_hashes" to "anon";
 grant truncate on table "policy"."policy_doc_hashes" to "anon";
-grant update on table "policy"."policy_doc_hashes" to "anon";
-grant delete on table "policy"."policy_doc_hashes" to "authenticated";
-grant insert on table "policy"."policy_doc_hashes" to "authenticated";
 grant references on table "policy"."policy_doc_hashes" to "authenticated";
 grant select on table "policy"."policy_doc_hashes" to "authenticated";
 grant trigger on table "policy"."policy_doc_hashes" to "authenticated";
 grant truncate on table "policy"."policy_doc_hashes" to "authenticated";
-grant update on table "policy"."policy_doc_hashes" to "authenticated";
 grant delete on table "policy"."policy_doc_hashes" to "service_role";
 grant insert on table "policy"."policy_doc_hashes" to "service_role";
 grant references on table "policy"."policy_doc_hashes" to "service_role";
@@ -72,20 +55,14 @@ grant select on table "policy"."policy_doc_hashes" to "service_role";
 grant trigger on table "policy"."policy_doc_hashes" to "service_role";
 grant truncate on table "policy"."policy_doc_hashes" to "service_role";
 grant update on table "policy"."policy_doc_hashes" to "service_role";
-grant delete on table "policy"."policy_documents" to "anon";
-grant insert on table "policy"."policy_documents" to "anon";
 grant references on table "policy"."policy_documents" to "anon";
 grant select on table "policy"."policy_documents" to "anon";
 grant trigger on table "policy"."policy_documents" to "anon";
 grant truncate on table "policy"."policy_documents" to "anon";
-grant update on table "policy"."policy_documents" to "anon";
-grant delete on table "policy"."policy_documents" to "authenticated";
-grant insert on table "policy"."policy_documents" to "authenticated";
 grant references on table "policy"."policy_documents" to "authenticated";
 grant select on table "policy"."policy_documents" to "authenticated";
 grant trigger on table "policy"."policy_documents" to "authenticated";
 grant truncate on table "policy"."policy_documents" to "authenticated";
-grant update on table "policy"."policy_documents" to "authenticated";
 grant delete on table "policy"."policy_documents" to "service_role";
 grant insert on table "policy"."policy_documents" to "service_role";
 grant references on table "policy"."policy_documents" to "service_role";
