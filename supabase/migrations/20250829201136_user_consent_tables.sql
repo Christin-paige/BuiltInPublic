@@ -41,108 +41,44 @@ create table "policy"."user_consents" (
 alter table "policy"."user_consents" enable row level security;
 
 CREATE INDEX user_consents_user_id_document_id_idx ON policy.user_consents USING btree (user_id, document_id);
-grant references on table "policy"."policy_doc_hashes" to "anon";
-grant select on table "policy"."policy_doc_hashes" to "anon";
-grant truncate on table "policy"."policy_doc_hashes" to "anon";
-grant references on table "policy"."policy_doc_hashes" to "authenticated";
-grant select on table "policy"."policy_doc_hashes" to "authenticated";
-grant trigger on table "policy"."policy_doc_hashes" to "authenticated";
-grant truncate on table "policy"."policy_doc_hashes" to "authenticated";
-grant delete on table "policy"."policy_doc_hashes" to "service_role";
-grant insert on table "policy"."policy_doc_hashes" to "service_role";
-grant references on table "policy"."policy_doc_hashes" to "service_role";
-grant select on table "policy"."policy_doc_hashes" to "service_role";
-grant trigger on table "policy"."policy_doc_hashes" to "service_role";
-grant truncate on table "policy"."policy_doc_hashes" to "service_role";
-grant update on table "policy"."policy_doc_hashes" to "service_role";
-grant references on table "policy"."policy_documents" to "anon";
-grant select on table "policy"."policy_documents" to "anon";
-grant trigger on table "policy"."policy_documents" to "anon";
-grant truncate on table "policy"."policy_documents" to "anon";
-grant references on table "policy"."policy_documents" to "authenticated";
-grant select on table "policy"."policy_documents" to "authenticated";
-grant trigger on table "policy"."policy_documents" to "authenticated";
-grant truncate on table "policy"."policy_documents" to "authenticated";
-grant delete on table "policy"."policy_documents" to "service_role";
-grant insert on table "policy"."policy_documents" to "service_role";
-grant references on table "policy"."policy_documents" to "service_role";
-grant select on table "policy"."policy_documents" to "service_role";
-grant trigger on table "policy"."policy_documents" to "service_role";
-grant truncate on table "policy"."policy_documents" to "service_role";
-grant update on table "policy"."policy_documents" to "service_role";
-grant delete on table "policy"."user_consents" to "anon";
-grant insert on table "policy"."user_consents" to "anon";
-grant references on table "policy"."user_consents" to "anon";
-grant select on table "policy"."user_consents" to "anon";
-grant trigger on table "policy"."user_consents" to "anon";
-grant truncate on table "policy"."user_consents" to "anon";
-grant update on table "policy"."user_consents" to "anon";
-grant delete on table "policy"."user_consents" to "authenticated";
-grant insert on table "policy"."user_consents" to "authenticated";
-grant references on table "policy"."user_consents" to "authenticated";
-grant select on table "policy"."user_consents" to "authenticated";
-grant trigger on table "policy"."user_consents" to "authenticated";
-grant truncate on table "policy"."user_consents" to "authenticated";
-grant update on table "policy"."user_consents" to "authenticated";
-grant delete on table "policy"."user_consents" to "service_role";
-grant insert on table "policy"."user_consents" to "service_role";
-grant references on table "policy"."user_consents" to "service_role";
-grant select on table "policy"."user_consents" to "service_role";
-grant trigger on table "policy"."user_consents" to "service_role";
-grant truncate on table "policy"."user_consents" to "service_role";
-grant update on table "policy"."user_consents" to "service_role";
 
-create policy "Enable insert for authenticated users only"
-on "policy"."policy_doc_hashes"
-as permissive
-for insert
-to postgres
-with check (true);
+-- Create revokes and grants for tables
+revoke all on table "public"."policy_doc_hashes" from anon, authenticated;
+revoke all on table "public"."policy_documents" from anon, authenticated;
+revoke all on table "public"."user_consents" from anon, authenticated;
 
+grant select on table "public"."policy_documents" to anon, authenticated;
+grant references on table "public"."policy_documents" to anon, authenticated;
 
-create policy "Enable read access for admins"
-on "policy"."policy_doc_hashes"
-as permissive
+grant select on table "public"."user_consents" to authenticated;
+grant insert on table "public"."user_consents" to authenticated; 
+grant update (revoked_at, revocation_reason) on table "public"."user_consents" to authenticated; 
+grant references on table "public"."user_consents" to anon, authenticated; 
+
+grant references on table "public"."policy_doc_hashes" to anon, authenticated;
+
+-- Policies
+create policy "Any user can select"
+on "policy"."policy_documents"
 for select
-to postgres, supabase_admin
+to anon, authenticated
 using (true);
 
-
-create policy "Enable insert for postgres users only"
-on "policy"."policy_documents"
-as permissive
-for insert
-to postgres
-with check (true);
-
-
-create policy "Enable read access for all users"
-on "policy"."policy_documents"
-as permissive
-for select
-to public
-using (true);
-
-
-create policy "Enable update for postgres users only"
-on "policy"."policy_documents"
-as permissive
-for update
-to postgres
-using (true);
-
-
-create policy "Enable users to update revoked_at and revocation_reason"
+create policy "Authenticated user can select their own records"
 on "policy"."user_consents"
-as restrictive
-for update
-to authenticated
-using ((auth.uid() = user_id));
-
-
-create policy "Enable users to view their own data only"
-on "policy"."user_consents"
-as permissive
 for select
 to authenticated
-using ((( SELECT auth.uid() AS uid) = user_id));
+using (auth.uid() = user_id);
+
+create policy "Authenticated user can insert consents"
+on "policy"."user_consents"
+for insert
+to authenticated
+with check (auth.uid() = user_id);
+
+create policy "Authenticated user can revoke consent"
+on "policy"."user_consents"
+for update
+to authenticated
+using (auth.uid() = user_id)
+with check (auth.uid() = user_id);
