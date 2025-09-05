@@ -21,10 +21,10 @@
       "automerge": false
     },
     {
-      "description": "Weekly, CI-gated auto-merge for minor/patch/pin/digest",
+      "description": "CI-gated auto-merge for minor/patch/pin/digest (no schedule gate)",
       "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
       "groupName": "weekly dependency updates",
-      "schedule": ["before 6am on Monday"],
+      // schedule removed to allow immediate eligibility
       "automerge": true,
       "automergeType": "pr",
       "platformAutomerge": true,
@@ -39,10 +39,10 @@
     }
   ],
 
-  // --- Quiet weekly lockfile maintenance with auto-merge ---
+  // --- Lockfile maintenance (no schedule gate) ---
   "lockFileMaintenance": {
     "enabled": true,
-    "schedule": ["before 6am on Tuesday"],
+    // schedule removed to allow immediate eligibility
     "automerge": true,
     "automergeType": "pr",
     "platformAutomerge": true,
