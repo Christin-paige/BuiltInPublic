@@ -13,10 +13,10 @@ const About: FC = () => {
             What is BuiltInPublic?
           </h2>
           <p>
-            Built In Public is a community-driven platform where developers build
-            out loud, celebrate wins, share struggles, and lift each other up.
-            Whether you’re shipping your very first project or polishing your
-            tenth pull request, this is your corner of the dev world.
+            Built In Public is a community-driven platform where developers
+            build out loud, celebrate wins, share struggles, and lift each other
+            up. Whether you’re shipping your very first project or polishing
+            your tenth pull request, this is your corner of the dev world.
           </p>
         </div>
 
