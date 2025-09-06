@@ -30,30 +30,42 @@ Before getting started, make sure you have the following installed:
 
 ```plaintext
 .
-├── .DS_Store
+├── components.json
+├── config
+│   └── private
+│       └── profanity-list.ts
+├── docs
+│   ├── appregistered.png
+│   ├── oathapps.png
+│   ├── pull_request_template.md
+│   └── registerapp.png
 ├── .env
 ├── .env.example
+├── eslint.config.mjs
 ├── .eslintrc.json
 ├── .gitguardian.toml
 ├── .github
-│   ├── dependabot.yml
 │   ├── ISSUE_TEMPLATE
 │   │   └── new-feature-request.md
 │   └── workflows
 │       ├── codeql.yml
-│       ├── dependabot-security-auto-merge.yml
 │       ├── gitleaks.yml
 │       ├── npmaudit.yml
 │       ├── prettier.yml
+│       ├── push-migrations-staging.yml
+│       ├── renovate.yml
 │       ├── semgrep.yml
-│       └── syft.yml
+│       ├── syft.yml
+│       └── unit-tests.yml
 ├── .gitignore
+├── gitleaks-report.json
+├── gitleaks.tar.gz
 ├── .gitleaks.toml
 ├── .husky
 │   ├── _
-│   │   ├── .gitignore
 │   │   ├── applypatch-msg
 │   │   ├── commit-msg
+│   │   ├── .gitignore
 │   │   ├── h
 │   │   ├── husky.sh
 │   │   ├── post-applypatch
@@ -65,72 +77,59 @@ Before getting started, make sure you have the following installed:
 │   │   ├── pre-auto-gc
 │   │   ├── pre-commit
 │   │   ├── pre-merge-commit
+│   │   ├── prepare-commit-msg
 │   │   ├── pre-push
-│   │   ├── pre-rebase
-│   │   └── prepare-commit-msg
+│   │   └── pre-rebase
 │   ├── pre-commit
 │   └── pre-push
+├── instrumentation-client.ts
+├── LICENSE
+├── next.config.mjs
+├── next-env.d.ts
+├── package.json
+├── package-lock.json
+├── postcss.config.mjs
 ├── .prettierignore
 ├── .prettierrc.yml
-├── components.json
-├── config
-│   └── private
-│       └── profanity-list.ts
-├── docs
-│   ├── appregistered.png
-│   ├── oathapps.png
-│   ├── pull_request_template.md
-│   └── registerapp.png
-├── eslint.config.mjs
-├── gitleaks-report.json
-├── LICENSE
-├── next-env.d.ts
-├── next.config.mjs
-├── package-lock.json
-├── package.json
-├── postcss.config.mjs
 ├── public
-│   ├── .DS_Store
 │   ├── 404
-│   │   ├── .DS_Store
-│   │   ├── funny1.gif
-│   │   ├── funny2.gif
-│   │   ├── funny3.gif
-│   │   ├── funny4.gif
-│   │   ├── funny5.gif
-│   │   ├── funny6.gif
-│   │   ├── funny7.gif
-│   │   ├── funny8.gif
-│   │   └── funny9.gif
+│   │   ├── funny10.png
+│   │   ├── funny1.png
+│   │   ├── funny2.png
+│   │   ├── funny3.png
+│   │   ├── funny4.png
+│   │   ├── funny5.png
+│   │   ├── funny6.png
+│   │   ├── funny7.png
+│   │   ├── funny8.png
+│   │   └── funny9.png
+│   ├── BiP_Banner.png
 │   ├── BuiltInPublic.png
 │   ├── door.jpg
 │   ├── example-cover-img.jpg
+│   ├── icons
+│   │   ├── github-sign-in-btn.svg
+│   │   └── web_neutral_rd_SI.svg
 │   ├── logo3.png
 │   ├── og-image.jpg
 │   └── terminal-logo.png
 ├── README.md
+├── renovate.json
 ├── scripts
 │   ├── generateSupabaseTypes.ts
 │   ├── precheck.sh
-│   ├── seed.ts
-│   └── seeds
-│       ├── auth-users.ts
-│       ├── posts.ts
-│       ├── profile-skills.ts
-│       ├── projects.ts
-│       ├── skills.ts
-│       └── social.ts
-├── security
-│   └── semgrep
-│       └── general.yml
+│   ├── seeds
+│   │   ├── auth-users.ts
+│   │   ├── policy-doc.ts
+│   │   ├── posts.ts
+│   │   ├── profile-skills.ts
+│   │   ├── projects.ts
+│   │   ├── skills.ts
+│   │   └── social.ts
+│   └── seed.ts
 ├── SECURITY.md
 ├── src
 │   ├── app
-│   │   ├── (main)
-│   │   │   ├── [username]
-│   │   │   ├── dashboard
-│   │   │   ├── layout.tsx
-│   │   │   └── onboarding
 │   │   ├── about
 │   │   │   └── page.tsx
 │   │   ├── auth
@@ -142,30 +141,70 @@ Before getting started, make sure you have the following installed:
 │   │   ├── favicon.ico
 │   │   ├── globals.css
 │   │   ├── layout.tsx
+│   │   ├── (main)
+│   │   │   ├── dashboard
+│   │   │   ├── layout.tsx
+│   │   │   ├── onboarding
+│   │   │   └── [username]
 │   │   ├── not-found.tsx
-│   │   └── page.tsx
+│   │   ├── page.tsx
+│   │   ├── project
+│   │   │   └── [id]
+│   │   ├── staging-auth
+│   │   │   ├── actions.ts
+│   │   │   ├── page.tsx
+│   │   │   ├── stagingAuth.schema.ts
+│   │   │   └── StagingAuth.tsx
+│   │   └── thanks
+│   │       └── page.tsx
 │   ├── components
+│   │   ├── Buttons
+│   │   │   ├── BackButton.tsx
+│   │   │   ├── EditButton.tsx
+│   │   │   └── SignOutBtn.tsx
 │   │   ├── Footer.tsx
 │   │   ├── Navbar
-│   │   │   ├── actions.ts
 │   │   │   ├── index.ts
 │   │   │   └── Navbar.tsx
+│   │   ├── Profile
+│   │   │   ├── Bio.tsx
+│   │   │   └── DisplayName.tsx
 │   │   ├── ProfileIcon.tsx
+│   │   ├── Projects
+│   │   │   ├── CreateProject
+│   │   │   ├── ProjectCard.tsx
+│   │   │   ├── ProjectPanel
+│   │   │   ├── ProjectsList.tsx
+│   │   │   ├── ProjectStatusBadge.tsx
+│   │   │   ├── ProjectUpdateCard.tsx
+│   │   │   └── ProjectVisibilityBadge.tsx
 │   │   ├── Providers
+│   │   │   ├── ProfileProvider.tsx
+│   │   │   ├── ProjectProvider.tsx
 │   │   │   ├── QueryProvider.tsx
 │   │   │   └── ThemeProvider.tsx
 │   │   └── ui
+│   │       ├── avatar.tsx
 │   │       ├── button.tsx
+│   │       ├── card.tsx
+│   │       ├── confirmation-dialog.tsx
+│   │       ├── dialog.tsx
+│   │       ├── dropdown-menu.tsx
 │   │       ├── form.tsx
 │   │       ├── input.tsx
 │   │       ├── label.tsx
+│   │       ├── skeleton.tsx
 │   │       └── textarea.tsx
-│   ├── contexts
-│   │   └── ProfileEditContext.tsx
 │   ├── hooks
 │   │   ├── useProfile
 │   │   │   ├── actions.ts
+│   │   │   ├── profile.schema.ts
 │   │   │   └── useProfile.tsx
+│   │   ├── useProject
+│   │   │   ├── actions.ts
+│   │   │   ├── editProject.schema.ts
+│   │   │   ├── updateProject.schema.ts
+│   │   │   └── useProject.tsx
 │   │   └── useUser
 │   │       ├── actions.ts
 │   │       └── useUser.tsx
@@ -174,33 +213,75 @@ Before getting started, make sure you have the following installed:
 │   ├── middleware.ts
 │   ├── repositories
 │   │   ├── base.repository.ts
-│   │   └── profileRepository
-│   │       ├── profile.repository.ts
-│   │       └── profile.types.ts
+│   │   ├── profileRepository
+│   │   │   ├── profile.repository.ts
+│   │   │   └── profile.types.ts
+│   │   └── projectRepository
+│   │       ├── project.repository.ts
+│   │       └── project.types.ts
 │   ├── services
 │   │   └── UINotification.service.ts
-│   └── setupTests.ts
+│   ├── setupTests.ts
+│   └── use-cases
+│       ├── BaseFetchUseCase.ts
+│       ├── BaseMutationUseCase.ts
+│       ├── projects
+│       │   ├── CreateNewProject.ts
+│       │   ├── EditProject.ts
+│       │   ├── GetProject.ts
+│       │   ├── __tests__
+│       │   └── UpdateProject.ts
+│       ├── __tests__
+│       │   └── BaseMutationUseCase.test.ts
+│       └── updateUserProfile
+│           ├── __tests__
+│           └── UpdateUserProfile.ts
 ├── supabase
-│   ├── __tests__
-│   │   ├── rls-policies
-│   │   │   ├── profiles.test.ts
-│   │   │   └── projects.test.ts
-│   │   ├── testClients.ts
-│   │   └── testUser.ts
-│   ├── .branches
-│   │   └── _current_branch
-│   ├── .gitignore
-│   ├── .temp
-│   │   └── cli-latest
 │   ├── config.toml
+│   ├── functions
+│   │   ├── deno.json
+│   │   ├── email-signup-link
+│   │   │   ├── deno.json
+│   │   │   ├── index.ts
+│   │   │   └── .npmrc
+│   │   ├── env.example
+│   │   └── _shared
+│   │       └── supabase.types.ts
+│   ├── .gitignore
 │   ├── migrations
 │   │   ├── 20250517104606_base_tables_rls.sql
-│   │   └── 20250518145124_new_profile_trigger.sql
-│   └── supabase.types.ts
+│   │   ├── 20250518145124_new_profile_trigger.sql
+│   │   ├── 20250801104606_create_project_updates.sql
+│   │   ├── 20250803000000_add_project_updates_table.sql
+│   │   ├── 20250807230208_insert_profile_update.sql
+│   │   ├── 20250812161712_project_defaults.sql
+│   │   ├── 20250823004425_alpha_token_table.sql
+│   │   ├── 20250825164024_alpha_token_email.sql
+│   │   ├── 20250829201136_user_consent_tables.sql
+│   │   ├── 20250830223716_private_profile.sql
+│   │   └── 20250905144832_usage_on_policy_docs.sql
+│   ├── seed.sql
+│   ├── supabase.types.ts
+│   ├── .temp
+│   │   └── cli-latest
+│   └── __tests__
+│       ├── rls-policies
+│       │   ├── profiles.business.test.ts
+│       │   ├── profiles.test.ts
+│       │   └── projects.test.ts
+│       ├── testClients.ts
+│       └── testUser.ts
 ├── tsconfig.json
 ├── utils
+│   ├── errors
+│   │   └── ValidationError.ts
+│   ├── SecureURLValidator
+│   │   ├── SecureURLValidator.ts
+│   │   └── __tests__
+│   │       └── SecureURLValidator.test.ts
 │   ├── supabase
 │   │   ├── middleware.ts
+│   │   ├── NextJSCookieStorage.ts
 │   │   └── server.ts
 │   ├── types.ts
 │   └── usernameValidator.ts
