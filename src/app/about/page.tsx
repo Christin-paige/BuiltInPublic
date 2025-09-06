@@ -13,7 +13,7 @@ const About: FC = () => {
             What is BuiltInPublic?
           </h2>
           <p>
-            BuiltInPublic is a community-driven platform where developers build
+            Built In Public is a community-driven platform where developers build
             out loud, celebrate wins, share struggles, and lift each other up.
             Whether you’re shipping your very first project or polishing your
             tenth pull request, this is your corner of the dev world.
@@ -24,7 +24,7 @@ const About: FC = () => {
           <h2 className='text-2xl font-semibold mb-3'>Why we built this</h2>
           <p>
             Coding can be isolating—especially when you’re starting out or
-            making a career switch. I built BuiltInPublic to change that: a
+            making a career switch. I built Built In Public to change that: a
             place where developers connect, share their journey, and know
             they’re not alone.
           </p>
