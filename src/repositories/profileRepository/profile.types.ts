@@ -1,3 +1,12 @@
+import { Database } from 'supabase/supabase.types';
+
+export interface UserConsents {
+  consentedAt: string;
+  documentId: string;
+  documentType: Database['policy']['Enums']['policy_doc_types'];
+}
+[];
+
 export interface ProfileDTO {
   id: string;
   username: string | null;
@@ -12,4 +21,5 @@ export interface Profile {
   avatarUrl: string | null;
   bio?: string;
   displayName?: string | null;
+  consents?: UserConsents | null;
 }
