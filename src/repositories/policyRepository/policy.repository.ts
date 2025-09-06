@@ -63,7 +63,7 @@ export class PolicyRepository extends BaseRepository<
       for (const rawPolicy of data) {
         const policy = this.safeTransformDTO(rawPolicy);
 
-        policies.push(rawPolicy);
+        policies.push(policy);
       }
 
       return policies;
