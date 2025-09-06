@@ -1,5 +1,58 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["config:base"],
-  "labels": ["dependencies"]
+  "timezone": "America/New_York",
+  "prConcurrentLimit": 5,
+  "labels": ["dependencies"],
+
+  // --- Security advisories auto-merge ---
+  "osvVulnerabilityAlerts": true,
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "automerge": true,
+    "labels": ["security"]
+  },
+
+  "packageRules": [
+    {
+      "description": "Major updates in separate PRs; manual review required",
+      "matchUpdateTypes": ["major"],
+      "labels": ["dependencies", "major"],
+      "automerge": false
+    },
+    {
+      "description": "Weekly, CI-gated auto-merge for minor/patch/pin/digest",
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+      "groupName": "weekly dependency updates",
+      "schedule": ["before 6am on Monday"],
+      "automerge": true,
+      "automergeType": "pr",
+      "platformAutomerge": true,
+      "stabilityDays": 3,
+      "labels": ["dependencies", "automerge"]
+    },
+    {
+      "description": "GitHub Actions updates in their own lane (no automerge)",
+      "matchManagers": ["github-actions"],
+      "labels": ["ci", "github-actions"],
+      "automerge": false
+    }
+  ],
+
+  // --- Quiet weekly lockfile maintenance with auto-merge ---
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": ["before 6am on Tuesday"],
+    "automerge": true,
+    "automergeType": "pr",
+    "platformAutomerge": true,
+    "labels": ["lockfile-maintenance"]
+  },
+
+  // --- npm hygiene ---
+  "npm": {
+    "rangeStrategy": "bump",
+    "postUpdateOptions": ["npmDedupe"],
+    "ignoreScripts": true
+  }
 }
