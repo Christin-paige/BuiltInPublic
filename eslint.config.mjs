@@ -1,3 +1,5 @@
+// @ts-ignore - eslint-plugin-unicorn doesn't have TypeScript declarations
+import eslintPluginUnicorn from 'eslint-plugin-unicorn';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { FlatCompat } from '@eslint/eslintrc';
@@ -32,6 +34,7 @@ const eslintConfig = [
     plugins: {
       react: eslintPluginReact,
       'react-hooks': eslintPluginReactHooks,
+      unicorn: eslintPluginUnicorn,
     },
     rules: {
       'react-hooks/rules-of-hooks': 'error',
@@ -39,6 +42,20 @@ const eslintConfig = [
       'react/react-in-jsx-scope': 'off',
       // Allow JSX without React import in Next.js
       'react/no-unescaped-entities': 'off',
+    },
+  },
+  {
+    files: ['src/components/**/*.{js,jsx,ts,tsx}'],
+    ignores: [
+      'src/components/ui/**/*.{js,jsx,ts,tsx}',
+      '**/actions.{js,jsx,ts,tsx}',
+      '**/*.schema.{js,jsx,ts,tsx}',
+    ],
+    plugins: {
+      unicorn: eslintPluginUnicorn,
+    },
+    rules: {
+      'unicorn/filename-case': ['error', { case: 'pascalCase' }],
     },
   },
 ];
