@@ -1,33 +1,30 @@
 {
-    "$schema": "https://unpkg.com/knip/schema.json",
-    "entry": [
-      "next.config.{js,cjs,mjs,ts}",
-      "postcss.config.{js,cjs,mjs,ts}",
-      "tailwind.config.{js,cjs,mjs,ts}",
-      "eslint.config.{js,cjs,mjs,ts}",
-      "vitest.config.{js,ts}",
-      "jest.config.{js,ts}",
-      "scripts/**/*.{js,ts}",
-      "src/**/*.{ts,tsx,js,jsx}",
-      "app/**/*.{ts,tsx,js,jsx}",
-      "pages/**/*.{ts,tsx,js,jsx}",
-      "components/**/*.{ts,tsx,js,jsx}",
-      "lib/**/*.{ts,tsx,js,jsx}",
-      "hooks/**/*.{ts,tsx,js,jsx}",
-      "middleware.{ts,js}",
-      "supabase/functions/**/*.{ts,js}",
-      "src/setupTests.ts"
-    ],
-    "project": [
-      "**/*.{ts,tsx,js,jsx}",
-      "!**/*.d.ts",
-      "!**/.next/**",
-      "!**/dist/**",
-      "!**/build/**",
-      "!**/coverage/**"
-    ],
-    "ignore": [
-      "src/components/ui/**",
-      "supabase/supabase.types.ts"
-    ]
-  }
+  "$schema": "https://unpkg.com/knip/schema.json",
+  "entry": [
+    "next.config.{js,cjs,mjs,ts}",
+    "postcss.config.{js,cjs,mjs,ts}",
+    "tailwind.config.{js,cjs,mjs,ts}",
+    "eslint.config.{js,cjs,mjs,ts}",
+    "vitest.config.{js,ts}",
+    "jest.config.{js,ts}",
+    "scripts/**/*.{js,ts}",
+    "src/**/*.{ts,tsx,js,jsx}",
+    "app/**/*.{ts,tsx,js,jsx}",
+    "pages/**/*.{ts,tsx,js,jsx}",
+    "components/**/*.{ts,tsx,js,jsx}",
+    "lib/**/*.{ts,tsx,js,jsx}",
+    "hooks/**/*.{ts,tsx,js,jsx}",
+    "middleware.{ts,js}",
+    "supabase/functions/**/*.{ts,js}",
+    "src/setupTests.ts"
+  ],
+  "project": [
+    "**/*.{ts,tsx,js,jsx}",
+    "!**/*.d.ts",
+    "!**/.next/**",
+    "!**/dist/**",
+    "!**/build/**",
+    "!**/coverage/**"
+  ],
+  "ignore": ["src/components/ui/**", "supabase/supabase.types.ts"]
+}
