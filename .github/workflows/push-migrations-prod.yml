@@ -11,10 +11,12 @@ permissions:
   contents: read
   pull-requests: read
 
+# Prevents multiple migrations from running at the same time
 concurrency:
   group: supabase-migrations-production
   cancel-in-progress: false
 
+# Sets 15 minute timeout so CLI doesn't get stuck
 jobs:
   push-migrations:
     runs-on: ubuntu-latest
@@ -41,7 +43,7 @@ jobs:
       - name: Link Supabase project (production)
         run: echo "y" | supabase link --project-ref "$SUPABASE_PROJECT_ID"
 
-      # Safety check before touching prod
+        # Safety check before touching prod
       - name: Validate migrations can run (dry run)
         run: supabase db push --include-all --non-interactive --dry-run
 
