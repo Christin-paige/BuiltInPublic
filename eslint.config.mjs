@@ -46,7 +46,11 @@ const eslintConfig = [
   },
   {
     files: ['src/components/**/*.{js,jsx,ts,tsx}'],
-    ignores: ['src/components/ui/**/*.{js,jsx,ts,tsx}', '**/actions.{js,jsx,ts,tsx}', '**/*.schema.{js,jsx,ts,tsx}'],
+    ignores: [
+      'src/components/ui/**/*.{js,jsx,ts,tsx}',
+      '**/actions.{js,jsx,ts,tsx}',
+      '**/*.schema.{js,jsx,ts,tsx}',
+    ],
     plugins: {
       unicorn: eslintPluginUnicorn,
     },
