@@ -1,0 +1,49 @@
+name: Push Supabase Migrations (production)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'supabase/migrations/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: read
+
+concurrency:
+  group: supabase-migrations-production
+  cancel-in-progress: false
+
+jobs:
+  push-migrations:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment: production
+    env:
+      # Set these in the "production" environment secrets
+      SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+      SUPABASE_PROJECT_ID: ${{ secrets.PROD_SUPABASE_PROJECT_ID }}
+      SUPABASE_DB_PASSWORD: ${{ secrets.PROD_DB_PASSWORD }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 1
+
+      - name: Install Supabase CLI
+        uses: supabase/setup-cli@v1
+        with:
+        # stable version pinning
+          version: "~=1.183.0"
+
+      - name: Link Supabase project (production)
+        run: echo "y" | supabase link --project-ref "$SUPABASE_PROJECT_ID"
+
+      # Safety check before touching prod
+      - name: Validate migrations can run (dry run)
+        run: supabase db push --include-all --non-interactive --dry-run
+
+      - name: Push Supabase migrations (production)
+        run: supabase db push --include-all --non-interactive
