@@ -1,7 +1,7 @@
 name: Renovate Lockfile Auto-Merge (npm)
 
 on:
-  pull_request:
+  pull_request_target:
     types: [opened, synchronize, labeled, reopened, ready_for_review]
     branches: [main, development]
 
@@ -24,6 +24,7 @@ jobs:
       - name: Verify PR only changes package-lock.json
         uses: actions/github-script@v8
         with:
+          # default is GITHUB_TOKEN; no secret needed here
           script: |
             const pr = context.payload.pull_request;
             const files = await github.paginate(
@@ -31,15 +32,10 @@ jobs:
               { owner: context.repo.owner, repo: context.repo.repo, pull_number: pr.number }
             );
             const changed = files.map(f => f.filename);
-
-            // Only allow package-lock.json anywhere (root or nested workspaces)
             const offenders = files
               .filter(f => !/(^|\/)package-lock\.json$/.test(f.filename))
               .map(f => f.filename);
-
-            // Explicitly block any package.json change
             const hasPkgJson = changed.some(p => /(^|\/)package\.json$/.test(p));
-
             if (hasPkgJson) {
               core.setFailed('package.json change detected — not a lockfile-only PR.');
             } else if (offenders.length) {
