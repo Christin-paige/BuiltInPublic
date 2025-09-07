@@ -32,6 +32,133 @@ export type Database = {
       [_ in never]: never
     }
   }
+  policy: {
+    Tables: {
+      policy_doc_hashes: {
+        Row: {
+          content_hash: string
+          created_at: string
+          document_id: string
+          id: string
+        }
+        Insert: {
+          content_hash: string
+          created_at?: string
+          document_id: string
+          id?: string
+        }
+        Update: {
+          content_hash?: string
+          created_at?: string
+          document_id?: string
+          id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "policy_doc_hashes_document_id_fkey"
+            columns: ["document_id"]
+            isOneToOne: false
+            referencedRelation: "policy_documents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      policy_documents: {
+        Row: {
+          content: string
+          created_at: string
+          document_type: Database["policy"]["Enums"]["policy_doc_types"]
+          effective_from: string
+          id: string
+          superseded_at: string | null
+          version: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          document_type: Database["policy"]["Enums"]["policy_doc_types"]
+          effective_from: string
+          id?: string
+          superseded_at?: string | null
+          version: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          document_type?: Database["policy"]["Enums"]["policy_doc_types"]
+          effective_from?: string
+          id?: string
+          superseded_at?: string | null
+          version?: string
+        }
+        Relationships: []
+      }
+      user_consents: {
+        Row: {
+          consent_method: Database["policy"]["Enums"]["consent_methods"]
+          consented_at: string
+          document_id: string
+          id: string
+          ip_address: unknown
+          revocation_reason:
+            | Database["policy"]["Enums"]["revocation_reasons"]
+            | null
+          revoked_at: string | null
+          user_agent: string
+          user_id: string
+        }
+        Insert: {
+          consent_method: Database["policy"]["Enums"]["consent_methods"]
+          consented_at?: string
+          document_id: string
+          id?: string
+          ip_address: unknown
+          revocation_reason?:
+            | Database["policy"]["Enums"]["revocation_reasons"]
+            | null
+          revoked_at?: string | null
+          user_agent: string
+          user_id?: string
+        }
+        Update: {
+          consent_method?: Database["policy"]["Enums"]["consent_methods"]
+          consented_at?: string
+          document_id?: string
+          id?: string
+          ip_address?: unknown
+          revocation_reason?:
+            | Database["policy"]["Enums"]["revocation_reasons"]
+            | null
+          revoked_at?: string | null
+          user_agent?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_consents_document_id_fkey"
+            columns: ["document_id"]
+            isOneToOne: false
+            referencedRelation: "policy_documents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+    }
+    Views: {
+      [_ in never]: never
+    }
+    Functions: {
+      [_ in never]: never
+    }
+    Enums: {
+      consent_methods: "checkbox" | "button_clicked"
+      policy_doc_types: "T&C" | "cookies" | "privacy" | "disclaimer"
+      revocation_reasons: "user_request" | "account_deletion" | "other"
+    }
+    CompositeTypes: {
+      [_ in never]: never
+    }
+  }
   public: {
     Tables: {
       alpha_tokens: {
@@ -44,7 +171,7 @@ export type Database = {
         Insert: {
           created_at?: string
           id?: string
-          send_email: string
+          send_email?: string
           user_id?: string | null
         }
         Update: {
@@ -289,6 +416,7 @@ export type Database = {
           links: string[] | null
           location: string | null
           username: string | null
+          visibility: Database["public"]["Enums"]["profile_visibility"]
         }
         Insert: {
           avatar_url?: string | null
@@ -300,6 +428,7 @@ export type Database = {
           links?: string[] | null
           location?: string | null
           username?: string | null
+          visibility?: Database["public"]["Enums"]["profile_visibility"]
         }
         Update: {
           avatar_url?: string | null
@@ -311,6 +440,7 @@ export type Database = {
           links?: string[] | null
           location?: string | null
           username?: string | null
+          visibility?: Database["public"]["Enums"]["profile_visibility"]
         }
         Relationships: []
       }
@@ -413,6 +543,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
+      profile_visibility: "public" | "platform" | "private"
       project_status:
         | "planning"
         | "in-progress"
@@ -548,8 +679,16 @@ export const Constants = {
   graphql_public: {
     Enums: {},
   },
+  policy: {
+    Enums: {
+      consent_methods: ["checkbox", "button_clicked"],
+      policy_doc_types: ["T&C", "cookies", "privacy", "disclaimer"],
+      revocation_reasons: ["user_request", "account_deletion", "other"],
+    },
+  },
   public: {
     Enums: {
+      profile_visibility: ["public", "platform", "private"],
       project_status: [
         "planning",
         "in-progress",

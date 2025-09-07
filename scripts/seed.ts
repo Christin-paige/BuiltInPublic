@@ -6,6 +6,7 @@ import { seedProfileSkills } from 'scripts/seeds/profile-skills';
 import { seedProjects } from 'scripts/seeds/projects';
 import { seedPosts } from 'scripts/seeds/posts';
 import { seedSocial } from 'scripts/seeds/social';
+import { seedPolicy } from './seeds/policy-doc';
 
 // Load the environment variables
 config();
@@ -37,6 +38,7 @@ export const supabase = createClient(
 // 4. seedProjects
 // 5. seedPosts
 // 6. seedSocial
+// 7. seedPolicy
 async function runSeeds() {
   try {
     console.log('Seeding data...');
@@ -46,6 +48,7 @@ async function runSeeds() {
     await seedProjects();
     await seedPosts();
     await seedSocial();
+    await seedPolicy();
     console.log('All seeds done!');
   } catch (err) {
     console.error('Seeding failed:', err);

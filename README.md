@@ -120,6 +120,7 @@ Before getting started, make sure you have the following installed:
 │   ├── precheck.sh
 │   ├── seeds
 │   │   ├── auth-users.ts
+│   │   ├── policy-doc.ts
 │   │   ├── posts.ts
 │   │   ├── profile-skills.ts
 │   │   ├── projects.ts
@@ -256,7 +257,10 @@ Before getting started, make sure you have the following installed:
 │   │   ├── 20250812161712_project_defaults.sql
 │   │   ├── 20250823004425_alpha_token_table.sql
 │   │   ├── 20250825164024_alpha_token_email.sql
-│   │   └── 20250830223716_private_profile.sql
+│   │   ├── 20250829201136_user_consent_tables.sql
+│   │   ├── 20250830223716_private_profile.sql
+│   │   └── 20250905144832_usage_on_policy_docs.sql
+│   ├── seed.sql
 │   ├── supabase.types.ts
 │   ├── .temp
 │   │   └── cli-latest
