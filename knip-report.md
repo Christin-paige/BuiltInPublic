@@ -2,15 +2,15 @@
 
 ## Unused files (9)
 
-* src/components/Navbar/Navbar.tsx
-* src/components/Navbar/index.ts
-* src/components/ProfileIcon.tsx
-* src/repositories/policyRepository/policy.repository.ts
-* src/repositories/policyRepository/policy.types.ts
-* src/setupTests.ts
-* supabase/functions/_shared/supabase.types.ts
-* supabase/functions/email-signup-link/index.ts
-* utils/types.ts
+- src/components/Navbar/Navbar.tsx
+- src/components/Navbar/index.ts
+- src/components/ProfileIcon.tsx
+- src/repositories/policyRepository/policy.repository.ts
+- src/repositories/policyRepository/policy.types.ts
+- src/setupTests.ts
+- supabase/functions/\_shared/supabase.types.ts
+- supabase/functions/email-signup-link/index.ts
+- utils/types.ts
 
 ## Unused devDependencies (9)
 
@@ -76,4 +76,3 @@
 | Enums                  | supabase/supabase.types.ts:644:13                      | error    |
 | Json                   | supabase/supabase.types.ts:1:13                        | error    |
 | SupabaseServiceClient  | utils/supabase/server.ts:6:13                          | error    |
-
