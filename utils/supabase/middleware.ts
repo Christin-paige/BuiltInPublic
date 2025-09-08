@@ -41,7 +41,8 @@ async function validateAlphaToken(
 export async function updateSession(request: NextRequest) {
   const isStaging = process.env.NEXT_PUBLIC_STAGING === 'true';
   const isStagingAuthPage = request.nextUrl.pathname === '/staging-auth';
-  const alphaTokenSystemActive = process.env.NEXT_PUBLIC_ALPHA_TOKEN_ACTIVE;
+  const alphaTokenSystemActive =
+    process.env.NEXT_PUBLIC_ALPHA_TOKEN_ACTIVE === 'true';
 
   if (!isStaging && isStagingAuthPage) {
     return NextResponse.redirect(new URL('/', request.url));

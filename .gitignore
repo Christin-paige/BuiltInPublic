@@ -39,6 +39,9 @@ yarn-error.log*
 # Gitleaks scan outputs
 gitleaks-report.json
 
+# Knip audit report
+knip-report.md
+
 # vercel
 .vercel
 

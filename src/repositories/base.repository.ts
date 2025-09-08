@@ -78,6 +78,8 @@ export abstract class BaseRepository<
           // Handle equality
           enhancedQuery = enhancedQuery.eq(key, value) as T;
         }
+      } else if (value === null) {
+        enhancedQuery.is(key, null);
       }
     });
 
