@@ -7,8 +7,8 @@ on:
 
 # GITHUB_TOKEN perms for this workflow run
 permissions:
-  contents: write          # needed to enable native auto-merge
-  pull-requests: write     # needed to approve PRs and set auto-merge
+  contents: write # needed to enable native auto-merge
+  pull-requests: write # needed to approve PRs and set auto-merge
 
 concurrency:
   group: renovate-lockfile-${{ github.event.pull_request.number }}
