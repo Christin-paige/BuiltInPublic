@@ -118,9 +118,8 @@ jobs:
       - name: Install (lockfile-respectful)
         run: npm ci --ignore-scripts --no-audit --no-fund
 
-      # Optional: uncomment if you want audit fixes auto-applied & committed
-      # - name: Apply audit fixes (lockfile only)
-      #   run: npm audit fix --package-lock-only || true
+      - name: Apply audit fixes (lockfile only)
+        run: npm audit fix --package-lock-only || true
 
       - name: Auto-commit lockfile if CI changed it
         env:
