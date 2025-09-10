@@ -76,7 +76,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # checks out the PR head by default on pull_request
+          fetch-depth: 0 # checks out the PR head by default on pull_request
 
       - uses: actions/setup-node@v4
         with:
@@ -108,7 +108,7 @@ jobs:
   # ---------------------------
   approve:
     name: Auto-approve (GITHUB_TOKEN)
-    needs: [gate]    # only depends on gate (base context)
+    needs: [gate] # only depends on gate (base context)
     if: github.event_name == 'pull_request_target' && needs.gate.result == 'success'
     runs-on: ubuntu-latest
     steps:
