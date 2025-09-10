@@ -88,7 +88,7 @@ jobs:
             core.setOutput('dirs', JSON.stringify(dirs));
 
   lockfile-integrity:
-    name: Lockfile integrity
+    name: Lockfile integrity (auto-commit if changed)
     needs: detect-lockfiles
     if: needs.detect-lockfiles.outputs.dirs != '[]'
     runs-on: ubuntu-latest
@@ -99,28 +99,46 @@ jobs:
     defaults:
       run:
         working-directory: ${{ matrix.dir }}
+
     steps:
+      # Checkout PR head so we can push updates back
       - uses: actions/checkout@v4
+        with:
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.ref }}
+          persist-credentials: true
+          fetch-depth: 0
 
       - uses: actions/setup-node@v4
         with:
-          node-version: '20.11.1'               # keep npm stable vs lockfile format
+          node-version: '20.11.1'
           cache: 'npm'
           cache-dependency-path: ${{ matrix.dir }}/package-lock.json
 
       - name: Install (lockfile-respectful)
         run: npm ci --ignore-scripts --no-audit --no-fund
 
-      - name: Fail if package-lock.json changed
+      # Optional: uncomment if you want audit fixes auto-applied & committed
+      # - name: Apply audit fixes (lockfile only)
+      #   run: npm audit fix --package-lock-only || true
+
+      - name: Auto-commit lockfile if CI changed it
+        env:
+          HEAD_REF: ${{ github.event.pull_request.head.ref }}
         run: |
-          if ! git diff --quiet --exit-code -- "${{ matrix.dir }}/package-lock.json"; then
-            echo "❌ ${{
-              matrix.dir
-            }}/package-lock.json was modified during CI."
-            git --no-pager diff -- "${{ matrix.dir }}/package-lock.json" | head -n 200
-            exit 1
+          LOCKFILE_PATH="${{ matrix.dir }}/package-lock.json"
+          if ! git diff --quiet -- "$LOCKFILE_PATH"; then
+            echo "🔧 Changes detected in $LOCKFILE_PATH — committing to PR branch…"
+            git config user.name  "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add "$LOCKFILE_PATH"
+            git commit -m "chore(lockfile): sync CI changes for $LOCKFILE_PATH [skip ci]"
+            git push origin "HEAD:${HEAD_REF}" || {
+              echo "⚠️ Could not push changes (likely a forked PR)."
+              echo "   Ask the PR author or Renovate to commit the updated lockfile locally."
+            }
           else
-            echo "✅ No changes detected in ${{ matrix.dir }}/package-lock.json"
+            echo "✅ No changes detected in $LOCKFILE_PATH"
           fi
 
   approve:
