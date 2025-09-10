@@ -5,10 +5,9 @@ on:
     types: [opened, synchronize, labeled, reopened, ready_for_review]
     branches: [main, development]
 
-# GITHUB_TOKEN perms for this workflow run
 permissions:
-  contents: write # needed to enable native auto-merge
-  pull-requests: write # needed to approve PRs and set auto-merge
+  contents: write
+  pull-requests: write
 
 concurrency:
   group: renovate-lockfile-${{ github.event.pull_request.number }}
@@ -32,12 +31,8 @@ jobs:
               github.rest.pulls.listFiles,
               { owner: context.repo.owner, repo: context.repo.repo, pull_number: pr.number }
             );
-
             const changed = files.map(f => f.filename);
-            const offenders = files
-              .filter(f => !/(^|\/)package-lock\.json$/.test(f.filename))
-              .map(f => f.filename);
-
+            const offenders = files.filter(f => !/(^|\/)package-lock\.json$/.test(f.filename)).map(f => f.filename);
             const hasPkgJson = changed.some(p => /(^|\/)package\.json$/.test(p));
 
             if (hasPkgJson) {
@@ -56,27 +51,92 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const labels = context.payload.pull_request.labels.map(l => l.name.toLowerCase());
-            // Accept hyphenated or spaced variants from Renovate configs
             const ok = labels.includes('lockfile-maintenance') || labels.includes('lockfile maintenance');
-            if (!ok) {
-              core.setFailed('Missing "lockfile-maintenance" (or "lockfile maintenance") label.');
-            } else {
-              core.info('Required label present');
-            }
+            if (!ok) core.setFailed('Missing "lockfile-maintenance" (or "lockfile maintenance") label.');
+            else core.info('Required label present');
+
+  detect-lockfiles:
+    name: Detect changed lockfiles
+    needs: gate
+    if: needs.gate.result == 'success'
+    runs-on: ubuntu-latest
+    outputs:
+      dirs: ${{ steps.find.outputs.dirs }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - name: Find lockfiles from PR diff
+        id: find
+        uses: actions/github-script@v8
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const pr = context.payload.pull_request;
+            const files = await github.paginate(
+              github.rest.pulls.listFiles,
+              { owner: context.repo.owner, repo: context.repo.repo, pull_number: pr.number }
+            );
+            // Collect directories containing package-lock.json (root-safe)
+            const dirs = Array.from(new Set(
+              files
+                .map(f => f.filename)
+                .filter(p => p.endsWith('package-lock.json'))
+                .map(p => require('path').dirname(p))
+            ));
+            core.info(`Lockfile dirs: ${dirs.join(', ') || '(none)'}`);
+            core.setOutput('dirs', JSON.stringify(dirs));
+
+  lockfile-integrity:
+    name: Lockfile integrity
+    needs: detect-lockfiles
+    if: needs.detect-lockfiles.outputs.dirs != '[]'
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        dir: ${{ fromJSON(needs.detect-lockfiles.outputs.dirs) }}
+    defaults:
+      run:
+        working-directory: ${{ matrix.dir }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20.11.1'               # keep npm stable vs lockfile format
+          cache: 'npm'
+          cache-dependency-path: ${{ matrix.dir }}/package-lock.json
+
+      - name: Install (lockfile-respectful)
+        run: npm ci --ignore-scripts --no-audit --no-fund
+
+      - name: Fail if package-lock.json changed
+        run: |
+          if ! git diff --quiet --exit-code -- "${{ matrix.dir }}/package-lock.json"; then
+            echo "❌ ${{
+              matrix.dir
+            }}/package-lock.json was modified during CI."
+            git --no-pager diff -- "${{ matrix.dir }}/package-lock.json" | head -n 200
+            exit 1
+          else
+            echo "✅ No changes detected in ${{ matrix.dir }}/package-lock.json"
+          fi
 
   approve:
     name: Auto-approve (GITHUB_TOKEN)
-    needs: gate
+    needs: lockfile-integrity
+    if: needs.lockfile-integrity.result == 'success'
     runs-on: ubuntu-latest
     steps:
-      - name: Approve PR
-        uses: hmarr/auto-approve-action@v3
+      - uses: hmarr/auto-approve-action@v3
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
   enable-automerge:
     name: Enable native auto-merge
     needs: approve
+    if: needs.approve.result == 'success'
     runs-on: ubuntu-latest
     steps:
       - name: Enable native auto-merge (SQUASH)
@@ -85,7 +145,6 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const pr = context.payload.pull_request;
-            // Native auto-merge must be enabled in repo settings.
             await github.graphql(
               `
               mutation ($pullRequestId: ID!) {
