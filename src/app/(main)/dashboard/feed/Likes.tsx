@@ -19,14 +19,14 @@ const Likes: FC<LikesProps> = ({ post, user }) => {
   const router = useRouter();
 
   const handleLikes = async () => {
-    const supabase = createClientComponentClient<Database>();
+    // const supabase = createClientComponentClient<Database>();
 
     if (user) {
-      await supabase
-        .from('likes')
-        .insert({ user_id: user.id, post_id: post.id });
-      // Optionally refresh or re-fetch
-      router.refresh();
+      // await supabase
+      //   .from('likes')
+      //   .insert({ user_id: user.id, post_id: post.id });
+      // // Optionally refresh or re-fetch
+      // router.refresh();
     }
   };
 
