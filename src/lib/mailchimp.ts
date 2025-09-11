@@ -1,11 +1,11 @@
-"use server";
+'use server';
 
-import { z, ZodError } from "zod";
-import DOMPurify from "dompurify";
-import { JSDOM } from "jsdom";
+import { z, ZodError } from 'zod';
+import DOMPurify from 'dompurify';
+import { JSDOM } from 'jsdom';
 
 // Create a server-side DOMPurify instance
-const window = new JSDOM("").window;
+const window = new JSDOM('').window;
 const purify = DOMPurify(window as any);
 
 const MAILCHIMP_URL = process.env.MAILCHIMP_API_URL;
@@ -15,18 +15,18 @@ const MAILCHIMP_API_KEY = process.env.MAILCHIMP_API_KEY;
 const waitlistSchema = z.object({
   FNAME: z
     .string()
-    .min(1, "First name is required")
-    .max(50, "First name must be less than 50 characters")
+    .min(1, 'First name is required')
+    .max(50, 'First name must be less than 50 characters')
     .regex(
       /^[a-zA-Z\s'-]+$/,
-      "First name can only contain letters, spaces, hyphens, and apostrophes",
+      'First name can only contain letters, spaces, hyphens, and apostrophes'
     )
     .transform((val) => val.trim()),
 
   EMAIL: z
     .string()
-    .email("Please enter a valid email address")
-    .max(254, "Email must be less than 254 characters")
+    .email('Please enter a valid email address')
+    .max(254, 'Email must be less than 254 characters')
     .toLowerCase()
     .transform((val) => val.trim()),
 
@@ -49,9 +49,9 @@ export async function subscribeToWaitlist(formData: FormData) {
   try {
     // Extract and sanitize inputs
     const rawData = {
-      FNAME: sanitizeInput((formData.get("FNAME") as string) || ""),
-      EMAIL: sanitizeInput((formData.get("EMAIL") as string) || ""),
-      website: (formData.get("website") as string) || "",
+      FNAME: sanitizeInput((formData.get('FNAME') as string) || ''),
+      EMAIL: sanitizeInput((formData.get('EMAIL') as string) || ''),
+      website: (formData.get('website') as string) || '',
     };
 
     // Validate with Zod
@@ -59,26 +59,26 @@ export async function subscribeToWaitlist(formData: FormData) {
 
     // Honeypot check (bot detection)
     if (validatedData.website) {
-      console.log("Bot detected via honeypot");
+      console.log('Bot detected via honeypot');
       return { success: true }; // Silently fail for bots
     }
 
     // Check if Mailchimp URL is configured
     if (!MAILCHIMP_URL || !MAILCHIMP_API_KEY) {
-      console.error("MAILCHIMP_URL environment variable is not configured");
-      return { error: "Configuration error. Please try again later." };
+      console.error('MAILCHIMP_URL environment variable is not configured');
+      return { error: 'Configuration error. Please try again later.' };
     }
 
     // Submit to Mailchimp
     const response = await fetch(MAILCHIMP_URL, {
-      method: "POST",
+      method: 'POST',
       headers: {
         Authorization: `Bearer ${MAILCHIMP_API_KEY}`,
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         email_address: validatedData.EMAIL,
-        status: "subscribed",
+        status: 'subscribed',
         merge_fields: {
           FNAME: validatedData.FNAME,
         },
@@ -87,15 +87,15 @@ export async function subscribeToWaitlist(formData: FormData) {
 
     if (!response.ok) {
       const error = await response.json();
-      if (error.title === "Member Exists") {
-        throw new Error("Already subscribed");
+      if (error.title === 'Member Exists') {
+        throw new Error('Already subscribed');
       }
       console.error(
-        "Mailchimp submission failed:",
+        'Mailchimp submission failed:',
         response.status,
-        response.statusText,
+        response.statusText
       );
-      throw new Error("Mailchimp submission failed");
+      throw new Error('Mailchimp submission failed');
     }
 
     // Log successful subscription
@@ -112,10 +112,10 @@ export async function subscribeToWaitlist(formData: FormData) {
       };
     }
 
-    if (error instanceof Error && error.message === "Already subscribed") {
+    if (error instanceof Error && error.message === 'Already subscribed') {
       return { error: `This email is already subscribed` };
     }
-    console.error("Subscription error:", error);
-    return { error: "Subscription failed. Please try again." };
+    console.error('Subscription error:', error);
+    return { error: 'Subscription failed. Please try again.' };
   }
 }
