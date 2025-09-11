@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useTransition, useEffect } from "react";
-import { subscribeToWaitlist } from "@/actions/mailchimp";
+import { subscribeToWaitlist } from "@/lib/mailchimp";
 
 interface FormResult {
   success?: boolean;
