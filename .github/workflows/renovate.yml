@@ -74,7 +74,7 @@ jobs:
       github.event.pull_request.draft == false
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0 # checks out the PR head by default on pull_request
 
