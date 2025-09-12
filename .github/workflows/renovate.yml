@@ -78,7 +78,7 @@ jobs:
         with:
           fetch-depth: 0 # checks out the PR head by default on pull_request
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: '20.11.1'
           cache: 'npm'
