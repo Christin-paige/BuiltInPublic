@@ -43,6 +43,15 @@ jobs:
         uses: github/codeql-action/analyze@v3
         with:
           category: '/scheduled/main'
+          output: results-main.sarif
+
+      - name: Upload SARIF artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: codeql-sarif-main
+          path: results-main.sarif
+          retention-days: 120
+
   # Analyze development branch
   analyze-development:
     if: github.event_name != 'workflow_dispatch' || github.event.inputs.branch == 'development'
@@ -69,3 +78,11 @@ jobs:
         uses: github/codeql-action/analyze@v3
         with:
           category: '/scheduled/development'
+          output: results-development.sarif
+
+      - name: Upload SARIF artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: codeql-sarif-development
+          path: results-development.sarif
+          retention-days: 90
