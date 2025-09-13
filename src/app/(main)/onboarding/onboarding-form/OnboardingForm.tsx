@@ -28,52 +28,25 @@ import UINotification from '@/services/UINotification.service';
 
 type PolicyType = 'terms' | 'privacy' | 'cookies';
 
-/** --------- Tiny in-browser sanitizer (no deps) ---------- */
+/** ───── Tiny dependency-free HTML sanitizer ─────
+ *  - Parses into a detached DOM with DOMParser
+ *  - Removes forbidden tags (script/iframe/object/etc.)
+ *  - Strips dangerous attrs (on*, style, srcdoc)
+ *  - <a> only keeps safe hrefs (http/https, /, #, mailto:, tel:) and adds rel for target=_blank
+ */
 const ALLOWED_TAGS = new Set([
-  'a',
-  'p',
-  'br',
-  'b',
-  'strong',
-  'i',
-  'em',
-  'u',
-  'ul',
-  'ol',
-  'li',
-  'blockquote',
-  'code',
-  'pre',
-  'h1',
-  'h2',
-  'h3',
-  'h4',
-  'h5',
-  'h6',
-  'hr',
-  'table',
-  'thead',
-  'tbody',
-  'tr',
-  'th',
-  'td',
+  'a', 'p', 'br', 'b', 'strong', 'i', 'em', 'u',
+  'ul', 'ol', 'li', 'blockquote', 'code', 'pre',
+  'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'hr',
+  'table', 'thead', 'tbody', 'tr', 'th', 'td',
 ]);
-const FORBID_TAGS = new Set([
-  'script',
-  'style',
-  'iframe',
-  'object',
-  'embed',
-  'template',
-  'noscript',
-]);
+const FORBID_TAGS = new Set(['script', 'style', 'iframe', 'object', 'embed', 'template', 'noscript']);
 const GLOBAL_FORBID_ATTR_PREFIXES = ['on']; // onclick, onerror, etc.
 const GLOBAL_FORBID_ATTRS = new Set(['style', 'srcdoc']);
 const A_ALLOWED_ATTRS = new Set(['href', 'title', 'target', 'rel']);
 
 function isAllowedHref(href: string): boolean {
   if (!href) return false;
-  // allow https/http, same-origin paths, hash links, mailto/tel
   if (/^https?:\/\//i.test(href)) return true;
   if (href.startsWith('/') || href.startsWith('#')) return true;
   if (/^mailto:/i.test(href)) return true;
@@ -82,34 +55,26 @@ function isAllowedHref(href: string): boolean {
 }
 
 function sanitizeHtmlNoDeps(input: string): string {
-  // Guard for non-browser environments (SSR) — return text as-is (escaped by React if not using DSIH)
-  if (typeof window === 'undefined' || typeof DOMParser === 'undefined') {
-    return '';
-  }
-
+  if (typeof window === 'undefined' || typeof DOMParser === 'undefined') return '';
   const parser = new DOMParser();
-  // Parse as text/html to avoid executing anything; the parser does not run scripts.
   const doc = parser.parseFromString(`<div>${input ?? ''}</div>`, 'text/html');
   const root = doc.body.firstElementChild as HTMLDivElement | null;
   if (!root) return '';
 
-  const walker = doc.createTreeWalker(root, NodeFilter.SHOW_ELEMENT, null);
+  const walker = doc.createTreeWalker(root, NodeFilter.SHOW_ELEMENT);
   const toRemove: Element[] = [];
 
-  // 1) Remove forbidden tags and strip bad attributes
   while (walker.nextNode()) {
     const el = walker.currentNode as Element;
+    const tag = el.tagName.toLowerCase();
 
-    // Drop disallowed elements outright
-    if (
-      !ALLOWED_TAGS.has(el.tagName.toLowerCase()) ||
-      FORBID_TAGS.has(el.tagName.toLowerCase())
-    ) {
+    // Remove forbidden or non-allowlisted tags entirely (keep text children)
+    if (FORBID_TAGS.has(tag) || !ALLOWED_TAGS.has(tag)) {
       toRemove.push(el);
       continue;
     }
 
-    // Strip globally dangerous attributes
+    // Attribute scrub
     for (const attr of Array.from(el.attributes)) {
       const name = attr.name.toLowerCase();
 
@@ -122,26 +87,24 @@ function sanitizeHtmlNoDeps(input: string): string {
         continue;
       }
 
-      // Tag-specific attr allowlist
-      if (el.tagName.toLowerCase() === 'a') {
+      if (tag === 'a') {
         if (!A_ALLOWED_ATTRS.has(name)) {
           el.removeAttribute(attr.name);
           continue;
         }
       } else {
-        // Non-<a> tags: remove *all* attributes (keep it simple & safe)
+        // For non-links, drop all attributes for simplicity/safety
         el.removeAttribute(attr.name);
       }
     }
 
-    // Additional link checks
-    if (el.tagName.toLowerCase() === 'a') {
+    // Link-specific checks
+    if (tag === 'a') {
       const href = el.getAttribute('href') || '';
       if (!isAllowedHref(href)) {
         el.removeAttribute('href');
       }
       if (el.getAttribute('target') === '_blank') {
-        // Ensure safe rel for new tabs
         const rel = (el.getAttribute('rel') || '').toLowerCase();
         const parts = new Set(rel.split(/\s+/).filter(Boolean));
         parts.add('noopener');
@@ -151,14 +114,14 @@ function sanitizeHtmlNoDeps(input: string): string {
     }
   }
 
-  // 2) Remove all queued forbidden nodes
+  // Drop queued nodes but keep their children text
   for (const el of toRemove) {
-    el.replaceWith(...Array.from(el.childNodes)); // drop the tag, keep children text content
+    el.replaceWith(...Array.from(el.childNodes));
   }
 
   return root.innerHTML;
 }
-/** --------- /sanitizer ---------- */
+/** ───── end sanitizer ───── */
 
 export default function OnboardingForm() {
   const { data: user, isLoading } = useUser();
@@ -202,7 +165,6 @@ export default function OnboardingForm() {
       userName: '',
       displayName: '',
       bio: '',
-      // ✅ required consent checkboxes default to false
       termsAccepted: false,
       privacyAccepted: false,
       cookiesAccepted: false,
@@ -221,7 +183,6 @@ export default function OnboardingForm() {
   const disableSubmit =
     !onboardingForm.formState.isValid || onboardingForm.formState.isSubmitting;
 
-  // Memoize sanitized HTML for modal body
   const safePolicyHtml = React.useMemo(
     () => sanitizeHtmlNoDeps(policy?.content ?? ''),
     [policy?.content]
@@ -229,20 +190,20 @@ export default function OnboardingForm() {
 
   if (isLoading || !user) {
     return (
-      <div className='flex flex-col gap-4 w-full max-w-sm items-center'>
-        <div className='flex flex-col w-full gap-2'>
-          <Skeleton className='h-6 w-32' />
-          <Skeleton className='h-8 w-full' />
+      <div className="flex flex-col gap-4 w-full max-w-sm items-center">
+        <div className="flex flex-col w-full gap-2">
+          <Skeleton className="h-6 w-32" />
+          <Skeleton className="h-8 w-full" />
         </div>
-        <div className='flex flex-col w-full gap-2'>
-          <Skeleton className='h-6 w-32' />
-          <Skeleton className='h-8 w-full' />
+        <div className="flex flex-col w-full gap-2">
+          <Skeleton className="h-6 w-32" />
+          <Skeleton className="h-8 w-full" />
         </div>
-        <div className='flex flex-col w-full gap-2'>
-          <Skeleton className='h-6 w-32' />
-          <Skeleton className='h-16 w-full' />
+        <div className="flex flex-col w-full gap-2">
+          <Skeleton className="h-6 w-32" />
+          <Skeleton className="h-16 w-full" />
         </div>
-        <Skeleton className='h-10 w-1/2 rounded-full' />
+        <Skeleton className="h-10 w-1/2 rounded-full" />
       </div>
     );
   }
@@ -252,16 +213,16 @@ export default function OnboardingForm() {
       <Form {...onboardingForm}>
         <form
           onSubmit={onboardingForm.handleSubmit(onSubmit)}
-          className='flex flex-col gap-5 w-full max-w-sm items-center'
+          className="flex flex-col gap-5 w-full max-w-sm items-center"
         >
           <FormField
             control={onboardingForm.control}
-            name='userName'
+            name="userName"
             render={({ field }) => (
-              <FormItem className='w-full'>
+              <FormItem className="w-full">
                 <FormLabel>Username</FormLabel>
                 <FormControl>
-                  <Input placeholder='username' {...field} />
+                  <Input placeholder="username" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -270,12 +231,12 @@ export default function OnboardingForm() {
 
           <FormField
             control={onboardingForm.control}
-            name='displayName'
+            name="displayName"
             render={({ field }) => (
-              <FormItem className='w-full'>
+              <FormItem className="w-full">
                 <FormLabel>Display name</FormLabel>
                 <FormControl>
-                  <Input placeholder='display name' {...field} />
+                  <Input placeholder="display name" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -284,15 +245,15 @@ export default function OnboardingForm() {
 
           <FormField
             control={onboardingForm.control}
-            name='bio'
+            name="bio"
             render={({ field }) => (
-              <FormItem className='w-full'>
+              <FormItem className="w-full">
                 <FormLabel>Bio</FormLabel>
                 <FormControl>
                   <Textarea
-                    className='resize-none'
+                    className="resize-none"
                     maxLength={256}
-                    placeholder='bio'
+                    placeholder="bio"
                     {...field}
                   />
                 </FormControl>
@@ -304,23 +265,23 @@ export default function OnboardingForm() {
           {/* ✅ Terms */}
           <FormField
             control={onboardingForm.control}
-            name='termsAccepted'
+            name="termsAccepted"
             render={({ field }) => (
-              <FormItem className='w-full flex items-start space-x-3'>
+              <FormItem className="w-full flex items-start space-x-3">
                 <FormControl>
                   <input
-                    type='checkbox'
+                    type="checkbox"
                     checked={field.value}
                     onChange={(e) => field.onChange(e.target.checked)}
-                    className='h-4 w-4 rounded-sm border border-primary'
+                    className="h-4 w-4 rounded-sm border border-primary"
                   />
                 </FormControl>
-                <div className='grid gap-1'>
-                  <FormLabel className='font-normal'>
+                <div className="grid gap-1">
+                  <FormLabel className="font-normal">
                     I agree to the{' '}
                     <button
-                      type='button'
-                      className='underline underline-offset-4'
+                      type="button"
+                      className="underline underline-offset-4"
                       onClick={() => openPolicy('terms')}
                     >
                       Terms &amp; Conditions
@@ -336,23 +297,23 @@ export default function OnboardingForm() {
           {/* ✅ Privacy */}
           <FormField
             control={onboardingForm.control}
-            name='privacyAccepted'
+            name="privacyAccepted"
             render={({ field }) => (
-              <FormItem className='w-full flex items-start space-x-3'>
+              <FormItem className="w-full flex items-start space-x-3">
                 <FormControl>
                   <input
-                    type='checkbox'
+                    type="checkbox"
                     checked={field.value}
                     onChange={(e) => field.onChange(e.target.checked)}
-                    className='h-4 w-4 rounded-sm border border-primary'
+                    className="h-4 w-4 rounded-sm border border-primary"
                   />
                 </FormControl>
-                <div className='grid gap-1'>
-                  <FormLabel className='font-normal'>
+                <div className="grid gap-1">
+                  <FormLabel className="font-normal">
                     I agree to the{' '}
                     <button
-                      type='button'
-                      className='underline underline-offset-4'
+                      type="button"
+                      className="underline underline-offset-4"
                       onClick={() => openPolicy('privacy')}
                     >
                       Privacy Policy
@@ -368,23 +329,23 @@ export default function OnboardingForm() {
           {/* ✅ Cookies */}
           <FormField
             control={onboardingForm.control}
-            name='cookiesAccepted'
+            name="cookiesAccepted"
             render={({ field }) => (
-              <FormItem className='w-full flex items-start space-x-3'>
+              <FormItem className="w-full flex items-start space-x-3">
                 <FormControl>
                   <input
-                    type='checkbox'
+                    type="checkbox"
                     checked={field.value}
                     onChange={(e) => field.onChange(e.target.checked)}
-                    className='h-4 w-4 rounded-sm border border-primary'
+                    className="h-4 w-4 rounded-sm border border-primary"
                   />
                 </FormControl>
-                <div className='grid gap-1'>
-                  <FormLabel className='font-normal'>
+                <div className="grid gap-1">
+                  <FormLabel className="font-normal">
                     I agree to the{' '}
                     <button
-                      type='button'
-                      className='underline underline-offset-4'
+                      type="button"
+                      className="underline underline-offset-4"
                       onClick={() => openPolicy('cookies')}
                     >
                       Cookie Policy
@@ -397,7 +358,7 @@ export default function OnboardingForm() {
             )}
           />
 
-          <Button className='mt-6' type='submit' disabled={disableSubmit}>
+          <Button className="mt-6" type="submit" disabled={disableSubmit}>
             Submit
           </Button>
         </form>
@@ -405,46 +366,46 @@ export default function OnboardingForm() {
 
       {/* 🔎 Simple modal for policies */}
       {dialog && (
-        <div className='fixed inset-0 z-50 flex items-center justify-center'>
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
           <div
-            className='absolute inset-0 bg-black/60'
+            className="absolute inset-0 bg-black/60"
             onClick={() => setDialog(null)}
           />
-          <div className='relative z-10 w-[92vw] max-w-2xl max-h-[80vh] rounded-lg border bg-background shadow-xl'>
-            <div className='px-5 pt-4 pb-2 border-b'>
-              <h2 className='text-lg font-semibold'>
+          <div className="relative z-10 w-[92vw] max-w-2xl max-h-[80vh] rounded-lg border bg-background shadow-xl">
+            <div className="px-5 pt-4 pb-2 border-b">
+              <h2 className="text-lg font-semibold">
                 {policy?.title ??
                   (dialog === 'terms'
                     ? 'Terms & Conditions'
                     : dialog === 'privacy'
-                      ? 'Privacy Policy'
-                      : 'Cookie Policy')}
+                    ? 'Privacy Policy'
+                    : 'Cookie Policy')}
               </h2>
               {policy?.effective_from ? (
-                <p className='text-sm text-muted-foreground mt-1'>
+                <p className="text-sm text-muted-foreground mt-1">
                   Effective from{' '}
                   {new Date(policy.effective_from).toLocaleDateString()}
                 </p>
               ) : null}
             </div>
 
-            <div className='p-5 max-h-[60vh] overflow-y-auto'>
+            <div className="p-5 max-h-[60vh] overflow-y-auto">
               {loading ? (
                 <p>Loading…</p>
               ) : (
                 <div
-                  className='prose prose-invert max-w-none'
-                  // semgrep-disable-next-line eslint.react-dangerouslysetinnerhtml -- HTML sanitized via sanitizeHtmlNoDeps() above.
+                  className="prose prose-invert max-w-none"
+                  /* nosemgrep: eslint.react-dangerouslysetinnerhtml -- Content sanitized via sanitizeHtmlNoDeps() above. */
                   dangerouslySetInnerHTML={{ __html: safePolicyHtml }}
                 />
               )}
             </div>
 
-            <div className='px-5 py-3 border-t flex justify-end'>
+            <div className="px-5 py-3 border-t flex justify-end">
               <button
-                type='button'
+                type="button"
                 onClick={() => setDialog(null)}
-                className='px-4 py-2 rounded-md border hover:bg-accent/40 transition'
+                className="px-4 py-2 rounded-md border hover:bg-accent/40 transition"
               >
                 Close
               </button>
