@@ -7,10 +7,10 @@ export interface PolicyDocument {
   id: string;
   version: string;
   created_at: string;
-  document_type: string;   // enum: policy_doc_types
+  document_type: string; // enum: policy_doc_types
   effective_from: string;
   superseded_at: string | null;
-  content: string;         // markdown or html
+  content: string; // markdown or html
 }
 
 // Runtime validator (TS alone doesn’t protect at runtime)

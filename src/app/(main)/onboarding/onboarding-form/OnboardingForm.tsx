@@ -35,12 +35,43 @@ type PolicyType = 'terms' | 'privacy' | 'cookies';
  *  - <a> only keeps safe hrefs (http/https, /, #, mailto:, tel:) and adds rel for target=_blank
  */
 const ALLOWED_TAGS = new Set([
-  'a', 'p', 'br', 'b', 'strong', 'i', 'em', 'u',
-  'ul', 'ol', 'li', 'blockquote', 'code', 'pre',
-  'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'hr',
-  'table', 'thead', 'tbody', 'tr', 'th', 'td',
+  'a',
+  'p',
+  'br',
+  'b',
+  'strong',
+  'i',
+  'em',
+  'u',
+  'ul',
+  'ol',
+  'li',
+  'blockquote',
+  'code',
+  'pre',
+  'h1',
+  'h2',
+  'h3',
+  'h4',
+  'h5',
+  'h6',
+  'hr',
+  'table',
+  'thead',
+  'tbody',
+  'tr',
+  'th',
+  'td',
 ]);
-const FORBID_TAGS = new Set(['script', 'style', 'iframe', 'object', 'embed', 'template', 'noscript']);
+const FORBID_TAGS = new Set([
+  'script',
+  'style',
+  'iframe',
+  'object',
+  'embed',
+  'template',
+  'noscript',
+]);
 const GLOBAL_FORBID_ATTR_PREFIXES = ['on']; // onclick, onerror, etc.
 const GLOBAL_FORBID_ATTRS = new Set(['style', 'srcdoc']);
 const A_ALLOWED_ATTRS = new Set(['href', 'title', 'target', 'rel']);
@@ -55,7 +86,8 @@ function isAllowedHref(href: string): boolean {
 }
 
 function sanitizeHtmlNoDeps(input: string): string {
-  if (typeof window === 'undefined' || typeof DOMParser === 'undefined') return '';
+  if (typeof window === 'undefined' || typeof DOMParser === 'undefined')
+    return '';
   const parser = new DOMParser();
   const doc = parser.parseFromString(`<div>${input ?? ''}</div>`, 'text/html');
   const root = doc.body.firstElementChild as HTMLDivElement | null;
@@ -190,20 +222,20 @@ export default function OnboardingForm() {
 
   if (isLoading || !user) {
     return (
-      <div className="flex flex-col gap-4 w-full max-w-sm items-center">
-        <div className="flex flex-col w-full gap-2">
-          <Skeleton className="h-6 w-32" />
-          <Skeleton className="h-8 w-full" />
+      <div className='flex flex-col gap-4 w-full max-w-sm items-center'>
+        <div className='flex flex-col w-full gap-2'>
+          <Skeleton className='h-6 w-32' />
+          <Skeleton className='h-8 w-full' />
         </div>
-        <div className="flex flex-col w-full gap-2">
-          <Skeleton className="h-6 w-32" />
-          <Skeleton className="h-8 w-full" />
+        <div className='flex flex-col w-full gap-2'>
+          <Skeleton className='h-6 w-32' />
+          <Skeleton className='h-8 w-full' />
         </div>
-        <div className="flex flex-col w-full gap-2">
-          <Skeleton className="h-6 w-32" />
-          <Skeleton className="h-16 w-full" />
+        <div className='flex flex-col w-full gap-2'>
+          <Skeleton className='h-6 w-32' />
+          <Skeleton className='h-16 w-full' />
         </div>
-        <Skeleton className="h-10 w-1/2 rounded-full" />
+        <Skeleton className='h-10 w-1/2 rounded-full' />
       </div>
     );
   }
@@ -213,16 +245,16 @@ export default function OnboardingForm() {
       <Form {...onboardingForm}>
         <form
           onSubmit={onboardingForm.handleSubmit(onSubmit)}
-          className="flex flex-col gap-5 w-full max-w-sm items-center"
+          className='flex flex-col gap-5 w-full max-w-sm items-center'
         >
           <FormField
             control={onboardingForm.control}
-            name="userName"
+            name='userName'
             render={({ field }) => (
-              <FormItem className="w-full">
+              <FormItem className='w-full'>
                 <FormLabel>Username</FormLabel>
                 <FormControl>
-                  <Input placeholder="username" {...field} />
+                  <Input placeholder='username' {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -231,12 +263,12 @@ export default function OnboardingForm() {
 
           <FormField
             control={onboardingForm.control}
-            name="displayName"
+            name='displayName'
             render={({ field }) => (
-              <FormItem className="w-full">
+              <FormItem className='w-full'>
                 <FormLabel>Display name</FormLabel>
                 <FormControl>
-                  <Input placeholder="display name" {...field} />
+                  <Input placeholder='display name' {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -245,15 +277,15 @@ export default function OnboardingForm() {
 
           <FormField
             control={onboardingForm.control}
-            name="bio"
+            name='bio'
             render={({ field }) => (
-              <FormItem className="w-full">
+              <FormItem className='w-full'>
                 <FormLabel>Bio</FormLabel>
                 <FormControl>
                   <Textarea
-                    className="resize-none"
+                    className='resize-none'
                     maxLength={256}
-                    placeholder="bio"
+                    placeholder='bio'
                     {...field}
                   />
                 </FormControl>
@@ -265,23 +297,23 @@ export default function OnboardingForm() {
           {/* ✅ Terms */}
           <FormField
             control={onboardingForm.control}
-            name="termsAccepted"
+            name='termsAccepted'
             render={({ field }) => (
-              <FormItem className="w-full flex items-start space-x-3">
+              <FormItem className='w-full flex items-start space-x-3'>
                 <FormControl>
                   <input
-                    type="checkbox"
+                    type='checkbox'
                     checked={field.value}
                     onChange={(e) => field.onChange(e.target.checked)}
-                    className="h-4 w-4 rounded-sm border border-primary"
+                    className='h-4 w-4 rounded-sm border border-primary'
                   />
                 </FormControl>
-                <div className="grid gap-1">
-                  <FormLabel className="font-normal">
+                <div className='grid gap-1'>
+                  <FormLabel className='font-normal'>
                     I agree to the{' '}
                     <button
-                      type="button"
-                      className="underline underline-offset-4"
+                      type='button'
+                      className='underline underline-offset-4'
                       onClick={() => openPolicy('terms')}
                     >
                       Terms &amp; Conditions
@@ -297,23 +329,23 @@ export default function OnboardingForm() {
           {/* ✅ Privacy */}
           <FormField
             control={onboardingForm.control}
-            name="privacyAccepted"
+            name='privacyAccepted'
             render={({ field }) => (
-              <FormItem className="w-full flex items-start space-x-3">
+              <FormItem className='w-full flex items-start space-x-3'>
                 <FormControl>
                   <input
-                    type="checkbox"
+                    type='checkbox'
                     checked={field.value}
                     onChange={(e) => field.onChange(e.target.checked)}
-                    className="h-4 w-4 rounded-sm border border-primary"
+                    className='h-4 w-4 rounded-sm border border-primary'
                   />
                 </FormControl>
-                <div className="grid gap-1">
-                  <FormLabel className="font-normal">
+                <div className='grid gap-1'>
+                  <FormLabel className='font-normal'>
                     I agree to the{' '}
                     <button
-                      type="button"
-                      className="underline underline-offset-4"
+                      type='button'
+                      className='underline underline-offset-4'
                       onClick={() => openPolicy('privacy')}
                     >
                       Privacy Policy
@@ -329,23 +361,23 @@ export default function OnboardingForm() {
           {/* ✅ Cookies */}
           <FormField
             control={onboardingForm.control}
-            name="cookiesAccepted"
+            name='cookiesAccepted'
             render={({ field }) => (
-              <FormItem className="w-full flex items-start space-x-3">
+              <FormItem className='w-full flex items-start space-x-3'>
                 <FormControl>
                   <input
-                    type="checkbox"
+                    type='checkbox'
                     checked={field.value}
                     onChange={(e) => field.onChange(e.target.checked)}
-                    className="h-4 w-4 rounded-sm border border-primary"
+                    className='h-4 w-4 rounded-sm border border-primary'
                   />
                 </FormControl>
-                <div className="grid gap-1">
-                  <FormLabel className="font-normal">
+                <div className='grid gap-1'>
+                  <FormLabel className='font-normal'>
                     I agree to the{' '}
                     <button
-                      type="button"
-                      className="underline underline-offset-4"
+                      type='button'
+                      className='underline underline-offset-4'
                       onClick={() => openPolicy('cookies')}
                     >
                       Cookie Policy
@@ -358,7 +390,7 @@ export default function OnboardingForm() {
             )}
           />
 
-          <Button className="mt-6" type="submit" disabled={disableSubmit}>
+          <Button className='mt-6' type='submit' disabled={disableSubmit}>
             Submit
           </Button>
         </form>
@@ -366,46 +398,46 @@ export default function OnboardingForm() {
 
       {/* 🔎 Simple modal for policies */}
       {dialog && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
+        <div className='fixed inset-0 z-50 flex items-center justify-center'>
           <div
-            className="absolute inset-0 bg-black/60"
+            className='absolute inset-0 bg-black/60'
             onClick={() => setDialog(null)}
           />
-          <div className="relative z-10 w-[92vw] max-w-2xl max-h-[80vh] rounded-lg border bg-background shadow-xl">
-            <div className="px-5 pt-4 pb-2 border-b">
-              <h2 className="text-lg font-semibold">
+          <div className='relative z-10 w-[92vw] max-w-2xl max-h-[80vh] rounded-lg border bg-background shadow-xl'>
+            <div className='px-5 pt-4 pb-2 border-b'>
+              <h2 className='text-lg font-semibold'>
                 {policy?.title ??
                   (dialog === 'terms'
                     ? 'Terms & Conditions'
                     : dialog === 'privacy'
-                    ? 'Privacy Policy'
-                    : 'Cookie Policy')}
+                      ? 'Privacy Policy'
+                      : 'Cookie Policy')}
               </h2>
               {policy?.effective_from ? (
-                <p className="text-sm text-muted-foreground mt-1">
+                <p className='text-sm text-muted-foreground mt-1'>
                   Effective from{' '}
                   {new Date(policy.effective_from).toLocaleDateString()}
                 </p>
               ) : null}
             </div>
 
-            <div className="p-5 max-h-[60vh] overflow-y-auto">
+            <div className='p-5 max-h-[60vh] overflow-y-auto'>
               {loading ? (
                 <p>Loading…</p>
               ) : (
                 <div
-                  className="prose prose-invert max-w-none"
+                  className='prose prose-invert max-w-none'
                   /* nosemgrep: eslint.react-dangerouslysetinnerhtml -- Content sanitized via sanitizeHtmlNoDeps() above. */
                   dangerouslySetInnerHTML={{ __html: safePolicyHtml }}
                 />
               )}
             </div>
 
-            <div className="px-5 py-3 border-t flex justify-end">
+            <div className='px-5 py-3 border-t flex justify-end'>
               <button
-                type="button"
+                type='button'
                 onClick={() => setDialog(null)}
-                className="px-4 py-2 rounded-md border hover:bg-accent/40 transition"
+                className='px-4 py-2 rounded-md border hover:bg-accent/40 transition'
               >
                 Close
               </button>
