@@ -28,6 +28,103 @@ import UINotification from '@/services/UINotification.service';
 
 type PolicyType = 'terms' | 'privacy' | 'cookies';
 
+/** --------- Tiny in-browser sanitizer (no deps) ---------- */
+const ALLOWED_TAGS = new Set([
+  'a','p','br','b','strong','i','em','u',
+  'ul','ol','li','blockquote','code','pre',
+  'h1','h2','h3','h4','h5','h6','hr',
+  'table','thead','tbody','tr','th','td',
+]);
+const FORBID_TAGS = new Set(['script','style','iframe','object','embed','template','noscript']);
+const GLOBAL_FORBID_ATTR_PREFIXES = ['on']; // onclick, onerror, etc.
+const GLOBAL_FORBID_ATTRS = new Set(['style','srcdoc']);
+const A_ALLOWED_ATTRS = new Set(['href','title','target','rel']);
+
+function isAllowedHref(href: string): boolean {
+  if (!href) return false;
+  // allow https/http, same-origin paths, hash links, mailto/tel
+  if (/^https?:\/\//i.test(href)) return true;
+  if (href.startsWith('/') || href.startsWith('#')) return true;
+  if (/^mailto:/i.test(href)) return true;
+  if (/^tel:/i.test(href)) return true;
+  return false;
+}
+
+function sanitizeHtmlNoDeps(input: string): string {
+  // Guard for non-browser environments (SSR) — return text as-is (escaped by React if not using DSIH)
+  if (typeof window === 'undefined' || typeof DOMParser === 'undefined') {
+    return '';
+  }
+
+  const parser = new DOMParser();
+  // Parse as text/html to avoid executing anything; the parser does not run scripts.
+  const doc = parser.parseFromString(`<div>${input ?? ''}</div>`, 'text/html');
+  const root = doc.body.firstElementChild as HTMLDivElement | null;
+  if (!root) return '';
+
+  const walker = doc.createTreeWalker(root, NodeFilter.SHOW_ELEMENT, null);
+  const toRemove: Element[] = [];
+
+  // 1) Remove forbidden tags and strip bad attributes
+  while (walker.nextNode()) {
+    const el = walker.currentNode as Element;
+
+    // Drop disallowed elements outright
+    if (!ALLOWED_TAGS.has(el.tagName.toLowerCase()) || FORBID_TAGS.has(el.tagName.toLowerCase())) {
+      toRemove.push(el);
+      continue;
+    }
+
+    // Strip globally dangerous attributes
+    for (const attr of Array.from(el.attributes)) {
+      const name = attr.name.toLowerCase();
+
+      if (GLOBAL_FORBID_ATTRS.has(name)) {
+        el.removeAttribute(attr.name);
+        continue;
+      }
+      if (GLOBAL_FORBID_ATTR_PREFIXES.some((p) => name.startsWith(p))) {
+        el.removeAttribute(attr.name);
+        continue;
+      }
+
+      // Tag-specific attr allowlist
+      if (el.tagName.toLowerCase() === 'a') {
+        if (!A_ALLOWED_ATTRS.has(name)) {
+          el.removeAttribute(attr.name);
+          continue;
+        }
+      } else {
+        // Non-<a> tags: remove *all* attributes (keep it simple & safe)
+        el.removeAttribute(attr.name);
+      }
+    }
+
+    // Additional link checks
+    if (el.tagName.toLowerCase() === 'a') {
+      const href = el.getAttribute('href') || '';
+      if (!isAllowedHref(href)) {
+        el.removeAttribute('href');
+      }
+      if (el.getAttribute('target') === '_blank') {
+        // Ensure safe rel for new tabs
+        const rel = (el.getAttribute('rel') || '').toLowerCase();
+        const parts = new Set(rel.split(/\s+/).filter(Boolean));
+        parts.add('noopener'); parts.add('noreferrer');
+        el.setAttribute('rel', Array.from(parts).join(' '));
+      }
+    }
+  }
+
+  // 2) Remove all queued forbidden nodes
+  for (const el of toRemove) {
+    el.replaceWith(...Array.from(el.childNodes)); // drop the tag, keep children text content
+  }
+
+  return root.innerHTML;
+}
+/** --------- /sanitizer ---------- */
+
 export default function OnboardingForm() {
   const { data: user, isLoading } = useUser();
 
@@ -88,6 +185,12 @@ export default function OnboardingForm() {
 
   const disableSubmit =
     !onboardingForm.formState.isValid || onboardingForm.formState.isSubmitting;
+
+  // Memoize sanitized HTML for modal body
+  const safePolicyHtml = React.useMemo(
+    () => sanitizeHtmlNoDeps(policy?.content ?? ''),
+    [policy?.content]
+  );
 
   if (isLoading || !user) {
     return (
@@ -284,7 +387,7 @@ export default function OnboardingForm() {
               </h2>
               {policy?.effective_from ? (
                 <p className='text-sm text-muted-foreground mt-1'>
-                  Effective from:{' '}
+                  Effective from{' '}
                   {new Date(policy.effective_from).toLocaleDateString()}
                 </p>
               ) : null}
@@ -296,8 +399,8 @@ export default function OnboardingForm() {
               ) : (
                 <div
                   className='prose prose-invert max-w-none'
-                  // If your DB stores Markdown, replace this with your Markdown renderer.
-                  dangerouslySetInnerHTML={{ __html: policy?.content ?? '' }}
+                  // semgrep-disable-next-line eslint.react-dangerouslysetinnerhtml -- HTML sanitized via sanitizeHtmlNoDeps() above.
+                  dangerouslySetInnerHTML={{ __html: safePolicyHtml }}
                 />
               )}
             </div>
