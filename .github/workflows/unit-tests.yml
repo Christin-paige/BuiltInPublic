@@ -1,24 +1,86 @@
 name: Unit Tests
 
 on:
+  push:
+    branches: [main, development]
   pull_request:
     branches: [main, development]
 
+permissions:
+  contents: read
+  pull-requests: write
+  
 jobs:
   test:
     runs-on: ubuntu-latest
-
+    
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v5
 
       - name: Set up Node
         uses: actions/setup-node@v5
         with:
           node-version: '22'
+          cache: 'npm'
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
-      - name: Run tests
-        run: npm test
+      # Run vitest with JUnit + coverage
+      - name: Run unit tests
+        id: test
+        run: |
+          mkdir -p test-results coverage
+          npx vitest run --coverage \
+            --coverage.reporter=lcov \
+            --coverage.reporter=html \
+            --coverage.reporter=text-summary \
+            --reporter=default \
+            --reporter=junit \
+            --outputFile=./test-results/junit.xml \
+            --exclude '**/rls-policies'
+
+      # Generate test summary
+      - name: Test Summary
+        if: always() && github.event_name == 'pull_request'
+        uses: test-summary/action@v2
+        with:
+          paths: test-results/**/*.xml
+          show: "fail,skip"
+
+      # Write a quick summary to the PR (visible in GitHub UI)
+      - name: Coverage summary
+        if: always()
+        run: |
+          echo "## Unit Test Coverage" >> $GITHUB_STEP_SUMMARY
+          if [ -f coverage/coverage-summary.json ]; then
+            node -e "const s=require('./coverage/coverage-summary.json').total; console.log(\`Lines: \${s.lines.pct}% | Statements: \${s.statements.pct}% | Branches: \${s.branches.pct}% | Functions: \${s.functions.pct}%\`)" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "_No coverage summary found._" >> $GITHUB_STEP_SUMMARY
+          fi
+
+      # Upload artifacts even if tests fail
+      - name: Upload JUnit report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: vitest-junit-report
+          path: test-results/junit.xml
+          retention-days: 14
+
+      - name: Upload lcov report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: vitest-coverage-lcov
+          path: coverage/lcov.info
+          retention-days: 14
+
+      - name: Upload HTML coverage
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: vitest-coverage-html
+          path: coverage
+          retention-days: 14
