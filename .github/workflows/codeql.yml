@@ -1,26 +1,59 @@
-name: CodeQL Weekly Analysis
+name: CodeQL Scheduled Analysis
 
 on:
   schedule:
-    # Every Sunday at 00:00 UTC
+    # Sundays at 00:00 UTC
     - cron: '0 0 * * 0'
-
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch to analyze (manual run)'
+        required: true
+        default: 'main'
+        type: choice
+        options: [main, development]
+# Permissions are required to upload alerts
+permissions:
+  contents: read
+  security-events: write
+# Analyze main branch
 jobs:
-  analyze:
-    name: CodeQL Scan
+  analyze-main:
+    if: github.event_name != 'workflow_dispatch' || github.event.inputs.branch == 'main'
     runs-on: ubuntu-latest
-    permissions:
-      actions: read
-      contents: read
-      security-events: write
-
-    strategy:
-      matrix:
-        language: [javascript, typescript]
-
+    timeout-minutes: 60
+    concurrency:
+      group: codeql-scheduled-main
+      cancel-in-progress: false
     steps:
-      - name: Checkout development
-        uses: actions/checkout@v5
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: 'javascript, typescript'
+          queries: security-extended,security-and-quality
+          build-mode: none
+
+      - name: Analyze
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/scheduled/main"
+# Analyze development branch
+  analyze-development:
+    if: github.event_name != 'workflow_dispatch' || github.event.inputs.branch == 'development'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    concurrency:
+      group: codeql-scheduled-development
+      cancel-in-progress: false
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
           ref: development
           fetch-depth: 0
@@ -28,7 +61,11 @@ jobs:
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
         with:
-          languages: ${{ matrix.language }}
+          languages: 'javascript, typescript'
+          queries: security-extended,security-and-quality
+          build-mode: none
 
-      - name: Perform CodeQL Analysis
+      - name: Analyze
         uses: github/codeql-action/analyze@v3
+        with:
+          category: "/scheduled/development"

@@ -2,7 +2,7 @@ name: Semgrep Scan
 
 on:
   pull_request:
-    branches: [development]
+    branches: [main, development]
 
 jobs:
   semgrep:
