@@ -25,6 +25,19 @@ export const onboardingFormSchema = z.object({
   bio: z.string().max(300, {
     message: 'bio cannot cannot be longer than 300 characters',
   }),
+  // ✅ Required consents (works across Zod versions)
+  termsAccepted: z.boolean().refine((v) => v === true, {
+    message: 'You must accept the Terms',
+  }),
+  privacyAccepted: z.boolean().refine((v) => v === true, {
+    message: 'You must accept the Privacy Policy',
+  }),
+  cookiesAccepted: z.boolean().refine((v) => v === true, {
+    message: 'You must accept the Cookie Policy',
+  }),
+
 });
+
+
 
 export type OnboardingFormSchema = z.infer<typeof onboardingFormSchema>;
