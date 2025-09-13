@@ -2,7 +2,6 @@ name: PR Audit Check
 
 on:
   push:
-    branches: [main, development]
   pull_request:
     branches: [main, development]
 
