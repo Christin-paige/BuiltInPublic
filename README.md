@@ -30,7 +30,6 @@ Before getting started, make sure you have the following installed:
 
 ```plaintext
 .
-├── .env
 ├── .env.example
 ├── .gitguardian.toml
 ├── .github
