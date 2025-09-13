@@ -29,7 +29,8 @@ Before getting started, make sure you have the following installed:
 <summary>📁 Click to expand project file structure</summary>
 
 ```plaintext
-── .env
+.
+├── .env
 ├── .env.example
 ├── .gitguardian.toml
 ├── .github
@@ -38,7 +39,6 @@ Before getting started, make sure you have the following installed:
 │   └── workflows
 │       ├── codeql.yml
 │       ├── gitleaks.yml
-│       ├── npmaudit.yml
 │       ├── prettier.yml
 │       ├── push-migrations-prod.yml
 │       ├── push-migrations-staging.yml
