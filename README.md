@@ -197,7 +197,6 @@ Before getting started, make sure you have the following installed:
 │   │       ├── input.tsx
 │   │       ├── label.tsx
 │   │       ├── modal.tsx
-│   │       ├── scroll-area.tsx
 │   │       ├── skeleton.tsx
 │   │       └── textarea.tsx
 │   ├── hooks
