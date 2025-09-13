@@ -4,6 +4,9 @@ on:
   pull_request_target:
     types: [opened, synchronize, labeled, reopened, ready_for_review]
     branches: [main, development]
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+    branches: [main, development]
 
 permissions:
   contents: write
@@ -14,9 +17,13 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  # ---------------------------
+  # GATE (runs in base-repo context)
+  # ---------------------------
   gate:
     name: lockfile-only + label + renovate actor
     if: >
+      github.event_name == 'pull_request_target' &&
       github.actor == 'renovate[bot]' &&
       github.event.pull_request.draft == false
     runs-on: ubuntu-latest
@@ -24,7 +31,6 @@ jobs:
       - name: Verify PR only changes package-lock.json
         uses: actions/github-script@v8
         with:
-          # default is GITHUB_TOKEN; no secret needed here
           script: |
             const pr = context.payload.pull_request;
             const files = await github.paginate(
@@ -36,6 +42,7 @@ jobs:
               .filter(f => !/(^|\/)package-lock\.json$/.test(f.filename))
               .map(f => f.filename);
             const hasPkgJson = changed.some(p => /(^|\/)package\.json$/.test(p));
+
             if (hasPkgJson) {
               core.setFailed('package.json change detected — not a lockfile-only PR.');
             } else if (offenders.length) {
@@ -46,49 +53,88 @@ jobs:
               core.info(`Lockfile-only change set -> ${changed.join(', ')}`);
             }
 
-      - name: Require "lockfile-maintenance" label
+      - name: Require lockfile maintenance label
         uses: actions/github-script@v8
         with:
           script: |
-            const labels = context.payload.pull_request.labels.map(l => l.name);
-            if (!labels.includes('lockfile-maintenance')) {
-              core.setFailed('Missing "lockfile-maintenance" label');
-            } else {
-              core.info('Required label present');
-            }
+            const labels = context.payload.pull_request.labels.map(l => l.name.toLowerCase());
+            const ok = labels.includes('lockfile-maintenance') || labels.includes('lockfile maintenance');
+            if (!ok) core.setFailed('Missing "lockfile-maintenance" (or "lockfile maintenance") label.');
+            else core.info('Required label present');
 
-  approve:
-    name: Auto-approve (MERGE_TOKEN)
-    needs: gate
+  # ---------------------------
+  # LOCKFILE SYNC (runs in PR sandbox)
+  # ---------------------------
+  lockfile-integrity:
+    name: Lockfile integrity (auto-commit if changed)
+    # IMPORTANT: only run on 'pull_request' to avoid Semgrep finding checkout+pull_request_target
+    if: >
+      github.event_name == 'pull_request' &&
+      github.actor == 'renovate[bot]' &&
+      github.event.pull_request.draft == false
     runs-on: ubuntu-latest
     steps:
-      - name: Approve PR
-        uses: hmarr/auto-approve-action@v3
+      - uses: actions/checkout@v4
         with:
-          github-token: ${{ secrets.MERGE_TOKEN }}
+          fetch-depth: 0 # checks out the PR head by default on pull_request
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.19.0'
+          cache: 'npm'
+
+      - name: Install (lockfile-respectful)
+        run: npm ci --ignore-scripts --no-audit --no-fund
+
+      # Keep disabled to mirror your original behavior
+      # - name: Apply audit fixes (lockfile only)
+      #   run: npm audit fix --package-lock-only || true
+
+      - name: Auto-commit lockfile if CI changed it
+        run: |
+          if ! git diff --quiet -- package-lock.json; then
+            echo "🔧 package-lock.json changed; committing…"
+            git config user.name  "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add package-lock.json
+            git commit -m "chore(lockfile): sync CI changes [skip ci]" || true
+            git push || echo "⚠️ Push failed (likely a fork). Ask author to commit the lockfile locally."
+          else
+            echo "✅ No lockfile changes."
+          fi
+
+  # ---------------------------
+  # APPROVE & ENABLE AUTOMERGE (base-repo context)
+  # ---------------------------
+  approve:
+    name: Auto-approve (GITHUB_TOKEN)
+    needs: [gate] # only depends on gate (base context)
+    if: github.event_name == 'pull_request_target' && needs.gate.result == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: hmarr/auto-approve-action@v3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
   enable-automerge:
     name: Enable native auto-merge
-    needs: approve
+    needs: [approve]
+    if: github.event_name == 'pull_request_target' && needs.approve.result == 'success'
     runs-on: ubuntu-latest
     steps:
       - name: Enable native auto-merge (SQUASH)
         uses: actions/github-script@v8
         with:
-          github-token: ${{ secrets.MERGE_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const pr = context.payload.pull_request;
             await github.graphql(
-              `
-              mutation ($pullRequestId: ID!) {
+              `mutation ($pullRequestId: ID!) {
                 enablePullRequestAutoMerge(input: {
                   pullRequestId: $pullRequestId,
                   mergeMethod: SQUASH
-                }) {
-                  clientMutationId
-                }
-              }
-              `,
+                }) { clientMutationId }
+              }`,
               { pullRequestId: pr.node_id }
             );
-            core.info('Auto-merge enabled (SQUASH). Will merge after required checks pass.');
+            core.info('Auto-merge enabled (SQUASH).')
