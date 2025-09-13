@@ -30,19 +30,8 @@ Before getting started, make sure you have the following installed:
 
 ```plaintext
 .
-├── components.json
-├── config
-│   └── private
-│       └── profanity-list.ts
-├── docs
-│   ├── appregistered.png
-│   ├── oathapps.png
-│   ├── pull_request_template.md
-│   └── registerapp.png
 ├── .env
 ├── .env.example
-├── eslint.config.mjs
-├── .eslintrc.json
 ├── .gitguardian.toml
 ├── .github
 │   ├── ISSUE_TEMPLATE
@@ -50,22 +39,20 @@ Before getting started, make sure you have the following installed:
 │   └── workflows
 │       ├── codeql.yml
 │       ├── gitleaks.yml
-│       ├── npmaudit.yml
 │       ├── prettier.yml
+│       ├── push-migrations-prod.yml
 │       ├── push-migrations-staging.yml
 │       ├── renovate.yml
 │       ├── semgrep.yml
 │       ├── syft.yml
 │       └── unit-tests.yml
 ├── .gitignore
-├── gitleaks-report.json
-├── gitleaks.tar.gz
 ├── .gitleaks.toml
 ├── .husky
 │   ├── _
+│   │   ├── .gitignore
 │   │   ├── applypatch-msg
 │   │   ├── commit-msg
-│   │   ├── .gitignore
 │   │   ├── h
 │   │   ├── husky.sh
 │   │   ├── post-applypatch
@@ -77,24 +64,39 @@ Before getting started, make sure you have the following installed:
 │   │   ├── pre-auto-gc
 │   │   ├── pre-commit
 │   │   ├── pre-merge-commit
-│   │   ├── prepare-commit-msg
 │   │   ├── pre-push
-│   │   └── pre-rebase
+│   │   ├── pre-rebase
+│   │   └── prepare-commit-msg
 │   ├── pre-commit
 │   └── pre-push
-├── instrumentation-client.ts
-├── LICENSE
-├── next.config.mjs
-├── next-env.d.ts
-├── package.json
-├── package-lock.json
-├── postcss.config.mjs
 ├── .prettierignore
 ├── .prettierrc.yml
+├── components.json
+├── config
+│   └── private
+│       └── profanity-list.ts
+├── docs
+│   ├── appregistered.png
+│   ├── oathapps.png
+│   ├── pull_request_template.md
+│   └── registerapp.png
+├── eslint.config.mjs
+├── gitleaks-report.json
+├── instrumentation-client.ts
+├── knip-report.md
+├── knip.config.json
+├── LICENSE
+├── next-env.d.ts
+├── next.config.mjs
+├── package-lock.json
+├── package.json
+├── postcss.config.mjs
 ├── public
+│   ├── .DS_Store
 │   ├── 404
-│   │   ├── funny10.png
+│   │   ├── .DS_Store
 │   │   ├── funny1.png
+│   │   ├── funny10.png
 │   │   ├── funny2.png
 │   │   ├── funny3.png
 │   │   ├── funny4.png
@@ -118,18 +120,23 @@ Before getting started, make sure you have the following installed:
 ├── scripts
 │   ├── generateSupabaseTypes.ts
 │   ├── precheck.sh
-│   ├── seeds
-│   │   ├── auth-users.ts
-│   │   ├── policy-doc.ts
-│   │   ├── posts.ts
-│   │   ├── profile-skills.ts
-│   │   ├── projects.ts
-│   │   ├── skills.ts
-│   │   └── social.ts
-│   └── seed.ts
+│   ├── seed.ts
+│   └── seeds
+│       ├── auth-users.ts
+│       ├── policy-doc.ts
+│       ├── posts.ts
+│       ├── profile-skills.ts
+│       ├── projects.ts
+│       ├── skills.ts
+│       └── social.ts
 ├── SECURITY.md
 ├── src
 │   ├── app
+│   │   ├── (main)
+│   │   │   ├── [username]
+│   │   │   ├── dashboard
+│   │   │   ├── layout.tsx
+│   │   │   └── onboarding
 │   │   ├── about
 │   │   │   └── page.tsx
 │   │   ├── auth
@@ -141,11 +148,6 @@ Before getting started, make sure you have the following installed:
 │   │   ├── favicon.ico
 │   │   ├── globals.css
 │   │   ├── layout.tsx
-│   │   ├── (main)
-│   │   │   ├── dashboard
-│   │   │   ├── layout.tsx
-│   │   │   ├── onboarding
-│   │   │   └── [username]
 │   │   ├── not-found.tsx
 │   │   ├── page.tsx
 │   │   ├── project
@@ -213,6 +215,9 @@ Before getting started, make sure you have the following installed:
 │   ├── middleware.ts
 │   ├── repositories
 │   │   ├── base.repository.ts
+│   │   ├── policyRepository
+│   │   │   ├── policy.repository.ts
+│   │   │   └── policy.types.ts
 │   │   ├── profileRepository
 │   │   │   ├── profile.repository.ts
 │   │   │   └── profile.types.ts
@@ -223,31 +228,45 @@ Before getting started, make sure you have the following installed:
 │   │   └── UINotification.service.ts
 │   ├── setupTests.ts
 │   └── use-cases
+│       ├── __tests__
+│       │   └── BaseMutationUseCase.test.ts
 │       ├── BaseFetchUseCase.ts
 │       ├── BaseMutationUseCase.ts
 │       ├── projects
+│       │   ├── __tests__
 │       │   ├── CreateNewProject.ts
 │       │   ├── EditProject.ts
 │       │   ├── GetProject.ts
-│       │   ├── __tests__
 │       │   └── UpdateProject.ts
-│       ├── __tests__
-│       │   └── BaseMutationUseCase.test.ts
-│       └── updateUserProfile
+│       ├── updateUserProfile
+│       │   ├── __tests__
+│       │   └── UpdateUserProfile.ts
+│       └── userConsent
 │           ├── __tests__
-│           └── UpdateUserProfile.ts
+│           └── UserConsent.ts
 ├── supabase
+│   ├── __tests__
+│   │   ├── rls-policies
+│   │   │   ├── profiles.business.test.ts
+│   │   │   ├── profiles.test.ts
+│   │   │   └── projects.test.ts
+│   │   ├── testClients.ts
+│   │   └── testUser.ts
+│   ├── .branches
+│   │   └── _current_branch
+│   ├── .gitignore
+│   ├── .temp
+│   │   └── cli-latest
 │   ├── config.toml
 │   ├── functions
+│   │   ├── _shared
+│   │   │   └── supabase.types.ts
 │   │   ├── deno.json
 │   │   ├── email-signup-link
+│   │   │   ├── .npmrc
 │   │   │   ├── deno.json
-│   │   │   ├── index.ts
-│   │   │   └── .npmrc
-│   │   ├── env.example
-│   │   └── _shared
-│   │       └── supabase.types.ts
-│   ├── .gitignore
+│   │   │   └── index.ts
+│   │   └── env.example
 │   ├── migrations
 │   │   ├── 20250517104606_base_tables_rls.sql
 │   │   ├── 20250518145124_new_profile_trigger.sql
@@ -259,26 +278,18 @@ Before getting started, make sure you have the following installed:
 │   │   ├── 20250825164024_alpha_token_email.sql
 │   │   ├── 20250829201136_user_consent_tables.sql
 │   │   ├── 20250830223716_private_profile.sql
-│   │   └── 20250905144832_usage_on_policy_docs.sql
+│   │   ├── 20250905144832_usage_on_policy_docs.sql
+│   │   └── 20250907141731_policy_doc_triggers.sql
 │   ├── seed.sql
-│   ├── supabase.types.ts
-│   ├── .temp
-│   │   └── cli-latest
-│   └── __tests__
-│       ├── rls-policies
-│       │   ├── profiles.business.test.ts
-│       │   ├── profiles.test.ts
-│       │   └── projects.test.ts
-│       ├── testClients.ts
-│       └── testUser.ts
+│   └── supabase.types.ts
 ├── tsconfig.json
 ├── utils
 │   ├── errors
 │   │   └── ValidationError.ts
 │   ├── SecureURLValidator
-│   │   ├── SecureURLValidator.ts
-│   │   └── __tests__
-│   │       └── SecureURLValidator.test.ts
+│   │   ├── __tests__
+│   │   │   └── SecureURLValidator.test.ts
+│   │   └── SecureURLValidator.ts
 │   ├── supabase
 │   │   ├── middleware.ts
 │   │   ├── NextJSCookieStorage.ts
