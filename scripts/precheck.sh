@@ -21,7 +21,6 @@ for tool in "${REQUIRED_TOOLS[@]}"; do
   fi
 done
 
-
 # Check for empty files in the entire repository
 echo "📂 Checking for empty files in commits being pushed..."
 
@@ -58,7 +57,6 @@ fi
 
 echo -e "✅ No empty files found.\n"
 
-
 # 1. Format check & fix
 echo "🎨 Running Prettier..."
 CHANGED_FILES=$(npx prettier --config .prettierrc.yml --write --list-different .)
@@ -89,7 +87,6 @@ if ! gitleaks detect --source . --report-path gitleaks-report.json --config .git
   exit 1
 fi
 
-
 # 4. Commit any Prettier or lint changes if they exist
 if ! git diff --cached --quiet || ! git diff --quiet; then
   echo "💾 Committing Prettier or lint fixes..."
@@ -102,7 +99,7 @@ else
   echo -e "✅ No changes to commit.\n"
 fi
 
-# 45 npm audit
+# 5. npm audit
 echo "🛡 Running npm audit (high severity or above will block push)..."
 if ! npm audit --audit-level=high; then
   echo -e "🛑 npm audit found high-severity vulnerabilities. Please fix before pushing.\n"
