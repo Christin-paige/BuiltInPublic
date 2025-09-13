@@ -279,8 +279,8 @@ export default function OnboardingForm() {
                   (dialog === 'terms'
                     ? 'Terms & Conditions'
                     : dialog === 'privacy'
-                    ? 'Privacy Policy'
-                    : 'Cookie Policy')}
+                      ? 'Privacy Policy'
+                      : 'Cookie Policy')}
               </h2>
               {policy?.effective_from ? (
                 <p className='text-sm text-muted-foreground mt-1'>

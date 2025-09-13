@@ -35,9 +35,6 @@ export const onboardingFormSchema = z.object({
   cookiesAccepted: z.boolean().refine((v) => v === true, {
     message: 'You must accept the Cookie Policy',
   }),
-
 });
-
-
 
 export type OnboardingFormSchema = z.infer<typeof onboardingFormSchema>;

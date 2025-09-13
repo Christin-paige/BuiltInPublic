@@ -4,7 +4,7 @@ import { SupabaseClient } from '@supabase/supabase-js';
 export type UiPolicyType = 'terms' | 'privacy' | 'cookies';
 
 const DB_TYPE_MAP: Record<UiPolicyType, string> = {
-  terms: 'T&C',     // in your DB, "Terms & Conditions" is stored as t_c
+  terms: 'T&C', // in your DB, "Terms & Conditions" is stored as t_c
   privacy: 'privacy',
   cookies: 'cookies',
 };
@@ -13,10 +13,10 @@ export interface PolicyDocument {
   id: string;
   version: string;
   created_at: string;
-  document_type: string;      // enum: policy_doc_types
+  document_type: string; // enum: policy_doc_types
   effective_from: string;
   superseded_at: string | null;
-  content: string;            // markdown or html
+  content: string; // markdown or html
 }
 
 export class PolicyDocumentRepository {
@@ -29,7 +29,8 @@ export class PolicyDocumentRepository {
     const dbType = DB_TYPE_MAP[type];
 
     const { data, error } = await this.supabase
-      .schema('policy').from('policy_documents') // ✅ schema-qualified
+      .schema('policy')
+      .from('policy_documents') // ✅ schema-qualified
       .select('*')
       .eq('document_type', dbType)
       .is('superseded_at', null)

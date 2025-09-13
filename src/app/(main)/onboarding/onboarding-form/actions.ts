@@ -35,8 +35,8 @@ export async function fetchPolicyDocument(
     type === 'terms'
       ? 'Terms & Conditions'
       : type === 'privacy'
-      ? 'Privacy Policy'
-      : 'Cookie Policy';
+        ? 'Privacy Policy'
+        : 'Cookie Policy';
 
   return {
     success: true as const,
@@ -64,7 +64,12 @@ export async function onboardingFormSubmit(
   const updateUserProfile = new UpdateUserProfile(profileRepository, supabase);
 
   const { userName: username, displayName: display_name, bio } = parsed.data;
-  const result = await updateUserProfile.execute({ id, username, display_name, bio });
+  const result = await updateUserProfile.execute({
+    id,
+    username,
+    display_name,
+    bio,
+  });
 
   if (!result.success) return result;
 
