@@ -30,15 +30,46 @@ type PolicyType = 'terms' | 'privacy' | 'cookies';
 
 /** --------- Tiny in-browser sanitizer (no deps) ---------- */
 const ALLOWED_TAGS = new Set([
-  'a','p','br','b','strong','i','em','u',
-  'ul','ol','li','blockquote','code','pre',
-  'h1','h2','h3','h4','h5','h6','hr',
-  'table','thead','tbody','tr','th','td',
+  'a',
+  'p',
+  'br',
+  'b',
+  'strong',
+  'i',
+  'em',
+  'u',
+  'ul',
+  'ol',
+  'li',
+  'blockquote',
+  'code',
+  'pre',
+  'h1',
+  'h2',
+  'h3',
+  'h4',
+  'h5',
+  'h6',
+  'hr',
+  'table',
+  'thead',
+  'tbody',
+  'tr',
+  'th',
+  'td',
 ]);
-const FORBID_TAGS = new Set(['script','style','iframe','object','embed','template','noscript']);
+const FORBID_TAGS = new Set([
+  'script',
+  'style',
+  'iframe',
+  'object',
+  'embed',
+  'template',
+  'noscript',
+]);
 const GLOBAL_FORBID_ATTR_PREFIXES = ['on']; // onclick, onerror, etc.
-const GLOBAL_FORBID_ATTRS = new Set(['style','srcdoc']);
-const A_ALLOWED_ATTRS = new Set(['href','title','target','rel']);
+const GLOBAL_FORBID_ATTRS = new Set(['style', 'srcdoc']);
+const A_ALLOWED_ATTRS = new Set(['href', 'title', 'target', 'rel']);
 
 function isAllowedHref(href: string): boolean {
   if (!href) return false;
@@ -70,7 +101,10 @@ function sanitizeHtmlNoDeps(input: string): string {
     const el = walker.currentNode as Element;
 
     // Drop disallowed elements outright
-    if (!ALLOWED_TAGS.has(el.tagName.toLowerCase()) || FORBID_TAGS.has(el.tagName.toLowerCase())) {
+    if (
+      !ALLOWED_TAGS.has(el.tagName.toLowerCase()) ||
+      FORBID_TAGS.has(el.tagName.toLowerCase())
+    ) {
       toRemove.push(el);
       continue;
     }
@@ -110,7 +144,8 @@ function sanitizeHtmlNoDeps(input: string): string {
         // Ensure safe rel for new tabs
         const rel = (el.getAttribute('rel') || '').toLowerCase();
         const parts = new Set(rel.split(/\s+/).filter(Boolean));
-        parts.add('noopener'); parts.add('noreferrer');
+        parts.add('noopener');
+        parts.add('noreferrer');
         el.setAttribute('rel', Array.from(parts).join(' '));
       }
     }
