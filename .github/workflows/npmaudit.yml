@@ -1,4 +1,4 @@
-name: PR Audit Check
+name: PR Audit Fix Checker
 
 on:
   push:
