@@ -36,7 +36,6 @@ jobs:
             --reporter=default \
             --reporter=junit \
             --outputFile=./test-results/junit.xml
-            --exclude '**/rls-policies'
 
       # Generate test summary
       - name: Test Summary
