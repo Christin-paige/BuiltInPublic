@@ -42,8 +42,8 @@ jobs:
       - name: Analyze
         uses: github/codeql-action/analyze@v3
         with:
-          category: "/scheduled/main"
-# Analyze development branch
+          category: '/scheduled/main'
+  # Analyze development branch
   analyze-development:
     if: github.event_name != 'workflow_dispatch' || github.event.inputs.branch == 'development'
     runs-on: ubuntu-latest
@@ -68,4 +68,4 @@ jobs:
       - name: Analyze
         uses: github/codeql-action/analyze@v3
         with:
-          category: "/scheduled/development"
+          category: '/scheduled/development'
