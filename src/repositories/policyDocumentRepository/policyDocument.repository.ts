@@ -5,7 +5,7 @@ export type UiPolicyType = 'terms' | 'privacy' | 'cookies';
 
 // Freeze + const-assert to prevent accidental mutation and limit keys/values
 const DB_TYPE_MAP = Object.freeze({
-  terms: 'T&C',     // DB stores "Terms & Conditions" as T&C (or t_c if you prefer)
+  terms: 'T&C', // DB stores "Terms & Conditions" as T&C (or t_c if you prefer)
   privacy: 'privacy',
   cookies: 'cookies',
 } as const satisfies Record<UiPolicyType, string>);
@@ -19,10 +19,10 @@ export interface PolicyDocument {
   id: string;
   version: string;
   created_at: string;
-  document_type: string;   // enum: policy_doc_types
+  document_type: string; // enum: policy_doc_types
   effective_from: string;
   superseded_at: string | null;
-  content: string;         // markdown or html
+  content: string; // markdown or html
 }
 
 export class PolicyDocumentRepository {
@@ -47,7 +47,7 @@ export class PolicyDocumentRepository {
       .schema('policy')
       .from('policy_documents')
       .select('*')
-      .eq('document_type', dbType)      // ✅ parameterized by supabase-js
+      .eq('document_type', dbType) // ✅ parameterized by supabase-js
       .is('superseded_at', null)
       .order('effective_from', { ascending: false })
       .limit(1)
