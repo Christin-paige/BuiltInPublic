@@ -9,9 +9,7 @@ export const useAlphaToken = () => {
   useEffect(() => {
     const cookies = document.cookie.split('; ');
     console.log('Cookies:', cookies);
-    const alphaCookie = cookies.find((cookie) =>
-      cookie.match('alpha-token')
-    );
+    const alphaCookie = cookies.find((cookie) => cookie.match('alpha-token'));
     if (alphaCookie) {
       const token = alphaCookie.split('=')[1];
       setAlphaToken(token);
