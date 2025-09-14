@@ -1,10 +1,13 @@
 // app/page.tsx or src/pages/index.tsx (depending on your structure)
-
+'use client';
 import { FC } from 'react';
 import { Share2, MessageSquareCode, MessagesSquare, Shrub } from 'lucide-react';
 import Link from 'next/link';
+import { useAlphaToken } from '@/hooks/useAlphaToken/useAlphaToken';
 
 const Home: FC = () => {
+  const alphaToken = useAlphaToken();
+
   return (
     <section className='px-4 pb-8 md:px-10 pt-24 sm:pt-36 xl:pt-54 gap-16 xl:gap-20 w-full min-h-screen relative bg-primary-950/30 flex flex-col items-center'>
       <div className='absolute top-0 left-0 size-40 md:size-100 xl:size-120 rounded-full bg-radial from-sky-500/60 to-indigo-900/60 via-indigo-900/60 blur-3xl z-0'></div>
@@ -31,7 +34,7 @@ const Home: FC = () => {
             border-secondary-800 hover:scale-[1.02] transition-all duration-300 cursor-pointer text-lg sm:text-xl hover:shadow-md hover:shadow-black/30 
               active:scale-100 font-subheading ease-in-out hover:border-white/40'
           >
-            Join now
+            {alphaToken ? 'Go to Dashboard' : 'Join the Alpha'}
           </Link>
         </div>
       </div>
