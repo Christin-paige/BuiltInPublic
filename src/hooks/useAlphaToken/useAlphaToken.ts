@@ -8,7 +8,9 @@ export const useAlphaToken = () => {
 
   useEffect(() => {
     const cookies = document.cookie.split('; ');
-    const alphaCookie = cookies.find(cookie => cookie.startsWith('alphaToken='));
+    const alphaCookie = cookies.find((cookie) =>
+      cookie.startsWith('alphaToken=')
+    );
     if (alphaCookie) {
       const token = alphaCookie.split('=')[1];
       setAlphaToken(token);
@@ -17,4 +19,4 @@ export const useAlphaToken = () => {
   }, []);
 
   return alphaToken;
-}
+};
