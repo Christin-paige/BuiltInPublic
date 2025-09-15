@@ -135,7 +135,7 @@ export class ProjectRepository extends BaseRepository<ProjectDTO, Project> {
       return projects;
     } catch (e) {
       console.error(
-        `Failed to fetch projects with: ${JSON.stringify(e, null, 2)} for username: ${username}`
+        `Failed to fetch projects with: ${JSON.stringify(e, null, 2)} for username: ${username.replace(/[\r\n]/g, "")}`
       );
       throw e;
     }
