@@ -1,7 +1,9 @@
 'use client';
 
 import React from 'react';
-import usePolicyDocument, { type UiPolicyType } from '@/hooks/usePolicy/usePolicyDocument';
+import usePolicyDocument, {
+  type UiPolicyType,
+} from '@/hooks/usePolicy/usePolicyDocument';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -38,12 +40,15 @@ export default function DisplayDocumentDialog({
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="link" className="p-0 h-auto underline underline-offset-4">
+        <Button
+          variant='link'
+          className='p-0 h-auto underline underline-offset-4'
+        >
           {heading}
         </Button>
       </DialogTrigger>
 
-      <DialogContent className="max-w-2xl">
+      <DialogContent className='max-w-2xl'>
         <DialogHeader>
           <DialogTitle>{heading}</DialogTitle>
           {effective && (
@@ -51,8 +56,8 @@ export default function DisplayDocumentDialog({
           )}
         </DialogHeader>
 
-        <div className="whitespace-pre-wrap text-sm leading-6">
-          {isLoading ? 'Loading…' : data?.content ?? 'No content available.'}
+        <div className='whitespace-pre-wrap text-sm leading-6'>
+          {isLoading ? 'Loading…' : (data?.content ?? 'No content available.')}
         </div>
       </DialogContent>
     </Dialog>

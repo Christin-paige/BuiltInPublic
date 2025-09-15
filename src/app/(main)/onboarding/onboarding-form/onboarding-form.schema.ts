@@ -9,8 +9,7 @@ export const onboardingFormSchema = z.object({
       .min(3, { message: 'Username must contain at least 3 characters' })
       .max(32, { message: 'Username cannot be longer than 32 characters' })
       .refine(
-        (name) =>
-          /^[a-z0-9_-]+$/.test(name) && !emojiRegex().test(name),
+        (name) => /^[a-z0-9_-]+$/.test(name) && !emojiRegex().test(name),
         {
           message:
             'Username must only contain lowercase letters, numbers, _ and - symbols',
