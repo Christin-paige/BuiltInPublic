@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { usePolicyDocument } from '@/hooks/usePolicy/usePolicyDocument';
+import { PolicyDocumentType, PolicyDocument } from '@/repositories/policyRepository/policy.types'
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -12,9 +13,9 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 
-function titleFor(type: UiPolicyType) {
+function titleFor(type: PolicyDocumentType) {
   switch (type) {
-    case 'terms':
+    case 'T&C':
       return 'Terms & Conditions';
     case 'privacy':
       return 'Privacy Policy';
@@ -26,7 +27,7 @@ function titleFor(type: UiPolicyType) {
 export default function DisplayDocumentDialog({
   policyType,
 }: {
-  policyType: UiPolicyType;
+  policyType: PolicyDocumentType;
 }) {
   const { data, isLoading } = usePolicyDocument(policyType);
 
