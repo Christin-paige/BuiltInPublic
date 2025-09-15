@@ -6,7 +6,6 @@ import Link from 'next/link';
 import { cookies } from 'next/headers';
 
 const Home: FC = async () => {
-
   const cookieStore = await cookies();
   const hasAlphaToken = cookieStore.get('alpha_token');
 
@@ -30,7 +29,7 @@ const Home: FC = async () => {
             Join our supportive community where developers collaborate, share
             progress, and grow together.
           </p>
-          <div className="flex items-center gap-2">
+          <div className='flex items-center gap-2'>
             <Link
               href='#waitlist'
               className='w-fit bg-linear-to-bl from-secondary-900 via-secondary-600 to-secondary-900 text-text-100 font-bold py-2 px-8 rounded-full mt-4 border 
