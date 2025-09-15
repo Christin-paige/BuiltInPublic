@@ -22,5 +22,3 @@ export async function fetchPolicyDocument(
   if (!res.ok) throw new Error(`Policy fetch failed (${res.status})`);
   return (await res.json()) as PolicyDocDTO;
 }
-
-

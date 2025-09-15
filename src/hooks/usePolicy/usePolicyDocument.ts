@@ -4,7 +4,10 @@
 import { useQuery } from '@tanstack/react-query';
 import UINotification from '@/services/UINotification.service';
 import { fetchPolicyDocument, PolicyDocDTO, UiPolicyType } from './actions';
-import { PolicyDocument, PolicyDocumentType } from '@/repositories/policyRepository/policy.types';
+import {
+  PolicyDocument,
+  PolicyDocumentType,
+} from '@/repositories/policyRepository/policy.types';
 import { PolicyRepository } from '@/repositories/policyRepository/policy.repository';
 
 /** Query keys */
