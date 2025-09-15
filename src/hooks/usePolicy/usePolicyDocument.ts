@@ -20,20 +20,6 @@ export const policyDocQueryKeys = {
     [...policyDocQueryKeys.all, policyType] as const,
 };
 
-/** Internal fetcher (inlined so we only need this file) */
-async function fetchPolicyDocument(
-  policyType: UiPolicyType
-): Promise<PolicyDocDTO> {
-  const res = await fetch(
-    `/api/policy?type=${encodeURIComponent(policyType)}`,
-    {
-      headers: { accept: 'application/json' },
-      cache: 'no-store',
-    }
-  );
-  if (!res.ok) throw new Error(`Policy fetch failed (${res.status})`);
-  return (await res.json()) as PolicyDocDTO;
-}
 
 /** Single public hook */
 export default function usePolicyDocument(policyType: UiPolicyType) {
