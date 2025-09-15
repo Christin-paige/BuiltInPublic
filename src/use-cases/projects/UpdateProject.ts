@@ -27,8 +27,10 @@ export class UpdateProject extends BaseMutationUseCase<UpdateProjectParams> {
       .insert({ project_id: projectId, update: sanitizedUpdate });
 
     if (error) {
+      // Remove newlines from projectId before logging to prevent log injection.
+      const safeProjectId = typeof projectId === 'string' ? projectId.replace(/[\n\r]/g, "") : "";
       console.error(
-        `Creating project update failed with: ${JSON.stringify(error, null, 2)} for project id: ${projectId}`
+        `Creating project update failed with: ${JSON.stringify(error, null, 2)} for project id: ${safeProjectId}`
       );
       return { success: false, message: 'Creating Update failed' };
     }
