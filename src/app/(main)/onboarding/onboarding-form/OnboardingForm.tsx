@@ -157,38 +157,6 @@ function sanitizeHtmlNoDeps(input: string): string {
 
 export default function OnboardingForm() {
   const { data: user, isLoading } = useUser();
-
-  // Popup state for viewing policy text
-  const [dialog, setDialog] = React.useState<null | PolicyType>(null);
-  const [loading, setLoading] = React.useState(false);
-  const [policy, setPolicy] = React.useState<{
-    title: string;
-    version: string;
-    effective_from?: string;
-    content: string;
-  } | null>(null);
-
-  async function openPolicy(type: PolicyType) {
-    setDialog(type);
-    setLoading(true);
-    const resp = await fetchPolicyDocument(type);
-    if (resp.success) {
-      setPolicy({
-        title: resp.data.title,
-        version: resp.data.version,
-        effective_from: resp.data.effective_from,
-        content: resp.data.content,
-      });
-    } else {
-      setPolicy({
-        title: 'Error',
-        version: '',
-        content: `<p class="text-red-500">${resp.message}</p>`,
-      });
-    }
-    setLoading(false);
-  }
-
   const onboardingForm = useForm<OnboardingFormSchema>({
     resolver: zodResolver(onboardingFormSchema),
     mode: 'onChange',
