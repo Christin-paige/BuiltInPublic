@@ -25,8 +25,11 @@ import { useForm } from 'react-hook-form';
 import useUser from '@/hooks/useUser/useUser';
 import { onboardingFormSubmit } from './actions';
 import UINotification from '@/services/UINotification.service';
-import { PolicyDocument, PolicyDocumentType } from '@/repositories/policyRepository/policy.types'
-import { DisplayDocumentDialog } from '@/components/Policy/DisplayDocumentDialog'
+import {
+  PolicyDocument,
+  PolicyDocumentType,
+} from '@/repositories/policyRepository/policy.types';
+import { DisplayDocumentDialog } from '@/components/Policy/DisplayDocumentDialog';
 
 /** ───── Tiny dependency-free HTML sanitizer (kept for future re-use) ───── */
 const ALLOWED_TAGS = new Set([
@@ -150,7 +153,8 @@ export default function OnboardingForm() {
 
   // ⬇️ Local dialog state
   const [dialogOpen, setDialogOpen] = React.useState(false);
-  const [dialogType, setDialogType] = React.useState<PolicyDocumentType>('terms');
+  const [dialogType, setDialogType] =
+    React.useState<PolicyDocumentType>('terms');
 
   const openPolicy = (type: PolicyDocumentType) => {
     setDialogType(type);

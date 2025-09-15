@@ -2,7 +2,10 @@
 
 import React from 'react';
 import { usePolicyDocument } from '@/hooks/usePolicy/usePolicyDocument';
-import { PolicyDocumentType, PolicyDocument } from '@/repositories/policyRepository/policy.types'
+import {
+  PolicyDocumentType,
+  PolicyDocument,
+} from '@/repositories/policyRepository/policy.types';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
