@@ -20,7 +20,6 @@ export const policyDocQueryKeys = {
     [...policyDocQueryKeys.all, policyType] as const,
 };
 
-
 /** Single public hook */
 export default function usePolicyDocument(policyType: UiPolicyType) {
   const { data, isLoading, error } = useQuery<PolicyDocDTO, Error>({
