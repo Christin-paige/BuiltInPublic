@@ -26,14 +26,10 @@ import useUser from '@/hooks/useUser/useUser';
 import { onboardingFormSubmit } from './actions';
 import UINotification from '@/services/UINotification.service';
 
-type PolicyType = 'terms' | 'privacy' | 'cookies';
+// ⬇️ Import the dialog component
+import DisplayDocumentDialog from '@/components/Policy/DisplayDocumentDialog';
 
-/** ───── Tiny dependency-free HTML sanitizer ─────
- *  - Parses into a detached DOM with DOMParser
- *  - Removes forbidden tags (script/iframe/object/etc.)
- *  - Strips dangerous attrs (on*, style, srcdoc)
- *  - <a> only keeps safe hrefs (http/https, /, #, mailto:, tel:) and adds rel for target=_blank
- */
+/** ───── Tiny dependency-free HTML sanitizer (kept for future re-use) ───── */
 const ALLOWED_TAGS = new Set([
   'a',
   'p',
@@ -72,7 +68,7 @@ const FORBID_TAGS = new Set([
   'template',
   'noscript',
 ]);
-const GLOBAL_FORBID_ATTR_PREFIXES = ['on']; // onclick, onerror, etc.
+const GLOBAL_FORBID_ATTR_PREFIXES = ['on'];
 const GLOBAL_FORBID_ATTRS = new Set(['style', 'srcdoc']);
 const A_ALLOWED_ATTRS = new Set(['href', 'title', 'target', 'rel']);
 
@@ -100,13 +96,11 @@ function sanitizeHtmlNoDeps(input: string): string {
     const el = walker.currentNode as Element;
     const tag = el.tagName.toLowerCase();
 
-    // Remove forbidden or non-allowlisted tags entirely (keep text children)
     if (FORBID_TAGS.has(tag) || !ALLOWED_TAGS.has(tag)) {
       toRemove.push(el);
       continue;
     }
 
-    // Attribute scrub
     for (const attr of Array.from(el.attributes)) {
       const name = attr.name.toLowerCase();
 
@@ -125,12 +119,10 @@ function sanitizeHtmlNoDeps(input: string): string {
           continue;
         }
       } else {
-        // For non-links, drop all attributes for simplicity/safety
         el.removeAttribute(attr.name);
       }
     }
 
-    // Link-specific checks
     if (tag === 'a') {
       const href = el.getAttribute('href') || '';
       if (!isAllowedHref(href)) {
@@ -146,7 +138,6 @@ function sanitizeHtmlNoDeps(input: string): string {
     }
   }
 
-  // Drop queued nodes but keep their children text
   for (const el of toRemove) {
     el.replaceWith(...Array.from(el.childNodes));
   }
@@ -157,6 +148,16 @@ function sanitizeHtmlNoDeps(input: string): string {
 
 export default function OnboardingForm() {
   const { data: user, isLoading } = useUser();
+
+  // ⬇️ Local dialog state
+  const [dialogOpen, setDialogOpen] = React.useState(false);
+  const [dialogType, setDialogType] = React.useState<PolicyType>('terms');
+
+  const openPolicy = (type: PolicyType) => {
+    setDialogType(type);
+    setDialogOpen(true);
+  };
+
   const onboardingForm = useForm<OnboardingFormSchema>({
     resolver: zodResolver(onboardingFormSchema),
     mode: 'onChange',
@@ -183,11 +184,6 @@ export default function OnboardingForm() {
   const disableSubmit =
     !onboardingForm.formState.isValid || onboardingForm.formState.isSubmitting;
 
-  const safePolicyHtml = React.useMemo(
-    () => sanitizeHtmlNoDeps(policy?.content ?? ''),
-    [policy?.content]
-  );
-
   if (isLoading || !user) {
     return (
       <div className='flex flex-col gap-4 w-full max-w-sm items-center'>
@@ -210,6 +206,15 @@ export default function OnboardingForm() {
 
   return (
     <>
+      {/* ⬇️ Policy dialog mounted once; opened via buttons */}
+      <DisplayDocumentDialog
+        open={dialogOpen}
+        onOpenChange={setDialogOpen}
+        type={dialogType} // 'terms' | 'privacy' | 'cookies'
+        // If your dialog supports passing a sanitizer or transform:
+        // transformHtml={sanitizeHtmlNoDeps}
+      />
+
       <Form {...onboardingForm}>
         <form
           onSubmit={onboardingForm.handleSubmit(onSubmit)}
@@ -363,56 +368,6 @@ export default function OnboardingForm() {
           </Button>
         </form>
       </Form>
-
-      {/* 🔎 Simple modal for policies */}
-      {dialog && (
-        <div className='fixed inset-0 z-50 flex items-center justify-center'>
-          <div
-            className='absolute inset-0 bg-black/60'
-            onClick={() => setDialog(null)}
-          />
-          <div className='relative z-10 w-[92vw] max-w-2xl max-h-[80vh] rounded-lg border bg-background shadow-xl'>
-            <div className='px-5 pt-4 pb-2 border-b'>
-              <h2 className='text-lg font-semibold'>
-                {policy?.title ??
-                  (dialog === 'terms'
-                    ? 'Terms & Conditions'
-                    : dialog === 'privacy'
-                      ? 'Privacy Policy'
-                      : 'Cookie Policy')}
-              </h2>
-              {policy?.effective_from ? (
-                <p className='text-sm text-muted-foreground mt-1'>
-                  Effective from{' '}
-                  {new Date(policy.effective_from).toLocaleDateString()}
-                </p>
-              ) : null}
-            </div>
-
-            <div className='p-5 max-h-[60vh] overflow-y-auto'>
-              {loading ? (
-                <p>Loading…</p>
-              ) : (
-                <div
-                  className='prose prose-invert max-w-none'
-                  /* nosemgrep: eslint.react-dangerouslysetinnerhtml -- Content sanitized via sanitizeHtmlNoDeps() above. */
-                  dangerouslySetInnerHTML={{ __html: safePolicyHtml }}
-                />
-              )}
-            </div>
-
-            <div className='px-5 py-3 border-t flex justify-end'>
-              <button
-                type='button'
-                onClick={() => setDialog(null)}
-                className='px-4 py-2 rounded-md border hover:bg-accent/40 transition'
-              >
-                Close
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </>
   );
 }
