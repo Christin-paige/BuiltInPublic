@@ -30,7 +30,7 @@ export default class CreateNewProject extends BaseMutationUseCase<CreateNewProje
 
     if (error || !data.id) {
       console.error(
-        `Project creation failed with: ${JSON.stringify(error, null, 2)} for user: ${ownerId}`
+        `Project creation failed with: ${JSON.stringify(error, null, 2)} for user: ${ownerId.replace(/\n|\r/g, "")}`
       );
       return { success: false, message: 'Project creation failed' };
     }
