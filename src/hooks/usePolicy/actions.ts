@@ -1,4 +1,6 @@
-import { fetchPolicyDocument } from '@/app/(main)/onboarding/onboarding-form/actions';
+'use server';
+
+export type UiPolicyType = 'terms' | 'privacy' | 'cookies';
 
 export type PolicyDocDTO = {
   title: string;
@@ -7,4 +9,16 @@ export type PolicyDocDTO = {
   content: string; // plain text for now
 };
 
-export { fetchPolicyDocument };
+export async function fetchPolicyDocument(
+  policyType: UiPolicyType
+): Promise<PolicyDocDTO> {
+  const res = await fetch(
+    `/api/policy?type=${encodeURIComponent(policyType)}`,
+    {
+      headers: { accept: 'application/json' },
+      cache: 'no-store',
+    }
+  );
+  if (!res.ok) throw new Error(`Policy fetch failed (${res.status})`);
+  return (await res.json()) as PolicyDocDTO;
+}

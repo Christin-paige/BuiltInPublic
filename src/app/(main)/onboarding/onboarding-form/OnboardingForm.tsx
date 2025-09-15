@@ -23,7 +23,7 @@ import {
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import useUser from '@/hooks/useUser/useUser';
-import { onboardingFormSubmit, fetchPolicyDocument } from './actions';
+import { onboardingFormSubmit } from './actions';
 import UINotification from '@/services/UINotification.service';
 
 type PolicyType = 'terms' | 'privacy' | 'cookies';
