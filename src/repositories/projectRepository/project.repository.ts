@@ -102,8 +102,9 @@ export class ProjectRepository extends BaseRepository<ProjectDTO, Project> {
 
       return project;
     } catch (e) {
+      const sanitizedId = typeof id === "string" ? id.replace(/[\r\n]+/g, "") : id;
       console.error(
-        `Failed to fetch project with: ${JSON.stringify(e, null, 2)} id: ${id}`
+        `Failed to fetch project with: ${JSON.stringify(e, null, 2)} id: ${sanitizedId}`
       );
       throw e;
     }
@@ -133,9 +134,10 @@ export class ProjectRepository extends BaseRepository<ProjectDTO, Project> {
       }
 
       return projects;
+      const sanitizedUsername = typeof username === "string" ? username.replace(/[\r\n]+/g, "") : username;
     } catch (e) {
       console.error(
-        `Failed to fetch projects with: ${JSON.stringify(e, null, 2)} for username: ${username}`
+        `Failed to fetch projects with: ${JSON.stringify(e, null, 2)} for username: ${sanitizedUsername}`
       );
       throw e;
     }
