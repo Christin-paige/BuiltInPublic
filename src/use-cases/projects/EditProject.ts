@@ -73,8 +73,9 @@ export class EditProject extends BaseMutationUseCase<UpdateProjectParams> {
 
       return { success: true, message: 'Project updated!' };
     } catch (e) {
+      const safeProjectId = projectId.replace(/\r|\n/g, "");
       console.error(
-        `Update failed for project: ${projectId} with: ${JSON.stringify(e, null, 2)}`
+        `Update failed for project: ${safeProjectId} with: ${JSON.stringify(e, null, 2)}`
       );
       return { success: false, message: 'Project update failed' };
     }
