@@ -45,7 +45,7 @@ const Home: FC = async () => {
                 border-secondary-800 hover:scale-[1.02] transition-all duration-300 cursor-pointer text-lg sm:text-xl hover:shadow-md hover:shadow-black/30 
                   active:scale-100 font-subheading ease-in-out hover:border-white/40'
               >
-                Sign In
+                Sign in
               </Link>
             )}
           </div>
