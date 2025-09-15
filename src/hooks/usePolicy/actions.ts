@@ -1,4 +1,4 @@
-import { fetchPolicyDocument } from '@/app/(main)/onboarding/onboarding-form/actions'
+import { fetchPolicyDocument } from '@/app/(main)/onboarding/onboarding-form/actions';
 
 export type PolicyDocDTO = {
   title: string;
