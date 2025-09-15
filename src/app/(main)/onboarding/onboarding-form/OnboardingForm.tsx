@@ -26,9 +26,6 @@ import useUser from '@/hooks/useUser/useUser';
 import { onboardingFormSubmit } from './actions';
 import UINotification from '@/services/UINotification.service';
 
-// ⬇️ Import the dialog component
-import DisplayDocumentDialog from '@/components/Policy/DisplayDocumentDialog';
-
 /** ───── Tiny dependency-free HTML sanitizer (kept for future re-use) ───── */
 const ALLOWED_TAGS = new Set([
   'a',

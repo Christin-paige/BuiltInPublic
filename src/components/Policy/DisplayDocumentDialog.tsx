@@ -1,9 +1,7 @@
 'use client';
 
 import React from 'react';
-import usePolicyDocument, {
-  type UiPolicyType,
-} from '@/hooks/usePolicy/usePolicyDocument';
+import { usePolicyDocument } from '@/hooks/usePolicy/usePolicyDocument';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
