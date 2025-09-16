@@ -44,18 +44,21 @@ export default function DisplayDocumentDialog({
   const body = isLoading
     ? 'Loading…'
     : data?.content?.trim()
-    ? data.content
-    : 'No content available.';
+      ? data.content
+      : 'No content available.';
 
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="link" className="p-0 h-auto underline underline-offset-4">
+        <Button
+          variant='link'
+          className='p-0 h-auto underline underline-offset-4'
+        >
           {children ?? heading}
         </Button>
       </DialogTrigger>
 
-      <DialogContent className="max-w-2xl">
+      <DialogContent className='max-w-2xl'>
         <DialogHeader>
           <DialogTitle>{heading}</DialogTitle>
           {effective && (
@@ -63,7 +66,7 @@ export default function DisplayDocumentDialog({
           )}
         </DialogHeader>
 
-        <div className="whitespace-pre-wrap text-sm leading-6">{body}</div>
+        <div className='whitespace-pre-wrap text-sm leading-6'>{body}</div>
       </DialogContent>
     </Dialog>
   );
