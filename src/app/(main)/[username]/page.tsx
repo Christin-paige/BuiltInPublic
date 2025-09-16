@@ -44,6 +44,7 @@ export default function Profile({ params }: ProfileProps) {
             className='w-2/3 md:w-96'
             width={400}
             height={200}
+            priority
           />
         </div>
 
