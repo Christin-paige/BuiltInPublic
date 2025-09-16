@@ -12,6 +12,7 @@ const audioWide = Audiowide({
   weight: '400',
   variable: '--font-audioWide',
   display: 'swap',
+  preload: false,
 });
 
 const raleway = Raleway({
@@ -19,6 +20,7 @@ const raleway = Raleway({
   weight: '400',
   variable: '--font-raleway',
   display: 'swap',
+  preload: false,
 });
 
 const lato = Lato({
@@ -26,6 +28,7 @@ const lato = Lato({
   weight: '400',
   variable: '--font-lato',
   display: 'swap',
+  preload: false,
 });
 
 export const metadata = {
