@@ -6,6 +6,7 @@ import {
   DialogContent,
   DialogTitle,
   DialogTrigger,
+  DialogDescription,
 } from '@/components/ui/dialog';
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
 import { Textarea } from '@/components/ui/textarea';
@@ -74,6 +75,7 @@ export function ProjectUpdateButton() {
         </Button>
       </DialogTrigger>
       <DialogContent className='backdrop-blur-md'>
+        <DialogDescription className='sr-only h-0'>Add a new update for the project</DialogDescription>
         <DialogTitle>Add a Project Update</DialogTitle>
         <Form {...form}>
           <form className='flex flex-col' onSubmit={form.handleSubmit(submit)}>

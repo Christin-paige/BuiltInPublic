@@ -24,6 +24,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+  DialogDescription,
 } from '@/components/ui/dialog';
 
 interface ProjectTitleFormProps {
@@ -129,6 +130,9 @@ export function ProjectTitle() {
           </DialogTitle>
         </DialogHeader>
         <DialogContent className='backdrop-blur-md'>
+          <DialogDescription className='sr-only h-0'>
+            {"Set your project's name"}
+          </DialogDescription>
           <DialogTitle>{"Set your project's name"}</DialogTitle>
           <ProjectTitleForm stopEditing={handleStopEditing} />
         </DialogContent>
