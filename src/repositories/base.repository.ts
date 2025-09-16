@@ -31,7 +31,7 @@ export abstract class BaseRepository<
   abstract transformDTO(row: TDto): TEntity;
 
   getBaseQuery(count?: boolean): FilterBuilder {
-    return this.getRawBaseQuery((count = false)) as FilterBuilder;
+    return this.getRawBaseQuery(count ?? false) as FilterBuilder;
   }
 
   validateDTO(data: any): boolean {

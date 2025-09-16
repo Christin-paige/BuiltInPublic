@@ -30,7 +30,7 @@ export class ProjectRepository extends BaseRepository<ProjectDTO, Project> {
       visibility,
       status,
       external_url,
-      createdAt,
+      created_at,
       updates,
     } = row;
 
@@ -45,7 +45,7 @@ export class ProjectRepository extends BaseRepository<ProjectDTO, Project> {
       visibility,
       status,
       externalUrl: external_url || '',
-      createdAt,
+      createdAt: created_at,
       updates: updates || [],
     } satisfies Project;
   }
