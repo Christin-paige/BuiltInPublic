@@ -75,7 +75,9 @@ export function ProjectUpdateButton() {
         </Button>
       </DialogTrigger>
       <DialogContent className='backdrop-blur-md'>
-        <DialogDescription className='sr-only h-0'>Add a new update for the project</DialogDescription>
+        <DialogDescription className='sr-only h-0'>
+          Add a new update for the project
+        </DialogDescription>
         <DialogTitle>Add a Project Update</DialogTitle>
         <Form {...form}>
           <form className='flex flex-col' onSubmit={form.handleSubmit(submit)}>
