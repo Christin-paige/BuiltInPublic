@@ -57,7 +57,8 @@ export default function DisplayDocumentDialog({
   const { data, isLoading } = usePolicyDocument((uiKey ?? 'privacy') as UiKey);
 
   const useHookData = uiKey !== null;
-  const heading = (useHookData ? data?.title : undefined) ?? titleFor(policyType);
+  const heading =
+    (useHookData ? data?.title : undefined) ?? titleFor(policyType);
   const effective =
     useHookData && data?.effective_from
       ? new Date(data.effective_from).toLocaleDateString()
@@ -66,12 +67,15 @@ export default function DisplayDocumentDialog({
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogTrigger asChild>
-        <Button variant="link" className="p-0 h-auto underline underline-offset-4">
+        <Button
+          variant='link'
+          className='p-0 h-auto underline underline-offset-4'
+        >
           {children ?? heading}
         </Button>
       </DialogTrigger>
 
-      <DialogContent className="max-w-2xl">
+      <DialogContent className='max-w-2xl'>
         <DialogHeader>
           <DialogTitle>{heading}</DialogTitle>
           {effective && (
@@ -79,11 +83,11 @@ export default function DisplayDocumentDialog({
           )}
         </DialogHeader>
 
-        <div className="whitespace-pre-wrap text-sm leading-6">
+        <div className='whitespace-pre-wrap text-sm leading-6'>
           {useHookData
             ? isLoading
               ? 'Loading…'
-              : data?.content ?? 'No content available.'
+              : (data?.content ?? 'No content available.')
             : 'No content available.'}
         </div>
       </DialogContent>

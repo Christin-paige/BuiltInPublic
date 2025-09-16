@@ -78,7 +78,8 @@ function isAllowedHref(href: string): boolean {
 }
 
 function sanitizeHtmlNoDeps(input: string): string {
-  if (typeof window === 'undefined' || typeof DOMParser === 'undefined') return '';
+  if (typeof window === 'undefined' || typeof DOMParser === 'undefined')
+    return '';
   const parser = new DOMParser();
   const doc = parser.parseFromString(`<div>${input ?? ''}</div>`, 'text/html');
   const root = doc.body.firstElementChild as HTMLDivElement | null;
@@ -148,7 +149,9 @@ export default function OnboardingForm() {
   const { data: user, isLoading } = useUser();
 
   // RHF + Zod: if your schema uses transforms/pipes, it's easiest to cast the resolver.
-  const resolver = zodResolver(onboardingFormSchema) as unknown as Resolver<FormValues>;
+  const resolver = zodResolver(
+    onboardingFormSchema
+  ) as unknown as Resolver<FormValues>;
 
   const onboardingForm = useForm<FormValues>({
     resolver,
@@ -178,20 +181,20 @@ export default function OnboardingForm() {
 
   if (isLoading || !user) {
     return (
-      <div className="flex flex-col gap-4 w-full max-w-sm items-center">
-        <div className="flex flex-col w-full gap-2">
-          <Skeleton className="h-6 w-32" />
-          <Skeleton className="h-8 w-full" />
+      <div className='flex flex-col gap-4 w-full max-w-sm items-center'>
+        <div className='flex flex-col w-full gap-2'>
+          <Skeleton className='h-6 w-32' />
+          <Skeleton className='h-8 w-full' />
         </div>
-        <div className="flex flex-col w-full gap-2">
-          <Skeleton className="h-6 w-32" />
-          <Skeleton className="h-8 w-full" />
+        <div className='flex flex-col w-full gap-2'>
+          <Skeleton className='h-6 w-32' />
+          <Skeleton className='h-8 w-full' />
         </div>
-        <div className="flex flex-col w-full gap-2">
-          <Skeleton className="h-6 w-32" />
-          <Skeleton className="h-16 w-full" />
+        <div className='flex flex-col w-full gap-2'>
+          <Skeleton className='h-6 w-32' />
+          <Skeleton className='h-16 w-full' />
         </div>
-        <Skeleton className="h-10 w-1/2 rounded-full" />
+        <Skeleton className='h-10 w-1/2 rounded-full' />
       </div>
     );
   }
@@ -202,16 +205,16 @@ export default function OnboardingForm() {
       <Form {...onboardingForm}>
         <form
           onSubmit={onboardingForm.handleSubmit(onSubmit)}
-          className="flex flex-col gap-5 w-full max-w-sm items-center"
+          className='flex flex-col gap-5 w-full max-w-sm items-center'
         >
           <FormField
             control={onboardingForm.control}
-            name="userName"
+            name='userName'
             render={({ field }) => (
-              <FormItem className="w-full">
+              <FormItem className='w-full'>
                 <FormLabel>Username</FormLabel>
                 <FormControl>
-                  <Input placeholder="username" {...field} />
+                  <Input placeholder='username' {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -220,12 +223,12 @@ export default function OnboardingForm() {
 
           <FormField
             control={onboardingForm.control}
-            name="displayName"
+            name='displayName'
             render={({ field }) => (
-              <FormItem className="w-full">
+              <FormItem className='w-full'>
                 <FormLabel>Display name</FormLabel>
                 <FormControl>
-                  <Input placeholder="display name" {...field} />
+                  <Input placeholder='display name' {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -234,15 +237,15 @@ export default function OnboardingForm() {
 
           <FormField
             control={onboardingForm.control}
-            name="bio"
+            name='bio'
             render={({ field }) => (
-              <FormItem className="w-full">
+              <FormItem className='w-full'>
                 <FormLabel>Bio</FormLabel>
                 <FormControl>
                   <Textarea
-                    className="resize-none"
+                    className='resize-none'
                     maxLength={256}
-                    placeholder="bio"
+                    placeholder='bio'
                     {...field}
                   />
                 </FormControl>
@@ -254,21 +257,21 @@ export default function OnboardingForm() {
           {/* Terms */}
           <FormField
             control={onboardingForm.control}
-            name="termsAccepted"
+            name='termsAccepted'
             render={({ field }) => (
-              <FormItem className="w-full flex items-start space-x-3">
+              <FormItem className='w-full flex items-start space-x-3'>
                 <FormControl>
                   <input
-                    type="checkbox"
+                    type='checkbox'
                     checked={field.value}
                     onChange={(e) => field.onChange(e.target.checked)}
-                    className="h-4 w-4 rounded-sm border border-primary"
+                    className='h-4 w-4 rounded-sm border border-primary'
                   />
                 </FormControl>
-                <div className="grid gap-1">
-                  <FormLabel className="font-normal">
+                <div className='grid gap-1'>
+                  <FormLabel className='font-normal'>
                     I agree to the{' '}
-                    <DisplayDocumentDialog policyType="T&C">
+                    <DisplayDocumentDialog policyType='T&C'>
                       Terms &amp; Conditions
                     </DisplayDocumentDialog>
                     .
@@ -282,21 +285,21 @@ export default function OnboardingForm() {
           {/* Privacy */}
           <FormField
             control={onboardingForm.control}
-            name="privacyAccepted"
+            name='privacyAccepted'
             render={({ field }) => (
-              <FormItem className="w-full flex items-start space-x-3">
+              <FormItem className='w-full flex items-start space-x-3'>
                 <FormControl>
                   <input
-                    type="checkbox"
+                    type='checkbox'
                     checked={field.value}
                     onChange={(e) => field.onChange(e.target.checked)}
-                    className="h-4 w-4 rounded-sm border border-primary"
+                    className='h-4 w-4 rounded-sm border border-primary'
                   />
                 </FormControl>
-                <div className="grid gap-1">
-                  <FormLabel className="font-normal">
+                <div className='grid gap-1'>
+                  <FormLabel className='font-normal'>
                     I agree to the{' '}
-                    <DisplayDocumentDialog policyType="privacy">
+                    <DisplayDocumentDialog policyType='privacy'>
                       Privacy Policy
                     </DisplayDocumentDialog>
                     .
@@ -310,21 +313,21 @@ export default function OnboardingForm() {
           {/* Cookies */}
           <FormField
             control={onboardingForm.control}
-            name="cookiesAccepted"
+            name='cookiesAccepted'
             render={({ field }) => (
-              <FormItem className="w-full flex items-start space-x-3">
+              <FormItem className='w-full flex items-start space-x-3'>
                 <FormControl>
                   <input
-                    type="checkbox"
+                    type='checkbox'
                     checked={field.value}
                     onChange={(e) => field.onChange(e.target.checked)}
-                    className="h-4 w-4 rounded-sm border border-primary"
+                    className='h-4 w-4 rounded-sm border border-primary'
                   />
                 </FormControl>
-                <div className="grid gap-1">
-                  <FormLabel className="font-normal">
+                <div className='grid gap-1'>
+                  <FormLabel className='font-normal'>
                     I agree to the{' '}
-                    <DisplayDocumentDialog policyType="cookies">
+                    <DisplayDocumentDialog policyType='cookies'>
                       Cookie Policy
                     </DisplayDocumentDialog>
                     .
@@ -335,7 +338,7 @@ export default function OnboardingForm() {
             )}
           />
 
-          <Button className="mt-6" type="submit" disabled={disableSubmit}>
+          <Button className='mt-6' type='submit' disabled={disableSubmit}>
             Submit
           </Button>
         </form>
