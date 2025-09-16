@@ -1,0 +1,84 @@
+# .github/workflows/renovate-lockfile-gate.yml
+
+name: Renovate Lockfile Gatekeeper
+
+on:
+  pull_request_target:
+    types: [opened, synchronize, labeled, reopened, ready_for_review]
+    branches: [main, development]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  gate:
+    name: Validate Renovate PR
+    if: github.actor == 'renovate[bot]' && github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check PR files and label
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            const files = await github.paginate(
+              github.rest.pulls.listFiles,
+              {
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: pr.number
+              }
+            );
+
+            const filenames = files.map(f => f.filename);
+            const onlyLockfile = filenames.length === 1 && filenames[0].endsWith('package-lock.json');
+            const touchesPackageJson = filenames.some(f => f.endsWith('package.json'));
+            const labelOk = pr.labels.some(l =>
+              ['lockfile-maintenance', 'lockfile maintenance'].includes(l.name.toLowerCase())
+            );
+
+            if (!onlyLockfile) {
+              core.setFailed(`❌ PR must only touch package-lock.json. Changed: ${filenames.join(', ')}`);
+            } else if (touchesPackageJson) {
+              core.setFailed('❌ PR must not touch package.json.');
+            } else if (!labelOk) {
+              core.setFailed('❌ Missing required label: lockfile-maintenance.');
+            } else {
+              core.info('✅ Valid lockfile-only PR.');
+            }
+
+  approve:
+    name: Auto-approve
+    needs: gate
+    if: needs.gate.result == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: hmarr/auto-approve-action@v3
+        with:
+          github-token: ${{ github.token }}
+
+  enable-automerge:
+    name: Enable GitHub Auto-Merge (SQUASH)
+    needs: approve
+    if: needs.approve.result == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Enable native auto-merge
+        uses: actions/github-script@v8
+        with:
+          github-token: ${{ github.token }}
+          script: |
+            const pr = context.payload.pull_request;
+            await github.graphql(
+              `mutation ($pullRequestId: ID!) {
+                enablePullRequestAutoMerge(input: {
+                  pullRequestId: $pullRequestId,
+                  mergeMethod: SQUASH
+                }) {
+                  clientMutationId
+                }
+              }`,
+              { pullRequestId: pr.node_id }
+            );
+            core.info('✅ Auto-merge enabled.');
