@@ -1,10 +1,8 @@
 'use client';
 
 import React from 'react';
-import {
-  OnboardingFormSchema,
-  onboardingFormSchema,
-} from './onboarding-form.schema';
+import { z } from 'zod';
+import { onboardingFormSchema } from './onboarding-form.schema';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -21,15 +19,11 @@ import {
 } from '@/components/ui/form';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
+import { useForm, type Resolver } from 'react-hook-form';
 import useUser from '@/hooks/useUser/useUser';
 import { onboardingFormSubmit } from './actions';
 import UINotification from '@/services/UINotification.service';
-import {
-  PolicyDocument,
-  PolicyDocumentType,
-} from '@/repositories/policyRepository/policy.types';
-import { DisplayDocumentDialog } from '@/components/Policy/DisplayDocumentDialog';
+import DisplayDocumentDialog from '@/components/Policy/DisplayDocumentDialog';
 
 /** ───── Tiny dependency-free HTML sanitizer (kept for future re-use) ───── */
 const ALLOWED_TAGS = new Set([
@@ -84,8 +78,7 @@ function isAllowedHref(href: string): boolean {
 }
 
 function sanitizeHtmlNoDeps(input: string): string {
-  if (typeof window === 'undefined' || typeof DOMParser === 'undefined')
-    return '';
+  if (typeof window === 'undefined' || typeof DOMParser === 'undefined') return '';
   const parser = new DOMParser();
   const doc = parser.parseFromString(`<div>${input ?? ''}</div>`, 'text/html');
   const root = doc.body.firstElementChild as HTMLDivElement | null;
@@ -148,21 +141,17 @@ function sanitizeHtmlNoDeps(input: string): string {
 }
 /** ───── end sanitizer ───── */
 
+// Make RHF types line up with Zod output types
+type FormValues = z.infer<typeof onboardingFormSchema>;
+
 export default function OnboardingForm() {
   const { data: user, isLoading } = useUser();
 
-  // ⬇️ Local dialog state
-  const [dialogOpen, setDialogOpen] = React.useState(false);
-  const [dialogType, setDialogType] =
-    React.useState<PolicyDocumentType>('terms');
+  // RHF + Zod: if your schema uses transforms/pipes, it's easiest to cast the resolver.
+  const resolver = zodResolver(onboardingFormSchema) as unknown as Resolver<FormValues>;
 
-  const openPolicy = (type: PolicyDocumentType) => {
-    setDialogType(type);
-    setDialogOpen(true);
-  };
-
-  const onboardingForm = useForm<OnboardingFormSchema>({
-    resolver: zodResolver(onboardingFormSchema),
+  const onboardingForm = useForm<FormValues>({
+    resolver,
     mode: 'onChange',
     reValidateMode: 'onChange',
     defaultValues: {
@@ -175,7 +164,7 @@ export default function OnboardingForm() {
     },
   });
 
-  const onSubmit = async (values: OnboardingFormSchema) => {
+  const onSubmit = async (values: FormValues) => {
     if (user?.id) {
       const result = await onboardingFormSubmit(values, user.id);
       if (!result?.success) {
@@ -189,48 +178,40 @@ export default function OnboardingForm() {
 
   if (isLoading || !user) {
     return (
-      <div className='flex flex-col gap-4 w-full max-w-sm items-center'>
-        <div className='flex flex-col w-full gap-2'>
-          <Skeleton className='h-6 w-32' />
-          <Skeleton className='h-8 w-full' />
+      <div className="flex flex-col gap-4 w-full max-w-sm items-center">
+        <div className="flex flex-col w-full gap-2">
+          <Skeleton className="h-6 w-32" />
+          <Skeleton className="h-8 w-full" />
         </div>
-        <div className='flex flex-col w-full gap-2'>
-          <Skeleton className='h-6 w-32' />
-          <Skeleton className='h-8 w-full' />
+        <div className="flex flex-col w-full gap-2">
+          <Skeleton className="h-6 w-32" />
+          <Skeleton className="h-8 w-full" />
         </div>
-        <div className='flex flex-col w-full gap-2'>
-          <Skeleton className='h-6 w-32' />
-          <Skeleton className='h-16 w-full' />
+        <div className="flex flex-col w-full gap-2">
+          <Skeleton className="h-6 w-32" />
+          <Skeleton className="h-16 w-full" />
         </div>
-        <Skeleton className='h-10 w-1/2 rounded-full' />
+        <Skeleton className="h-10 w-1/2 rounded-full" />
       </div>
     );
   }
 
   return (
     <>
-      {/* ⬇️ Policy dialog mounted once; opened via buttons */}
-      <DisplayDocumentDialog
-        open={dialogOpen}
-        onOpenChange={setDialogOpen}
-        type={dialogType} // 'terms' | 'privacy' | 'cookies'
-        // If your dialog supports passing a sanitizer or transform:
-        // transformHtml={sanitizeHtmlNoDeps}
-      />
-
+      {/* no dialog state needed — we use inline DisplayDocumentDialog triggers */}
       <Form {...onboardingForm}>
         <form
           onSubmit={onboardingForm.handleSubmit(onSubmit)}
-          className='flex flex-col gap-5 w-full max-w-sm items-center'
+          className="flex flex-col gap-5 w-full max-w-sm items-center"
         >
           <FormField
             control={onboardingForm.control}
-            name='userName'
+            name="userName"
             render={({ field }) => (
-              <FormItem className='w-full'>
+              <FormItem className="w-full">
                 <FormLabel>Username</FormLabel>
                 <FormControl>
-                  <Input placeholder='username' {...field} />
+                  <Input placeholder="username" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -239,12 +220,12 @@ export default function OnboardingForm() {
 
           <FormField
             control={onboardingForm.control}
-            name='displayName'
+            name="displayName"
             render={({ field }) => (
-              <FormItem className='w-full'>
+              <FormItem className="w-full">
                 <FormLabel>Display name</FormLabel>
                 <FormControl>
-                  <Input placeholder='display name' {...field} />
+                  <Input placeholder="display name" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -253,15 +234,15 @@ export default function OnboardingForm() {
 
           <FormField
             control={onboardingForm.control}
-            name='bio'
+            name="bio"
             render={({ field }) => (
-              <FormItem className='w-full'>
+              <FormItem className="w-full">
                 <FormLabel>Bio</FormLabel>
                 <FormControl>
                   <Textarea
-                    className='resize-none'
+                    className="resize-none"
                     maxLength={256}
-                    placeholder='bio'
+                    placeholder="bio"
                     {...field}
                   />
                 </FormControl>
@@ -270,30 +251,26 @@ export default function OnboardingForm() {
             )}
           />
 
-          {/* ✅ Terms */}
+          {/* Terms */}
           <FormField
             control={onboardingForm.control}
-            name='termsAccepted'
+            name="termsAccepted"
             render={({ field }) => (
-              <FormItem className='w-full flex items-start space-x-3'>
+              <FormItem className="w-full flex items-start space-x-3">
                 <FormControl>
                   <input
-                    type='checkbox'
+                    type="checkbox"
                     checked={field.value}
                     onChange={(e) => field.onChange(e.target.checked)}
-                    className='h-4 w-4 rounded-sm border border-primary'
+                    className="h-4 w-4 rounded-sm border border-primary"
                   />
                 </FormControl>
-                <div className='grid gap-1'>
-                  <FormLabel className='font-normal'>
+                <div className="grid gap-1">
+                  <FormLabel className="font-normal">
                     I agree to the{' '}
-                    <button
-                      type='button'
-                      className='underline underline-offset-4'
-                      onClick={() => openPolicy('terms')}
-                    >
+                    <DisplayDocumentDialog policyType="T&C">
                       Terms &amp; Conditions
-                    </button>
+                    </DisplayDocumentDialog>
                     .
                   </FormLabel>
                   <FormMessage />
@@ -302,30 +279,26 @@ export default function OnboardingForm() {
             )}
           />
 
-          {/* ✅ Privacy */}
+          {/* Privacy */}
           <FormField
             control={onboardingForm.control}
-            name='privacyAccepted'
+            name="privacyAccepted"
             render={({ field }) => (
-              <FormItem className='w-full flex items-start space-x-3'>
+              <FormItem className="w-full flex items-start space-x-3">
                 <FormControl>
                   <input
-                    type='checkbox'
+                    type="checkbox"
                     checked={field.value}
                     onChange={(e) => field.onChange(e.target.checked)}
-                    className='h-4 w-4 rounded-sm border border-primary'
+                    className="h-4 w-4 rounded-sm border border-primary"
                   />
                 </FormControl>
-                <div className='grid gap-1'>
-                  <FormLabel className='font-normal'>
+                <div className="grid gap-1">
+                  <FormLabel className="font-normal">
                     I agree to the{' '}
-                    <button
-                      type='button'
-                      className='underline underline-offset-4'
-                      onClick={() => openPolicy('privacy')}
-                    >
+                    <DisplayDocumentDialog policyType="privacy">
                       Privacy Policy
-                    </button>
+                    </DisplayDocumentDialog>
                     .
                   </FormLabel>
                   <FormMessage />
@@ -334,30 +307,26 @@ export default function OnboardingForm() {
             )}
           />
 
-          {/* ✅ Cookies */}
+          {/* Cookies */}
           <FormField
             control={onboardingForm.control}
-            name='cookiesAccepted'
+            name="cookiesAccepted"
             render={({ field }) => (
-              <FormItem className='w-full flex items-start space-x-3'>
+              <FormItem className="w-full flex items-start space-x-3">
                 <FormControl>
                   <input
-                    type='checkbox'
+                    type="checkbox"
                     checked={field.value}
                     onChange={(e) => field.onChange(e.target.checked)}
-                    className='h-4 w-4 rounded-sm border border-primary'
+                    className="h-4 w-4 rounded-sm border border-primary"
                   />
                 </FormControl>
-                <div className='grid gap-1'>
-                  <FormLabel className='font-normal'>
+                <div className="grid gap-1">
+                  <FormLabel className="font-normal">
                     I agree to the{' '}
-                    <button
-                      type='button'
-                      className='underline underline-offset-4'
-                      onClick={() => openPolicy('cookies')}
-                    >
+                    <DisplayDocumentDialog policyType="cookies">
                       Cookie Policy
-                    </button>
+                    </DisplayDocumentDialog>
                     .
                   </FormLabel>
                   <FormMessage />
@@ -366,7 +335,7 @@ export default function OnboardingForm() {
             )}
           />
 
-          <Button className='mt-6' type='submit' disabled={disableSubmit}>
+          <Button className="mt-6" type="submit" disabled={disableSubmit}>
             Submit
           </Button>
         </form>
