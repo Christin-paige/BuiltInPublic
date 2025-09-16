@@ -3,31 +3,29 @@
 
 import { useQuery } from '@tanstack/react-query';
 import UINotification from '@/services/UINotification.service';
-import { fetchPolicyDocument, PolicyDocDTO, UiPolicyType } from './actions';
-import {
-  PolicyDocument,
+import { fetchPolicyDocument } from './actions';
+import type {
+  PolicyDocumentDTO,
   PolicyDocumentType,
 } from '@/repositories/policyRepository/policy.types';
-import { PolicyRepository } from '@/repositories/policyRepository/policy.repository';
 
-/** Query keys */
 export const policyDocQueryKeys = {
   all: ['policy'] as const,
-  policyType: (policyType: UiPolicyType) =>
-    [...policyDocQueryKeys.all, policyType] as const,
+  byType: (type: PolicyDocumentType) =>
+    [...policyDocQueryKeys.all, type] as const,
 };
 
-/** Hook */
-export function usePolicyDocument(policyType: UiPolicyType) {
-  return useQuery<PolicyDocDTO>({
-    queryKey: policyDocQueryKeys.policyType(policyType),
+export function usePolicyDocument(type: PolicyDocumentType) {
+  return useQuery<PolicyDocumentDTO>({
+    queryKey: policyDocQueryKeys.byType(type),
     queryFn: async () => {
       try {
-        return await fetchPolicyDocument(policyType);
-      } catch (err: any) {
+        return await fetchPolicyDocument(type);
+      } catch (err) {
         UINotification.error('Failed to fetch policy document');
         throw err;
       }
     },
+    staleTime: 5 * 60 * 1000,
   });
 }

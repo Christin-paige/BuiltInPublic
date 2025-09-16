@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Checkbox } from '@/components/ui/checkbox'
 
 import {
   Form,
@@ -25,45 +26,6 @@ import { onboardingFormSubmit } from './actions';
 import UINotification from '@/services/UINotification.service';
 import DisplayDocumentDialog from '@/components/Policy/DisplayDocumentDialog';
 
-/** ───── Tiny dependency-free HTML sanitizer (kept for future re-use) ───── */
-const ALLOWED_TAGS = new Set([
-  'a',
-  'p',
-  'br',
-  'b',
-  'strong',
-  'i',
-  'em',
-  'u',
-  'ul',
-  'ol',
-  'li',
-  'blockquote',
-  'code',
-  'pre',
-  'h1',
-  'h2',
-  'h3',
-  'h4',
-  'h5',
-  'h6',
-  'hr',
-  'table',
-  'thead',
-  'tbody',
-  'tr',
-  'th',
-  'td',
-]);
-const FORBID_TAGS = new Set([
-  'script',
-  'style',
-  'iframe',
-  'object',
-  'embed',
-  'template',
-  'noscript',
-]);
 const GLOBAL_FORBID_ATTR_PREFIXES = ['on'];
 const GLOBAL_FORBID_ATTRS = new Set(['style', 'srcdoc']);
 const A_ALLOWED_ATTRS = new Set(['href', 'title', 'target', 'rel']);
@@ -91,11 +53,6 @@ function sanitizeHtmlNoDeps(input: string): string {
   while (walker.nextNode()) {
     const el = walker.currentNode as Element;
     const tag = el.tagName.toLowerCase();
-
-    if (FORBID_TAGS.has(tag) || !ALLOWED_TAGS.has(tag)) {
-      toRemove.push(el);
-      continue;
-    }
 
     for (const attr of Array.from(el.attributes)) {
       const name = attr.name.toLowerCase();
@@ -261,16 +218,15 @@ export default function OnboardingForm() {
             render={({ field }) => (
               <FormItem className='w-full flex items-start space-x-3'>
                 <FormControl>
-                  <input
-                    type='checkbox'
+                  <Checkbox
+                    className='h-4 w-4 rounded-sm border border-primary'
                     checked={field.value}
                     onChange={(e) => field.onChange(e.target.checked)}
-                    className='h-4 w-4 rounded-sm border border-primary'
                   />
                 </FormControl>
                 <div className='grid gap-1'>
                   <FormLabel className='font-normal'>
-                    I agree to the{' '}
+                    I agree to the {field.value}
                     <DisplayDocumentDialog policyType='T&C'>
                       Terms &amp; Conditions
                     </DisplayDocumentDialog>
@@ -289,16 +245,15 @@ export default function OnboardingForm() {
             render={({ field }) => (
               <FormItem className='w-full flex items-start space-x-3'>
                 <FormControl>
-                  <input
-                    type='checkbox'
+                  <Checkbox
+                    className='h-4 w-4 rounded-sm border border-primary'
                     checked={field.value}
                     onChange={(e) => field.onChange(e.target.checked)}
-                    className='h-4 w-4 rounded-sm border border-primary'
                   />
                 </FormControl>
                 <div className='grid gap-1'>
                   <FormLabel className='font-normal'>
-                    I agree to the{' '}
+                    I agree to the {field.value}
                     <DisplayDocumentDialog policyType='privacy'>
                       Privacy Policy
                     </DisplayDocumentDialog>
@@ -317,16 +272,15 @@ export default function OnboardingForm() {
             render={({ field }) => (
               <FormItem className='w-full flex items-start space-x-3'>
                 <FormControl>
-                  <input
-                    type='checkbox'
+                  <Checkbox
+                    className='h-4 w-4 rounded-sm border border-primary'
                     checked={field.value}
                     onChange={(e) => field.onChange(e.target.checked)}
-                    className='h-4 w-4 rounded-sm border border-primary'
                   />
                 </FormControl>
                 <div className='grid gap-1'>
                   <FormLabel className='font-normal'>
-                    I agree to the{' '}
+                    I agree to the {field.value}
                     <DisplayDocumentDialog policyType='cookies'>
                       Cookie Policy
                     </DisplayDocumentDialog>
