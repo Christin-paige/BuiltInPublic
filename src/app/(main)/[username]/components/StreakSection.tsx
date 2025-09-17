@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import CalendarStreak from './CalendarStreak';
 import GitHubCalendar, { Activity } from 'react-github-calendar';
 
 type Contribution = {

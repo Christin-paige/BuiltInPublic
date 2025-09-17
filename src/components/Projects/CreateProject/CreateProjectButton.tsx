@@ -90,6 +90,9 @@ export function CreateProjectButton({ canEdit = true }: { canEdit?: boolean }) {
         </Button>
       </DialogTrigger>
       <DialogContent className='backdrop-blur-md'>
+        <DialogDescription className='sr-only h-0'>
+          {'Create a new project'}
+        </DialogDescription>
         <Form {...form}>
           <form
             className='flex flex-col gap-3'

@@ -33,7 +33,7 @@ export default function Profile({ params }: ProfileProps) {
 
   return (
     <ProfileProvider profile={profile}>
-      <main className='h-screen flex flex-col items-center gap-4 overflow-hidden bg-primary-950/30 pt-16 lg:pt-22 relative'>
+      <main className='h-fit md:h-screen flex flex-col items-center gap-4 overflow-hidden bg-primary-950/30 pt-16 lg:pt-22 relative'>
         <div
           className='w-full h-36 lg:h-42 absolute top-0 left-0 z-0 bg-linear-90 from-primary-950/30 via-primary-900/50 to-primary-950/30 overflow-hidden border-b
         flex justify-center items-center'
@@ -44,6 +44,7 @@ export default function Profile({ params }: ProfileProps) {
             className='w-2/3 md:w-96'
             width={400}
             height={200}
+            priority
           />
         </div>
 
