@@ -7,6 +7,8 @@ import {
   DialogHeader,
   DialogFooter,
   DialogTrigger,
+  DialogDescription,
+  DialogTitle,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 
@@ -38,6 +40,10 @@ export function ConfirmationDialog({
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className='sm:max-w-[425px]'>
+        <DialogTitle className='sr-only h-0'>{title}</DialogTitle>
+        <DialogDescription className='sr-only h-0'>
+          {description}
+        </DialogDescription>
         <DialogHeader>
           <h2 className='text-lg font-semibold'>{title}</h2>
           <p className='text-sm text-muted-foreground'>{description}</p>

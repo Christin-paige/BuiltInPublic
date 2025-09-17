@@ -14,7 +14,7 @@ export function ProjectsList() {
   }
 
   return (
-    <div className='flex flex-col gap-4'>
+    <div className='flex flex-col gap-4 h-fit md:h-[73vh] scroll-hide overflow-scroll'>
       {data?.map((project) => (
         <ProjectCard
           key={project.id}

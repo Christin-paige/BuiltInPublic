@@ -19,7 +19,7 @@ export function ProjectEditPanel() {
   const { name, updates } = useProjectContext();
 
   return (
-    <>
+    <section className='flex flex-col h-fit md:h-screen gap-2'>
       <Card className='w-full'>
         <CardHeader className='flex flex-col md:flex-row md:justify-between md:items-center'>
           <ProjectTitle />
@@ -34,13 +34,15 @@ export function ProjectEditPanel() {
           <ProjectUpdateButton />
         </CardContent>
       </Card>
-      {updates?.map((update) => (
-        <ProjectUpdateCard
-          key={`${name}-update-${update.id}`}
-          createdAt={update.created_at}
-          update={update.update}
-        />
-      ))}
-    </>
+      <div className='flex flex-col gap-2 overflow-scroll scroll-hide h-fit md:h-[78vh]'>
+        {updates?.map((update) => (
+          <ProjectUpdateCard
+            key={`${name}-update-${update.id}`}
+            createdAt={update.created_at}
+            update={update.update}
+          />
+        ))}
+      </div>
+    </section>
   );
 }
