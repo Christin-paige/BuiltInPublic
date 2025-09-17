@@ -5,7 +5,6 @@ export interface UserConsents {
   documentId: string;
   documentType: Database['policy']['Enums']['policy_doc_types'];
 }
-[];
 
 export interface ProfileDTO {
   id: string;
