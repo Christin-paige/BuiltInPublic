@@ -30,7 +30,6 @@ Before getting started, make sure you have the following installed:
 
 ```plaintext
 .
-├── .env
 ├── .env.example
 ├── .gitguardian.toml
 ├── .github
@@ -189,12 +188,14 @@ Before getting started, make sure you have the following installed:
 │   │       ├── avatar.tsx
 │   │       ├── button.tsx
 │   │       ├── card.tsx
+│   │       ├── checkbox.tsx
 │   │       ├── confirmation-dialog.tsx
 │   │       ├── dialog.tsx
 │   │       ├── dropdown-menu.tsx
 │   │       ├── form.tsx
 │   │       ├── input.tsx
 │   │       ├── label.tsx
+│   │       ├── modal.tsx
 │   │       ├── skeleton.tsx
 │   │       └── textarea.tsx
 │   ├── hooks
@@ -215,6 +216,9 @@ Before getting started, make sure you have the following installed:
 │   ├── middleware.ts
 │   ├── repositories
 │   │   ├── base.repository.ts
+│   │   ├── policyDocumentRepository
+│   │   │   ├── policyDocument.repository.ts
+│   │   │   └── policyDocument.types.ts
 │   │   ├── policyRepository
 │   │   │   ├── policy.repository.ts
 │   │   │   └── policy.types.ts
