@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 
 interface BlobPosition {
   x: number;
@@ -44,8 +45,14 @@ const GradientBlobs = () => {
     <>
       {blobPositions.map((position, index) => {
         const gradientClass = getGradientClass(index);
+
+        // random offsets and duration per blob
+        const offsetX = Math.random() * 50 - 25; // ±25px horizontal drift
+        const offsetY = Math.random() * 30 - 15; // ±15px vertical drift
+        const duration = 5 + Math.random() * 5; // 5–10s duration
+
         return (
-          <div
+          <motion.div
             key={index}
             className={`bg-gradient-to-r ${gradientClass} rounded-full blur-[100px] absolute -z-10 opacity-30 transition-all duration-1000`}
             style={{

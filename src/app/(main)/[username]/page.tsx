@@ -10,6 +10,7 @@ import GradientBlobs from './components/GradientBlobs';
 import useProfile from '@/hooks/useProfile/useProfile';
 import { notFound } from 'next/navigation';
 import { ProfileProvider } from '@/components/Providers/ProfileProvider';
+import { motion } from 'framer-motion';
 
 interface ProfileProps {
   params: Promise<{
@@ -46,9 +47,7 @@ export default function Profile({ params }: ProfileProps) {
             height={200}
           />
         </div>
-
         <div className='p-8 gap-8 xl:gap-12 w-full relative grid grid-cols-4'>
-          <GradientBlobs />
           <UserInfo />
           <FeedSection />
           <StreakSection />
