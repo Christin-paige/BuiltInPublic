@@ -7,6 +7,8 @@ import {
 } from './onboarding-form.schema';
 import { ProfileRepository } from '@/repositories/profileRepository/profile.repository';
 import { UpdateUserProfile } from '@/use-cases/updateUserProfile/UpdateUserProfile';
+import { PolicyRepository } from '@/repositories/policyRepository/policy.repository';
+import { UserConsent } from '@/use-cases/userConsent/UserConsent';
 import { redirect } from 'next/navigation';
 import { headers } from 'next/headers';
 
@@ -26,6 +28,27 @@ export async function onboardingFormSubmit(
   const ipAddress = requestHeaders.get('x-forwarded-for') || 'unknown';
 
   const supabase = await createAnonClient();
+
+  // Get all active policies and record user consent
+  const userConsent = new UserConsent(supabase);
+  const policyRepository = new PolicyRepository(supabase);
+  const policies = await policyRepository.getAllActivePolicies();
+
+  try {
+    for (const policy of policies) {
+      await userConsent.execute({
+        userId: id,
+        policyId: policy.id,
+        ipAddress,
+        userAgent,
+        consentMethod: 'checkbox',
+      });
+  }
+  } catch (error) {
+    console.error('Error recording user consent:', error);
+    return { success: false, message: 'Error recording user consent' };
+  }
+
   const profileRepository = new ProfileRepository(supabase);
   const updateUserProfile = new UpdateUserProfile(profileRepository, supabase);
 
@@ -40,8 +63,6 @@ export async function onboardingFormSubmit(
     username,
     display_name,
     bio,
-    userAgent,
-    ipAddress,
   };
 
   const result = await updateUserProfile.execute(onboardingFormData);
