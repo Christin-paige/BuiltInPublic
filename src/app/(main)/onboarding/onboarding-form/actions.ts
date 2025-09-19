@@ -43,7 +43,7 @@ export async function onboardingFormSubmit(
         userAgent,
         consentMethod: 'checkbox',
       });
-  }
+    }
   } catch (error) {
     console.error('Error recording user consent:', error);
     return { success: false, message: 'Error recording user consent' };
