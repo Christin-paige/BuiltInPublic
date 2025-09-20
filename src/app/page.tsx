@@ -3,6 +3,7 @@
 import { FC } from 'react';
 import { Share2, MessageSquareCode, MessagesSquare, Shrub } from 'lucide-react';
 import Link from 'next/link';
+import WaitlistForm from '@/components/WaitlistForm';
 
 const Home: FC = () => {
   return (
@@ -76,6 +77,8 @@ const Home: FC = () => {
           <p>Track your progress, learn from others</p>
         </div>
       </div>
+
+      <WaitlistForm />
     </section>
   );
 };
