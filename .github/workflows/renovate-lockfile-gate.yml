@@ -1,11 +1,9 @@
-# .github/workflows/renovate-lockfile-gate.yml
-
 name: Renovate Lockfile Gatekeeper
 
 on:
   pull_request_target:
     types: [opened, synchronize, labeled, reopened, ready_for_review]
-    branches: [main, development]
+    branches: [development]
 
 permissions:
   contents: write
@@ -13,37 +11,28 @@ permissions:
 
 jobs:
   gate:
-    name: Validate Renovate PR
-    if: github.actor == 'renovate[bot]' && github.event.pull_request.draft == false
+    name: Validate Renovate Lockfile Maintenance PR
+    if: >
+      github.actor == 'renovate[bot]' &&
+      github.event.pull_request.draft == false &&
+      contains(join(github.event.pull_request.labels.*.name, ' '), 'lockfile-maintenance')
     runs-on: ubuntu-latest
     steps:
-      - name: Check PR files and label
+      - name: Check PR files
         uses: actions/github-script@v8
         with:
           script: |
             const pr = context.payload.pull_request;
             const files = await github.paginate(
               github.rest.pulls.listFiles,
-              {
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                pull_number: pr.number
-              }
+              { owner: context.repo.owner, repo: context.repo.repo, pull_number: pr.number }
             );
 
             const filenames = files.map(f => f.filename);
             const onlyLockfile = filenames.length === 1 && filenames[0].endsWith('package-lock.json');
-            const touchesPackageJson = filenames.some(f => f.endsWith('package.json'));
-            const labelOk = pr.labels.some(l =>
-              ['lockfile-maintenance', 'lockfile maintenance'].includes(l.name.toLowerCase())
-            );
 
             if (!onlyLockfile) {
-              core.setFailed(`❌ PR must only touch package-lock.json. Changed: ${filenames.join(', ')}`);
-            } else if (touchesPackageJson) {
-              core.setFailed('❌ PR must not touch package.json.');
-            } else if (!labelOk) {
-              core.setFailed('❌ Missing required label: lockfile-maintenance.');
+              core.setFailed(`❌ Lockfile maintenance PR must only touch package-lock.json. Changed: ${filenames.join(', ')}`);
             } else {
               core.info('✅ Valid lockfile-only PR.');
             }
@@ -81,4 +70,4 @@ jobs:
               }`,
               { pullRequestId: pr.node_id }
             );
-            core.info('✅ Auto-merge enabled.');
+            core.info('✅ Auto-merge enabled for lockfile-maintenance PR.');
