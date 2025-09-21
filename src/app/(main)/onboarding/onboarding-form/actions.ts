@@ -34,8 +34,6 @@ export async function onboardingFormSubmit(
       .split(',')
       .map((ip) => ip.trim());
 
-    console.log('Client IPs from x-forwarded-for:', ips);
-
     return ips.find((ip) => ip && ip.toLowerCase() !== 'unknown') || '0.0.0.0';
   };
 
