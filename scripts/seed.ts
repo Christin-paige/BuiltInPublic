@@ -1,11 +1,11 @@
 import { createClient } from '@supabase/supabase-js';
 import { config } from 'dotenv';
-import { seedSkills } from 'scripts/seeds/skills';
-import { seedUsers } from 'scripts/seeds/auth-users';
-import { seedProfileSkills } from 'scripts/seeds/profile-skills';
-import { seedProjects } from 'scripts/seeds/projects';
-import { seedPosts } from 'scripts/seeds/posts';
-import { seedSocial } from 'scripts/seeds/social';
+import { seedSkills } from './seeds/skills';
+import { seedUsers } from './seeds/auth-users';
+import { seedProfileSkills } from './seeds/profile-skills';
+import { seedProjects } from './seeds/projects';
+import { seedPosts } from './seeds/posts';
+import { seedSocial } from './seeds/social';
 import { seedPolicy } from './seeds/policy-doc';
 
 // Load the environment variables
@@ -41,7 +41,7 @@ export const supabase = createClient(
 // 7. seedPolicy
 async function runSeeds() {
   try {
-    console.log('Seeding data...');
+    console.info('Seeding data...');
     await seedUsers();
     await seedSkills();
     await seedProfileSkills();
@@ -49,7 +49,7 @@ async function runSeeds() {
     await seedPosts();
     await seedSocial();
     await seedPolicy();
-    console.log('All seeds done!');
+    console.info('All seeds done!');
   } catch (err) {
     console.error('Seeding failed:', err);
     process.exit(1);

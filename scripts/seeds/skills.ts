@@ -20,5 +20,5 @@ export async function seedSkills() {
   // Insert into skills
   const { error } = await supabase.from('skills').upsert(skills);
   if (error) throw new Error(`Failed to seed skills: ${error.message}`);
-  console.log(`Seeded ${skills.length} skills`);
+  console.info(`Seeded ${skills.length} skills`);
 }

@@ -23,7 +23,7 @@ const postsRaw = [
 ];
 
 export async function seedPosts() {
-  console.log('Seeding posts...');
+  console.info('Seeding posts...');
 
   // Fetch all profiles
   const { data: profiles, error: profileError } = await supabase
@@ -65,6 +65,6 @@ export async function seedPosts() {
   if (error) {
     console.error('Failed to seed posts:', error.message);
   } else {
-    console.log('Successfully seeded posts');
+    console.info('Successfully seeded posts');
   }
 }

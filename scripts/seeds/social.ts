@@ -41,7 +41,7 @@ const endorsements = [
 ];
 
 export async function seedSocial() {
-  console.log('Seeding comments, likes, follows, and endorsements...');
+  console.info('Seeding comments, likes, follows, and endorsements...');
 
   // For each comment, get the commenter and target post
   for (const comment of comments) {
@@ -91,7 +91,7 @@ export async function seedSocial() {
         `Failed to insert comment by ${comment.commenter}: ${error.message}`
       );
     } else {
-      console.log(
+      console.info(
         `Comment by ${comment.commenter} on ${comment.postAuthor}'s post inserted`
       );
     }
@@ -139,7 +139,7 @@ export async function seedSocial() {
     if (error) {
       console.error(`Failed to insert like by ${like.liker}: ${error.message}`);
     } else {
-      console.log(
+      console.info(
         `Like by ${like.liker} on ${like.postAuthor}'s post inserted`
       );
     }
@@ -180,7 +180,7 @@ export async function seedSocial() {
         `Failed to insert follow: ${follow.follower} → ${follow.following}: ${error.message}`
       );
     } else {
-      console.log(`${follow.follower} followed ${follow.following}`);
+      console.info(`${follow.follower} followed ${follow.following}`);
     }
   }
 
@@ -226,11 +226,11 @@ export async function seedSocial() {
         `Failed to insert endorsement: ${endorsement.user_id} → ${endorsement.endorsed_to} for ${endorsement.skill_id}: ${error.message}`
       );
     } else {
-      console.log(
+      console.info(
         `${endorsement.user_id} endorsed ${endorsement.endorsed_to} for ${endorsement.skill_id}`
       );
     }
   }
 
-  console.log('Done seeding comments, likes, follows, and endorsements!');
+  console.info('Done seeding comments, likes, follows, and endorsements!');
 }
