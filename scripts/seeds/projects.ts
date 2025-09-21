@@ -29,7 +29,7 @@ const projectsRaw = [
 ];
 
 export async function seedProjects() {
-  console.log('Seeding projects...');
+  console.info('Seeding projects...');
 
   // Fetch all profiles
   const { data: profiles, error: profileError } = await supabase
@@ -69,6 +69,6 @@ export async function seedProjects() {
   if (error) {
     console.error('Failed to seed projects:', error.message);
   } else {
-    console.log('Successfully seeded projects');
+    console.info('Successfully seeded projects');
   }
 }
