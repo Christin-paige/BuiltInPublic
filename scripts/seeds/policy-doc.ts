@@ -22,7 +22,7 @@ export async function seedPolicy() {
     throw signInError;
   }
 
-  console.log('Signed in as testuser1');
+  console.info('Signed in as testuser1');
 
   let { data: documents, error: docError } = await authClient
     .schema('policy')
@@ -52,7 +52,7 @@ export async function seedPolicy() {
     throw consentError;
   }
 
-  console.log('Policy consent seeded successfully');
+  console.info('Policy consent seeded successfully');
 
   await authClient.auth.signOut();
 }

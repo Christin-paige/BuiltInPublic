@@ -41,7 +41,7 @@ const users = [
 ];
 
 export async function seedUsers() {
-  console.log('Seeding auth users and profiles...');
+  console.info('Seeding auth users and profiles...');
 
   // For each user, create a new user in the auth.users table and a new profile in the profiles table
   for (const u of users) {
@@ -80,9 +80,9 @@ export async function seedUsers() {
         `Failed to create profile for ${u.email}: ${profileError.message}`
       );
     } else {
-      console.log(`Created user & profile for ${u.email}`);
+      console.info(`Created user & profile for ${u.email}`);
     }
   }
 
-  console.log('Done seeding users!');
+  console.info('Done seeding users!');
 }

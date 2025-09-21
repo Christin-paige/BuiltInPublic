@@ -9,7 +9,7 @@ const rawProfileSkills = [
 ];
 
 export async function seedProfileSkills() {
-  console.log('Seeding profile_skills...');
+  console.info('Seeding profile_skills...');
 
   // Fetch all profiles
   const { data: profiles, error: profileError } = await supabase
@@ -47,6 +47,6 @@ export async function seedProfileSkills() {
   if (error) {
     console.error('Failed to seed profile_skills:', error.message);
   } else {
-    console.log('Successfully seeded profile_skills');
+    console.info('Successfully seeded profile_skills');
   }
 }
