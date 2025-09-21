@@ -25,7 +25,21 @@ export async function onboardingFormSubmit(
   // Obtain the users IP address and user agent from the request headers
   const requestHeaders = await headers();
   const userAgent = requestHeaders.get('user-agent') || 'unknown';
-  const ipAddress = requestHeaders.get('x-forwarded-for') || 'unknown';
+
+  const getClientIP = (): string => {
+    if (!requestHeaders.get('x-forwarded-for')) return '0.0.0.0';
+
+    const ips = requestHeaders
+      .get('x-forwarded-for')!
+      .split(',')
+      .map((ip) => ip.trim());
+
+    console.log('Client IPs from x-forwarded-for:', ips);
+
+    return ips.find((ip) => ip && ip.toLowerCase() !== 'unknown') || '0.0.0.0';
+  };
+
+  const ipAddress = getClientIP();
 
   const supabase = await createAnonClient();
 
