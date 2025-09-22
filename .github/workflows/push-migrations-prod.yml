@@ -38,7 +38,7 @@ jobs:
         uses: supabase/setup-cli@v1
         with:
           # stable version pinning
-          version: '~=1.183.0'
+          version: 1.183.0
 
       - name: Link Supabase project (production)
         run: echo "y" | supabase link --project-ref "$SUPABASE_PROJECT_ID"
