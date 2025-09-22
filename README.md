@@ -1,191 +1,346 @@
-# 🧠 CodeSphere
+# 🧠 BuiltInPublic
 
-Welcome to **CodeSphere**, a community-focused platform where developers can build in public, track their progress, and stay motivated. It features a social and builder-centric dashboard with streak counters, project tracking, friend feeds, and more.
+Welcome to **BuiltInPublic**, a community-focused platform where developers can build in public, track their progress, and stay motivated. It features a social and builder-centric dashboard with streak counters, project tracking, friend feeds, and more.
 
 This is a work-in-progress so feel free to follow along or contribute!
 
 ---
 
-## 📦 Tech Stack
+## 🛠️ Tech Stack
 
-| Name | Usage | 
-| :--- | :--- | 
-| Next.js 14 | App Router |
-| Supabase | Auth & backend |
-| React | Client components | 
-| Tailwind CSS | Styling | 
+See the **[Wiki](https://github.com/Christin-paige/BuiltInPublic/wiki#-tech-stack)** for more details.
 
----
+## 🔧 Prerequisites
 
-## ✅ Features So Far
+Before getting started, make sure you have the following installed:
 
-- 🔐 Google OAuth login using Supabase Auth
-- 🚪 Logout functionality with redirect to landing page
-- 🧠 Supabase client/server utility setup
-- 🧭 Smart Navbar for login/logout states
-- 🔄 Middleware to handle session syncing
-- 🧩 Modular dashboard layout with multiple components
+| Tool                              | Notes                                          |
+| --------------------------------- | ---------------------------------------------- |
+| [Node.js](https://nodejs.org/)    | v18 or later recommended                       |
+| [npm](https://www.npmjs.com/)     | Dependancy management                          |
+| [Supabase](https://supabase.com/) | Project and API keys                           |
+| [Git](https://git-scm.com/)       | For cloning the repository and version control |
 
 ---
 
-## 🚀 Getting Started
+## 🗂️ Project Structure
 
-### 1. Clone the repo
+<details>
+<summary>📁 Click to expand project file structure</summary>
 
-```bash
-git clone https://github.com/your-username/codesphere.git
-cd codesphere
+```plaintext
+.
+├── .env.example
+├── .gitguardian.toml
+├── .github
+│   ├── ISSUE_TEMPLATE
+│   │   └── new-feature-request.md
+│   └── workflows
+│       ├── codeql.yml
+│       ├── gitleaks.yml
+│       ├── prettier.yml
+│       ├── push-migrations-prod.yml
+│       ├── push-migrations-staging.yml
+│       ├── renovate.yml
+│       ├── semgrep.yml
+│       ├── syft.yml
+│       └── unit-tests.yml
+├── .gitignore
+├── .gitleaks.toml
+├── .husky
+│   ├── _
+│   │   ├── .gitignore
+│   │   ├── applypatch-msg
+│   │   ├── commit-msg
+│   │   ├── h
+│   │   ├── husky.sh
+│   │   ├── post-applypatch
+│   │   ├── post-checkout
+│   │   ├── post-commit
+│   │   ├── post-merge
+│   │   ├── post-rewrite
+│   │   ├── pre-applypatch
+│   │   ├── pre-auto-gc
+│   │   ├── pre-commit
+│   │   ├── pre-merge-commit
+│   │   ├── pre-push
+│   │   ├── pre-rebase
+│   │   └── prepare-commit-msg
+│   ├── pre-commit
+│   └── pre-push
+├── .prettierignore
+├── .prettierrc.yml
+├── components.json
+├── config
+│   └── private
+│       └── profanity-list.ts
+├── docs
+│   ├── appregistered.png
+│   ├── oathapps.png
+│   ├── pull_request_template.md
+│   └── registerapp.png
+├── eslint.config.mjs
+├── gitleaks-report.json
+├── instrumentation-client.ts
+├── knip-report.md
+├── knip.config.json
+├── LICENSE
+├── next-env.d.ts
+├── next.config.mjs
+├── package-lock.json
+├── package.json
+├── postcss.config.mjs
+├── public
+│   ├── .DS_Store
+│   ├── 404
+│   │   ├── .DS_Store
+│   │   ├── funny1.png
+│   │   ├── funny10.png
+│   │   ├── funny2.png
+│   │   ├── funny3.png
+│   │   ├── funny4.png
+│   │   ├── funny5.png
+│   │   ├── funny6.png
+│   │   ├── funny7.png
+│   │   ├── funny8.png
+│   │   └── funny9.png
+│   ├── BiP_Banner.png
+│   ├── BuiltInPublic.png
+│   ├── door.jpg
+│   ├── example-cover-img.jpg
+│   ├── icons
+│   │   ├── github-sign-in-btn.svg
+│   │   └── web_neutral_rd_SI.svg
+│   ├── logo3.png
+│   ├── og-image.jpg
+│   └── terminal-logo.png
+├── README.md
+├── renovate.json
+├── scripts
+│   ├── generateSupabaseTypes.ts
+│   ├── precheck.sh
+│   ├── seed.ts
+│   └── seeds
+│       ├── auth-users.ts
+│       ├── policy-doc.ts
+│       ├── posts.ts
+│       ├── profile-skills.ts
+│       ├── projects.ts
+│       ├── skills.ts
+│       └── social.ts
+├── SECURITY.md
+├── src
+│   ├── app
+│   │   ├── (main)
+│   │   │   ├── [username]
+│   │   │   ├── dashboard
+│   │   │   ├── layout.tsx
+│   │   │   └── onboarding
+│   │   ├── about
+│   │   │   └── page.tsx
+│   │   ├── auth
+│   │   │   ├── actions.ts
+│   │   │   ├── callback
+│   │   │   ├── DevSignIn.tsx
+│   │   │   ├── oauth
+│   │   │   └── page.tsx
+│   │   ├── favicon.ico
+│   │   ├── globals.css
+│   │   ├── layout.tsx
+│   │   ├── not-found.tsx
+│   │   ├── page.tsx
+│   │   ├── project
+│   │   │   └── [id]
+│   │   ├── staging-auth
+│   │   │   ├── actions.ts
+│   │   │   ├── page.tsx
+│   │   │   ├── stagingAuth.schema.ts
+│   │   │   └── StagingAuth.tsx
+│   │   └── thanks
+│   │       └── page.tsx
+│   ├── components
+│   │   ├── Buttons
+│   │   │   ├── BackButton.tsx
+│   │   │   ├── EditButton.tsx
+│   │   │   └── SignOutBtn.tsx
+│   │   ├── Footer.tsx
+│   │   ├── Navbar
+│   │   │   ├── index.ts
+│   │   │   └── Navbar.tsx
+│   │   ├── Profile
+│   │   │   ├── Bio.tsx
+│   │   │   └── DisplayName.tsx
+│   │   ├── ProfileIcon.tsx
+│   │   ├── Projects
+│   │   │   ├── CreateProject
+│   │   │   ├── ProjectCard.tsx
+│   │   │   ├── ProjectPanel
+│   │   │   ├── ProjectsList.tsx
+│   │   │   ├── ProjectStatusBadge.tsx
+│   │   │   ├── ProjectUpdateCard.tsx
+│   │   │   └── ProjectVisibilityBadge.tsx
+│   │   ├── Providers
+│   │   │   ├── ProfileProvider.tsx
+│   │   │   ├── ProjectProvider.tsx
+│   │   │   ├── QueryProvider.tsx
+│   │   │   └── ThemeProvider.tsx
+│   │   └── ui
+│   │       ├── avatar.tsx
+│   │       ├── button.tsx
+│   │       ├── card.tsx
+│   │       ├── checkbox.tsx
+│   │       ├── confirmation-dialog.tsx
+│   │       ├── dialog.tsx
+│   │       ├── dropdown-menu.tsx
+│   │       ├── form.tsx
+│   │       ├── input.tsx
+│   │       ├── label.tsx
+│   │       ├── modal.tsx
+│   │       ├── skeleton.tsx
+│   │       └── textarea.tsx
+│   ├── hooks
+│   │   ├── useProfile
+│   │   │   ├── actions.ts
+│   │   │   ├── profile.schema.ts
+│   │   │   └── useProfile.tsx
+│   │   ├── useProject
+│   │   │   ├── actions.ts
+│   │   │   ├── editProject.schema.ts
+│   │   │   ├── updateProject.schema.ts
+│   │   │   └── useProject.tsx
+│   │   └── useUser
+│   │       ├── actions.ts
+│   │       └── useUser.tsx
+│   ├── lib
+│   │   └── utils.ts
+│   ├── middleware.ts
+│   ├── repositories
+│   │   ├── base.repository.ts
+│   │   ├── policyDocumentRepository
+│   │   │   ├── policyDocument.repository.ts
+│   │   │   └── policyDocument.types.ts
+│   │   ├── policyRepository
+│   │   │   ├── policy.repository.ts
+│   │   │   └── policy.types.ts
+│   │   ├── profileRepository
+│   │   │   ├── profile.repository.ts
+│   │   │   └── profile.types.ts
+│   │   └── projectRepository
+│   │       ├── project.repository.ts
+│   │       └── project.types.ts
+│   ├── services
+│   │   └── UINotification.service.ts
+│   ├── setupTests.ts
+│   └── use-cases
+│       ├── __tests__
+│       │   └── BaseMutationUseCase.test.ts
+│       ├── BaseFetchUseCase.ts
+│       ├── BaseMutationUseCase.ts
+│       ├── projects
+│       │   ├── __tests__
+│       │   ├── CreateNewProject.ts
+│       │   ├── EditProject.ts
+│       │   ├── GetProject.ts
+│       │   └── UpdateProject.ts
+│       ├── updateUserProfile
+│       │   ├── __tests__
+│       │   └── UpdateUserProfile.ts
+│       └── userConsent
+│           ├── __tests__
+│           └── UserConsent.ts
+├── supabase
+│   ├── __tests__
+│   │   ├── rls-policies
+│   │   │   ├── profiles.business.test.ts
+│   │   │   ├── profiles.test.ts
+│   │   │   └── projects.test.ts
+│   │   ├── testClients.ts
+│   │   └── testUser.ts
+│   ├── .branches
+│   │   └── _current_branch
+│   ├── .gitignore
+│   ├── .temp
+│   │   └── cli-latest
+│   ├── config.toml
+│   ├── functions
+│   │   ├── _shared
+│   │   │   └── supabase.types.ts
+│   │   ├── deno.json
+│   │   ├── email-signup-link
+│   │   │   ├── .npmrc
+│   │   │   ├── deno.json
+│   │   │   └── index.ts
+│   │   └── env.example
+│   ├── migrations
+│   │   ├── 20250517104606_base_tables_rls.sql
+│   │   ├── 20250518145124_new_profile_trigger.sql
+│   │   ├── 20250801104606_create_project_updates.sql
+│   │   ├── 20250803000000_add_project_updates_table.sql
+│   │   ├── 20250807230208_insert_profile_update.sql
+│   │   ├── 20250812161712_project_defaults.sql
+│   │   ├── 20250823004425_alpha_token_table.sql
+│   │   ├── 20250825164024_alpha_token_email.sql
+│   │   ├── 20250829201136_user_consent_tables.sql
+│   │   ├── 20250830223716_private_profile.sql
+│   │   ├── 20250905144832_usage_on_policy_docs.sql
+│   │   └── 20250907141731_policy_doc_triggers.sql
+│   ├── seed.sql
+│   └── supabase.types.ts
+├── tsconfig.json
+├── utils
+│   ├── errors
+│   │   └── ValidationError.ts
+│   ├── SecureURLValidator
+│   │   ├── __tests__
+│   │   │   └── SecureURLValidator.test.ts
+│   │   └── SecureURLValidator.ts
+│   ├── supabase
+│   │   ├── middleware.ts
+│   │   ├── NextJSCookieStorage.ts
+│   │   └── server.ts
+│   ├── types.ts
+│   └── usernameValidator.ts
+└── vitest.config.mts
 ```
-### 2. Install dependencies 
 
-```bash
-npm install
-# or
-yarn install
-```
-### 3. Set up environment variables
-- Create a .env.local file in the root of the project and add:
-```bash
-NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key
-```
-### 4. Run the development server:
+</details>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 Join the Movement
 
-## Auth Setup
-#### To enable Google Auth:
-1. Go to your Supabase project
-2. Under Authentication > Providers, enable Google
-3. Add your credentials (Client ID & Secret from Google Cloud Console)
-4. Set redirectTo in the supabase.auth.signInWithOAuth() to call your app URL
+Wanna help make this platform amazing? Whether it’s code, content, or good vibes — your contributions matter.
 
-## Supabase Local Setup
-Running Supabase locally will require the [Supabase CLI](https://supabase.com/docs/guides/local-development?queryGroups=package-manager&package-manager=npm) and [Docker](https://docs.docker.com/engine/install/) installed as prerequisites.
+👉 [Start Contributing Today!](https://github.com/Christin-paige/BuiltInPublic/wiki)
 
-With the Supabase CLI and Docker setup, open a terminal and navigate to the root of the project. Supabase is configured with the toml file in `/supabase/config.toml` and all that should be required to get it running is to start the local Supabase instance
+---
 
-```bash
-supabase start
-```
+## 📚 Setting up your environment
 
-It will take a little time for Supabase to download the required Docker containers on the first run. When it's finished you should see an output like this:
+Wanna get this thing running? You’ll need a few secrets in place first.
+Head over to our [Environment Setup Guide](https://github.com/Christin-paige/BuiltInPublic/wiki/Environment) for everything you need to configure your `.env` file, Supabase keys, and more.
 
-```bash
-API URL: http://127.0.0.1:54321
-GraphQL URL: http://127.0.0.1:54321/graphql/v1
-S3 Storage URL: http://127.0.0.1:54321/storage/v1/s3
-DB URL: postgresql://postgres:postgres@127.0.0.1:54322/postgres
-Studio URL: http://127.0.0.1:54323
-Inbucket URL: http://127.0.0.1:54324
-JWT secret: super-secret-jwt-token-with-at-least-32-characters-long
-anon key: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0
-service_role key: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImV4cCI6MTk4MzgxMjk5Nn0.EGIM96RAZx35lJzdJsyH-qQwv8Hdp7fsn3W0YpN81IU
-S3 Access Key: 625729a08b95bf1b7ff351a663f3a23c
-S3 Secret Key: 850181e4652dd023b7a98c58ae0d2d34bd487ee0cc3254aed6eda37307425907
-S3 Region: local
+---
 
-```
+## 👥 BuiltInPublic Contributors
 
-***NOTE**: The values in the output above only apply to your local instance of Supabase, they may differ on your machine. Never share the anon or service role keys from a production instance.*
+- [Christin Martin](https://www.linkedin.com/in/christin-martin/)
+- [Andrew Couture](https://www.linkedin.com/in/andrew-couture-15937ab/)
+- [Gavin Hensley](https://www.linkedin.com/in/g-hensley/)
+- [Brenda Hensley](https://www.linkedin.com/in/brenda-hensley-/)
+- [Dielle De Noon](https://www.linkedin.com/in/dielle-denoon/)
+- [Alina Bhatti](https://www.linkedin.com/in/alina-bhatti-0b0122353/)
+- [Nick Clark](https://www.linkedin.com/in/nicholas-a-clark//)
+- [Vinay Gajjar](https://www.linkedin.com/in/vinaygajjar/)
+- [Gagandeep Guru](https://www.linkedin.com/in/igagandeep95/)
+- [Charmayne Knox](https://www.linkedin.com/in/charmayneknox/)
+- [Devyn Lowry](https://www.linkedin.com/in/devynwlowry/)
+- [David Weiss](https://www.linkedin.com/in/bydavidweiss/)
 
-If you don't yet have a `.env` file in the root of your project, create one now and add the following variables:
-```typescript
-NEXT_PUBLIC_SUPABASE_URL=// use the API URL from the output of the last step
-NEXT_PUBLIC_SUPABASE_ANON_KEY=// use the anon key from the last step
-NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY=// use the service role key from last step
-```
+---
 
-### Supabase Auth Local Setup
-Our current setup supports login via GitHub or Google, the provider is, as of April 26th 2025, determined by an environment variable:
-```typescript
-NEXT_PUBLIC_AUTH_PROVIDER=// either 'github' or 'google'
-```
+## ❓ Questions?
 
-Of the two, GitHub is the simplest to setup
-
-##### GitHub Auth
-You'll need to setup an application in your GitHub account to handle GitHub authentication.
-
-Go to Settings -> Developer Settings and select OAuth apps
-![Developer setting screenshot](docs/oathapps.png)
-Click the New OAuth App button on this screen and you should see the following form:
-![Register app form](docs/registerapp.png)
-Give your app a descriptive name. For the Homepage URL, enter `http://localhost:3000`, this is the URL that requests for authentication will originate from
-
-For the Authorization callback URL, enter `http://localhost:54321/auth/v1/callback`, this is the URL GitHub will redirect to after authenticating
-
-Click the button labeled "Register application"
-
-On the next screen you will see:
-![App registration confirmed](docs/appregistered.png)
-
-You will need the Client ID and a Client secret to finish. Click the button labeled "Generate a new client secret", and copy the generated secret to the clipboard. Add the following variables to your `.env`
-
-```typescript
-GITHUB_AUTH_EXTERNAL_CLIENT_ID=// the Client ID from the previous step
-GITHUB_AUTH_EXTERNAL_SECRET=// the generated Client secret from the previous step
-```
-
-With your GitHub application created and registered, and your environment variables set, we just need to restart your local Supabase instance. Run the following in your terminal
-```bash
-supabase stop
-supabase start
-```
-
-And then start the client app with:
-```bash
-npm run dev
-```
-
-When you click Login in the navbar now, you should be redirected to GitHub to authenticate. After which you can verify that a user has been created by visiting the Supabase dashboard at `localhost:54323` in your browser.
-
-Select "Table Editor" from the left sidebar, choose the auth schema from the dropdown on the Table Editor screen, and select `users` from the list of tables. You should see a user has been created with the email you use for GitHub
-## What's Next
-- Dashboard logic for each section (profile page, friends' projects, user's projects, streak counter...)
-- User avatars in the navbar (from Google)
-- Sign-in without Google option
-- Help/FAQ section
-
-## Contributing 
-#### Contributions are welcome!
-
-1. Fork the repo
-2. Create a new branch: git checkout -b my-branch-name
-3. Make your changes
-4. Commit: git commit -m "Added my feature"
-5. Push: git push origin -u my-branch-name
-6. Open a pull request!
-
-## Questions?
-- [Connect with me on LinkedIn](https://www.linkedin.com/in/christinmartin)
+- [Connect with me on LinkedIn](https://www.linkedin.com/in/christin-martin)
 
 - Happy to collaborate and make this a great app!
-
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-
-

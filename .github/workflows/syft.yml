@@ -1,0 +1,55 @@
+# .github/workflows/sbom-syft.yml
+name: Generate SBOM with Syft
+
+on:
+  push:
+    branches: [main, development]
+  pull_request:
+    branches: [main, development]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+
+jobs:
+  generate-sbom:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: ⬇️ Checkout Repo
+        uses: actions/checkout@v5
+
+      - name: 🧰 Setup Node (optional if you're scanning Node project)
+        uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+
+      - name: 📦 Install Dependencies (optional, improves scan)
+        run: npm ci
+
+      - name: 🔍 Generate SBOM with Syft
+        uses: anchore/sbom-action@v0.17.2
+        with:
+          format: spdx-json
+          output-file: BuiltInPublic.spdx.json
+          upload-artifact: false
+
+      - name: 📛 Rename SBOM to PR or Branch Name
+        id: rename
+        run: |
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            NAME="BuiltInPublic-PR-${{ github.event.pull_request.number }}.spdx.json"
+          else
+            NAME="BuiltInPublic-${{ github.ref_name }}.spdx.json"
+          fi
+
+          mv BuiltInPublic.spdx.json "$NAME"
+          echo "filename=$NAME" >> "$GITHUB_OUTPUT"
+
+      - name: 📤 Upload SBOM Artifact (14-day retention)
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.rename.outputs.filename }}
+          path: ${{ steps.rename.outputs.filename }}
+          retention-days: 14

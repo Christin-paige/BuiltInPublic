@@ -1,0 +1,28 @@
+name: Prettier Formatting Check
+
+on:
+  pull_request:
+    branches: [main, development]
+
+jobs:
+  prettier:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Set up Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run Prettier
+        run: |
+          npx prettier \
+          --config .prettierrc.yml \
+          --check . \
+          --ignore-path .prettierignore

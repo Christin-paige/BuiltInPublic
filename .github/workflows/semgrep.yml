@@ -1,0 +1,45 @@
+name: Semgrep Scan
+
+on:
+  pull_request:
+    branches: [main, development]
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  semgrep:
+    runs-on: ubuntu-latest
+    env:
+      SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Set up Python 3.x
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.x'
+
+      - name: Install Semgrep
+        run: pip install semgrep
+
+      # Run scan and save SARIF output
+      - name: Run Semgrep scan
+        run: semgrep ci --metrics=off --no-suppress-errors --sarif > semgrep-results.sarif
+
+      # Upload SARIF to GitHub Security tab
+      - name: Upload SARIF to code scanning
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: semgrep-results.sarif
+
+      # Keep a downloadable artifact for audits
+      - name: Upload SARIF artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: semgrep-sarif
+          path: semgrep-results.sarif
+          retention-days: 120

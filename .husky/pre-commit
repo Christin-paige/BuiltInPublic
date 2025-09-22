@@ -1,0 +1,45 @@
+#!/bin/bash
+# Prevent committing secrets
+echo "✅ Pre-commit hook ran"
+echo "🕵️‍♀️ Running Gitleaks detect (pre-commit)..."
+
+if ! gitleaks detect --source="$(pwd)" --config=".gitleaks.toml" --exit-code 1; then
+  echo "🛑 Gitleaks detected secrets. Aborting commit."
+  exit 1
+fi
+echo "✅ No secrets found. Proceeding with commit."
+
+# Check for empty files in staged changes
+echo "📂 Checking for empty files in staged and untracked changes..."
+
+# Files we allow to be empty (placeholders, etc.)
+ALLOW_EMPTY_REGEX='(^|/)\.gitkeep$|(^|/)\.keep$'
+
+# Get staged added/modified files
+STAGED_FILES=$(git diff --cached --name-only --diff-filter=AM)
+
+# Get untracked files (not ignored)
+UNTRACKED_FILES=$(git ls-files --others --exclude-standard)
+
+# Combine and remove duplicates
+CANDIDATES=$(echo -e "$STAGED_FILES\n$UNTRACKED_FILES" | sort -u)
+
+EMPTY_FILES=""
+echo "$CANDIDATES" | while IFS= read -r file; do
+  [ -z "$file" ] && continue
+  if echo "$file" | grep -Eq "$ALLOW_EMPTY_REGEX"; then
+    continue
+  fi
+  if [ -f "$file" ] && [ ! -s "$file" ]; then
+    EMPTY_FILES+="$file"$'\n'
+  fi
+done
+
+if [ -n "$EMPTY_FILES" ]; then
+  echo "🛑 Empty files detected:"
+  printf "%s" "$EMPTY_FILES"
+  echo -e "\nPlease remove them or add content before committing."
+  exit 1
+fi
+
+echo "✅ No empty files found. Proceeding with commit."
