@@ -1,12 +1,7 @@
 'use server';
 
 import { z, ZodError } from 'zod';
-import DOMPurify from 'dompurify';
-import { JSDOM } from 'jsdom';
-
-// Create a server-side DOMPurify instance
-const window = new JSDOM('').window;
-const purify = DOMPurify(window as any);
+import xss from 'xss';
 
 const MAILCHIMP_URL = process.env.MAILCHIMP_API_URL;
 const MAILCHIMP_API_KEY = process.env.MAILCHIMP_API_KEY;
@@ -24,7 +19,6 @@ const waitlistSchema = z.object({
     .transform((val) => val.trim()),
 
   EMAIL: z
-    .string()
     .email('Please enter a valid email address')
     .max(254, 'Email must be less than 254 characters')
     .toLowerCase()
@@ -36,13 +30,13 @@ const waitlistSchema = z.object({
 // Type for the validated data
 type WaitlistData = z.infer<typeof waitlistSchema>;
 
-// Sanitize input using DOMPurify
+// Sanitize input using xss
 const sanitizeInput = (input: string): string => {
-  return purify.sanitize(input.trim(), {
-    ALLOWED_TAGS: [], // No HTML tags allowed
-    ALLOWED_ATTR: [], // No attributes allowed
-    KEEP_CONTENT: true, // Keep the text content
-  });
+  return xss(input, {
+    whiteList: {},
+    stripIgnoreTag: true,
+    stripIgnoreTagBody: ['script'],
+  }).trim();
 };
 
 export async function subscribeToWaitlist(formData: FormData) {
@@ -59,7 +53,7 @@ export async function subscribeToWaitlist(formData: FormData) {
 
     // Honeypot check (bot detection)
     if (validatedData.website) {
-      console.log('Bot detected via honeypot');
+      console.info('Bot detected via honeypot');
       return { success: true }; // Silently fail for bots
     }
 
@@ -98,8 +92,8 @@ export async function subscribeToWaitlist(formData: FormData) {
       throw new Error('Mailchimp submission failed');
     }
 
-    // Log successful subscription
-    console.log(`New waitlist subscription: ${validatedData.EMAIL}`);
+    // info successful subscription
+    console.info(`New waitlist subscription: ${validatedData.EMAIL}`);
 
     return { success: true };
   } catch (error) {
