@@ -47,7 +47,7 @@ const Home: FC = () => {
         </div>
       </div>
 
-      <div className='flex w-full md:-3/4 lg:w-2/3 justify-center px-2 gap-x-20 gap-y-8 lg:gap-32 md:px-20 text-text-300 md:flex-nowrap flex-wrap text-center'>
+      <div className='flex w-full md:-3/4 lg:w-2/3 justify-center z-20 px-2 gap-x-20 gap-y-8 lg:gap-32 md:px-20 text-text-300 md:flex-nowrap flex-wrap text-center'>
         <div className='flex flex-col items-center'>
           <Share2 size={36} />
           <h3 className='font-bold text-lg'>Post</h3>
