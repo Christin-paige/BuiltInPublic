@@ -98,7 +98,10 @@ export default function WaitlistForm() {
   };
 
   return (
-    <div id='waitlist' className='bg-gray-800 p-8 rounded-2xl max-w-xl mt-12 w-full mx-auto shadow-lg text-center'>
+    <div
+      id='waitlist'
+      className='bg-gray-800 p-8 rounded-2xl max-w-xl mt-12 w-full mx-auto shadow-lg text-center'
+    >
       {result?.success && (
         <div className='text-green-400 font-medium mb-4'>
           🎉 Thanks for subscribing!
