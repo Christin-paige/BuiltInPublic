@@ -72,6 +72,7 @@ export class ProfileRepository extends BaseRepository<ProfileDTO, Profile> {
       .from('user_consents')
       .select('*, policy_documents(document_type)')
       .eq('user_id', userId)
+      .is('revoked_at', null)
       .is('policy_documents.superseded_at', null);
 
     if (error) {
