@@ -26,18 +26,28 @@ const Home: FC = () => {
             Join our supportive community where developers collaborate, share
             progress, and grow together.
           </p>
-          <Link
-            href='/auth'
-            className='w-fit bg-linear-to-bl from-secondary-900 via-secondary-600 to-secondary-900 text-text-100 font-bold py-2 px-8 rounded-full mt-4 border 
-            border-secondary-800 hover:scale-[1.02] transition-all duration-300 cursor-pointer text-lg sm:text-xl hover:shadow-md hover:shadow-black/30 
-              active:scale-100 font-subheading ease-in-out hover:border-white/40'
-          >
-            Join now
-          </Link>
+          <div className='flex gap-2'>
+            <Link
+              href='#waitlist'
+              className='w-fit bg-linear-to-bl from-secondary-900 via-secondary-600 to-secondary-900 text-text-100 font-bold py-2 px-8 rounded-full mt-4 border 
+              border-secondary-800 hover:scale-[1.02] transition-all duration-300 cursor-pointer text-lg sm:text-xl hover:shadow-md hover:shadow-black/30 
+                active:scale-100 font-subheading ease-in-out hover:border-white/40'
+            >
+              Join now
+            </Link>
+            <Link
+              href='/auth'
+              className='w-fit bg-linear-to-bl from-primary-900 via-primary-600 to-primary-900 text-text-100 font-bold py-2 px-8 rounded-full mt-4 border 
+              border-primary-800 hover:scale-[1.02] transition-all duration-300 cursor-pointer text-lg sm:text-xl hover:shadow-md hover:shadow-black/30 
+                active:scale-100 font-subheading ease-in-out hover:border-white/40'
+            >
+              Sign in
+            </Link>
+          </div>
         </div>
       </div>
 
-      <div className='flex w-full md:-3/4 lg:w-2/3 justify-center px-2 gap-x-20 gap-y-8 lg:gap-32 md:px-20 text-text-300 md:flex-nowrap flex-wrap text-center'>
+      <div className='flex w-full md:-3/4 lg:w-2/3 justify-center z-20 px-2 gap-x-20 gap-y-8 lg:gap-32 md:px-20 text-text-300 md:flex-nowrap flex-wrap text-center'>
         <div className='flex flex-col items-center'>
           <Share2 size={36} />
           <h3 className='font-bold text-lg'>Post</h3>

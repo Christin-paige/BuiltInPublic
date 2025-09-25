@@ -13,6 +13,20 @@ import {
   DialogDescription,
   DialogTrigger,
 } from '@/components/ui/dialog';
+import Markdown, { Components } from 'react-markdown';
+
+const markdownComponents: Components = {
+  a: ({ children, ...props }) => (
+    <a
+      {...props}
+      className='underline'
+      target='_blank'
+      rel='noopener noreferrer'
+    >
+      {children}
+    </a>
+  ),
+};
 
 function titleFor(type: PolicyDocumentType) {
   switch (type) {
@@ -58,7 +72,7 @@ export default function DisplayDocumentDialog({
         </Button>
       </DialogTrigger>
 
-      <DialogContent className='max-w-2xl'>
+      <DialogContent className='max-w-2xl max-h-full md:max-h-[80%] overflow-y-scroll'>
         <DialogHeader>
           <DialogTitle>{heading}</DialogTitle>
           {effective && (
@@ -66,7 +80,9 @@ export default function DisplayDocumentDialog({
           )}
         </DialogHeader>
 
-        <div className='whitespace-pre-wrap text-sm leading-6'>{body}</div>
+        <div className='whitespace-pre-wrap'>
+          <Markdown components={markdownComponents}>{body}</Markdown>
+        </div>
       </DialogContent>
     </Dialog>
   );
