@@ -4,14 +4,18 @@ import { Button } from '@/components/ui/button';
 import { ConfirmationDialog } from '@/components/ui/confirmation-dialog';
 import { useDeleteProject } from '@/hooks/useProject/useProject';
 import { useProjectContext } from '@/components/Providers/ProjectProvider';
+import useUser from '@/hooks/useUser/useUser';
 
 export default function ProjectDeleteButton() {
 
   const { id } = useProjectContext();
-  const deleteMutation = useDeleteProject(id);
+  const { data } = useUser();
+  const deleteMutation = useDeleteProject();
 
   const handleDelete = () => {
-    deleteMutation.mutate({ projectId: id });
+    if (data?.username) {
+      deleteMutation.mutate({ projectId: id, username: data.username });
+    }
   }
 
   return (

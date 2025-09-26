@@ -14,6 +14,7 @@ import { ValidationError } from 'utils/errors/ValidationError';
 import { updateProjectSchema } from './updateProject.schema';
 import { UpdateProject } from '@/use-cases/projects/UpdateProject';
 import { DeleteProject, DeleteProjectParams } from '@/use-cases/projects/DeleteProject';
+import { redirect } from 'next/navigation';
 
 export async function getProjectById(id: string) {
   const supabase = await createAnonClient();
@@ -114,10 +115,12 @@ export async function updateProject(params: UpdateProjectParams) {
   }
 }
 
-export async function deleteProject(params: DeleteProjectParams) {
-  const { projectId } = params;
+export async function deleteProject(params: DeleteProjectParams & { username: string }) {
+  const { projectId, username } = params;
+  
+  console.log('Deleting project:', projectId, 'for user:', username);
+  
   const supabase = await createAnonClient();
-
   const deleteProject = new DeleteProject(supabase);
 
   const result = await deleteProject.execute({
@@ -125,8 +128,12 @@ export async function deleteProject(params: DeleteProjectParams) {
   });
 
   if (!result.success) {
+    console.error('Delete failed:', result.message);
     throw new Error(result.message);
   }
 
-  return result;
+  console.log('Delete successful, redirecting to:', `/${username}`);
+  
+  // Don't wrap this in try/catch - let the redirect happen naturally
+  redirect(`/${username}`);
 };

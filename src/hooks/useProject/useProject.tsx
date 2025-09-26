@@ -91,18 +91,20 @@ export function useUpdateProject(projectId: string) {
   return mutation;
 }
 
-export function useDeleteProject(projectId: string) {
+export function useDeleteProject() {
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
     mutationFn: deleteProject,
     onError: (error) => {
-      UINotification.error(error.message);
+      if (error.message !== 'NEXT_REDIRECT') {
+        UINotification.error(error.message);
+      }
     },
-    onSuccess: (result) => {
-      UINotification.success(result.message);
+    onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: projectQueryKeys.projectId(projectId),
+        queryKey: projectQueryKeys.all,
+        exact: false,
       });
     },
   });
