@@ -10,7 +10,6 @@ import {
 } from './actions';
 import UINotification from '@/services/UINotification.service';
 import { ValidationError } from 'utils/errors/ValidationError';
-import { error } from 'console';
 
 const projectQueryKeys = {
   all: ['project'] as const,
