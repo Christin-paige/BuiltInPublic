@@ -13,6 +13,7 @@ import { editProjectSchema } from './editProject.schema';
 import { ValidationError } from 'utils/errors/ValidationError';
 import { updateProjectSchema } from './updateProject.schema';
 import { UpdateProject } from '@/use-cases/projects/UpdateProject';
+import { DeleteProject, DeleteProjectParams } from '@/use-cases/projects/DeleteProject';
 
 export async function getProjectById(id: string) {
   const supabase = await createAnonClient();
@@ -112,3 +113,20 @@ export async function updateProject(params: UpdateProjectParams) {
     return result;
   }
 }
+
+export async function deleteProject(params: DeleteProjectParams) {
+  const { projectId } = params;
+  const supabase = await createAnonClient();
+
+  const deleteProject = new DeleteProject(supabase);
+
+  const result = await deleteProject.execute({
+    projectId,
+  });
+
+  if (!result.success) {
+    throw new Error(result.message);
+  }
+
+  return result;
+};
