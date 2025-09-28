@@ -2,12 +2,10 @@
 
 import { ProjectRepository } from '@/repositories/projectRepository/project.repository';
 import {
-  Project,
   ProjectStatus,
   ProjectVisibility,
 } from '@/repositories/projectRepository/project.types';
 import { EditProject } from '@/use-cases/projects/EditProject';
-import { Database } from 'supabase/supabase.types';
 import { createAnonClient } from 'utils/supabase/server';
 import { editProjectSchema } from './editProject.schema';
 import { ValidationError } from 'utils/errors/ValidationError';
@@ -123,8 +121,6 @@ export async function deleteProject(
 ) {
   const { projectId, username } = params;
 
-  console.log('Deleting project:', projectId, 'for user:', username);
-
   const supabase = await createAnonClient();
   const deleteProject = new DeleteProject(supabase);
 
@@ -137,8 +133,5 @@ export async function deleteProject(
     throw new Error(result.message);
   }
 
-  console.log('Delete successful, redirecting to:', `/${username}`);
-
-  // Don't wrap this in try/catch - let the redirect happen naturally
   redirect(`/${username}`);
 }
