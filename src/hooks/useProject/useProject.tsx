@@ -82,8 +82,7 @@ export function useCreateProject() {
           exact: false,
         });
         return;
-      }
-      else if (error instanceof ValidationError) {
+      } else if (error instanceof ValidationError) {
         // let onSettled handle validation errors
         return;
       }
@@ -94,7 +93,6 @@ export function useCreateProject() {
         queryKey: projectQueryKeys.username(variables.username),
       });
     },
-
   });
 
   return mutation;
@@ -133,7 +131,7 @@ export function useDeleteProject() {
         UINotification.error(error.message);
       } else {
         queryClient.removeQueries({
-          queryKey: projectQueryKeys.projectId(variables.projectId)
+          queryKey: projectQueryKeys.projectId(variables.projectId),
         });
         queryClient.invalidateQueries({
           queryKey: projectQueryKeys.all,
@@ -143,8 +141,8 @@ export function useDeleteProject() {
     },
     onSuccess: (result, variables) => {
       queryClient.removeQueries({
-        queryKey: projectQueryKeys.projectId(variables.projectId)
-      })
+        queryKey: projectQueryKeys.projectId(variables.projectId),
+      });
       queryClient.invalidateQueries({
         queryKey: projectQueryKeys.all,
         exact: false,

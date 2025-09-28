@@ -7,7 +7,6 @@ import { useProjectContext } from '@/components/Providers/ProjectProvider';
 import useUser from '@/hooks/useUser/useUser';
 
 export default function ProjectDeleteButton() {
-
   const { id } = useProjectContext();
   const { data } = useUser();
   const deleteMutation = useDeleteProject();
@@ -16,17 +15,15 @@ export default function ProjectDeleteButton() {
     if (data?.username) {
       deleteMutation.mutate({ projectId: id, username: data.username });
     }
-  }
+  };
 
   return (
     <ConfirmationDialog
-      title="Delete Project"
-      description="Are you sure you want to delete this project? This action cannot be undone."
+      title='Delete Project'
+      description='Are you sure you want to delete this project? This action cannot be undone.'
       onConfirm={handleDelete}
     >
-      <Button variant="destructive">
-        Delete Project
-      </Button>
+      <Button variant='destructive'>Delete Project</Button>
     </ConfirmationDialog>
-  )
+  );
 }

@@ -13,7 +13,10 @@ import { editProjectSchema } from './editProject.schema';
 import { ValidationError } from 'utils/errors/ValidationError';
 import { updateProjectSchema } from './updateProject.schema';
 import { UpdateProject } from '@/use-cases/projects/UpdateProject';
-import { DeleteProject, DeleteProjectParams } from '@/use-cases/projects/DeleteProject';
+import {
+  DeleteProject,
+  DeleteProjectParams,
+} from '@/use-cases/projects/DeleteProject';
 import { redirect } from 'next/navigation';
 
 export async function getProjectById(id: string) {
@@ -115,11 +118,13 @@ export async function updateProject(params: UpdateProjectParams) {
   }
 }
 
-export async function deleteProject(params: DeleteProjectParams & { username: string }) {
+export async function deleteProject(
+  params: DeleteProjectParams & { username: string }
+) {
   const { projectId, username } = params;
-  
+
   console.log('Deleting project:', projectId, 'for user:', username);
-  
+
   const supabase = await createAnonClient();
   const deleteProject = new DeleteProject(supabase);
 
@@ -133,7 +138,7 @@ export async function deleteProject(params: DeleteProjectParams & { username: st
   }
 
   console.log('Delete successful, redirecting to:', `/${username}`);
-  
+
   // Don't wrap this in try/catch - let the redirect happen naturally
   redirect(`/${username}`);
-};
+}

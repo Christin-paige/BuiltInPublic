@@ -1,4 +1,4 @@
-import { BaseMutationUseCase } from "@/use-cases/BaseMutationUseCase";
+import { BaseMutationUseCase } from '@/use-cases/BaseMutationUseCase';
 
 export interface DeleteProjectParams {
   projectId: string;

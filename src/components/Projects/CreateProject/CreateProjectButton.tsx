@@ -50,8 +50,7 @@ export function CreateProjectButton({ canEdit = true }: { canEdit?: boolean }) {
           onError: (error) => {
             if (error?.message === 'NEXT_REDIRECT') {
               return;
-            }
-              else if (error?.message) {
+            } else if (error?.message) {
               UINotification.error(error.message);
             } else {
               UINotification.error('Error creating project');
