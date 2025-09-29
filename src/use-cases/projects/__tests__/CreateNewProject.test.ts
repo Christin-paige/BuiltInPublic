@@ -23,6 +23,7 @@ const mockSupabaseFails = {
 describe('Use case - CreateNewProject', () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    vi.spyOn(console, 'error').mockImplementation(() => {});
     mockInsert.mockReturnValue(mockSupabase);
     mockInsertFails.mockReturnValue(mockSupabaseFails);
   });

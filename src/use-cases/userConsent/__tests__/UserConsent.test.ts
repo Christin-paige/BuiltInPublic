@@ -19,6 +19,7 @@ const mockSupabaseFails = {
 describe('UserConsent use case', () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    vi.spyOn(console, 'error').mockImplementation(() => {});
   });
 
   it('returns success: true when insert succeeds', async () => {
