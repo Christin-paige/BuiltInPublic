@@ -27,9 +27,12 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { createProject } from './actions';
 import UINotification from '@/services/UINotification.service';
 import { Plus } from 'lucide-react';
+import { useCreateProject } from '@/hooks/useProject/useProject';
 
 export function CreateProjectButton({ canEdit = true }: { canEdit?: boolean }) {
   const { data: user, isLoading: isLoadingUser } = useUser();
+
+  const createMutation = useCreateProject();
 
   const form = useForm<CreateProjectSchema>({
     resolver: zodResolver(createProjectSchema),
@@ -41,26 +44,20 @@ export function CreateProjectButton({ canEdit = true }: { canEdit?: boolean }) {
 
   const submit = async (formData: CreateProjectSchema) => {
     if (user?.id) {
-      const submission = await createProject({
-        formData,
-        ownerId: user.id,
-        username: user.username!,
-      });
-
-      if (submission?.errors) {
-        form.clearErrors();
-
-        Object.entries(submission.errors).forEach(([field, messages]) => {
-          form.setError(field as keyof CreateProjectSchema, {
-            type: 'server',
-            message: messages.join(', '),
-          });
-        });
-      }
-
-      if (!submission?.success && !submission?.errors) {
-        UINotification.error('Creating project failed');
-      }
+      createMutation.mutate(
+        { formData, ownerId: user.id, username: user.username || '' },
+        {
+          onError: (error) => {
+            if (error?.message === 'NEXT_REDIRECT') {
+              return;
+            } else if (error?.message) {
+              UINotification.error(error.message);
+            } else {
+              UINotification.error('Error creating project');
+            }
+          },
+        }
+      );
     }
   };
 

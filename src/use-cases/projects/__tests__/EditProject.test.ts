@@ -21,6 +21,7 @@ const mockSupabaseFails = {
 describe('Use case - EditProject', () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    vi.spyOn(console, 'error').mockImplementation(() => {});
     mockUpdate.mockReturnValue(mockSupabase);
     mockUpdateFails.mockReturnValue(mockSupabaseFails);
   });

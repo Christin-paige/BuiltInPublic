@@ -14,6 +14,7 @@ import { ProjectVisibilityDropdown } from './ProjectVisibilityDropdown';
 import { ProjectTitle } from './ProjectTitle';
 import { ProjectDescription } from './ProjectDescription';
 import { ProjectUpdateButton } from './ProjectUpdateButton';
+import ProjectDeleteButton from '@/components/Projects/ProjectPanel/ProjectDeleteButton';
 
 export function ProjectEditPanel() {
   const { name, updates } = useProjectContext();
@@ -31,7 +32,10 @@ export function ProjectEditPanel() {
         <CardContent>
           <CardDescription className='sr-only'>{`Details of project named: ${name}`}</CardDescription>
           <ProjectDescription />
-          <ProjectUpdateButton />
+          <div className='flex gap-2'>
+            <ProjectUpdateButton />
+            <ProjectDeleteButton />
+          </div>
         </CardContent>
       </Card>
       <div className='flex flex-col gap-2 overflow-scroll scroll-hide h-fit md:h-[78vh]'>
