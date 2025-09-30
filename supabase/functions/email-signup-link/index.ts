@@ -51,8 +51,9 @@ async function handler(req: Request) {
   const resendApiKey = Deno.env.get('RESEND_API_KEY') ?? '';
   const webhookSecret = Deno.env.get('WEBHOOK_SECRET') ?? '';
   const platformHost = Deno.env.get('PLATFORM_HOST') ?? '';
+  const discordInvite = Deno.env.get('DISCORD_INVITE') ?? '';
 
-  if (!resendApiKey || !webhookSecret || !platformHost) {
+  if (!resendApiKey || !webhookSecret || !platformHost || !discordInvite) {
     return new Response('Missing environment variables', { status: 500 });
   }
 
@@ -74,7 +75,7 @@ async function handler(req: Request) {
     from: 'no-reply@onboarding.builtinpublic.tech',
     to: send_email,
     subject: 'Built In Public Sign up link',
-    html: `<h2>Welcome aboard!</h2><p>Thanks for being part of our alpha user group, we can't wait to hear what you think!</p><p>Click <a href="https://${platformHost}/auth?token=${id}">here</a> to sign up.</p>`,
+    html: `<h2>&#128075; Welcome aboard!</h2><p>Thanks for being part of our alpha user group, we can't wait to hear what you think!</p><p>&#128073; Click <a href="https://${platformHost}/auth?token=${id}">here</a> to sign up.</p><p>&#128172; And don't forget to join our <a href="${discordInvite}">discord</a> server!</p><h2>&#128302; What to expect</h2><p>At the moment we have a pretty limited feature set. We've been spending much of our time on infrastructure and security concerns, and we've reached a point where there is enough functionality to take a few users with us as we build out the initial feature set.</p><p>You'll be able to create a profile, some projects, and add updates to those projects. Over the next few weeks we'll be finishing up our initial feature set and would love your input and feedback as we go forward.</p><h2>&#128737;&#65039; What we’re working on now</h2><ul><li>Image support</li><li>Markdown support and editing</li><li>A Share button to easily create a shareable link to a project</li></ul><p>From there, we'll be moving on to add social features (friending/following, a feed, comments, etc) and we hope you'll stick around for that! &#128640;</p>`,
   };
 
   const response = await sendEmailWithRetry(resendApiKey, emailData);

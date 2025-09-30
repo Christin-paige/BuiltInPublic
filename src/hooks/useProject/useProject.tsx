@@ -6,9 +6,12 @@ import {
   getProjectById,
   getProjectsByUsername,
   updateProject,
+  deleteProject,
 } from './actions';
+import { createProject } from '@/components/Projects/CreateProject/actions';
 import UINotification from '@/services/UINotification.service';
 import { ValidationError } from 'utils/errors/ValidationError';
+import { Variable } from 'lucide-react';
 
 const projectQueryKeys = {
   all: ['project'] as const,
@@ -67,6 +70,34 @@ export function useEditProject(projectId: string) {
   return mutation;
 }
 
+export function useCreateProject() {
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: createProject,
+    onError: (error) => {
+      if (error.message === 'NEXT_REDIRECT') {
+        queryClient.invalidateQueries({
+          queryKey: projectQueryKeys.all,
+          exact: false,
+        });
+        return;
+      } else if (error instanceof ValidationError) {
+        // let onSettled handle validation errors
+        return;
+      }
+      UINotification.error(error.message);
+    },
+    onSuccess: (result, variables) => {
+      queryClient.invalidateQueries({
+        queryKey: projectQueryKeys.username(variables.username),
+      });
+    },
+  });
+
+  return mutation;
+}
+
 export function useUpdateProject(projectId: string) {
   const queryClient = useQueryClient();
 
@@ -83,6 +114,38 @@ export function useUpdateProject(projectId: string) {
       UINotification.success(result.message);
       queryClient.invalidateQueries({
         queryKey: projectQueryKeys.projectId(projectId),
+      });
+    },
+  });
+
+  return mutation;
+}
+
+export function useDeleteProject() {
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: deleteProject,
+    onError: (error, variables) => {
+      if (error.message !== 'NEXT_REDIRECT') {
+        UINotification.error(error.message);
+      } else {
+        queryClient.removeQueries({
+          queryKey: projectQueryKeys.projectId(variables.projectId),
+        });
+        queryClient.invalidateQueries({
+          queryKey: projectQueryKeys.all,
+          exact: false,
+        });
+      }
+    },
+    onSuccess: (result, variables) => {
+      queryClient.removeQueries({
+        queryKey: projectQueryKeys.projectId(variables.projectId),
+      });
+      queryClient.invalidateQueries({
+        queryKey: projectQueryKeys.all,
+        exact: false,
       });
     },
   });

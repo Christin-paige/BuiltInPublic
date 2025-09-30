@@ -2,17 +2,20 @@
 
 import { ProjectRepository } from '@/repositories/projectRepository/project.repository';
 import {
-  Project,
   ProjectStatus,
   ProjectVisibility,
 } from '@/repositories/projectRepository/project.types';
 import { EditProject } from '@/use-cases/projects/EditProject';
-import { Database } from 'supabase/supabase.types';
 import { createAnonClient } from 'utils/supabase/server';
 import { editProjectSchema } from './editProject.schema';
 import { ValidationError } from 'utils/errors/ValidationError';
 import { updateProjectSchema } from './updateProject.schema';
 import { UpdateProject } from '@/use-cases/projects/UpdateProject';
+import {
+  DeleteProject,
+  DeleteProjectParams,
+} from '@/use-cases/projects/DeleteProject';
+import { redirect } from 'next/navigation';
 
 export async function getProjectById(id: string) {
   const supabase = await createAnonClient();
@@ -111,4 +114,24 @@ export async function updateProject(params: UpdateProjectParams) {
 
     return result;
   }
+}
+
+export async function deleteProject(
+  params: DeleteProjectParams & { username: string }
+) {
+  const { projectId, username } = params;
+
+  const supabase = await createAnonClient();
+  const deleteProject = new DeleteProject(supabase);
+
+  const result = await deleteProject.execute({
+    projectId,
+  });
+
+  if (!result.success) {
+    console.error('Delete failed:', result.message);
+    throw new Error(result.message);
+  }
+
+  redirect(`/${username}`);
 }

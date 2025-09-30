@@ -18,6 +18,7 @@ const mockSupabaseFails = {
 describe('Use case - UpdateProject', () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    vi.spyOn(console, 'error').mockImplementation(() => {});
     mockInsert.mockResolvedValue({ error: null, data: { id: 'test-id' } });
     mockInsertFails.mockResolvedValue({
       error: { message: 'violation or whatever', code: 'string' },
