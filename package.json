@@ -66,7 +66,7 @@
     "eslint": "^9.34.0",
     "eslint-config-next": "15.4.6",
     "eslint-plugin-react": "^7.37.5",
-    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-hooks": "^6.1.1",
     "eslint-plugin-unicorn": "^61.0.1",
     "husky": "^9.1.7",
     "jsdom": "^26.1.0",
