@@ -1,93 +1,272 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuites name="vitest tests" tests="38" failures="0" errors="0" time="0.037185973">
-    <testsuite name="src/use-cases/__tests__/BaseMutationUseCase.test.ts" timestamp="2025-10-26T22:14:23.769Z" hostname="pop-os.loc" tests="11" failures="0" errors="0" skipped="0" time="0.005521579">
-        <testcase classname="src/use-cases/__tests__/BaseMutationUseCase.test.ts" name="BaseUseCase.compactUpdateData &gt; preserves null values in update data" time="0.0018765">
+<testsuites name="vitest tests" tests="122" failures="0" errors="0" time="2.434898957">
+    <testsuite name="src/lib/__tests__/imageUtils.test.ts" timestamp="2025-11-04T23:22:49.427Z" hostname="MAC-G7L30391G4" tests="10" failures="0" errors="0" skipped="0" time="1.238723625">
+        <testcase classname="src/lib/__tests__/imageUtils.test.ts" name="imageUtils &gt; validateFileType &gt; should accept valid image types (JPEG, PNG, WebP)" time="0.00133475">
         </testcase>
-        <testcase classname="src/use-cases/__tests__/BaseMutationUseCase.test.ts" name="BaseUseCase.compactUpdateData &gt; removes undefined values from update data" time="0.000208789">
+        <testcase classname="src/lib/__tests__/imageUtils.test.ts" name="imageUtils &gt; validateFileType &gt; should reject invalid file types" time="0.000300708">
         </testcase>
-        <testcase classname="src/use-cases/__tests__/BaseMutationUseCase.test.ts" name="BaseUseCase.compactUpdateData &gt; preserves empty string values in update data" time="0.000140559">
+        <testcase classname="src/lib/__tests__/imageUtils.test.ts" name="imageUtils &gt; validateFileSize &gt; should accept file under 10MB" time="0.068060542">
         </testcase>
-        <testcase classname="src/use-cases/__tests__/BaseMutationUseCase.test.ts" name="BaseUseCase.compactUpdateData &gt; preserves falsy but valid values" time="0.00013344">
+        <testcase classname="src/lib/__tests__/imageUtils.test.ts" name="imageUtils &gt; validateFileSize &gt; should reject file over 10MB" time="0.59899875">
         </testcase>
-        <testcase classname="src/use-cases/__tests__/BaseMutationUseCase.test.ts" name="BaseUseCase.compactUpdateData &gt; throws NO_VALID_FIELDS error when all values are undefined" time="0.000753145">
+        <testcase classname="src/lib/__tests__/imageUtils.test.ts" name="imageUtils &gt; convertToWebP &gt; should convert image to WebP format" time="0.002220666">
         </testcase>
-        <testcase classname="src/use-cases/__tests__/BaseMutationUseCase.test.ts" name="BaseUseCase.compactUpdateData &gt; handles mixed valid and nullish values" time="0.00015213">
+        <testcase classname="src/lib/__tests__/imageUtils.test.ts" name="imageUtils &gt; convertToWebP &gt; should resize large images and maintain aspect ratio" time="0.002298416">
         </testcase>
-        <testcase classname="src/use-cases/__tests__/BaseMutationUseCase.test.ts" name="BaseUseCase.compactUpdateData &gt; preserves complex object values" time="0.00016104">
+        <testcase classname="src/lib/__tests__/imageUtils.test.ts" name="imageUtils &gt; convertToWebP &gt; should reject if canvas context is null" time="0.000915666">
         </testcase>
-        <testcase classname="src/use-cases/__tests__/BaseMutationUseCase.test.ts" name="BaseUseCase.compactUpdateData &gt; throws NO_VALID_FIELDS error for empty object input" time="0.000178259">
+        <testcase classname="src/lib/__tests__/imageUtils.test.ts" name="imageUtils &gt; processImages &gt; should process multiple valid files" time="0.004881333">
         </testcase>
-        <testcase classname="src/use-cases/__tests__/BaseMutationUseCase.test.ts" name="BaseUseCase.compactUpdateData &gt; preserves array values" time="0.000206719">
+        <testcase classname="src/lib/__tests__/imageUtils.test.ts" name="imageUtils &gt; processImages &gt; should reject files with validation errors" time="0.55729775">
         </testcase>
-        <testcase classname="src/use-cases/__tests__/BaseMutationUseCase.test.ts" name="BaseUseCase.compactUpdateData &gt; preserves all string values including empty strings" time="0.000138919">
-        </testcase>
-        <testcase classname="src/use-cases/__tests__/BaseMutationUseCase.test.ts" name="BaseUseCase.compactUpdateData &gt; preserves null values for bio deletion use case" time="0.000179399">
+        <testcase classname="src/lib/__tests__/imageUtils.test.ts" name="imageUtils &gt; URL utilities &gt; should create and revoke preview URLs" time="0.001118833">
         </testcase>
     </testsuite>
-    <testsuite name="src/use-cases/projects/__tests__/CreateNewProject.test.ts" timestamp="2025-10-26T22:14:23.771Z" hostname="pop-os.loc" tests="4" failures="0" errors="0" skipped="0" time="0.006363305">
-        <testcase classname="src/use-cases/projects/__tests__/CreateNewProject.test.ts" name="Use case - CreateNewProject &gt; should respond with success: true and a message when creation succeeds" time="0.002234157">
+    <testsuite name="src/use-cases/__tests__/BaseMutationUseCase.test.ts" timestamp="2025-11-04T23:22:49.428Z" hostname="MAC-G7L30391G4" tests="11" failures="0" errors="0" skipped="0" time="0.003504333">
+        <testcase classname="src/use-cases/__tests__/BaseMutationUseCase.test.ts" name="BaseUseCase.compactUpdateData &gt; preserves null values in update data" time="0.00112">
         </testcase>
-        <testcase classname="src/use-cases/projects/__tests__/CreateNewProject.test.ts" name="Use case - CreateNewProject &gt; should sanitize input" time="0.002330007">
+        <testcase classname="src/use-cases/__tests__/BaseMutationUseCase.test.ts" name="BaseUseCase.compactUpdateData &gt; removes undefined values from update data" time="0.000098">
         </testcase>
-        <testcase classname="src/use-cases/projects/__tests__/CreateNewProject.test.ts" name="Use case - CreateNewProject &gt; should fail if sanitizing input results in empty string for name" time="0.000221438">
+        <testcase classname="src/use-cases/__tests__/BaseMutationUseCase.test.ts" name="BaseUseCase.compactUpdateData &gt; preserves empty string values in update data" time="0.000060958">
         </testcase>
-        <testcase classname="src/use-cases/projects/__tests__/CreateNewProject.test.ts" name="Use case - CreateNewProject &gt; should respond with success: false and a message when creation fails" time="0.000254149">
+        <testcase classname="src/use-cases/__tests__/BaseMutationUseCase.test.ts" name="BaseUseCase.compactUpdateData &gt; preserves falsy but valid values" time="0.000055458">
         </testcase>
-    </testsuite>
-    <testsuite name="src/use-cases/projects/__tests__/DeleteProject.test.ts" timestamp="2025-10-26T22:14:23.772Z" hostname="pop-os.loc" tests="2" failures="0" errors="0" skipped="0" time="0.003768549">
-        <testcase classname="src/use-cases/projects/__tests__/DeleteProject.test.ts" name="Use case - Delete Project &gt; should respond with success: true and a message when deletion succeeds" time="0.002141338">
+        <testcase classname="src/use-cases/__tests__/BaseMutationUseCase.test.ts" name="BaseUseCase.compactUpdateData &gt; throws NO_VALID_FIELDS error when all values are undefined" time="0.000549625">
         </testcase>
-        <testcase classname="src/use-cases/projects/__tests__/DeleteProject.test.ts" name="Use case - Delete Project &gt; should respond with success: false and a message when deletion fails" time="0.000411017">
+        <testcase classname="src/use-cases/__tests__/BaseMutationUseCase.test.ts" name="BaseUseCase.compactUpdateData &gt; handles mixed valid and nullish values" time="0.000102792">
         </testcase>
-    </testsuite>
-    <testsuite name="src/use-cases/projects/__tests__/EditProject.test.ts" timestamp="2025-10-26T22:14:23.773Z" hostname="pop-os.loc" tests="8" failures="0" errors="0" skipped="0" time="0.006538944">
-        <testcase classname="src/use-cases/projects/__tests__/EditProject.test.ts" name="Use case - EditProject &gt; returns success: true and a message if update succeeds" time="0.002139028">
+        <testcase classname="src/use-cases/__tests__/BaseMutationUseCase.test.ts" name="BaseUseCase.compactUpdateData &gt; preserves complex object values" time="0.000084958">
         </testcase>
-        <testcase classname="src/use-cases/projects/__tests__/EditProject.test.ts" name="Use case - EditProject &gt; returns success: false and a message if update fails" time="0.000287978">
+        <testcase classname="src/use-cases/__tests__/BaseMutationUseCase.test.ts" name="BaseUseCase.compactUpdateData &gt; throws NO_VALID_FIELDS error for empty object input" time="0.000084084">
         </testcase>
-        <testcase classname="src/use-cases/projects/__tests__/EditProject.test.ts" name="Use case - EditProject &gt; fails if a provided URL is invalid" time="0.000496508">
+        <testcase classname="src/use-cases/__tests__/BaseMutationUseCase.test.ts" name="BaseUseCase.compactUpdateData &gt; preserves array values" time="0.000466917">
         </testcase>
-        <testcase classname="src/use-cases/projects/__tests__/EditProject.test.ts" name="Use case - EditProject &gt; fails if a provided URL is invalid" time="0.000237828">
+        <testcase classname="src/use-cases/__tests__/BaseMutationUseCase.test.ts" name="BaseUseCase.compactUpdateData &gt; preserves all string values including empty strings" time="0.000066584">
         </testcase>
-        <testcase classname="src/use-cases/projects/__tests__/EditProject.test.ts" name="Use case - EditProject &gt; fails if a provided URL is invalid" time="0.000154209">
-        </testcase>
-        <testcase classname="src/use-cases/projects/__tests__/EditProject.test.ts" name="Use case - EditProject &gt; sanitizes descriptions" time="0.001681171">
-        </testcase>
-        <testcase classname="src/use-cases/projects/__tests__/EditProject.test.ts" name="Use case - EditProject &gt; sanitizes name updates" time="0.000297818">
-        </testcase>
-        <testcase classname="src/use-cases/projects/__tests__/EditProject.test.ts" name="Use case - EditProject &gt; fails if sanitized name update results in an empty string" time="0.000212059">
+        <testcase classname="src/use-cases/__tests__/BaseMutationUseCase.test.ts" name="BaseUseCase.compactUpdateData &gt; preserves null values for bio deletion use case" time="0.000067">
         </testcase>
     </testsuite>
-    <testsuite name="src/use-cases/projects/__tests__/UpdateProject.test.ts" timestamp="2025-10-26T22:14:23.774Z" hostname="pop-os.loc" tests="4" failures="0" errors="0" skipped="0" time="0.005616898">
-        <testcase classname="src/use-cases/projects/__tests__/UpdateProject.test.ts" name="Use case - UpdateProject &gt; should respond with success: true and a message when creation succeeds" time="0.002066469">
+    <testsuite name="src/hooks/useImage/__tests__/image.schema.test.ts" timestamp="2025-11-04T23:22:49.429Z" hostname="MAC-G7L30391G4" tests="27" failures="0" errors="0" skipped="0" time="0.582284791">
+        <testcase classname="src/hooks/useImage/__tests__/image.schema.test.ts" name="Image Schemas &gt; imageUploadSchema &gt; should accept valid complete input" time="0.002386208">
         </testcase>
-        <testcase classname="src/use-cases/projects/__tests__/UpdateProject.test.ts" name="Use case - UpdateProject &gt; should sanitize input" time="0.001998519">
+        <testcase classname="src/hooks/useImage/__tests__/image.schema.test.ts" name="Image Schemas &gt; imageUploadSchema &gt; should accept valid input without altText" time="0.000210833">
         </testcase>
-        <testcase classname="src/use-cases/projects/__tests__/UpdateProject.test.ts" name="Use case - UpdateProject &gt; should fail if sanitizing input results in empty string for update" time="0.000213259">
+        <testcase classname="src/hooks/useImage/__tests__/image.schema.test.ts" name="Image Schemas &gt; imageUploadSchema &gt; should accept JPEG file type" time="0.000086541">
         </testcase>
-        <testcase classname="src/use-cases/projects/__tests__/UpdateProject.test.ts" name="Use case - UpdateProject &gt; should respond with success: false and a message when creation fails" time="0.000213789">
+        <testcase classname="src/hooks/useImage/__tests__/image.schema.test.ts" name="Image Schemas &gt; imageUploadSchema &gt; should accept PNG file type" time="0.000072583">
+        </testcase>
+        <testcase classname="src/hooks/useImage/__tests__/image.schema.test.ts" name="Image Schemas &gt; imageUploadSchema &gt; should accept WebP file type" time="0.00007125">
+        </testcase>
+        <testcase classname="src/hooks/useImage/__tests__/image.schema.test.ts" name="Image Schemas &gt; imageUploadSchema &gt; should reject invalid file type" time="0.000327542">
+        </testcase>
+        <testcase classname="src/hooks/useImage/__tests__/image.schema.test.ts" name="Image Schemas &gt; imageUploadSchema &gt; should reject file exceeding size limit" time="0.575374792">
+        </testcase>
+        <testcase classname="src/hooks/useImage/__tests__/image.schema.test.ts" name="Image Schemas &gt; imageUploadSchema &gt; should reject missing file" time="0.000183834">
+        </testcase>
+        <testcase classname="src/hooks/useImage/__tests__/image.schema.test.ts" name="Image Schemas &gt; imageUploadSchema &gt; should reject missing originalFilename" time="0.000312709">
+        </testcase>
+        <testcase classname="src/hooks/useImage/__tests__/image.schema.test.ts" name="Image Schemas &gt; imageUploadSchema &gt; should reject empty originalFilename" time="0.000165625">
+        </testcase>
+        <testcase classname="src/hooks/useImage/__tests__/image.schema.test.ts" name="Image Schemas &gt; imageUploadSchema &gt; should reject originalFilename exceeding 255 characters" time="0.00011025">
+        </testcase>
+        <testcase classname="src/hooks/useImage/__tests__/image.schema.test.ts" name="Image Schemas &gt; imageUploadSchema &gt; should reject altText exceeding 500 characters" time="0.000520792">
+        </testcase>
+        <testcase classname="src/hooks/useImage/__tests__/image.schema.test.ts" name="Image Schemas &gt; imageUploadSchema &gt; should reject missing width" time="0.000158917">
+        </testcase>
+        <testcase classname="src/hooks/useImage/__tests__/image.schema.test.ts" name="Image Schemas &gt; imageUploadSchema &gt; should reject missing height" time="0.000119167">
+        </testcase>
+        <testcase classname="src/hooks/useImage/__tests__/image.schema.test.ts" name="Image Schemas &gt; imageUploadSchema &gt; should reject negative width" time="0.000109708">
+        </testcase>
+        <testcase classname="src/hooks/useImage/__tests__/image.schema.test.ts" name="Image Schemas &gt; imageUploadSchema &gt; should reject zero width" time="0.000092833">
+        </testcase>
+        <testcase classname="src/hooks/useImage/__tests__/image.schema.test.ts" name="Image Schemas &gt; imageUploadSchema &gt; should reject negative height" time="0.000080291">
+        </testcase>
+        <testcase classname="src/hooks/useImage/__tests__/image.schema.test.ts" name="Image Schemas &gt; imageUploadSchema &gt; should reject zero height" time="0.000077333">
+        </testcase>
+        <testcase classname="src/hooks/useImage/__tests__/image.schema.test.ts" name="Image Schemas &gt; imageUploadSchema &gt; should reject non-integer width" time="0.000089542">
+        </testcase>
+        <testcase classname="src/hooks/useImage/__tests__/image.schema.test.ts" name="Image Schemas &gt; imageUploadSchema &gt; should reject non-integer height" time="0.000081084">
+        </testcase>
+        <testcase classname="src/hooks/useImage/__tests__/image.schema.test.ts" name="Image Schemas &gt; updateImageAltTextSchema &gt; should accept valid UUID and alt text" time="0.000267792">
+        </testcase>
+        <testcase classname="src/hooks/useImage/__tests__/image.schema.test.ts" name="Image Schemas &gt; updateImageAltTextSchema &gt; should accept valid UUID without alt text" time="0.000096417">
+        </testcase>
+        <testcase classname="src/hooks/useImage/__tests__/image.schema.test.ts" name="Image Schemas &gt; updateImageAltTextSchema &gt; should accept empty alt text" time="0.000033042">
+        </testcase>
+        <testcase classname="src/hooks/useImage/__tests__/image.schema.test.ts" name="Image Schemas &gt; updateImageAltTextSchema &gt; should reject invalid UUID format" time="0.000084292">
+        </testcase>
+        <testcase classname="src/hooks/useImage/__tests__/image.schema.test.ts" name="Image Schemas &gt; updateImageAltTextSchema &gt; should reject missing imageId" time="0.000050542">
+        </testcase>
+        <testcase classname="src/hooks/useImage/__tests__/image.schema.test.ts" name="Image Schemas &gt; updateImageAltTextSchema &gt; should reject alt text exceeding 500 characters" time="0.000067166">
+        </testcase>
+        <testcase classname="src/hooks/useImage/__tests__/image.schema.test.ts" name="Image Schemas &gt; updateImageAltTextSchema &gt; should accept alt text at exactly 500 characters" time="0.000038667">
         </testcase>
     </testsuite>
-    <testsuite name="src/use-cases/updateUserProfile/__tests__/UpdateUserProfile.test.ts" timestamp="2025-10-26T22:14:23.774Z" hostname="pop-os.loc" tests="7" failures="0" errors="0" skipped="0" time="0.005929957">
-        <testcase classname="src/use-cases/updateUserProfile/__tests__/UpdateUserProfile.test.ts" name="Use Case - UpdateUserProfile &gt; UpdateUserProfile username handling &gt; Fails if username is a route" time="0.001949439">
+    <testsuite name="src/hooks/useImage/__tests__/useImage.test.tsx" timestamp="2025-11-04T23:22:49.430Z" hostname="MAC-G7L30391G4" tests="13" failures="0" errors="0" skipped="3" time="0.570311375">
+        <testcase classname="src/hooks/useImage/__tests__/useImage.test.tsx" name="useImage hooks &gt; useUserImages &gt; should fetch user images successfully" time="0">
+            <skipped/>
         </testcase>
-        <testcase classname="src/use-cases/updateUserProfile/__tests__/UpdateUserProfile.test.ts" name="Use Case - UpdateUserProfile &gt; UpdateUserProfile username handling &gt; Fails if username exists" time="0.000331938">
+        <testcase classname="src/hooks/useImage/__tests__/useImage.test.tsx" name="useImage hooks &gt; useUserImages &gt; should handle fetch errors" time="0">
+            <skipped/>
         </testcase>
-        <testcase classname="src/use-cases/updateUserProfile/__tests__/UpdateUserProfile.test.ts" name="Use Case - UpdateUserProfile &gt; UpdateUserProfile username handling &gt; Fails if username is profanity" time="0.000385098">
+        <testcase classname="src/hooks/useImage/__tests__/useImage.test.tsx" name="useImage hooks &gt; useUserImages &gt; should handle empty image list" time="0">
+            <skipped/>
         </testcase>
-        <testcase classname="src/use-cases/updateUserProfile/__tests__/UpdateUserProfile.test.ts" name="Use Case - UpdateUserProfile &gt; UpdateUserProfile username handling &gt; Fails if username is profanity" time="0.000250748">
+        <testcase classname="src/hooks/useImage/__tests__/useImage.test.tsx" name="useImage hooks &gt; useUploadImage &gt; should upload image successfully" time="0.066609583">
         </testcase>
-        <testcase classname="src/use-cases/updateUserProfile/__tests__/UpdateUserProfile.test.ts" name="Use Case - UpdateUserProfile &gt; UpdateUserProfile username handling &gt; Fails if username is profanity" time="0.000194889">
+        <testcase classname="src/hooks/useImage/__tests__/useImage.test.tsx" name="useImage hooks &gt; useUploadImage &gt; should handle upload errors" time="0.059975709">
         </testcase>
-        <testcase classname="src/use-cases/updateUserProfile/__tests__/UpdateUserProfile.test.ts" name="Use Case - UpdateUserProfile &gt; Profile updating &gt; Returns success if profile is updated" time="0.000329708">
+        <testcase classname="src/hooks/useImage/__tests__/useImage.test.tsx" name="useImage hooks &gt; useUploadImage &gt; should invalidate query cache after successful upload" time="0.061935083">
         </testcase>
-        <testcase classname="src/use-cases/updateUserProfile/__tests__/UpdateUserProfile.test.ts" name="Use Case - UpdateUserProfile &gt; Profile updating &gt; Throws error when profile update fails" time="0.001408152">
+        <testcase classname="src/hooks/useImage/__tests__/useImage.test.tsx" name="useImage hooks &gt; useDeleteImage &gt; should delete image successfully" time="0.052074291">
+        </testcase>
+        <testcase classname="src/hooks/useImage/__tests__/useImage.test.tsx" name="useImage hooks &gt; useDeleteImage &gt; should handle delete errors" time="0.056242">
+        </testcase>
+        <testcase classname="src/hooks/useImage/__tests__/useImage.test.tsx" name="useImage hooks &gt; useDeleteImage &gt; should invalidate query cache after successful delete" time="0.052815375">
+        </testcase>
+        <testcase classname="src/hooks/useImage/__tests__/useImage.test.tsx" name="useImage hooks &gt; useUpdateImageAltText &gt; should update alt text successfully" time="0.054068417">
+        </testcase>
+        <testcase classname="src/hooks/useImage/__tests__/useImage.test.tsx" name="useImage hooks &gt; useUpdateImageAltText &gt; should handle update errors" time="0.052898458">
+        </testcase>
+        <testcase classname="src/hooks/useImage/__tests__/useImage.test.tsx" name="useImage hooks &gt; useUpdateImageAltText &gt; should invalidate query cache after successful update" time="0.054383458">
+        </testcase>
+        <testcase classname="src/hooks/useImage/__tests__/useImage.test.tsx" name="useImage hooks &gt; useUpdateImageAltText &gt; should update alt text to empty string" time="0.057849459">
         </testcase>
     </testsuite>
-    <testsuite name="src/use-cases/userConsent/__tests__/UserConsent.test.ts" timestamp="2025-10-26T22:14:23.775Z" hostname="pop-os.loc" tests="2" failures="0" errors="0" skipped="0" time="0.003446741">
-        <testcase classname="src/use-cases/userConsent/__tests__/UserConsent.test.ts" name="UserConsent use case &gt; returns success: true when insert succeeds" time="0.001975839">
+    <testsuite name="src/use-cases/updateUserProfile/__tests__/UpdateUserProfile.test.ts" timestamp="2025-11-04T23:22:49.431Z" hostname="MAC-G7L30391G4" tests="7" failures="0" errors="0" skipped="0" time="0.003523167">
+        <testcase classname="src/use-cases/updateUserProfile/__tests__/UpdateUserProfile.test.ts" name="Use Case - UpdateUserProfile &gt; UpdateUserProfile username handling &gt; Fails if username is a route" time="0.0012375">
         </testcase>
-        <testcase classname="src/use-cases/userConsent/__tests__/UserConsent.test.ts" name="UserConsent use case &gt; returns success: false when insert fails" time="0.000304338">
+        <testcase classname="src/use-cases/updateUserProfile/__tests__/UpdateUserProfile.test.ts" name="Use Case - UpdateUserProfile &gt; UpdateUserProfile username handling &gt; Fails if username exists" time="0.000168833">
+        </testcase>
+        <testcase classname="src/use-cases/updateUserProfile/__tests__/UpdateUserProfile.test.ts" name="Use Case - UpdateUserProfile &gt; UpdateUserProfile username handling &gt; Fails if username is profanity" time="0.000213791">
+        </testcase>
+        <testcase classname="src/use-cases/updateUserProfile/__tests__/UpdateUserProfile.test.ts" name="Use Case - UpdateUserProfile &gt; UpdateUserProfile username handling &gt; Fails if username is profanity" time="0.000104458">
+        </testcase>
+        <testcase classname="src/use-cases/updateUserProfile/__tests__/UpdateUserProfile.test.ts" name="Use Case - UpdateUserProfile &gt; UpdateUserProfile username handling &gt; Fails if username is profanity" time="0.000088416">
+        </testcase>
+        <testcase classname="src/use-cases/updateUserProfile/__tests__/UpdateUserProfile.test.ts" name="Use Case - UpdateUserProfile &gt; Profile updating &gt; Returns success if profile is updated" time="0.00015375">
+        </testcase>
+        <testcase classname="src/use-cases/updateUserProfile/__tests__/UpdateUserProfile.test.ts" name="Use Case - UpdateUserProfile &gt; Profile updating &gt; Throws error when profile update fails" time="0.000883958">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/use-cases/projects/__tests__/CreateNewProject.test.ts" timestamp="2025-11-04T23:22:49.431Z" hostname="MAC-G7L30391G4" tests="4" failures="0" errors="0" skipped="0" time="0.005690167">
+        <testcase classname="src/use-cases/projects/__tests__/CreateNewProject.test.ts" name="Use case - CreateNewProject &gt; should respond with success: true and a message when creation succeeds" time="0.003504084">
+        </testcase>
+        <testcase classname="src/use-cases/projects/__tests__/CreateNewProject.test.ts" name="Use case - CreateNewProject &gt; should sanitize input" time="0.001271625">
+        </testcase>
+        <testcase classname="src/use-cases/projects/__tests__/CreateNewProject.test.ts" name="Use case - CreateNewProject &gt; should fail if sanitizing input results in empty string for name" time="0.000128">
+        </testcase>
+        <testcase classname="src/use-cases/projects/__tests__/CreateNewProject.test.ts" name="Use case - CreateNewProject &gt; should respond with success: false and a message when creation fails" time="0.000126417">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/use-cases/projects/__tests__/DeleteProject.test.ts" timestamp="2025-11-04T23:22:49.432Z" hostname="MAC-G7L30391G4" tests="2" failures="0" errors="0" skipped="0" time="0.002722833">
+        <testcase classname="src/use-cases/projects/__tests__/DeleteProject.test.ts" name="Use case - Delete Project &gt; should respond with success: true and a message when deletion succeeds" time="0.001766417">
+        </testcase>
+        <testcase classname="src/use-cases/projects/__tests__/DeleteProject.test.ts" name="Use case - Delete Project &gt; should respond with success: false and a message when deletion fails" time="0.000174667">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/use-cases/projects/__tests__/EditProject.test.ts" timestamp="2025-11-04T23:22:49.432Z" hostname="MAC-G7L30391G4" tests="14" failures="0" errors="0" skipped="0" time="0.00785">
+        <testcase classname="src/use-cases/projects/__tests__/EditProject.test.ts" name="Use case - EditProject &gt; returns success: true and a message if update succeeds" time="0.001543417">
+        </testcase>
+        <testcase classname="src/use-cases/projects/__tests__/EditProject.test.ts" name="Use case - EditProject &gt; returns success: false and a message if update fails" time="0.000231125">
+        </testcase>
+        <testcase classname="src/use-cases/projects/__tests__/EditProject.test.ts" name="Use case - EditProject &gt; fails if a provided URL is invalid" time="0.00069925">
+        </testcase>
+        <testcase classname="src/use-cases/projects/__tests__/EditProject.test.ts" name="Use case - EditProject &gt; fails if a provided URL is invalid" time="0.000498417">
+        </testcase>
+        <testcase classname="src/use-cases/projects/__tests__/EditProject.test.ts" name="Use case - EditProject &gt; fails if a provided URL is invalid" time="0.000289292">
+        </testcase>
+        <testcase classname="src/use-cases/projects/__tests__/EditProject.test.ts" name="Use case - EditProject &gt; sanitizes descriptions" time="0.001922833">
+        </testcase>
+        <testcase classname="src/use-cases/projects/__tests__/EditProject.test.ts" name="Use case - EditProject &gt; sanitizes name updates" time="0.00022325">
+        </testcase>
+        <testcase classname="src/use-cases/projects/__tests__/EditProject.test.ts" name="Use case - EditProject &gt; fails if sanitized name update results in an empty string" time="0.000090708">
+        </testcase>
+        <testcase classname="src/use-cases/projects/__tests__/EditProject.test.ts" name="Use case - EditProject &gt; image updates &gt; should update primaryImage field with snake_case conversion" time="0.000103958">
+        </testcase>
+        <testcase classname="src/use-cases/projects/__tests__/EditProject.test.ts" name="Use case - EditProject &gt; image updates &gt; should update galleryImages field with snake_case conversion" time="0.000095875">
+        </testcase>
+        <testcase classname="src/use-cases/projects/__tests__/EditProject.test.ts" name="Use case - EditProject &gt; image updates &gt; should update both primaryImage and galleryImages together" time="0.000143875">
+        </testcase>
+        <testcase classname="src/use-cases/projects/__tests__/EditProject.test.ts" name="Use case - EditProject &gt; image updates &gt; should clear gallery images with empty array" time="0.000428292">
+        </testcase>
+        <testcase classname="src/use-cases/projects/__tests__/EditProject.test.ts" name="Use case - EditProject &gt; image updates &gt; should update images along with other fields" time="0.000482458">
+        </testcase>
+        <testcase classname="src/use-cases/projects/__tests__/EditProject.test.ts" name="Use case - EditProject &gt; image updates &gt; should handle status and visibility with image updates" time="0.000124125">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/use-cases/projects/__tests__/UpdateProject.test.ts" timestamp="2025-11-04T23:22:49.432Z" hostname="MAC-G7L30391G4" tests="18" failures="0" errors="0" skipped="0" time="0.012854083">
+        <testcase classname="src/use-cases/projects/__tests__/UpdateProject.test.ts" name="Use case - UpdateProject &gt; project update messages &gt; should create project update with sanitized text" time="0.0038655">
+        </testcase>
+        <testcase classname="src/use-cases/projects/__tests__/UpdateProject.test.ts" name="Use case - UpdateProject &gt; project update messages &gt; should sanitize XSS in update message" time="0.000509959">
+        </testcase>
+        <testcase classname="src/use-cases/projects/__tests__/UpdateProject.test.ts" name="Use case - UpdateProject &gt; project update messages &gt; should throw error if update creation fails" time="0.001087125">
+        </testcase>
+        <testcase classname="src/use-cases/projects/__tests__/UpdateProject.test.ts" name="Use case - UpdateProject &gt; project field updates &gt; should update project fields and return Project object" time="0.000253334">
+        </testcase>
+        <testcase classname="src/use-cases/projects/__tests__/UpdateProject.test.ts" name="Use case - UpdateProject &gt; project field updates &gt; should update project with name" time="0.001470083">
+        </testcase>
+        <testcase classname="src/use-cases/projects/__tests__/UpdateProject.test.ts" name="Use case - UpdateProject &gt; project field updates &gt; should update project with description" time="0.000235167">
+        </testcase>
+        <testcase classname="src/use-cases/projects/__tests__/UpdateProject.test.ts" name="Use case - UpdateProject &gt; project field updates &gt; should update project with status" time="0.000159958">
+        </testcase>
+        <testcase classname="src/use-cases/projects/__tests__/UpdateProject.test.ts" name="Use case - UpdateProject &gt; project field updates &gt; should update project with visibility" time="0.000796833">
+        </testcase>
+        <testcase classname="src/use-cases/projects/__tests__/UpdateProject.test.ts" name="Use case - UpdateProject &gt; project field updates &gt; should throw error if project update fails" time="0.000276541">
+        </testcase>
+        <testcase classname="src/use-cases/projects/__tests__/UpdateProject.test.ts" name="Use case - UpdateProject &gt; project field updates &gt; should throw error if no data returned" time="0.000174042">
+        </testcase>
+        <testcase classname="src/use-cases/projects/__tests__/UpdateProject.test.ts" name="Use case - UpdateProject &gt; image updates &gt; should update project with primaryImage" time="0.000195625">
+        </testcase>
+        <testcase classname="src/use-cases/projects/__tests__/UpdateProject.test.ts" name="Use case - UpdateProject &gt; image updates &gt; should update project with galleryImages array" time="0.000538333">
+        </testcase>
+        <testcase classname="src/use-cases/projects/__tests__/UpdateProject.test.ts" name="Use case - UpdateProject &gt; image updates &gt; should update both primaryImage and galleryImages" time="0.000563958">
+        </testcase>
+        <testcase classname="src/use-cases/projects/__tests__/UpdateProject.test.ts" name="Use case - UpdateProject &gt; image updates &gt; should fetch and map primary image URL" time="0.000216084">
+        </testcase>
+        <testcase classname="src/use-cases/projects/__tests__/UpdateProject.test.ts" name="Use case - UpdateProject &gt; image updates &gt; should fetch and map gallery image URLs" time="0.000517416">
+        </testcase>
+        <testcase classname="src/use-cases/projects/__tests__/UpdateProject.test.ts" name="Use case - UpdateProject &gt; image updates &gt; should handle missing image data gracefully" time="0.000239042">
+        </testcase>
+        <testcase classname="src/use-cases/projects/__tests__/UpdateProject.test.ts" name="Use case - UpdateProject &gt; combined updates &gt; should update both text fields and images together" time="0.000212917">
+        </testcase>
+        <testcase classname="src/use-cases/projects/__tests__/UpdateProject.test.ts" name="Use case - UpdateProject &gt; combined updates &gt; should create update message and update fields together" time="0.00024525">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/repositories/projectRepository/__tests__/project.repository.test.ts" timestamp="2025-11-04T23:22:49.433Z" hostname="MAC-G7L30391G4" tests="14" failures="0" errors="0" skipped="0" time="0.005560541">
+        <testcase classname="src/repositories/projectRepository/__tests__/project.repository.test.ts" name="ProjectRepository &gt; transformDTO &gt; should transform database DTO to Project object" time="0.00161925">
+        </testcase>
+        <testcase classname="src/repositories/projectRepository/__tests__/project.repository.test.ts" name="ProjectRepository &gt; transformDTO &gt; should handle null description" time="0.000210959">
+        </testcase>
+        <testcase classname="src/repositories/projectRepository/__tests__/project.repository.test.ts" name="ProjectRepository &gt; transformDTO &gt; should handle null external_url" time="0.000106542">
+        </testcase>
+        <testcase classname="src/repositories/projectRepository/__tests__/project.repository.test.ts" name="ProjectRepository &gt; transformDTO &gt; should transform primary_image to primaryImage" time="0.000104375">
+        </testcase>
+        <testcase classname="src/repositories/projectRepository/__tests__/project.repository.test.ts" name="ProjectRepository &gt; transformDTO &gt; should transform gallery_images to galleryImages" time="0.000116209">
+        </testcase>
+        <testcase classname="src/repositories/projectRepository/__tests__/project.repository.test.ts" name="ProjectRepository &gt; transformDTO &gt; should handle both primaryImage and galleryImages" time="0.000121291">
+        </testcase>
+        <testcase classname="src/repositories/projectRepository/__tests__/project.repository.test.ts" name="ProjectRepository &gt; transformDTO &gt; should handle null updates" time="0.000145625">
+        </testcase>
+        <testcase classname="src/repositories/projectRepository/__tests__/project.repository.test.ts" name="ProjectRepository &gt; transformDTO &gt; should preserve updates array" time="0.000113625">
+        </testcase>
+        <testcase classname="src/repositories/projectRepository/__tests__/project.repository.test.ts" name="ProjectRepository &gt; getById &gt; should fetch and transform project by id" time="0.000389583">
+        </testcase>
+        <testcase classname="src/repositories/projectRepository/__tests__/project.repository.test.ts" name="ProjectRepository &gt; getById &gt; should throw error if project not found" time="0.000792917">
+        </testcase>
+        <testcase classname="src/repositories/projectRepository/__tests__/project.repository.test.ts" name="ProjectRepository &gt; getById &gt; should throw error on database error" time="0.000180583">
+        </testcase>
+        <testcase classname="src/repositories/projectRepository/__tests__/project.repository.test.ts" name="ProjectRepository &gt; field transformations &gt; should convert snake_case to camelCase for externalUrl" time="0.000412625">
+        </testcase>
+        <testcase classname="src/repositories/projectRepository/__tests__/project.repository.test.ts" name="ProjectRepository &gt; field transformations &gt; should convert snake_case to camelCase for createdAt" time="0.000265667">
+        </testcase>
+        <testcase classname="src/repositories/projectRepository/__tests__/project.repository.test.ts" name="ProjectRepository &gt; field transformations &gt; should handle empty gallery_images array" time="0.00022825">
+        </testcase>
+    </testsuite>
+    <testsuite name="src/use-cases/userConsent/__tests__/UserConsent.test.ts" timestamp="2025-11-04T23:22:49.434Z" hostname="MAC-G7L30391G4" tests="2" failures="0" errors="0" skipped="0" time="0.001874042">
+        <testcase classname="src/use-cases/userConsent/__tests__/UserConsent.test.ts" name="UserConsent use case &gt; returns success: true when insert succeeds" time="0.0010335">
+        </testcase>
+        <testcase classname="src/use-cases/userConsent/__tests__/UserConsent.test.ts" name="UserConsent use case &gt; returns success: false when insert fails" time="0.000164208">
         </testcase>
     </testsuite>
 </testsuites>
