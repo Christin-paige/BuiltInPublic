@@ -34,7 +34,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: 🔍 Generate SBOM with Syft
-        uses: anchore/sbom-action@v0.17.2
+        uses: anchore/sbom-action@v0.24.2
         with:
           format: spdx-json
           output-file: BuiltInPublic.spdx.json
